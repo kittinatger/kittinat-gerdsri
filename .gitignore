@@ -1,0 +1,9 @@
+# Raw Canva site archive — source backup only, not needed for the published site
+_assets/
+
+# OS/editor junk
+.DS_Store
+Thumbs.db
+
+# Local Claude Code tooling config
+.claude/
