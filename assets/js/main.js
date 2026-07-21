@@ -2,6 +2,89 @@ document.addEventListener('DOMContentLoaded', () => {
   const header = document.querySelector('.site-header');
   const isMobileNav = () => window.matchMedia('(max-width: 720px)').matches;
 
+  // Language selector. Translation text is deliberately kept in this file so
+  // it remains part of the website and can be edited without a third-party
+  // account or service.
+  const translations = {
+    en: {
+      'Home': 'Home', 'Work': 'Work', 'Contact': 'Contact',
+      'Core Discipline': 'Core Discipline', 'Graphics / Drawing': 'Graphics / Drawing',
+      'Sports': 'Sports', 'AI / Coding': 'AI / Coding',
+      '3D Design / Animation': '3D Design / Animation', 'Teamwork': 'Teamwork',
+      'Robotics': 'Robotics', 'Photography': 'Photography', 'Music': 'Music',
+      'Navigation': 'Navigation', 'Legal': 'Legal', 'Privacy Policy': 'Privacy Policy',
+      'Terms & Support': 'Terms & Support', 'Language': 'Language'
+    },
+    th: {
+      'Home': 'หน้าแรก', 'Work': 'ผลงาน', 'Contact': 'ติดต่อ',
+      'Core Discipline': 'ทักษะหลัก', 'Graphics / Drawing': 'กราฟิก / วาดภาพ',
+      'Sports': 'กีฬา', 'AI / Coding': 'AI / การเขียนโค้ด',
+      '3D Design / Animation': 'การออกแบบ 3 มิติ / แอนิเมชัน', 'Teamwork': 'การทำงานเป็นทีม',
+      'Robotics': 'หุ่นยนต์', 'Photography': 'การถ่ายภาพ', 'Music': 'ดนตรี',
+      'Navigation': 'เมนูนำทาง', 'Legal': 'ข้อมูลทางกฎหมาย', 'Privacy Policy': 'นโยบายความเป็นส่วนตัว',
+      'Terms & Support': 'ข้อกำหนดและการสนับสนุน', 'Language': 'ภาษา'
+    },
+    'zh-CN': {
+      'Home': '首页', 'Work': '作品', 'Contact': '联系',
+      'Core Discipline': '核心学科', 'Graphics / Drawing': '平面设计 / 绘画',
+      'Sports': '体育', 'AI / Coding': '人工智能 / 编程',
+      '3D Design / Animation': '3D 设计 / 动画', 'Teamwork': '团队合作',
+      'Robotics': '机器人', 'Photography': '摄影', 'Music': '音乐',
+      'Navigation': '导航', 'Legal': '法律信息', 'Privacy Policy': '隐私政策',
+      'Terms & Support': '条款与支持', 'Language': '语言'
+    }
+  };
+
+  const languageNames = {
+    en: 'English (Original)', th: 'Thai', 'zh-CN': 'Mandarin (Mainland)'
+  };
+  const selectedLanguage = localStorage.getItem('portfolio-language') || 'en';
+
+  function translateTextNodes(language, suppliedDictionary) {
+    const dictionary = suppliedDictionary || translations[language] || translations.en;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        if (!node.nodeValue.trim() || node.parentElement.closest('script, style, .language-selector')) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node => {
+      const original = node.nodeValue.trim();
+      if (dictionary[original]) {
+        node.nodeValue = node.nodeValue.replace(original, dictionary[original]);
+      }
+    });
+  }
+
+  const headerWrap = header?.querySelector('.wrap');
+  const navToggle = headerWrap?.querySelector('.nav-toggle');
+  if (headerWrap && navToggle) {
+    const selector = document.createElement('label');
+    selector.className = 'language-selector';
+    selector.innerHTML = '<span class="sr-only">Language</span><select aria-label="Language">' +
+      Object.entries(languageNames).map(([code, name]) =>
+        `<option value="${code}"${code === selectedLanguage ? ' selected' : ''}>${name}</option>`
+      ).join('') + '</select>';
+    selector.querySelector('select').addEventListener('change', event => {
+      localStorage.setItem('portfolio-language', event.target.value);
+      window.location.reload();
+    });
+    headerWrap.insertBefore(selector, navToggle);
+  }
+
+  document.documentElement.lang = selectedLanguage;
+  translateTextNodes(selectedLanguage);
+  if (selectedLanguage !== 'en') {
+    const savedTranslations = window.PORTFOLIO_TRANSLATIONS;
+    if (savedTranslations?.[selectedLanguage]) {
+      translateTextNodes(selectedLanguage, savedTranslations[selectedLanguage]);
+    }
+  }
+
   // Floating panels need to live outside the header once open: the header
   // already has its own backdrop-filter, and a backdrop-filter nested
   // inside another backdrop-filter doesn't reliably blur the real page
