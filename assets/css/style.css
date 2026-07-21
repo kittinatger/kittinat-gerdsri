@@ -119,19 +119,23 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 /* ---------- Header ---------- */
 .site-header {
   position: sticky;
-  top: 0;
+  top: 14px;
   z-index: 100;
-  background: rgba(232, 238, 244, 0.85);
-  backdrop-filter: saturate(180%) blur(14px);
-  border-bottom: 1px solid var(--line);
+  margin: 0 clamp(12px, 3vw, 32px);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: saturate(220%) blur(22px);
+  -webkit-backdrop-filter: saturate(220%) blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 10px 34px -14px rgba(15, 44, 89, 0.35);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .site-header .wrap {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding: 10px clamp(18px, 3vw, 30px);
 }
 
 .brand {
@@ -154,13 +158,13 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   font-size: 0.92rem;
   font-weight: 600;
   color: var(--ink);
-  padding: 0.3em 0;
-  border-bottom: 2px solid transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  padding: 0.55em 0.95em;
+  border-radius: 999px;
+  transition: color 0.2s ease, background 0.2s ease;
   white-space: nowrap;
 }
 .main-nav a:hover,
-.main-nav a[aria-current="page"] { color: var(--navy); border-color: var(--navy); }
+.main-nav a[aria-current="page"] { color: var(--navy-darker); background: rgba(29, 79, 156, 0.12); }
 
 .nav-dropdown { position: relative; }
 
@@ -172,12 +176,12 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0.3em 0;
-  border-bottom: 2px solid transparent;
+  padding: 0.55em 0.95em;
+  border-radius: 999px;
   display: flex;
   align-items: center;
   gap: 5px;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition: color 0.2s ease, background 0.2s ease;
 }
 
 .nav-dropdown-toggle .caret {
@@ -187,37 +191,41 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 
 .nav-dropdown-toggle:hover,
 .nav-dropdown.is-open .nav-dropdown-toggle,
-.nav-dropdown-toggle[data-current="true"] { color: var(--navy); border-color: var(--navy); }
+.nav-dropdown-toggle[data-current="true"] { color: var(--navy-darker); background: rgba(29, 79, 156, 0.12); }
 
 .nav-dropdown.is-open .caret { transform: rotate(180deg); }
 
 .nav-dropdown-menu {
   position: absolute;
-  top: calc(100% + 12px);
+  top: calc(100% + 14px);
   left: 50%;
   transform: translateX(-50%);
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  box-shadow: 0 14px 36px rgba(16, 42, 67, 0.14);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: saturate(220%) blur(22px);
+  -webkit-backdrop-filter: saturate(220%) blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 18px;
+  box-shadow: 0 14px 36px -10px rgba(15, 44, 89, 0.3);
   padding: 8px;
   min-width: 220px;
   display: none;
   flex-direction: column;
 }
 
-.nav-dropdown.is-open .nav-dropdown-menu { display: flex; }
+.nav-dropdown.is-open .nav-dropdown-menu,
+.nav-dropdown-menu.is-open { display: flex; }
 
-.main-nav .nav-dropdown-menu a {
+/* Not scoped under .main-nav: the menu is reparented to <body> while open
+   (see main.js), so these must match regardless of its DOM location. */
+.nav-dropdown-menu a {
   padding: 8px 12px;
-  border-radius: 8px;
-  border-bottom: none;
+  border-radius: 10px;
   font-size: 0.9rem;
 }
 
-.main-nav .nav-dropdown-menu a:hover { background: var(--bg-soft); }
+.nav-dropdown-menu a:hover { background: rgba(29, 79, 156, 0.1); }
 
-.main-nav .nav-dropdown-menu a[aria-current="page"] { color: var(--navy); background: var(--bg-soft); }
+.nav-dropdown-menu a[aria-current="page"] { color: var(--navy); background: rgba(29, 79, 156, 0.1); }
 
 .nav-toggle {
   display: none;
@@ -588,17 +596,23 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 
 @media (max-width: 720px) {
   .nav-toggle { display: block; }
+  .site-header { border-radius: 26px; }
+  .brand { font-size: 1.05rem; }
   .main-nav {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 10px);
     left: 0;
     right: 0;
-    background: var(--bg);
-    border-bottom: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: saturate(220%) blur(22px);
+    -webkit-backdrop-filter: saturate(220%) blur(22px);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    border-radius: 22px;
+    box-shadow: 0 14px 36px -10px rgba(15, 44, 89, 0.3);
     flex-direction: column;
     align-items: flex-start;
-    padding: 18px clamp(20px, 5vw, 48px) 24px;
-    gap: 14px;
+    padding: 18px clamp(20px, 5vw, 36px) 24px;
+    gap: 12px;
     display: none;
   }
   .main-nav.is-open { display: flex; }
