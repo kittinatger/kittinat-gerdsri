@@ -60,22 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const headerWrap = header?.querySelector('.wrap');
-  const navToggle = headerWrap?.querySelector('.nav-toggle');
-  if (headerWrap && navToggle) {
-    const selector = document.createElement('label');
-    selector.className = 'language-selector';
-    selector.innerHTML = '<span class="sr-only">Language</span><select aria-label="Language">' +
-      Object.entries(languageNames).map(([code, name]) =>
-        `<option value="${code}"${code === selectedLanguage ? ' selected' : ''}>${name}</option>`
-      ).join('') + '</select>';
-    selector.querySelector('select').addEventListener('change', event => {
-      localStorage.setItem('portfolio-language', event.target.value);
-      window.location.reload();
-    });
-    headerWrap.insertBefore(selector, navToggle);
-  }
-
   document.documentElement.lang = selectedLanguage;
   translateTextNodes(selectedLanguage);
   if (selectedLanguage !== 'en') {
@@ -182,6 +166,91 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!insideDropdown && !insideMenu) closeDropdown();
     });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDropdown(); });
+  }
+
+  // Language selector — built as the same custom glass dropdown as "Work"
+  // (button + floating menu), not a native <select>, so it gets the exact
+  // same look and blur treatment. It sits directly in the header (not
+  // inside .main-nav), so unlike the Work dropdown it floats at every
+  // width, including mobile.
+  const shortLangLabels = { en: 'EN', th: 'ไทย', 'zh-CN': '中文' };
+  const headerWrap = header?.querySelector('.wrap');
+  const navToggle = headerWrap?.querySelector('.nav-toggle');
+  if (headerWrap && navToggle) {
+    const langDropdown = document.createElement('div');
+    langDropdown.className = 'nav-dropdown language-selector';
+    langDropdown.innerHTML =
+      '<button class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">' +
+        '<span class="sr-only">Language: </span>' +
+        (shortLangLabels[selectedLanguage] || shortLangLabels.en) +
+        ' <span class="caret">▾</span>' +
+      '</button>' +
+      '<div class="nav-dropdown-menu">' +
+      Object.entries(languageNames).map(([code, name]) =>
+        `<a href="#" data-lang="${code}"${code === selectedLanguage ? ' aria-current="true"' : ''}>${name}</a>`
+      ).join('') +
+      '</div>';
+    headerWrap.insertBefore(langDropdown, navToggle);
+
+    const langToggle = langDropdown.querySelector('.nav-dropdown-toggle');
+    const langMenu = langDropdown.querySelector('.nav-dropdown-menu');
+    const floatingLangMenu = makeFloating(langMenu, (el) => {
+      const r = langToggle.getBoundingClientRect();
+      const width = el.offsetWidth || 200;
+      const center = r.left + r.width / 2;
+      el.style.top = (r.bottom + 14) + 'px';
+      el.style.left = Math.max(8, Math.min(center - width / 2, window.innerWidth - width - 8)) + 'px';
+    });
+    langToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = langDropdown.classList.toggle('is-open');
+      langToggle.setAttribute('aria-expanded', String(open));
+      langMenu.classList.toggle('is-open', open);
+      if (open) floatingLangMenu.place(); else floatingLangMenu.remove();
+    });
+    const closeLangDropdown = () => {
+      langDropdown.classList.remove('is-open');
+      langToggle.setAttribute('aria-expanded', 'false');
+      langMenu.classList.remove('is-open');
+      floatingLangMenu.remove();
+    };
+    langMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.setItem('portfolio-language', link.dataset.lang);
+        window.location.reload();
+      });
+    });
+    document.addEventListener('click', (e) => {
+      const insideDropdown = langDropdown.contains(e.target);
+      const insideMenu = langMenu.contains(e.target);
+      if (!insideDropdown && !insideMenu) closeLangDropdown();
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLangDropdown(); });
+  }
+
+  // Dark mode toggle. The theme itself is decided by the inline script in
+  // <head> (runs before first paint, so there's no flash of the wrong
+  // theme) — this button just flips <html data-theme> and remembers it.
+  if (headerWrap && navToggle) {
+    const themeToggle = document.createElement('button');
+    themeToggle.type = 'button';
+    themeToggle.className = 'theme-toggle';
+    themeToggle.setAttribute('aria-label', 'Toggle dark mode');
+    themeToggle.innerHTML =
+      '<svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">' +
+        '<circle cx="12" cy="12" r="4.2"></circle>' +
+        '<path d="M12 2.5v2.4M12 19.1v2.4M4.4 4.4l1.7 1.7M17.9 17.9l1.7 1.7M2.5 12h2.4M19.1 12h2.4M4.4 19.6l1.7-1.7M17.9 6.1l1.7-1.7"></path>' +
+      '</svg>' +
+      '<svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">' +
+        '<path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"></path>' +
+      '</svg>';
+    headerWrap.insertBefore(themeToggle, navToggle);
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('portfolio-theme', next);
+    });
   }
 
   // Lightbox for gallery images
