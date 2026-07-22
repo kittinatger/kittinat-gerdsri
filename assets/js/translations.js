@@ -29,7 +29,7 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Got a project in mind? Let's talk.": "มีโปรเจ็กต์อยู่ในใจหรือเปล่า? มาคุยกัน",
     "Email kittinatg@gmail.com": "อีเมล kittinatg@gmail.com",
     "KITTINAT GERDSRI •  KITTINAT GERDSRI •  KITTINAT GERDSRI •  KITTINAT GERDSRI •  KITTINAT GERDSRI •": "กิตติณัท เกิดศรี • กิตติณัท เกิดศรี • กิตติณัท เกิดศรี • กิตติณัท เกิดศรี • กิตติณัท เกิดศรี •",
-    "Technology × Design × Structured Thinking. A multidisciplinary creator building clean, purposeful, meaningful work.": "เทคโนโลยี × การออกแบบ × การคิดเชิงโครงสร้าง ครีเอเตอร์ผู้สร้างสรรค์ผลงานที่สะอาดตา มีเป้าหมาย และมีความหมายข้ามหลากหลายสาขาวิชา",
+    "Technology × Design × Structured Thinking. A multidisciplinary creator building clean, purposeful, meaningful work.": "เทคโนโลยี × การออกแบบ × การคิดเชิงระบบ ครีเอเตอร์ผู้สร้างสรรค์ผลงานที่สะอาดตา มีเป้าหมาย และมีความหมายข้ามหลากหลายสาขาวิชา",
     "Navigation": "การนำทาง",
     "Social Profiles": "โปรไฟล์โซเชียล",
     "Behance": "Behance",
