@@ -115,7 +115,7 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Portfolio": "พอร์ตโฟลิโอ",
     "Hi, I'm Will.": "สวัสดีครับ ผมชื่อวิลล์",
     "Technology × Design × Structured Thinking": "เทคโนโลยี × การออกแบบ × การคิดเชิงระบบ",
-    "A multidisciplinary creator working across AI, coding, robotics, graphic design, 3D animation, sports and music — building things that are clean, purposeful, and meaningful.": "สร้างสรรค์ผลงานผ่านการผสมผสานองค์ความรู้จากหลากหลายสาขาที่ทำงานครอบคลุมทั้งปัญญาประดิษฐ์ (AI), การเขียนโค้ด, หุ่นยนต์, กราฟิกดีไซน์, แอนิเมชัน 3 มิติ, กีฬา และดนตรี — สร้างสรรค์สิ่งต่างๆ ให้สะอาดตา มีเป้าหมาย และมีความหมาย",
+    "A multidisciplinary creator working across AI, coding, robotics, graphic design, 3D animation, sports and music — building things that are clean, purposeful, and meaningful.": "สร้างสรรค์ผลงานผ่านการผสมผสานองค์ความรู้จากหลากหลายสาขาที่ทำงานครอบคลุมทั้งปัญญาประดิษฐ์ (AI), การเขียนโค้ด, หุ่นยนต์, กราฟิกดีไซน์, แอนิเมชัน 3 มิติ, กีฬา และดนตรี — โดยเน้นที่เป้าหมายการใช้งานและการสื่อความหมายที่กระชับและชัดเจน",
     "See my work": "ดูผลงานของผม",
     "Get in touch": "ติดต่อเรา",
     "About": "เกี่ยวกับ",
