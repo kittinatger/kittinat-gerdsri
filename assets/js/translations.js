@@ -119,7 +119,7 @@ window.PORTFOLIO_TRANSLATIONS = {
     "See my work": "ดูผลงานของผม",
     "Get in touch": "ติดต่อเรา",
     "About": "เกี่ยวกับ",
-    "About Kittinat Gerdsri": "เกี่ยวกับ กิตติณัท เกิดศรี",
+    "Kittinat Gerdsri": "กิตติณัท เกิดศรี",
     "I'm a multidisciplinary creator blending technology, design, and structured thinking. With a foundation in mathematics, sciences, and languages, I approach problem-solving with clarity and logic — applied through AI, coding, and robotics to build intelligent, real-world systems.": "ผมเป็นครีเอเตอร์หลากหลายสาขาที่ผสานเทคโนโลยี การออกแบบ และการคิดเชิงโครงสร้างเข้าด้วยกัน ด้วยพื้นฐานทางด้านคณิตศาสตร์ วิทยาศาสตร์ และภาษา ผมแก้ปัญหาด้วยความชัดเจนและตรรกะ ซึ่งนำมาประยุกต์ผ่าน AI การเขียนโค้ด และหุ่นยนต์เพื่อสร้างระบบอัจฉริยะที่ใช้งานได้จริงในโลก",
     "Alongside this, I express ideas visually through graphic design, drawing, 3D design, animation, and photography, focusing on clean and purposeful outputs. I value teamwork and collaboration as key drivers of innovation. Sports, especially athletics and football, build my discipline and resilience, while piano strengthens my creativity and focus. I aim to create work that connects creativity and engineering — simple, functional, and meaningful.": "ควบคู่ไปกับสิ่งนี้ ผมถ่ายทอดไอเดียผ่านภาพด้วยกราฟิกดีไซน์ การวาดภาพ การออกแบบ 3 มิติ แอนิเมชัน และการถ่ายภาพ โดยเน้นผลลัพธ์ที่สะอาดตาและมีจุดประสงค์ชัดเจน ผมให้ความสำคัญกับการทำงานเป็นทีมและการร่วมมือกันในฐานะตัวขับเคลื่อนนวัตกรรม กีฬาโดยเฉพาะกรีฑาและฟุตบอลช่วยสร้างวินัยและความยืดหยุ่นให้ผม ขณะที่เปียโนช่วยเสริมสร้างความคิดสร้างสรรค์และสมาธิ ผมมุ่งมั่นที่จะสร้างสรรค์ผลงานที่เชื่อมโยงความคิดสร้างสรรค์เข้ากับวิศวกรรม — เรียบง่าย ใช้งานได้จริง และมีความหมาย",
     "9": "9",
