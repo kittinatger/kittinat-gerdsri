@@ -170,14 +170,16 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 }
 
 .site-header .wrap {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
+  gap: clamp(12px, 2vw, 24px);
   padding: 10px clamp(18px, 3vw, 30px);
 }
 
-.nav-left { display: flex; align-items: center; gap: clamp(18px, 3vw, 40px); }
-.nav-right { display: flex; align-items: center; gap: 8px; }
+.brand { justify-self: start; }
+.main-nav { justify-self: center; }
+.nav-right { display: flex; align-items: center; justify-self: end; gap: 8px; }
 
 .brand {
   display: flex;
@@ -713,6 +715,11 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   .nav-toggle { display: block; }
   .site-header { border-radius: 26px; }
   .brand { font-size: 1.05rem; }
+  .site-header .wrap {
+    display: flex;
+    justify-content: space-between;
+  }
+  .brand, .nav-right { justify-self: auto; }
   .main-nav {
     position: absolute;
     top: calc(100% + 18px);
