@@ -18,7 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
       '3D Design / Animation': '3D Design / Animation', 'Teamwork': 'Teamwork',
       'Robotics': 'Robotics', 'Photography': 'Photography', 'Music': 'Music',
       'Navigation': 'Navigation', 'Legal': 'Legal', 'Privacy Policy': 'Privacy Policy',
-      'Terms & Support': 'Terms & Support', 'Language': 'Language', 'Theme': 'Theme'
+      'Terms & Support': 'Terms & Support', 'Language': 'Language', 'Theme': 'Theme',
+      'Text Size': 'Text Size', 'Beta': 'Beta'
     },
     th: {
       'Home': 'หน้าแรก', 'Work': 'ผลงาน', 'Contact': 'ติดต่อ',
@@ -27,7 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
       '3D Design / Animation': 'การออกแบบ 3 มิติ / แอนิเมชัน', 'Teamwork': 'การทำงานเป็นทีม',
       'Robotics': 'หุ่นยนต์', 'Photography': 'การถ่ายภาพ', 'Music': 'ดนตรี',
       'Navigation': 'เมนูนำทาง', 'Legal': 'ข้อมูลทางกฎหมาย', 'Privacy Policy': 'นโยบายความเป็นส่วนตัว',
-      'Terms & Support': 'ข้อกำหนดและการสนับสนุน', 'Language': 'ภาษา', 'Theme': 'ธีม'
+      'Terms & Support': 'ข้อกำหนดและการสนับสนุน', 'Language': 'ภาษา', 'Theme': 'ธีม',
+      'Text Size': 'ขนาดตัวอักษร', 'Beta': 'เบต้า'
     },
     'zh-CN': {
       'Home': '首页', 'Work': '作品', 'Contact': '联系',
@@ -36,7 +38,8 @@ document.addEventListener('DOMContentLoaded', () => {
       '3D Design / Animation': '3D 设计 / 动画', 'Teamwork': '团队合作',
       'Robotics': '机器人', 'Photography': '摄影', 'Music': '音乐',
       'Navigation': '导航', 'Legal': '法律信息', 'Privacy Policy': '隐私政策',
-      'Terms & Support': '条款与支持', 'Language': '语言', 'Theme': '主题'
+      'Terms & Support': '条款与支持', 'Language': '语言', 'Theme': '主题',
+      'Text Size': '文字大小', 'Beta': '测试版'
     }
   };
 
@@ -221,6 +224,14 @@ document.addEventListener('DOMContentLoaded', () => {
             '</svg>' +
           '</button>' +
         '</div>' +
+        '<div class="settings-section">' +
+          `<p class="settings-label">${settingsLabel['Text Size']}<span class="beta-badge">${settingsLabel['Beta']}</span></p>` +
+          '<div class="text-size-slider">' +
+            '<span class="text-size-value" aria-hidden="true"></span>' +
+            '<input type="range" class="text-size-range" min="0" max="3" step="1" value="0" aria-label="Text size">' +
+            '<div class="text-size-ticks" aria-hidden="true"><span></span><span></span><span></span><span></span></div>' +
+          '</div>' +
+        '</div>' +
       '</div>';
     navRight.insertBefore(settings, navToggle);
 
@@ -270,6 +281,30 @@ document.addEventListener('DOMContentLoaded', () => {
       const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('portfolio-theme', next);
+    });
+    // Text size (beta), a 4-step slider. Same flash-free pattern as the
+    // theme toggle — the inline script in <head> applies a saved step
+    // before first paint — this just moves <html data-text-size> and
+    // remembers it.
+    const textSizeSteps = ['S', 'M', 'L', 'XL'];
+    const textSizeRange = settingsPanel.querySelector('.text-size-range');
+    const textSizeValue = settingsPanel.querySelector('.text-size-value');
+    const applyTextSizeUI = (step) => {
+      const pct = (step / (textSizeSteps.length - 1)) * 100;
+      textSizeRange.style.background =
+        `linear-gradient(to right, var(--navy) ${pct}%, var(--line) ${pct}%)`;
+      textSizeValue.style.left = pct + '%';
+      textSizeValue.textContent = textSizeSteps[step];
+    };
+    const initialTextSizeStep = Number(document.documentElement.getAttribute('data-text-size')) || 0;
+    textSizeRange.value = String(initialTextSizeStep);
+    applyTextSizeUI(initialTextSizeStep);
+    textSizeRange.addEventListener('input', () => {
+      const step = Number(textSizeRange.value);
+      applyTextSizeUI(step);
+      if (step === 0) document.documentElement.removeAttribute('data-text-size');
+      else document.documentElement.setAttribute('data-text-size', String(step));
+      localStorage.setItem('portfolio-text-size', String(step));
     });
     document.addEventListener('click', (e) => {
       const insideToggle = settings.contains(e.target);
