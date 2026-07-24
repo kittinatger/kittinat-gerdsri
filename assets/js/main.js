@@ -342,6 +342,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Footer "sign up" form — the site has no backend, so this just opens
+  // the visitor's email app with a pre-filled message to Kittinat instead
+  // of actually storing/subscribing the address anywhere.
+  const footerSignup = document.getElementById('footer-signup');
+  if (footerSignup) {
+    const emailInput = document.getElementById('footer-signup-email');
+    const footerDict = (selectedLanguage !== 'en' && window.PORTFOLIO_TRANSLATIONS?.[selectedLanguage]) || {};
+    if (emailInput && footerDict['Enter your email']) emailInput.placeholder = footerDict['Enter your email'];
+    footerSignup.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      const subject = encodeURIComponent('Portfolio updates');
+      const body = encodeURIComponent(`Hi Kittinat,\n\nPlease keep me updated — my email is: ${email}`);
+      window.location.href = `mailto:kittinatg@gmail.com?subject=${subject}&body=${body}`;
+    });
+  }
+
   // Lightbox for gallery images
   const lightbox = document.querySelector('.lightbox');
   if (lightbox) {

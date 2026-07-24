@@ -73,53 +73,64 @@
   </div>
 </div>
 
-<footer class="site-footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand">
-          <img src="assets/img/brand/logo-badge.png" alt="Kittinat Gerdsri">
-          <span>Kittinat Gerdsri</span>
+<div class="closing-card">
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <div class="footer-brand">
+            <img src="assets/img/brand/logo-badge.png" alt="Kittinat Gerdsri">
+            <span>Kittinat Gerdsri</span>
+          </div>
+          <p class="footer-tagline">Technology × Design × Structured Thinking. A multidisciplinary creator building clean, purposeful, meaningful work.</p>
+          <form class="footer-signup" id="footer-signup">
+            <label for="footer-signup-email" class="sr-only">Email</label>
+            <input type="email" id="footer-signup-email" placeholder="Enter your email" required>
+            <button type="submit">Notify Me</button>
+          </form>
+          <p class="footer-signup-note">Opens your email app with a message to Kittinat.</p>
         </div>
-        <p class="footer-tagline">Technology × Design × Structured Thinking. A multidisciplinary creator building clean, purposeful, meaningful work.</p>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="core-discipline.html">Core Discipline</a></li>
+            <li><a href="graphics-drawing.html">Graphics / Drawing</a></li>
+            <li><a href="sports.html">Sports</a></li>
+            <li><a href="ai-coding.html">AI / Coding</a></li>
+            <li><a href="3d-design-animation.html">3D Design / Animation</a></li>
+            <li><a href="teamwork.html">Teamwork</a></li>
+            <li><a href="robotics.html">Robotics</a></li>
+            <li><a href="photography.html">Photography</a></li>
+            <li><a href="music.html">Music</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Social Profiles</h4>
+          <ul>
+            <li><a href="https://www.behance.net/wige" target="_blank" rel="noopener">Behance</a></li>
+            <li><a href="https://dribbble.com/kittinat-gerdsri" target="_blank" rel="noopener">Dribbble</a></li>
+            <li><a href="https://www.facebook.com/KittinatG" target="_blank" rel="noopener">Facebook</a></li>
+            <li><a href="https://www.tiktok.com/@kittinatg.will" target="_blank" rel="noopener">TikTok</a></li>
+            <li><a href="https://www.threads.com/@kittinatg.will" target="_blank" rel="noopener">Threads</a></li>
+            <li><a href="https://www.instagram.com/kittinatg.will" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="mailto:kittinatg@gmail.com">Email</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="terms.html">Terms &amp; Support</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
       </div>
-      <div class="footer-col">
-        <h4>Navigation</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="core-discipline.html">Core Discipline</a></li>
-          <li><a href="graphics-drawing.html">Graphics / Drawing</a></li>
-          <li><a href="sports.html">Sports</a></li>
-          <li><a href="ai-coding.html">AI / Coding</a></li>
-          <li><a href="3d-design-animation.html">3D Design / Animation</a></li>
-          <li><a href="teamwork.html">Teamwork</a></li>
-          <li><a href="robotics.html">Robotics</a></li>
-          <li><a href="photography.html">Photography</a></li>
-          <li><a href="music.html">Music</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Social Profiles</h4>
-        <ul>
-          <li><a href="https://www.behance.net/wige" target="_blank" rel="noopener">Behance</a></li>
-          <li><a href="https://dribbble.com/kittinat-gerdsri" target="_blank" rel="noopener">Dribbble</a></li>
-          <li><a href="https://www.facebook.com/KittinatG" target="_blank" rel="noopener">Facebook</a></li>
-          <li><a href="https://www.tiktok.com/@kittinatg.will" target="_blank" rel="noopener">TikTok</a></li>
-          <li><a href="https://www.threads.com/@kittinatg.will" target="_blank" rel="noopener">Threads</a></li>
-          <li><a href="https://www.instagram.com/kittinatg.will" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a href="mailto:kittinatg@gmail.com">Email</a></li>
-        </ul>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Kittinat Gerdsri. All rights reserved.</span>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>© <span id="year"></span> Kittinat Gerdsri. All rights reserved.</span>
-      <div class="footer-legal">
-        <a href="terms.html">Terms &amp; Support</a>
-        <a href="privacy.html">Privacy Policy</a>
-      </div>
-    </div>
+  </footer>
   </div>
-</footer>
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   <script src="assets/js/translations.js"></script>
