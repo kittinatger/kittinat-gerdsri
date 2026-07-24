@@ -532,8 +532,46 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 .tile:hover .tile-arrow { transform: translate(3px, -3px); color: #fff; }
 
 /* ---------- Gallery ---------- */
-.gallery-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 1.4em; }
+.gallery-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 1.4em; }
 .gallery + .gallery-heading { margin-top: 3em; }
+
+.sort-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.sort-toggle:hover { color: var(--heading); background: var(--nav-hover-bg); }
+.sort-toggle .sort-caret { font-size: 0.65em; transition: transform 0.2s ease; }
+.sort-toggle[data-order="asc"] .sort-caret { transform: rotate(180deg); }
+.sort-toggle .sort-label-oldest { display: none; }
+.sort-toggle[data-order="asc"] .sort-label-newest { display: none; }
+.sort-toggle[data-order="asc"] .sort-label-oldest { display: inline; }
+
+.gallery figure.coming-soon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1em;
+  border: 1.5px dashed var(--line);
+  background: none;
+  cursor: default;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

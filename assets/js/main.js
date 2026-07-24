@@ -316,6 +316,32 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSettings(); });
   }
 
+  // Sort-by-date toggle for certificate galleries (core-discipline page).
+  // Figures carry a data-date attribute; the "coming soon" placeholder (no
+  // data-date) is newer than everything else, so it leads under "Newest
+  // first" and trails under "Oldest first".
+  document.querySelectorAll('.gallery-heading').forEach(heading => {
+    const sortToggle = heading.querySelector('.sort-toggle');
+    const gallery = heading.nextElementSibling;
+    if (!sortToggle || !gallery || !gallery.classList.contains('gallery')) return;
+    const comingSoon = gallery.querySelector('figure.coming-soon');
+    const applySort = (order) => {
+      const figures = [...gallery.querySelectorAll('figure[data-date]')];
+      figures.sort((a, b) => order === 'desc'
+        ? b.dataset.date.localeCompare(a.dataset.date)
+        : a.dataset.date.localeCompare(b.dataset.date));
+      if (comingSoon && order === 'desc') gallery.appendChild(comingSoon);
+      figures.forEach(fig => gallery.appendChild(fig));
+      if (comingSoon && order === 'asc') gallery.appendChild(comingSoon);
+    };
+    applySort('desc');
+    sortToggle.addEventListener('click', () => {
+      const next = sortToggle.dataset.order === 'desc' ? 'asc' : 'desc';
+      sortToggle.dataset.order = next;
+      applySort(next);
+    });
+  });
+
   // Lightbox for gallery images
   const lightbox = document.querySelector('.lightbox');
   if (lightbox) {
