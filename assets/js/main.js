@@ -108,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
       panel.style.top = '';
       panel.style.left = '';
       panel.style.right = '';
+      panel.style.width = '';
       panel.style.transform = '';
       placed = false;
     }
@@ -122,7 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const r = header.getBoundingClientRect();
       el.style.top = (r.bottom + 18) + 'px';
       el.style.left = r.left + 'px';
-      el.style.right = (window.innerWidth - r.right) + 'px';
+      el.style.width = r.width + 'px';
+      el.style.right = '';
     });
     closeMobileNav = () => {
       nav.classList.remove('is-open');

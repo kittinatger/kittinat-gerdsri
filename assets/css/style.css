@@ -312,14 +312,14 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 :root[data-theme="dark"] .theme-toggle .icon-sun { display: none; }
 :root[data-theme="dark"] .theme-toggle .icon-moon { display: block; }
 
-.text-size-slider { position: relative; padding-top: 20px; margin-top: 2px; }
+.text-size-slider { position: relative; padding-top: 22px; margin-top: 2px; }
 
 .text-size-value {
   position: absolute;
   top: 0;
   left: 0;
   transform: translateX(-50%);
-  font-size: 0.72rem;
+  font-size: 12px;
   font-weight: 700;
   color: var(--navy);
   white-space: nowrap;
