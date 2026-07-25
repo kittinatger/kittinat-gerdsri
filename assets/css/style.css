@@ -55,6 +55,36 @@
 
 * { box-sizing: border-box; }
 
+/* Native cross-document view transitions: a smooth crossfade between page
+   navigations, no JS routing needed. Browsers without support just do a
+   normal navigation — this is a progressive enhancement either way. Kept
+   out of the transition entirely under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
+/* Respect both the OS-level reduced-motion preference and the in-site
+   Settings > Reduced Motion toggle by collapsing every transition/animation
+   to effectively nothing. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+:root[data-reduced-motion="true"] *,
+:root[data-reduced-motion="true"] *::before,
+:root[data-reduced-motion="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
 html { scroll-behavior: smooth; }
 html[data-text-size="1"] { font-size: 106%; }
 html[data-text-size="2"] { font-size: 113%; }
@@ -162,6 +192,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   position: sticky;
   top: 14px;
   z-index: 100;
+  view-transition-name: site-header;
   margin: 0 clamp(12px, 3vw, 32px);
   border-radius: 999px;
   background: var(--glass-bg);
@@ -360,6 +391,33 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 
 .text-size-ticks { display: flex; justify-content: space-between; margin-top: 6px; padding: 0 1px; }
 .text-size-ticks span { width: 4px; height: 4px; border-radius: 999px; background: var(--line); }
+
+.motion-toggle {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 24px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg-soft);
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.motion-toggle-thumb {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--surface);
+  box-shadow: 0 1px 3px rgba(15, 44, 89, 0.3);
+  transition: transform 0.2s ease;
+}
+.motion-toggle[aria-checked="true"] { background: var(--navy); border-color: var(--navy); }
+.motion-toggle[aria-checked="true"] .motion-toggle-thumb { transform: translateX(18px); background: var(--white); }
 
 .beta-badge {
   display: inline-block;
@@ -697,7 +755,9 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(15, 22, 35, 0.92);
+  background: rgba(15, 22, 35, 0.55);
+  backdrop-filter: saturate(180%) blur(28px);
+  -webkit-backdrop-filter: saturate(180%) blur(28px);
   display: none;
   align-items: center;
   justify-content: center;
@@ -711,6 +771,8 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   top: 24px;
   right: clamp(20px, 5vw, 48px);
   background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.3);
   color: #fff;
   width: 42px;
@@ -734,20 +796,26 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 .cta .btn-primary { background: var(--white); color: var(--navy-darker); }
 .cta .btn-primary:hover { background: var(--bg-soft); }
 
-/* ---------- Closing card (contact CTA + footer, one merged shape) ---------- */
+/* ---------- Closing card (contact CTA + footer, one merged shape) ----------
+   Same liquid-glass treatment as the header: translucent + blurred +
+   glass-bordered, so the page is bookended by matching floating panels. */
 .closing-card {
   margin: clamp(32px, 6vw, 64px) clamp(12px, 3vw, 32px) clamp(24px, 5vw, 48px);
   border-radius: 28px;
   overflow: hidden;
   box-shadow: var(--shadow-soft);
+  background: var(--glass-bg);
+  backdrop-filter: saturate(220%) blur(22px);
+  -webkit-backdrop-filter: saturate(220%) blur(22px);
+  border: 1px solid var(--glass-border);
 }
 .closing-cta {
-  background: linear-gradient(135deg, rgba(29, 79, 156, 0.16), rgba(29, 79, 156, 0.04) 45%, var(--bg-soft) 100%);
+  background: linear-gradient(135deg, rgba(29, 79, 156, 0.16), rgba(29, 79, 156, 0.04) 45%, transparent 100%);
   padding: clamp(48px, 8vw, 88px) clamp(24px, 5vw, 64px) clamp(40px, 6vw, 64px);
   text-align: center;
 }
 :root[data-theme="dark"] .closing-cta {
-  background: linear-gradient(135deg, rgba(110, 161, 232, 0.18), rgba(110, 161, 232, 0.05) 45%, var(--surface) 100%);
+  background: linear-gradient(135deg, rgba(110, 161, 232, 0.18), rgba(110, 161, 232, 0.05) 45%, transparent 100%);
 }
 .closing-cta h2 { color: var(--heading); }
 .closing-cta p { color: var(--ink-soft); }
@@ -755,7 +823,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 
 /* ---------- Footer ---------- */
 .site-footer {
-  background: var(--surface);
+  background: transparent;
   color: var(--ink);
   padding: clamp(40px, 6vw, 64px) 0 28px;
 }

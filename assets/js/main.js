@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Robotics': 'Robotics', 'Photography': 'Photography', 'Music': 'Music',
       'Navigation': 'Navigation', 'Legal': 'Legal', 'Privacy Policy': 'Privacy Policy',
       'Terms & Support': 'Terms & Support', 'Language': 'Language', 'Theme': 'Theme',
-      'Text Size': 'Text Size', 'Beta': 'Beta'
+      'Text Size': 'Text Size', 'Beta': 'Beta', 'Reduced Motion': 'Reduced Motion'
     },
     th: {
       'Home': 'หน้าแรก', 'Work': 'ผลงาน', 'Contact': 'ติดต่อ',
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Robotics': 'หุ่นยนต์', 'Photography': 'การถ่ายภาพ', 'Music': 'ดนตรี',
       'Navigation': 'เมนูนำทาง', 'Legal': 'ข้อมูลทางกฎหมาย', 'Privacy Policy': 'นโยบายความเป็นส่วนตัว',
       'Terms & Support': 'ข้อกำหนดและการสนับสนุน', 'Language': 'ภาษา', 'Theme': 'ธีม',
-      'Text Size': 'ขนาดตัวอักษร', 'Beta': 'เบต้า'
+      'Text Size': 'ขนาดตัวอักษร', 'Beta': 'เบต้า', 'Reduced Motion': 'ลดการเคลื่อนไหว'
     },
     'zh-CN': {
       'Home': '首页', 'Work': '作品', 'Contact': '联系',
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Robotics': '机器人', 'Photography': '摄影', 'Music': '音乐',
       'Navigation': '导航', 'Legal': '法律信息', 'Privacy Policy': '隐私政策',
       'Terms & Support': '条款与支持', 'Language': '语言', 'Theme': '主题',
-      'Text Size': '文字大小', 'Beta': '测试版'
+      'Text Size': '文字大小', 'Beta': '测试版', 'Reduced Motion': '减少动态效果'
     }
   };
 
@@ -234,6 +234,12 @@ document.addEventListener('DOMContentLoaded', () => {
             '<div class="text-size-ticks" aria-hidden="true"><span></span><span></span><span></span><span></span></div>' +
           '</div>' +
         '</div>' +
+        '<div class="settings-section settings-section-row">' +
+          `<p class="settings-label">${settingsLabel['Reduced Motion']}</p>` +
+          '<button class="motion-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle reduced motion">' +
+            '<span class="motion-toggle-thumb"></span>' +
+          '</button>' +
+        '</div>' +
       '</div>';
     navRight.insertBefore(settings, navToggle);
 
@@ -307,6 +313,32 @@ document.addEventListener('DOMContentLoaded', () => {
       if (step === 0) document.documentElement.removeAttribute('data-text-size');
       else document.documentElement.setAttribute('data-text-size', String(step));
       localStorage.setItem('portfolio-text-size', String(step));
+    });
+    // Reduced motion. Kills transitions/animations site-wide via the CSS
+    // attribute selector, and separately tells the browser to skip the
+    // cross-page view transition (see the inline <head> script, which does
+    // the same thing pre-paint so it's already correct on load).
+    const motionToggle = settingsPanel.querySelector('.motion-toggle');
+    const applyViewTransitionOverride = (reduced) => {
+      let styleTag = document.getElementById('vt-override');
+      if (reduced && !styleTag) {
+        styleTag = document.createElement('style');
+        styleTag.id = 'vt-override';
+        styleTag.textContent = '@view-transition{navigation:none;}';
+        document.head.appendChild(styleTag);
+      } else if (!reduced && styleTag) {
+        styleTag.remove();
+      }
+    };
+    const initialReducedMotion = document.documentElement.getAttribute('data-reduced-motion') === 'true';
+    motionToggle.setAttribute('aria-checked', String(initialReducedMotion));
+    motionToggle.addEventListener('click', () => {
+      const next = motionToggle.getAttribute('aria-checked') !== 'true';
+      motionToggle.setAttribute('aria-checked', String(next));
+      if (next) document.documentElement.setAttribute('data-reduced-motion', 'true');
+      else document.documentElement.removeAttribute('data-reduced-motion');
+      localStorage.setItem('portfolio-reduced-motion', String(next));
+      applyViewTransitionOverride(next);
     });
     document.addEventListener('click', (e) => {
       const insideToggle = settings.contains(e.target);
