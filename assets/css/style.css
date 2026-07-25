@@ -23,8 +23,9 @@
      always-dark blocks regardless of site theme). */
   --heading: var(--navy-darker);
   --surface: var(--white);
-  --glass-bg: rgba(255, 255, 255, 0.5);
-  --glass-border: rgba(255, 255, 255, 0.65);
+  --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.6) 100%);
+  --glass-border: rgba(255, 255, 255, 0.9);
+  --glass-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.95), inset 0 -10px 16px -8px rgba(15, 44, 89, 0.08);
   --nav-hover-bg: rgba(29, 79, 156, 0.12);
   color-scheme: light;
 
@@ -47,8 +48,9 @@
 
   --heading: #eef3fb;
   --surface: #131f36;
-  --glass-bg: rgba(18, 27, 46, 0.55);
-  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-bg: linear-gradient(180deg, rgba(28, 40, 64, 0.58) 0%, rgba(10, 17, 32, 0.68) 100%);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.22), inset 0 -10px 16px -8px rgba(0, 0, 0, 0.35);
   --nav-hover-bg: rgba(110, 161, 232, 0.16);
   color-scheme: dark;
 }
@@ -199,7 +201,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   backdrop-filter: saturate(220%) blur(22px);
   -webkit-backdrop-filter: saturate(220%) blur(22px);
   border: 1px solid var(--glass-border);
-  box-shadow: 0 10px 34px -14px rgba(15, 44, 89, 0.35);
+  box-shadow: 0 10px 34px -14px rgba(15, 44, 89, 0.35), var(--glass-shadow);
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -284,7 +286,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   -webkit-backdrop-filter: saturate(220%) blur(22px);
   border: 1px solid var(--glass-border);
   border-radius: 18px;
-  box-shadow: 0 14px 36px -10px rgba(15, 44, 89, 0.3);
+  box-shadow: 0 14px 36px -10px rgba(15, 44, 89, 0.3), var(--glass-shadow);
   padding: 8px;
   min-width: 220px;
   display: none;
@@ -770,10 +772,11 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   position: absolute;
   top: 24px;
   right: clamp(20px, 5vw, 48px);
-  background: rgba(255,255,255,0.1);
+  background: linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.3);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), inset 0 -6px 10px -6px rgba(0,0,0,0.4);
   color: #fff;
   width: 42px;
   height: 42px;
@@ -803,7 +806,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   margin: clamp(32px, 6vw, 64px) clamp(12px, 3vw, 32px) clamp(24px, 5vw, 48px);
   border-radius: 28px;
   overflow: hidden;
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-soft), var(--glass-shadow);
   background: var(--glass-bg);
   backdrop-filter: saturate(220%) blur(22px);
   -webkit-backdrop-filter: saturate(220%) blur(22px);
@@ -924,7 +927,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
     -webkit-backdrop-filter: saturate(220%) blur(22px);
     border: 1px solid var(--glass-border);
     border-radius: 22px;
-    box-shadow: 0 14px 36px -10px rgba(15, 44, 89, 0.3);
+    box-shadow: 0 14px 36px -10px rgba(15, 44, 89, 0.3), var(--glass-shadow);
     flex-direction: column;
     align-items: flex-start;
     padding: 18px clamp(20px, 5vw, 36px) 24px;
