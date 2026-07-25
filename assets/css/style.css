@@ -754,31 +754,6 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 .closing-cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 1.6em; }
 
 /* ---------- Footer ---------- */
-.marquee-band {
-  background: var(--navy);
-  overflow: hidden;
-  padding: 18px 0;
-  white-space: nowrap;
-}
-.marquee-track {
-  display: inline-flex;
-  animation: marquee 26s linear infinite;
-}
-.marquee-track span {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
-  color: rgba(255,255,255,0.92);
-  padding: 0 1.2em;
-  letter-spacing: 0.02em;
-}
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; }
-}
-
 .site-footer {
   background: var(--surface);
   color: var(--ink);
