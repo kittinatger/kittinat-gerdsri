@@ -485,6 +485,11 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   border: 0;
 }
 
+/* Swap an element in/out per theme, e.g. two logo variants of an image. */
+.theme-dark-only { display: none; }
+:root[data-theme="dark"] .theme-light-only { display: none; }
+:root[data-theme="dark"] .theme-dark-only { display: block; }
+
 /* ---------- Hero ---------- */
 .hero {
   padding: clamp(56px, 9vw, 108px) 0 clamp(40px, 6vw, 72px);
