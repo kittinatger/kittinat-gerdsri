@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){try{var t=localStorage.getItem('portfolio-theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);var s=localStorage.getItem('portfolio-text-size');if(s==='1'||s==='2'||s==='3'){document.documentElement.setAttribute('data-text-size',s);}if(localStorage.getItem('portfolio-reduced-motion')==='true'){document.documentElement.setAttribute('data-reduced-motion','true');var st=document.createElement('style');st.id='vt-override';st.textContent='@view-transition{navigation:none;}';document.head.appendChild(st);}}catch(e){}})();</script>
 <title>Kittinat Gerdsri</title>
-<meta name="description" content="AI and coding work by Kittinat Gerdsri — programming, artificial intelligence challenges, and computer science achievements.">
+<meta name="description" content="Tally — a private, self-hosted expense tracker by Kittinat Gerdsri with AI-powered receipt scanning and voice entry.">
 <link rel="icon" type="image/svg+xml" href="assets/img/brand/favicon-light.svg" media="(prefers-color-scheme: light)">
 <link rel="icon" type="image/svg+xml" href="assets/img/brand/favicon-dark.svg" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="assets/img/brand/apple-touch-icon.png">
@@ -49,71 +49,74 @@
 
   <section class="page-hero">
     <div class="wrap">
-      <p class="eyebrow">Discipline 04 / 09</p>
-      <h1>AI and Coding</h1>
-      <p class="tagline">Powered by intelligence</p>
-      <p class="lede">AI and coding have become my way of exploring how ideas evolve into intelligent systems. I'm driven by the challenge of teaching machines to think, create, and assist—while refining my own logic and creativity in the process. From designing intuitive interfaces to building smart, adaptive algorithms, I focus on blending human insight with computational precision. I stay curious, innovative, and committed to shaping technology that feels alive and meaningful.</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="gallery-heading">
-        <h2>Projects</h2>
-      </div>
-      <div class="project-grid">
-        <a class="project-card" href="tally.html">
-          <div class="project-card-cover">
-            <img class="theme-light-only" src="assets/img/pages/ai-coding/08-tally-cover-light.png" alt="Tally logo">
-            <img class="theme-dark-only" src="assets/img/pages/ai-coding/08-tally-cover-dark.png" alt="Tally logo">
-          </div>
-          <div class="project-card-body">
-            <h3>Tally</h3>
-            <p>A private, personal expense tracker with receipt scanning, voice entry, and automatic currency conversion — self-hosted and open-source.</p>
-            <span class="project-card-cta">View project →</span>
-          </div>
-        </a>
+      <p class="breadcrumb"><a href="ai-coding.html">← AI / Coding</a></p>
+      <p class="eyebrow">Project 01</p>
+      <h1>Tally</h1>
+      <p class="tagline">Private expense tracking, reimagined</p>
+      <p class="lede">Tally is a self-hosted, open-source expense tracker built for privacy — no third-party analytics, no data sharing. Snap a photo of a receipt or speak a transaction out loud, and Tally uses AI to parse the details automatically, categorize spending, and convert currencies on the fly.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://github.com/kittinatger/tally-kittinat-gerdsri" target="_blank" rel="noopener">View on GitHub →</a>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
-      <div class="gallery-heading">
-        <h2>Selected Work</h2>
-      </div>
-      <div class="gallery">
-        <figure class="wide">
-          <img src="assets/img/pages/ai-coding/07-scratch-project-screenshot.png" alt="Scratch code editor showing a block-based platformer game project" data-full="assets/img/pages/ai-coding/07-scratch-project-screenshot.png">
-        </figure>
-      </div>
-      <p class="credit">© Kittinat Gerdsri</p>
+      <h2>What it does</h2>
+      <p class="lede">Tally handles the everyday mechanics of tracking money: log expenses and income manually, or skip the typing entirely — snap a photo of a receipt and Google Gemini's vision API reads the merchant, total, date, and category for you to confirm. You can also just talk: tap the mic and say something like "spent 12 dollars on coffee at Starbucks today," and Tally transcribes it and fills in the form. Multiple receipts can be dropped in at once and reviewed as a batch. Everything is searchable and filterable by merchant, category, tag, or date range, with a running balance, a six-month spending trend chart, and CSV export when you want the raw numbers elsewhere.</p>
     </div>
   </section>
 
   <section class="section section-soft">
     <div class="wrap">
+      <h2>Why I built it</h2>
+      <p class="lede">Most expense trackers ask you to hand your spending data to a third party — a company with an incentive to sell insights about your habits, or at minimum a server you don't control. Tally is the opposite: it's self-hosted and open-source, so the only copy of your financial data lives in a database you own. There's no analytics, no data sharing, and no account system beyond a single shared password gating the whole app behind signed, httpOnly session cookies. It's built to be a personal tool for one person or household, not a product with a business model behind it.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <p class="lede">Tally is a Next.js (App Router) app written in TypeScript, styled with Tailwind CSS, and backed by Postgres — it deploys in one click to Vercel's free tier using a Neon database. Receipt scanning and voice transcription both run through Google's Gemini API: photos are sent to Gemini's vision model to extract structured fields, and voice recordings are transcribed and parsed the same way, with every result surfaced for review before it's saved rather than written straight to the database. When a detected amount is in a different currency than your default, Tally converts it automatically using live rates from the Frankfurter API.</p>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="wrap">
+      <h2>Try it yourself</h2>
+      <p class="lede">Tally is designed for anyone to run — each deployment is its own private instance behind a password only you know. Click below to deploy your own copy to Vercel's free tier; it takes about five minutes, and you'll need a free Gemini API key from Google AI Studio.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://github.com/kittinatger/tally-kittinat-gerdsri/blob/master/DEPLOYMENT_VERCEL.md" target="_blank" rel="noopener">Deploy Tally to Vercel — Step by Step →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
       <div class="gallery-heading">
-        <h2>Awards</h2>
+        <h2>Screenshots</h2>
       </div>
       <div class="gallery">
         <figure>
-          <img src="assets/img/pages/ai-coding/01-stem-olympiad-bronze-coding.jpg" alt="International STEM Olympiad Bronze Medal certificate for the Coding category" data-full="assets/img/pages/ai-coding/01-stem-olympiad-bronze-coding.jpg">
+          <img src="assets/img/pages/ai-coding/tally/00-login-light.jpg" alt="Tally login screen, password-gated with a single shared password" data-full="assets/img/pages/ai-coding/tally/00-login-light.jpg">
         </figure>
         <figure>
-          <img src="assets/img/pages/ai-coding/02-stem-olympiad-silver-ai.jpg" alt="International STEM Olympiad Silver Medal certificate for the AI Challenge category" data-full="assets/img/pages/ai-coding/02-stem-olympiad-silver-ai.jpg">
+          <img src="assets/img/pages/ai-coding/tally/01-dashboard-light.jpg" alt="Tally dashboard in light mode, showing income, expenses, remaining balance, and a filterable transaction list" data-full="assets/img/pages/ai-coding/tally/01-dashboard-light.jpg">
         </figure>
         <figure>
-          <img src="assets/img/pages/ai-coding/06-seacso-bronze-award.jpg" alt="Southeast Asia Computer Science Olympiad Bronze Award certificate" data-full="assets/img/pages/ai-coding/06-seacso-bronze-award.jpg">
+          <img src="assets/img/pages/ai-coding/tally/02-dashboard-dark.jpg" alt="Tally dashboard in dark mode" data-full="assets/img/pages/ai-coding/tally/02-dashboard-dark.jpg">
         </figure>
         <figure>
-          <img src="assets/img/pages/ai-coding/05-codecombat-certificate.jpg" alt="CodeCombat certificate of completion for Introduction to Computer Science" data-full="assets/img/pages/ai-coding/05-codecombat-certificate.jpg">
+          <img src="assets/img/pages/ai-coding/tally/03-categories-light.jpg" alt="Tally categories view with a spending trend chart and per-category breakdown" data-full="assets/img/pages/ai-coding/tally/03-categories-light.jpg">
         </figure>
         <figure>
-          <img src="assets/img/pages/ai-coding/03-intro-to-ai-certificate.jpg" alt="Certificate of Attendance for the Introduction to AI course at Bangkok Design Week" data-full="assets/img/pages/ai-coding/03-intro-to-ai-certificate.jpg">
+          <img src="assets/img/pages/ai-coding/tally/04-receipt-scan-light.jpg" alt="Add transaction dialog with the Scan document tab open, ready to drop a receipt image" data-full="assets/img/pages/ai-coding/tally/04-receipt-scan-light.jpg">
         </figure>
         <figure>
-          <img src="assets/img/pages/ai-coding/04-fun-with-ai-projects-certificate.jpg" alt="Certificate of Attendance for the Fun with AI Projects course at Bangkok Design Week" data-full="assets/img/pages/ai-coding/04-fun-with-ai-projects-certificate.jpg">
+          <img src="assets/img/pages/ai-coding/tally/05-voice-entry-light.jpg" alt="Add transaction dialog with the Speak tab open for recording a transaction by voice" data-full="assets/img/pages/ai-coding/tally/05-voice-entry-light.jpg">
+        </figure>
+        <figure>
+          <img src="assets/img/pages/ai-coding/tally/06-settings-dark.jpg" alt="Tally settings screen in dark mode" data-full="assets/img/pages/ai-coding/tally/06-settings-dark.jpg">
         </figure>
       </div>
     </div>
@@ -123,13 +126,21 @@
     <div class="wrap">
       <h3>Tools</h3>
       <div class="chip-row">
-        <span class="chip">Python</span>
-        <span class="chip">Swift</span>
-        <span class="chip">HTML</span>
-        <span class="chip">Code.org</span>
-        <span class="chip">Scratch</span>
-        <span class="chip">micro:bit</span>
+        <span class="chip">Next.js</span>
+        <span class="chip">React</span>
+        <span class="chip">TypeScript</span>
+        <span class="chip">Tailwind CSS</span>
+        <span class="chip">Vercel Postgres</span>
+        <span class="chip">Google Gemini</span>
+        <span class="chip">MIT License</span>
       </div>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="wrap">
+      <h3>Good to know</h3>
+      <p class="lede">A few things worth knowing before you deploy: each instance is single-user, gated by one shared password rather than individual accounts — if you want to share it with someone else, they'd run their own deployment. Receipt scanning and voice entry need a free Gemini API key from Google AI Studio (manual entry and CSV export work without one), and the app needs a Postgres database, which Vercel provides for free through Neon.</p>
     </div>
   </section>
 
