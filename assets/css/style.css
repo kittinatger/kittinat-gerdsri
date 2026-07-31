@@ -270,9 +270,10 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 }
 
 .nav-dropdown-toggle .caret {
-  font-size: 0.65em;
+  display: inline-flex;
   transition: transform 0.2s ease;
 }
+.nav-dropdown-toggle .caret svg { width: 0.6em; height: 0.6em; }
 
 .nav-dropdown-toggle:hover,
 .nav-dropdown.is-open .nav-dropdown-toggle,
