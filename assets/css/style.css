@@ -195,7 +195,8 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   top: 14px;
   z-index: 100;
   view-transition-name: site-header;
-  margin: 0 clamp(12px, 3vw, 32px);
+  width: min(calc(100% - 2 * clamp(12px, 3vw, 32px)), var(--max-width));
+  margin: 0 auto;
   border-radius: 999px;
   background: var(--glass-bg);
   backdrop-filter: saturate(220%) blur(22px);

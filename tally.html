@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){try{var t=localStorage.getItem('portfolio-theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);var s=localStorage.getItem('portfolio-text-size');if(s==='1'||s==='2'||s==='3'){document.documentElement.setAttribute('data-text-size',s);}if(localStorage.getItem('portfolio-reduced-motion')==='true'){document.documentElement.setAttribute('data-reduced-motion','true');var st=document.createElement('style');st.id='vt-override';st.textContent='@view-transition{navigation:none;}';document.head.appendChild(st);}}catch(e){}})();</script>
 <title>Kittinat Gerdsri</title>
-<meta name="description" content="Tally — a private, self-hosted expense tracker by Kittinat Gerdsri with AI-powered receipt scanning and voice entry.">
+<meta name="description" content="Tally — a private, open-source expense tracker by Kittinat Gerdsri with AI-powered receipt scanning, voice entry, and multi-user accounts.">
 <link rel="icon" type="image/svg+xml" href="assets/img/brand/favicon-light.svg" media="(prefers-color-scheme: light)">
 <link rel="icon" type="image/svg+xml" href="assets/img/brand/favicon-dark.svg" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="assets/img/brand/apple-touch-icon.png">
@@ -53,9 +53,10 @@
       <p class="eyebrow">Project 01</p>
       <h1>Tally</h1>
       <p class="tagline">Private expense tracking, reimagined</p>
-      <p class="lede">Tally is a self-hosted, open-source expense tracker built for privacy — no third-party analytics, no data sharing. Snap a photo of a receipt or speak a transaction out loud, and Tally uses AI to parse the details automatically, categorize spending, and convert currencies on the fly.</p>
+      <p class="lede">Tally is a private, open-source expense tracker — snap a photo of a receipt or speak a transaction out loud, and it uses AI to parse the details automatically, categorize spending, and convert currencies on the fly. Every account's data is fully isolated, so you can create one on the live instance in seconds with nothing to deploy, or self-host your own.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="https://github.com/kittinatger/tally-kittinat-gerdsri" target="_blank" rel="noopener">View on GitHub →</a>
+        <a class="btn btn-primary" href="https://tally-kittinat.vercel.app" target="_blank" rel="noopener">Try Tally →</a>
+        <a class="btn btn-outline" href="https://github.com/kittinatger/tally-kittinat-gerdsri" target="_blank" rel="noopener">View on GitHub →</a>
       </div>
     </div>
   </section>
@@ -63,30 +64,30 @@
   <section class="section">
     <div class="wrap">
       <h2>What it does</h2>
-      <p class="lede">Tally handles the everyday mechanics of tracking money: log expenses and income manually, or skip the typing entirely — snap a photo of a receipt and Google Gemini's vision API reads the merchant, total, date, and category for you to confirm. You can also just talk: tap the mic and say something like "spent 12 dollars on coffee at Starbucks today," and Tally transcribes it and fills in the form. Multiple receipts can be dropped in at once and reviewed as a batch. Everything is searchable and filterable by merchant, category, tag, or date range, with a running balance, a six-month spending trend chart, and CSV export when you want the raw numbers elsewhere.</p>
+      <p class="lede">Tally handles the everyday mechanics of tracking money: log expenses and income manually, or skip the typing entirely — snap a photo of a receipt and Google Gemini's vision API reads the merchant, total, date, and category for you to confirm. You can also just talk: tap the mic and say something like "spent 12 dollars on coffee at Starbucks today," and Tally transcribes it and fills in the form. Multiple receipts can be dropped in at once and reviewed as a batch, and the original scanned image is kept on the transaction for later reference. Everything is searchable and filterable by merchant, category, custom tags, or date range, with income and expenses tracked as distinct types, categories you can rename and recolor to match your workflow, a running balance, a six-month spending trend chart, and CSV export when you want the raw numbers elsewhere.</p>
     </div>
   </section>
 
   <section class="section section-soft">
     <div class="wrap">
       <h2>Why I built it</h2>
-      <p class="lede">Most expense trackers ask you to hand your spending data to a third party — a company with an incentive to sell insights about your habits, or at minimum a server you don't control. Tally is the opposite: it's self-hosted and open-source, so the only copy of your financial data lives in a database you own. There's no analytics, no data sharing, and no account system beyond a single shared password gating the whole app behind signed, httpOnly session cookies. It's built to be a personal tool for one person or household, not a product with a business model behind it.</p>
+      <p class="lede">Most expense trackers ask you to hand your spending data to a third party — a company with an incentive to sell insights about your habits, or at minimum a server you don't control. Tally is the opposite: it's open-source and built for privacy, with no analytics and no data sharing. Anyone can sign up with just a username and password — no email required — and every account's expenses, categories, and balance are fully isolated behind hashed passwords and signed, httpOnly session cookies, so no other account on the same deployment can ever see or touch your data. It's built to be a personal tool, not a product with a business model behind it.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
       <h2>How it works</h2>
-      <p class="lede">Tally is a Next.js (App Router) app written in TypeScript, styled with Tailwind CSS, and backed by Postgres — it deploys in one click to Vercel's free tier using a Neon database. Receipt scanning and voice transcription both run through Google's Gemini API: photos are sent to Gemini's vision model to extract structured fields, and voice recordings are transcribed and parsed the same way, with every result surfaced for review before it's saved rather than written straight to the database. When a detected amount is in a different currency than your default, Tally converts it automatically using live rates from the Frankfurter API.</p>
+      <p class="lede">Tally is a Next.js (App Router) app written in TypeScript, styled with Tailwind CSS, and backed by Postgres — it deploys in one click to Vercel's free tier using a Neon database. Receipt scanning and voice transcription both run through Google's Gemini API: photos are sent to Gemini's vision model to extract structured fields, and voice recordings are transcribed and parsed the same way, with every result surfaced for review before it's saved rather than written straight to the database. When a detected amount is in a different currency than your default, Tally converts it automatically using live rates from the Frankfurter API. Every API route requires a valid session token, passwords are hashed with scrypt before storage, and sessions are signed with HMAC-SHA256 and expire after 30 days.</p>
     </div>
   </section>
 
   <section class="section section-soft">
     <div class="wrap">
       <h2>Try it yourself</h2>
-      <p class="lede">Tally is designed for anyone to run — each deployment is its own private instance behind a password only you know. Click below to deploy your own copy to Vercel's free tier; it takes about five minutes, and you'll need a free Gemini API key from Google AI Studio.</p>
+      <p class="lede">You don't need to deploy anything — go to the live instance, create an account with just a username and password, and start tracking. It's free, takes a few seconds, and your data is completely private to your account; no one else, including other accounts on that deployment, can see it.</p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="https://github.com/kittinatger/tally-kittinat-gerdsri/blob/master/DEPLOYMENT_VERCEL.md" target="_blank" rel="noopener">Deploy Tally to Vercel — Step by Step →</a>
+        <a class="btn btn-primary" href="https://tally-kittinat.vercel.app" target="_blank" rel="noopener">Create a Free Account →</a>
       </div>
     </div>
   </section>
@@ -98,25 +99,28 @@
       </div>
       <div class="gallery">
         <figure>
-          <img src="assets/img/pages/ai-coding/tally/00-login-light.jpg" alt="Tally login screen, password-gated with a single shared password" data-full="assets/img/pages/ai-coding/tally/00-login-light.jpg">
-        </figure>
-        <figure>
-          <img src="assets/img/pages/ai-coding/tally/01-dashboard-light.jpg" alt="Tally dashboard in light mode, showing income, expenses, remaining balance, and a filterable transaction list" data-full="assets/img/pages/ai-coding/tally/01-dashboard-light.jpg">
+          <img src="assets/img/pages/ai-coding/tally/01-dashboard-light.jpg" alt="Tally dashboard in light mode, showing income, expenses, remaining balance, categories, and a spending trend chart" data-full="assets/img/pages/ai-coding/tally/01-dashboard-light.jpg">
         </figure>
         <figure>
           <img src="assets/img/pages/ai-coding/tally/02-dashboard-dark.jpg" alt="Tally dashboard in dark mode" data-full="assets/img/pages/ai-coding/tally/02-dashboard-dark.jpg">
         </figure>
         <figure>
-          <img src="assets/img/pages/ai-coding/tally/03-categories-light.jpg" alt="Tally categories view with a spending trend chart and per-category breakdown" data-full="assets/img/pages/ai-coding/tally/03-categories-light.jpg">
+          <img src="assets/img/pages/ai-coding/tally/03-activities-light.jpg" alt="Tally activities view in light mode with a searchable, filterable transaction list and CSV export" data-full="assets/img/pages/ai-coding/tally/03-activities-light.jpg">
         </figure>
         <figure>
-          <img src="assets/img/pages/ai-coding/tally/04-receipt-scan-light.jpg" alt="Add transaction dialog with the Scan document tab open, ready to drop a receipt image" data-full="assets/img/pages/ai-coding/tally/04-receipt-scan-light.jpg">
+          <img src="assets/img/pages/ai-coding/tally/04-activities-dark.jpg" alt="Tally activities view in dark mode" data-full="assets/img/pages/ai-coding/tally/04-activities-dark.jpg">
         </figure>
         <figure>
-          <img src="assets/img/pages/ai-coding/tally/05-voice-entry-light.jpg" alt="Add transaction dialog with the Speak tab open for recording a transaction by voice" data-full="assets/img/pages/ai-coding/tally/05-voice-entry-light.jpg">
+          <img src="assets/img/pages/ai-coding/tally/05-scan-document-light.jpg" alt="Add transaction dialog with the Scan document tab open, ready to drop a receipt image" data-full="assets/img/pages/ai-coding/tally/05-scan-document-light.jpg">
         </figure>
         <figure>
-          <img src="assets/img/pages/ai-coding/tally/06-settings-dark.jpg" alt="Tally settings screen in dark mode" data-full="assets/img/pages/ai-coding/tally/06-settings-dark.jpg">
+          <img src="assets/img/pages/ai-coding/tally/06-scan-document-dark.jpg" alt="Add transaction dialog with the Scan document tab open, in dark mode" data-full="assets/img/pages/ai-coding/tally/06-scan-document-dark.jpg">
+        </figure>
+        <figure>
+          <img src="assets/img/pages/ai-coding/tally/07-voice-entry-light.jpg" alt="Add transaction dialog with the Speak tab open for recording a transaction by voice" data-full="assets/img/pages/ai-coding/tally/07-voice-entry-light.jpg">
+        </figure>
+        <figure>
+          <img src="assets/img/pages/ai-coding/tally/08-voice-entry-dark.jpg" alt="Add transaction dialog with the Speak tab open, in dark mode" data-full="assets/img/pages/ai-coding/tally/08-voice-entry-dark.jpg">
         </figure>
       </div>
     </div>
@@ -140,7 +144,7 @@
   <section class="section section-soft">
     <div class="wrap">
       <h3>Good to know</h3>
-      <p class="lede">A few things worth knowing before you deploy: each instance is single-user, gated by one shared password rather than individual accounts — if you want to share it with someone else, they'd run their own deployment. Receipt scanning and voice entry need a free Gemini API key from Google AI Studio (manual entry and CSV export work without one), and the app needs a Postgres database, which Vercel provides for free through Neon.</p>
+      <p class="lede">A couple of things worth knowing: there's no account deletion or password-reset flow yet, so hang on to your credentials — you can change your username or password from Settings while logged in, but recovery isn't available if you forget them. And if you deploy your own instance rather than using the live one, receipt scanning and voice entry need a free Gemini API key from Google AI Studio (manual entry and CSV export work without one), plus a Postgres database, which Vercel provides for free through Neon.</p>
     </div>
   </section>
 
