@@ -40,6 +40,10 @@ Published via GitHub Pages from this repository.
 
 See [CHANGELOG.md](CHANGELOG.md) for a history of notable changes.
 
+## Acknowledgements
+
+Some icons are derived from Apple's SF Symbols — see [ACKNOWLEDGEMENTS.md](ACKNOWLEDGEMENTS.md) for attribution details.
+
 ## Developed by
 
 [Kittinat Gerdsri](https://kittinatger.github.io/kittinat-gerdsri/)
