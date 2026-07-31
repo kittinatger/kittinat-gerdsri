@@ -39,3 +39,7 @@ Published via GitHub Pages from this repository.
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for a history of notable changes.
+
+## Developed by
+
+[Kittinat Gerdsri](https://kittinatger.github.io/kittinat-gerdsri/)
