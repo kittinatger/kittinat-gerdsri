@@ -71,7 +71,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## 2026-07-20
 
 ### Added
-- Initial static rebuild of the portfolio site (from the original Canva design).
+- Initial static rebuild of the portfolio site.
 
 ### Fixed
 - Discipline numbering to match nav/grid order.
