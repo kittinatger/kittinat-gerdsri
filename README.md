@@ -42,8 +42,4 @@ See [CHANGELOG.md](CHANGELOG.md) for a history of notable changes.
 
 ## Acknowledgements
 
-Some icons are derived from Apple's SF Symbols — see [ACKNOWLEDGEMENTS.md](ACKNOWLEDGEMENTS.md) for attribution details.
-
-## Developed by
-
-[Kittinat Gerdsri](https://kittinatger.github.io/kittinat-gerdsri/)
+See [ACKNOWLEDGEMENTS.md](ACKNOWLEDGEMENTS.md) for third-party attribution and credits.
