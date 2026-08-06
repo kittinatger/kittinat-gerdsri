@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){try{var t=localStorage.getItem('portfolio-theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);var s=localStorage.getItem('portfolio-text-size');if(s==='1'||s==='2'||s==='3'){document.documentElement.setAttribute('data-text-size',s);}if(localStorage.getItem('portfolio-reduced-motion')==='true'){document.documentElement.setAttribute('data-reduced-motion','true');var st=document.createElement('style');st.id='vt-override';st.textContent='@view-transition{navigation:none;}';document.head.appendChild(st);}}catch(e){}})();</script>
 <title>Kittinat Gerdsri</title>
-<meta name="description" content="Tally — a private, open-source expense tracker by Kittinat Gerdsri with AI-powered receipt scanning, voice entry, and multi-user accounts.">
+<meta name="description" content="Tally — a private, open-source personal finance app by Kittinat Gerdsri with AI-powered receipt scanning, wallets, budgets, recurring transactions, and a fully customizable dashboard.">
 <link rel="icon" type="image/svg+xml" href="assets/img/brand/favicon-light.svg" media="(prefers-color-scheme: light)">
 <link rel="icon" type="image/svg+xml" href="assets/img/brand/favicon-dark.svg" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="assets/img/brand/apple-touch-icon.png">
@@ -52,8 +52,8 @@
       <p class="breadcrumb"><a href="ai-coding.html">← AI / Coding</a></p>
       <p class="eyebrow">Project 01</p>
       <h1>Tally</h1>
-      <p class="tagline">Private expense tracking, reimagined</p>
-      <p class="lede">Tally is a private, open-source expense tracker — snap a photo of a receipt or speak a transaction out loud, and it uses AI to parse the details automatically, categorize spending, and convert currencies on the fly. Every account's data is fully isolated, so you can create one on the live instance in seconds with nothing to deploy, or self-host your own.</p>
+      <p class="tagline">Private personal finance, reimagined</p>
+      <p class="lede">Tally is a private, open-source personal finance app — snap a photo of a receipt or speak a transaction out loud and AI fills in the details, then track it across wallets, budgets, recurring bills, and savings goals on a dashboard you build yourself. Every account's data is fully isolated, so you can create one on the live instance in seconds with nothing to deploy, or self-host your own.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="https://tally-kittinat.vercel.app" target="_blank" rel="noopener">Try Tally →</a>
         <a class="btn btn-outline" href="https://github.com/kittinatger/tally-kittinat-gerdsri" target="_blank" rel="noopener">View on GitHub →</a>
@@ -64,7 +64,7 @@
   <section class="section">
     <div class="wrap">
       <h2>What it does</h2>
-      <p class="lede">Tally handles the everyday mechanics of tracking money: log expenses and income manually, or skip the typing entirely — snap a photo of a receipt and Google Gemini's vision API reads the merchant, total, date, and category for you to confirm. You can also just talk: tap the mic and say something like "spent 12 dollars on coffee at Starbucks today," and Tally transcribes it and fills in the form. Multiple receipts can be dropped in at once and reviewed as a batch, and the original scanned image is kept on the transaction for later reference. Everything is searchable and filterable by merchant, category, custom tags, or date range, with income and expenses tracked as distinct types, categories you can rename and recolor to match your workflow, a running balance, a six-month spending trend chart, and CSV export when you want the raw numbers elsewhere.</p>
+      <p class="lede">Tally handles the everyday mechanics of tracking money: log expenses and income manually, snap a photo of a receipt and let Google Gemini's vision API read the merchant, total, date, and category for you, or just talk — tap the mic, describe the transaction, and Tally transcribes and fills in the form. Set up an iOS Shortcut or Android share sheet and receipts can even import themselves from your photo library without opening the app. Money lives in wallets — cash, bank, or e-wallet pools you can transfer between, each with its own currency — and recurring rent, subscriptions, or salary log themselves on a schedule. Set a monthly budget per category with optional rollover, track progress toward a savings goal, and split one receipt across multiple categories when it covers more than one thing. Everything is searchable, filterable, and bulk-editable, with custom tags, categories you can rename, recolor, and re-icon, CSV export and import, and a dashboard you build yourself from 50+ widgets — progress rings, gauges, sparklines, heatmaps, and more. Install it as an offline-capable PWA, and opt in to email alerts when a recurring rule fires or a budget goes over.</p>
     </div>
   </section>
 
@@ -78,7 +78,7 @@
   <section class="section">
     <div class="wrap">
       <h2>How it works</h2>
-      <p class="lede">Tally is a Next.js (App Router) app written in TypeScript, styled with Tailwind CSS, and backed by Postgres — it deploys in one click to Vercel's free tier using a Neon database. Receipt scanning and voice transcription both run through Google's Gemini API: photos are sent to Gemini's vision model to extract structured fields, and voice recordings are transcribed and parsed the same way, with every result surfaced for review before it's saved rather than written straight to the database. When a detected amount is in a different currency than your default, Tally converts it automatically using live rates from the Frankfurter API. Every API route requires a valid session token, passwords are hashed with scrypt before storage, and sessions are signed with HMAC-SHA256 and expire after 30 days.</p>
+      <p class="lede">Tally is a Next.js (App Router) app written in TypeScript, styled with Tailwind CSS, and backed by Postgres — it deploys in one click to Vercel's free tier using a Neon database, and installs as an offline-capable PWA. Receipt scanning and voice transcription both run through Google's Gemini API: photos are sent to Gemini's vision model to extract structured fields, and voice recordings are transcribed and parsed the same way, with every result surfaced for review before it's saved rather than written straight to the database. Automatic receipt import reuses that same pipeline, triggered by an iOS Shortcut or Android share sheet instead of the app itself. When a detected amount is in a different currency than your default, Tally converts it automatically using live rates from the Frankfurter API, and Resend sends password-reset and budget/recurring notification emails. Every API route requires a valid session token, passwords are hashed with scrypt before storage, and sessions are signed with HMAC-SHA256 and expire after 30 days.</p>
     </div>
   </section>
 
@@ -136,6 +136,8 @@
         <span class="chip">Tailwind CSS</span>
         <span class="chip">Vercel Postgres</span>
         <span class="chip">Google Gemini</span>
+        <span class="chip">Resend</span>
+        <span class="chip">PWA</span>
         <span class="chip">MIT License</span>
       </div>
     </div>
@@ -144,7 +146,7 @@
   <section class="section section-soft">
     <div class="wrap">
       <h3>Good to know</h3>
-      <p class="lede">A couple of things worth knowing: there's no account deletion or password-reset flow yet, so hang on to your credentials — you can change your username or password from Settings while logged in, but recovery isn't available if you forget them. And if you deploy your own instance rather than using the live one, receipt scanning and voice entry need a free Gemini API key from Google AI Studio (manual entry and CSV export work without one), plus a Postgres database, which Vercel provides for free through Neon.</p>
+      <p class="lede">Account recovery is fully self-service now — reset a forgotten password by email, delete your account, or sign out of every device at once, all from Settings. Automatic receipt import leans on iOS Shortcuts or Android's share sheet rather than the app quietly watching your photo library in the background, so it needs a one-time setup rather than being fully invisible. And if you deploy your own instance rather than using the live one, receipt scanning, voice entry, and auto-import need a free Gemini API key from Google AI Studio, password-reset and notification emails need a free Resend API key, and the app needs a Postgres database, which Vercel provides for free through Neon — manual entry and CSV export work without any of the optional keys.</p>
     </div>
   </section>
 
