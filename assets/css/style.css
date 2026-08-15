@@ -666,6 +666,78 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 .gallery figure.landscape { aspect-ratio: unset; height: 360px; grid-column: span 2; }
 .gallery.cols-3 { grid-template-columns: repeat(3, 1fr); }
 
+/* Fanned / overlap gallery: equal-width strips that expand and come
+   forward on hover, revealing the full shot — each a little browser-window
+   mockup floating on its own gradient backdrop. */
+.gallery-fan {
+  display: flex;
+  height: 460px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.gallery-fan .fan-panel {
+  aspect-ratio: unset;
+  flex: 1 1 0%;
+  min-width: 64px;
+  border: none;
+  border-radius: 0;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 14px;
+  cursor: zoom-in;
+  transition: flex-grow 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+.gallery-fan .fan-panel:not(:last-child) { border-right: 1px solid rgba(255, 255, 255, 0.14); }
+.gallery-fan .fan-panel:hover {
+  flex-grow: 6;
+  z-index: 5;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.5);
+}
+
+.gallery-fan .mockup-frame {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #1c1c1e;
+  box-shadow: 0 20px 44px -16px rgba(0, 0, 0, 0.55);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.gallery-fan .fan-panel:hover .mockup-frame { transform: scale(1.02); }
+.gallery-fan .mockup-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+  padding: 0 10px;
+  background: #2c2c2e;
+}
+.gallery-fan .mockup-dot { width: 8px; height: 8px; border-radius: 999px; }
+.gallery-fan .mockup-dot-red { background: #ff5f57; }
+.gallery-fan .mockup-dot-yellow { background: #febc2e; }
+.gallery-fan .mockup-dot-green { background: #28c840; }
+.gallery-fan .mockup-frame img { display: block; width: 100%; height: auto; transition: none; }
+.gallery-fan .fan-panel:hover .mockup-frame img { transform: none; }
+
+.gallery-fan .bg-1 { background: linear-gradient(160deg, #1d4f9c 0%, #0f2c59 100%); }
+.gallery-fan .bg-2 { background: linear-gradient(160deg, #0f766e 0%, #0b3d3a 100%); }
+.gallery-fan .bg-3 { background: linear-gradient(160deg, #f59e0b 0%, #9a3412 100%); }
+.gallery-fan .bg-4 { background: linear-gradient(160deg, #db2777 0%, #4c1d5e 100%); }
+.gallery-fan .bg-5 { background: linear-gradient(160deg, #38bdf8 0%, #1e3a8a 100%); }
+.gallery-fan .bg-6 { background: linear-gradient(160deg, #64748b 0%, #1e293b 100%); }
+
+.gallery-fan-note { margin-top: 0.9em; font-size: 0.85rem; color: var(--ink-soft); text-align: center; }
+
+@media (max-width: 720px) {
+  .gallery-fan { height: 320px; }
+  .gallery-fan .fan-panel { padding: 18px 8px; }
+}
+
 /* Project cards (discipline sub-pages) */
 .project-grid {
   display: grid;
