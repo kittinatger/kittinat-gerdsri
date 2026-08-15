@@ -296,6 +296,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   min-width: 220px;
   display: none;
   flex-direction: column;
+  z-index: 200;
 }
 
 .nav-dropdown.is-open .nav-dropdown-menu,
@@ -995,6 +996,7 @@ a.chip:hover { background: var(--nav-hover-bg); border-color: var(--navy); }
     padding: 18px clamp(20px, 5vw, 36px) 24px;
     gap: 12px;
     display: none;
+    z-index: 200;
   }
   .main-nav.is-open { display: flex; }
   .nav-dropdown .nav-dropdown-menu {
