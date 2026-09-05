@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>(function(){try{var t=localStorage.getItem('portfolio-theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);var s=localStorage.getItem('portfolio-text-size');if(s==='1'||s==='2'||s==='3'){document.documentElement.setAttribute('data-text-size',s);}if(localStorage.getItem('portfolio-reduced-motion')==='true'){document.documentElement.setAttribute('data-reduced-motion','true');var st=document.createElement('style');st.id='vt-override';st.textContent='@view-transition{navigation:none;}';document.head.appendChild(st);}}catch(e){}})();</script>
 <title>Tally - Personal Finance | Kittinat Gerdsri</title>
-<meta name="description" content="Tally — a private, open-source personal finance app by Kittinat Gerdsri with AI-powered receipt scanning, wallets, budgets, recurring transactions, and a fully customizable dashboard.">
+<meta name="description" content="Tally — a private, open-source personal finance and digital wallet app by Kittinat Gerdsri, with AI-powered expense tracking, wallet passes, bill splitting, biometric security, and a built-in spending assistant.">
 <link rel="icon" type="image/svg+xml" href="assets/img/brand/favicon-light.svg" media="(prefers-color-scheme: light)">
 <link rel="icon" type="image/svg+xml" href="assets/img/brand/favicon-dark.svg" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="assets/img/brand/apple-touch-icon.png">
@@ -53,7 +53,7 @@
       <p class="eyebrow">Project 01</p>
       <h1>Tally</h1>
       <p class="tagline">Private personal finance, reimagined</p>
-      <p class="lede">Tally is a private, open-source personal finance app — snap a photo of a receipt or speak a transaction out loud and AI fills in the details, then track it across wallets, budgets, recurring bills, and savings goals on a dashboard you build yourself. Every account's data is fully isolated, so you can create one on the live instance in seconds with nothing to deploy, or self-host your own.</p>
+      <p class="lede">Tally started as a receipt scanner and has grown into a full personal finance and digital wallet app: AI-powered expense tracking, payment cards and wallet passes, splitting bills with friends, a chat assistant that can answer questions about your own spending, and biometric app lock with encrypted backups to keep it all safe. Every account's data is fully isolated, so you can create one on the live instance in seconds with nothing to deploy, or self-host your own.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="https://tally-kittinat.vercel.app" target="_blank" rel="noopener">Try Tally →</a>
         <a class="btn btn-outline" href="https://github.com/kittinatger/tally-kittinat-gerdsri" target="_blank" rel="noopener">View on GitHub →</a>
@@ -64,21 +64,35 @@
   <section class="section">
     <div class="wrap">
       <h2>What it does</h2>
-      <p class="lede">Tally handles the everyday mechanics of tracking money: log expenses and income manually, snap a photo of a receipt and let Google Gemini's vision API read the merchant, total, date, and category for you, or just talk — tap the mic, describe the transaction, and Tally transcribes and fills in the form. Set up an iOS Shortcut or Android share sheet and receipts can even import themselves from your photo library without opening the app. Money lives in wallets — cash, bank, or e-wallet pools you can transfer between, each with its own currency — and recurring rent, subscriptions, or salary log themselves on a schedule. Set a monthly budget per category with optional rollover, track progress toward a savings goal, and split one receipt across multiple categories when it covers more than one thing. Everything is searchable, filterable, and bulk-editable, with custom tags, categories you can rename, recolor, and re-icon, CSV export and import, and a dashboard you build yourself from 50+ widgets — progress rings, gauges, sparklines, heatmaps, and more. Install it as an offline-capable PWA, and opt in to email alerts when a recurring rule fires or a budget goes over.</p>
+
+      <h3>Money tracking</h3>
+      <p class="lede">Log expenses and income manually, snap a photo of a receipt and let Google Gemini's vision API read the merchant, total, date, and category for you, or just talk — tap the mic, describe the transaction, and Tally transcribes and fills in the form. Set up an iOS Shortcut or Android share sheet and receipts can even import themselves from your photo library without opening the app. Money lives in wallets you can transfer between, each with its own currency; recurring rent, subscriptions, or salary log themselves on a schedule; budgets roll over month to month with an alert when a category nears its limit; savings goals track progress toward something you're saving for; and a debt/loan tracker keeps tabs on money lent or borrowed with an optional payoff schedule. Everything is searchable, filterable, and bulk-editable, with custom tags, categories you can rename, recolor, and re-icon, a dashboard you build yourself from 50+ widgets, and CSV or PDF export whenever you want the numbers elsewhere.</p>
+
+      <h3>Digital wallet</h3>
+      <p class="lede">A Wallet page brings money accounts, payment cards, and passes together in one Apple-Wallet-style stack. Payment cards keep card art and details for reference — only ever the last 4 digits, never a full card number. Passes cover generic cards, store cards, coupons, event tickets, boarding passes, gift cards, and transit passes, each with a visual editor, a pan/pinch-zoom crop tool for the logo and banner, and a gallery of premade designs you can pick from or submit your own to. A built-in generator and scanner covers QR, Code128, EAN-13, UPC-A, PDF417, and Aztec codes.</p>
+
+      <h3>Friends &amp; social</h3>
+      <p class="lede">Add other Tally users as friends or family, then split a bill evenly or by custom amounts — either just tracking who paid what, or generating a shareable link anyone can view without an account. A single combined figure nets out everything you owe a friend across splits and loans, and Challenges let you run a savings race, spending limit, or no-spend-days contest together, competitive or collaborative.</p>
+
+      <h3>Security, backup &amp; offline</h3>
+      <p class="lede">An app lock — a passcode, or biometric sign-in via Face ID, Touch ID, or Windows Hello — sits in front of the whole app, with a configurable inactivity timeout. A full backup can be exported and restored from a passphrase-protected file, encrypted client-side so the passphrase never reaches the server. Offline support keeps a sync queue running when you lose connection, so you can keep adding transactions, wallets, budgets, and everything else and catch up automatically once you're back online.</p>
+
+      <h3>AI &amp; tools</h3>
+      <p class="lede">A chat-style spending assistant answers questions like "how much did I spend on food this month" from your real transaction data, with a lighter fallback model for when the primary one is rate-limited. A dedicated Tools section adds a currency converter and discount/tip/loan calculators, and the whole app — including sign-in and onboarding — is translated into 16 languages, with right-to-left layout for Arabic and Urdu.</p>
     </div>
   </section>
 
   <section class="section section-soft">
     <div class="wrap">
       <h2>Why I built it</h2>
-      <p class="lede">Most expense trackers ask you to hand your spending data to a third party — a company with an incentive to sell insights about your habits, or at minimum a server you don't control. Tally is the opposite: it's open-source and built for privacy, with no analytics and no data sharing. Anyone can sign up with just a username and password — no email required — or sign in with GitHub if you'd rather skip picking a password, and every account's expenses, categories, and balance are fully isolated behind hashed passwords and signed, httpOnly session cookies, so no other account on the same deployment can ever see or touch your data. It's built to be a personal tool, not a product with a business model behind it.</p>
+      <p class="lede">Most expense trackers ask you to hand your spending data to a third party — a company with an incentive to sell insights about your habits, or at minimum a server you don't control. Tally is the opposite: it's open-source and built for privacy, with no analytics and no data sharing. Anyone can sign up with just a username and password — no email required — or sign in with GitHub if you'd rather skip picking a password, and every account's expenses, categories, and balance are fully isolated behind hashed passwords and signed, httpOnly session cookies, so no other account on the same deployment can ever see or touch your data. Every feature since — wallet passes, friends and splits, encrypted backups, biometric lock — has grown along that same line: it's built to be a personal tool, not a product with a business model behind it.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
       <h2>How it works</h2>
-      <p class="lede">Tally is a Next.js (App Router) app written in TypeScript, styled with Tailwind CSS, and backed by Postgres — it deploys in one click to Vercel's free tier using a Neon database, and installs as an offline-capable PWA. Receipt scanning and voice transcription both run through Google's Gemini API: photos are sent to Gemini's vision model to extract structured fields, and voice recordings are transcribed and parsed the same way, with every result surfaced for review before it's saved rather than written straight to the database. Automatic receipt import reuses that same pipeline, triggered by an iOS Shortcut or Android share sheet instead of the app itself. When a detected amount is in a different currency than your default, Tally converts it automatically using live rates from the Frankfurter API, and Resend sends password-reset and budget/recurring notification emails. Every API route requires a valid session token, passwords are hashed with scrypt before storage, and sessions are signed with HMAC-SHA256 and expire after 30 days.</p>
+      <p class="lede">Tally is a Next.js (App Router) app written in TypeScript, styled with Tailwind CSS, and backed by Postgres — it deploys in one click to Vercel's free tier using a Neon database, and installs as an offline-capable PWA with a service-worker-backed sync queue for changes made while offline. Receipt scanning, voice transcription, and the spending assistant all run through Google's Gemini API, with a lighter fallback model kept in reserve for when the primary one is rate-limited, and every result surfaced for review before it's saved rather than written straight to the database. Automatic receipt import reuses that same pipeline, triggered by an iOS Shortcut or Android share sheet instead of the app itself. Biometric app lock runs on WebAuthn (Face ID, Touch ID, Windows Hello), encrypted backups are encrypted client-side before upload so the passphrase never reaches the server, and Resend sends password-reset and notification emails. When a detected amount is in a different currency than your default, Tally converts it automatically using live rates from the Frankfurter API. Every API route requires a valid session token, passwords are hashed with scrypt before storage, and sessions are signed with HMAC-SHA256 and expire after 30 days.</p>
     </div>
   </section>
 
@@ -150,6 +164,7 @@
         <span class="chip">Vercel Postgres</span>
         <span class="chip">Google Gemini</span>
         <span class="chip">Resend</span>
+        <span class="chip">WebAuthn</span>
         <span class="chip">PWA</span>
         <span class="chip">MIT License</span>
       </div>
