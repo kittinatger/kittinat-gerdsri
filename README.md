@@ -4,10 +4,6 @@ A static personal portfolio site for Kittinat (Will) Gerdsri, showcasing work ac
 
 **Live site:** [kittinatger.github.io/kittinat-gerdsri](https://kittinatger.github.io/kittinat-gerdsri/)
 
-## Deployment
-
-Published via GitHub Pages from this repository.
-
 ## Changelog
 
 See [CHANGELOG.md](CHANGELOG.md) for a history of notable changes.
