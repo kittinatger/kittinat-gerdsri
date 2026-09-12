@@ -22,16 +22,6 @@ Plain HTML, CSS, and vanilla JavaScript — no build step, no framework, no depe
 - Native cross-document view transitions between pages
 - Fully responsive, mobile-first navigation
 
-## Local development
-
-No build tooling required — just serve the directory statically and open `index.html`.
-
-```bash
-npx serve .
-```
-
-or open `index.html` directly in a browser.
-
 ## Deployment
 
 Published via GitHub Pages from this repository.
