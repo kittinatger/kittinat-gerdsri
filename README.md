@@ -1,6 +1,6 @@
 # Kittinat Gerdsri — Portfolio
 
-A static personal portfolio site for Kittinat (Will) Gerdsri, showcasing work across AI/coding, robotics, graphic design, 3D animation, sports, and music.
+A personal portfolio site for Kittinat Gerdsri, showcasing work across different aspects.
 
 **Live site:** [kittinatger.github.io/kittinat-gerdsri](https://kittinatger.github.io/kittinat-gerdsri/)
 
