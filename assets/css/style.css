@@ -665,6 +665,8 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 
 .gallery figure.wide { aspect-ratio: 8 / 5; grid-column: span 2; }
 .gallery figure.landscape { aspect-ratio: unset; height: 360px; grid-column: span 2; }
+.gallery figure.doc { aspect-ratio: unset; grid-column: 1 / -1; }
+.gallery figure.doc img { width: 100%; height: auto; object-fit: contain; }
 .gallery.cols-3 { grid-template-columns: repeat(3, 1fr); }
 
 /* Fanned / overlap gallery: equal-width strips that expand and come
@@ -764,6 +766,17 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 .project-card-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
 .project-card-cover video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .project-card:hover .project-card-cover img { transform: scale(1.05); }
+
+.project-card-cover.cover-contain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14%;
+  background: #f4efe4;
+}
+:root[data-theme="dark"] .project-card-cover.cover-contain { background: #0b2a22; }
+.project-card-cover.cover-contain img { width: 100%; height: 100%; object-fit: contain; }
+.project-card:hover .project-card-cover.cover-contain img { transform: scale(1.08); }
 .project-card-body { padding: 1.3em 1.4em 1.5em; }
 .project-card-body h3 {
   font-family: var(--font-display);
