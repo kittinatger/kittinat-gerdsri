@@ -19,7 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
       'Robotics': 'Robotics', 'Photography': 'Photography', 'Music': 'Music',
       'Navigation': 'Navigation', 'Legal': 'Legal', 'Privacy Policy': 'Privacy Policy',
       'Terms & Support': 'Terms & Support', 'Language': 'Language', 'Theme': 'Theme',
-      'Text Size': 'Text Size', 'Beta': 'Beta', 'Reduced Motion': 'Reduced Motion'
+      'Text Size': 'Text Size', 'Beta': 'Beta', 'Reduced Motion': 'Reduced Motion',
+      'Enable Zoom': 'Enable Zoom', 'Enable Select/Drag': 'Enable Select/Drag',
+      'Changing these may cause unexpected results.': 'Changing these may cause unexpected results.',
+      'Translated by AI — changing the language may cause unexpected results.': 'Translated by AI — changing the language may cause unexpected results.'
     },
     th: {
       'Home': 'หน้าแรก', 'Work': 'ผลงาน', 'Contact': 'ติดต่อ',
@@ -29,7 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
       'Robotics': 'หุ่นยนต์', 'Photography': 'การถ่ายภาพ', 'Music': 'ดนตรี',
       'Navigation': 'เมนูนำทาง', 'Legal': 'ข้อมูลทางกฎหมาย', 'Privacy Policy': 'นโยบายความเป็นส่วนตัว',
       'Terms & Support': 'ข้อกำหนดและการสนับสนุน', 'Language': 'ภาษา', 'Theme': 'ธีม',
-      'Text Size': 'ขนาดตัวอักษร', 'Beta': 'เบต้า', 'Reduced Motion': 'ลดการเคลื่อนไหว'
+      'Text Size': 'ขนาดตัวอักษร', 'Beta': 'เบต้า', 'Reduced Motion': 'ลดการเคลื่อนไหว',
+      'Enable Zoom': 'เปิดใช้งานการซูม', 'Enable Select/Drag': 'เปิดใช้งานการเลือก/ลากข้อความ',
+      'Changing these may cause unexpected results.': 'การเปลี่ยนแปลงนี้อาจทำให้เกิดผลลัพธ์ที่ไม่คาดคิด',
+      'Translated by AI — changing the language may cause unexpected results.': 'แปลโดย AI — การเปลี่ยนภาษาอาจทำให้เกิดผลลัพธ์ที่ไม่คาดคิด'
     },
     'zh-CN': {
       'Home': '首页', 'Work': '作品', 'Contact': '联系',
@@ -39,7 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
       'Robotics': '机器人', 'Photography': '摄影', 'Music': '音乐',
       'Navigation': '导航', 'Legal': '法律信息', 'Privacy Policy': '隐私政策',
       'Terms & Support': '条款与支持', 'Language': '语言', 'Theme': '主题',
-      'Text Size': '文字大小', 'Beta': '测试版', 'Reduced Motion': '减少动态效果'
+      'Text Size': '文字大小', 'Beta': '测试版', 'Reduced Motion': '减少动态效果',
+      'Enable Zoom': '启用缩放', 'Enable Select/Drag': '启用选择/拖动',
+      'Changing these may cause unexpected results.': '更改这些设置可能会导致意外结果。',
+      'Translated by AI — changing the language may cause unexpected results.': '由 AI 翻译——更改语言可能会导致意外结果。'
     }
   };
 
@@ -211,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `<a href="#" data-lang="${code}"${code === selectedLanguage ? ' aria-current="true"' : ''}>${name}</a>`
           ).join('') +
           '</div>' +
-          '<p class="settings-warning">Translated by AI — changing the language may cause unexpected results.</p>' +
+          `<p class="settings-warning">${settingsLabel['Translated by AI — changing the language may cause unexpected results.']}</p>` +
         '</div>' +
         '<div class="settings-section settings-section-row">' +
           `<p class="settings-label">${settingsLabel['Theme']}</p>` +
@@ -227,18 +236,18 @@ document.addEventListener('DOMContentLoaded', () => {
         '</div>' +
         '<div class="settings-section">' +
           '<div class="settings-section-row">' +
-            '<p class="settings-label">Enable Zoom</p>' +
+            `<p class="settings-label">${settingsLabel['Enable Zoom']}</p>` +
             '<button class="toggle-switch zoom-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle pinch-to-zoom">' +
               '<span class="toggle-switch-thumb"></span>' +
             '</button>' +
           '</div>' +
           '<div class="settings-section-row" style="margin-top:10px;">' +
-            '<p class="settings-label">Enable Select/Drag</p>' +
+            `<p class="settings-label">${settingsLabel['Enable Select/Drag']}</p>` +
             '<button class="toggle-switch select-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle text selection and image dragging">' +
               '<span class="toggle-switch-thumb"></span>' +
             '</button>' +
           '</div>' +
-          '<p class="settings-warning">Changing these may cause unexpected results.</p>' +
+          `<p class="settings-warning">${settingsLabel['Changing these may cause unexpected results.']}</p>` +
         '</div>' +
       '</div>';
     navRight.insertBefore(settings, navToggle);
