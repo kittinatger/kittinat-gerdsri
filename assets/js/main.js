@@ -220,6 +220,21 @@ document.addEventListener('DOMContentLoaded', () => {
             '</svg>' +
           '</button>' +
         '</div>' +
+        '<div class="settings-section">' +
+          '<div class="settings-section-row">' +
+            '<p class="settings-label">Enable Zoom</p>' +
+            '<button class="toggle-switch zoom-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle pinch-to-zoom">' +
+              '<span class="toggle-switch-thumb"></span>' +
+            '</button>' +
+          '</div>' +
+          '<div class="settings-section-row" style="margin-top:10px;">' +
+            '<p class="settings-label">Enable Select/Drag</p>' +
+            '<button class="toggle-switch select-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle text selection and image dragging">' +
+              '<span class="toggle-switch-thumb"></span>' +
+            '</button>' +
+          '</div>' +
+          '<p class="settings-warning">Changing these may cause unexpected results.</p>' +
+        '</div>' +
       '</div>';
     navRight.insertBefore(settings, navToggle);
 
@@ -263,6 +278,42 @@ document.addEventListener('DOMContentLoaded', () => {
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('portfolio-theme', next);
     });
+    // Enable Zoom — off by default (the viewport meta tag in <head> ships
+    // with user-scalable=no). Turning this on relaxes that same meta tag at
+    // runtime; turning it off restores the no-zoom content string.
+    const zoomToggle = settingsPanel.querySelector('.zoom-toggle');
+    if (zoomToggle) {
+      const viewportMeta = document.querySelector('meta[name="viewport"]');
+      const initialZoom = localStorage.getItem('portfolio-allow-zoom') === 'true';
+      zoomToggle.setAttribute('aria-checked', String(initialZoom));
+      if (initialZoom && viewportMeta) viewportMeta.setAttribute('content', 'width=device-width, initial-scale=1');
+      zoomToggle.addEventListener('click', () => {
+        const next = zoomToggle.getAttribute('aria-checked') !== 'true';
+        zoomToggle.setAttribute('aria-checked', String(next));
+        localStorage.setItem('portfolio-allow-zoom', String(next));
+        if (viewportMeta) {
+          viewportMeta.setAttribute('content', next
+            ? 'width=device-width, initial-scale=1'
+            : 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no');
+        }
+      });
+    }
+    // Enable Select/Drag — off by default (see the html, body user-select:
+    // none rule in style.css). Turning this on sets data-allow-select on
+    // <html>, which a CSS override in style.css switches back to selectable.
+    const selectToggle = settingsPanel.querySelector('.select-toggle');
+    if (selectToggle) {
+      const initialSelect = localStorage.getItem('portfolio-allow-select') === 'true';
+      selectToggle.setAttribute('aria-checked', String(initialSelect));
+      if (initialSelect) document.documentElement.setAttribute('data-allow-select', 'true');
+      selectToggle.addEventListener('click', () => {
+        const next = selectToggle.getAttribute('aria-checked') !== 'true';
+        selectToggle.setAttribute('aria-checked', String(next));
+        if (next) document.documentElement.setAttribute('data-allow-select', 'true');
+        else document.documentElement.removeAttribute('data-allow-select');
+        localStorage.setItem('portfolio-allow-select', String(next));
+      });
+    }
     // Text size (beta) and Reduced Motion are disabled for now (their
     // settings-section markup above is removed), but the wiring below is
     // kept intact — guarded by these element-existence checks — so both

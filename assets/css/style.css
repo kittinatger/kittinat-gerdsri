@@ -94,6 +94,12 @@ html, body {
   user-select: none;
 }
 img, svg { -webkit-user-drag: none; user-drag: none; }
+html[data-allow-select="true"], html[data-allow-select="true"] body {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+}
+html[data-allow-select="true"] img, html[data-allow-select="true"] svg { -webkit-user-drag: auto; user-drag: auto; }
 html[data-text-size="1"] { font-size: 106%; }
 html[data-text-size="2"] { font-size: 113%; }
 html[data-text-size="3"] { font-size: 121%; }
@@ -406,7 +412,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 .text-size-ticks { display: flex; justify-content: space-between; margin-top: 6px; padding: 0 1px; }
 .text-size-ticks span { width: 4px; height: 4px; border-radius: 999px; background: var(--line); }
 
-.motion-toggle {
+.motion-toggle, .toggle-switch {
   position: relative;
   display: inline-block;
   width: 42px;
@@ -419,7 +425,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   flex-shrink: 0;
   transition: background 0.2s ease, border-color 0.2s ease;
 }
-.motion-toggle-thumb {
+.motion-toggle-thumb, .toggle-switch-thumb {
   position: absolute;
   top: 1px;
   left: 1px;
@@ -430,10 +436,12 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   box-shadow: 0 1px 3px rgba(15, 44, 89, 0.3);
   transition: transform 0.2s ease;
 }
-.motion-toggle[aria-checked="true"] { background: var(--navy); border-color: var(--navy); }
-.motion-toggle[aria-checked="true"] .motion-toggle-thumb { transform: translateX(18px); background: var(--white); }
-:root[data-theme="dark"] .motion-toggle-thumb { background: var(--ink-soft); }
-:root[data-theme="dark"] .motion-toggle[aria-checked="true"] .motion-toggle-thumb { background: var(--white); }
+.motion-toggle[aria-checked="true"], .toggle-switch[aria-checked="true"] { background: var(--navy); border-color: var(--navy); }
+.motion-toggle[aria-checked="true"] .motion-toggle-thumb,
+.toggle-switch[aria-checked="true"] .toggle-switch-thumb { transform: translateX(18px); background: var(--white); }
+:root[data-theme="dark"] .motion-toggle-thumb, :root[data-theme="dark"] .toggle-switch-thumb { background: var(--ink-soft); }
+:root[data-theme="dark"] .motion-toggle[aria-checked="true"] .motion-toggle-thumb,
+:root[data-theme="dark"] .toggle-switch[aria-checked="true"] .toggle-switch-thumb { background: var(--white); }
 
 .beta-badge {
   display: inline-block;
@@ -486,6 +494,13 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 .settings-section-row { display: flex; align-items: center; justify-content: space-between; }
 .settings-section-row .settings-label { margin: 0; }
 .language-options { display: flex; flex-direction: column; }
+.settings-warning {
+  margin: 10px 0 0;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  font-style: italic;
+  color: var(--ink-soft);
+}
 
 .sr-only {
   position: absolute;
