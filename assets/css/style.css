@@ -88,6 +88,12 @@
 }
 
 html { scroll-behavior: smooth; }
+html, body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+img, svg { -webkit-user-drag: none; user-drag: none; }
 html[data-text-size="1"] { font-size: 106%; }
 html[data-text-size="2"] { font-size: 113%; }
 html[data-text-size="3"] { font-size: 121%; }
