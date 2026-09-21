@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `<a href="#" data-lang="${code}"${code === selectedLanguage ? ' aria-current="true"' : ''}>${name}</a>`
           ).join('') +
           '</div>' +
-          '<p class="settings-warning">Changing the language may cause unexpected results.</p>' +
+          '<p class="settings-warning">Translated by AI — changing the language may cause unexpected results.</p>' +
         '</div>' +
         '<div class="settings-section settings-section-row">' +
           `<p class="settings-label">${settingsLabel['Theme']}</p>` +
