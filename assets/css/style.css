@@ -55,7 +55,7 @@
   color-scheme: dark;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 /* Native cross-document view transitions: a smooth crossfade between page
    navigations, no JS routing needed. Browsers without support just do a
