@@ -46,11 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const languageNames = {
     en: 'English (Original)', th: 'Thai', 'zh-CN': 'Mandarin (Mainland)'
   };
-  // Language switching is disabled for now (picker hidden below), but the
-  // translation data/logic is kept intact so it can be re-enabled later —
-  // just restore the localStorage read here and the language-options
-  // section + its click handler further down.
-  const selectedLanguage = 'en';
+  const selectedLanguage = localStorage.getItem('portfolio-language') || 'en';
 
   function translateTextNodes(language, suppliedDictionary) {
     const dictionary = suppliedDictionary || translations[language] || translations.en;
@@ -208,6 +204,15 @@ document.addEventListener('DOMContentLoaded', () => {
         '</svg>' +
       '</button>' +
       '<div class="settings-panel nav-dropdown-menu">' +
+        '<div class="settings-section">' +
+          `<p class="settings-label">${settingsLabel['Language']}</p>` +
+          '<div class="language-options">' +
+          Object.entries(languageNames).map(([code, name]) =>
+            `<a href="#" data-lang="${code}"${code === selectedLanguage ? ' aria-current="true"' : ''}>${name}</a>`
+          ).join('') +
+          '</div>' +
+          '<p class="settings-warning">Changing the language may cause unexpected results.</p>' +
+        '</div>' +
         '<div class="settings-section settings-section-row">' +
           `<p class="settings-label">${settingsLabel['Theme']}</p>` +
           '<button class="theme-toggle" type="button" aria-label="Toggle dark mode">' +
@@ -269,6 +274,13 @@ document.addEventListener('DOMContentLoaded', () => {
       settingsToggle.setAttribute('aria-expanded', String(open));
       settingsPanel.classList.toggle('is-open', open);
       if (open) { closeMobileNav(); floatingSettingsPanel.place(); } else floatingSettingsPanel.remove();
+    });
+    settingsPanel.querySelectorAll('.language-options a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.setItem('portfolio-language', link.dataset.lang);
+        window.location.reload();
+      });
     });
     // Dark mode toggle. The theme itself is decided by the inline script in
     // <head> (runs before first paint, so there's no flash of the wrong
