@@ -75,6 +75,7 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
     scroll-behavior: auto !important;
   }
 }
@@ -84,6 +85,7 @@
   animation-duration: 0.01ms !important;
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
+  transition-delay: 0s !important;
   scroll-behavior: auto !important;
 }
 
@@ -200,14 +202,12 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   color: var(--white);
   box-shadow: var(--shadow-soft);
 }
-.btn-primary:active { transform: translateY(0) scale(0.97); }
 
 .btn-outline {
   background: transparent;
   border-color: var(--navy);
   color: var(--navy);
 }
-.btn-outline:active { transform: translateY(0) scale(0.97); }
 
 /* Hover-only effects, scoped to devices with a real hover-capable pointer.
    Touchscreens (iOS Safari in particular) treat :hover as a tap-intent
@@ -218,6 +218,11 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   .btn-primary:hover { background: var(--navy-dark); transform: translateY(-2px); }
   .btn-outline:hover { background: var(--navy); color: var(--white); transform: translateY(-2px); }
 }
+/* :active declared after the :hover block above (same specificity, later
+   source order wins the tie) so a mouse click's momentary scale-down isn't
+   silently overridden by the hover lift — both match at once on click. */
+.btn-primary:active { transform: translateY(0) scale(0.97); }
+.btn-outline:active { transform: translateY(0) scale(0.97); }
 
 .btn-icon svg { width: 15px; height: 15px; flex-shrink: 0; }
 
@@ -809,9 +814,6 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 .gallery-fan .mockup-dot-yellow { background: #febc2e; }
 .gallery-fan .mockup-dot-green { background: #28c840; }
 .gallery-fan .mockup-frame img { display: block; width: 100%; height: auto; transition: none; }
-@media (hover: hover) and (pointer: fine) {
-  .gallery-fan .fan-panel:hover .mockup-frame img { transform: none; }
-}
 
 .gallery-fan .bg-1 { background: linear-gradient(160deg, #1d4f9c 0%, #0f2c59 100%); }
 .gallery-fan .bg-2 { background: linear-gradient(160deg, #0f766e 0%, #0b3d3a 100%); }
@@ -843,13 +845,15 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   color: var(--ink);
   transition: transform 0.28s ease, box-shadow 0.28s ease;
 }
-.project-card:active { transform: translateY(-3px) scale(0.99); }
 @media (hover: hover) and (pointer: fine) {
   .project-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-soft); }
   .project-card:hover .project-card-cover img { transform: scale(1.05); }
   .project-card:hover .project-card-cover.cover-contain img { transform: scale(1.08); }
   .project-card:hover .project-card-cta { text-decoration: underline; }
 }
+/* After the hover block (see .btn-primary above for why) so click feedback
+   isn't silently overridden by the hover lift on mouse/trackpad. */
+.project-card:active { transform: translateY(-3px) scale(0.99); }
 .project-card-cover {
   aspect-ratio: 16 / 9;
   overflow: hidden;

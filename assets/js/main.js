@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // behind it (renders as a near-flat tint instead of true glass). Moving
   // the panel to <body> with position:fixed while open makes its blur
   // apply for real, matching the header's own glass effect.
-  function makeFloating(panel, computePosition) {
+  function makeFloating(panel, computePosition, toggleEl) {
     const anchor = document.createComment('floating-panel-anchor');
     let placed = false;
     function reposition() { if (placed) computePosition(panel); }
@@ -112,11 +112,18 @@ document.addEventListener('DOMContentLoaded', () => {
       reposition();
       window.addEventListener('scroll', reposition, { passive: true });
       window.addEventListener('resize', reposition);
+      // Reparenting to <body> moves the panel to the end of the document,
+      // away from its toggle button's position in tab order — a keyboard
+      // user pressing Tab after opening it would otherwise skip straight
+      // past it into the rest of the page. Move focus in to compensate.
+      const focusable = panel.querySelector('a, button, input, [tabindex]');
+      if (focusable) focusable.focus();
     }
     function remove() {
       if (!placed) return;
       window.removeEventListener('scroll', reposition);
       window.removeEventListener('resize', reposition);
+      const hadFocus = panel.contains(document.activeElement);
       anchor.parentNode.insertBefore(panel, anchor);
       anchor.remove();
       panel.style.position = '';
@@ -126,6 +133,9 @@ document.addEventListener('DOMContentLoaded', () => {
       panel.style.width = '';
       panel.style.removeProperty('--panel-base-transform');
       placed = false;
+      // Send focus back to the toggle rather than letting it fall off onto
+      // whatever the panel happened to leave behind in the document.
+      if (hadFocus && toggleEl) toggleEl.focus();
     }
     return { place, remove };
   }
@@ -140,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
       el.style.left = r.left + 'px';
       el.style.width = r.width + 'px';
       el.style.right = '';
-    });
+    }, toggle);
     closeMobileNav = () => {
       nav.classList.remove('is-open');
       toggle.setAttribute('aria-expanded', 'false');
@@ -152,11 +162,23 @@ document.addEventListener('DOMContentLoaded', () => {
       if (open) { closeSettingsPanel(); floatingNav.place(); } else floatingNav.remove();
     });
     nav.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        nav.classList.remove('is-open');
-        floatingNav.remove();
-      });
+      link.addEventListener('click', () => closeMobileNav());
     });
+    document.addEventListener('click', (e) => {
+      const insideToggle = toggle.contains(e.target);
+      const insideNav = nav.contains(e.target);
+      if (!insideToggle && !insideNav) closeMobileNav();
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMobileNav(); });
+    // The floating panel's CSS (background, opacity/visibility, the
+    // --panel-anim-transform animation) only exists inside the
+    // max-width:720px media query, so if the viewport crosses back above it
+    // while the panel is open — resizing, rotating a tablet — it'd be left
+    // showing as an unstyled fragment. Close it on that transition instead.
+    const mobileNavQuery = window.matchMedia('(max-width: 720px)');
+    const handleMobileNavQueryChange = (e) => { if (!e.matches) closeMobileNav(); };
+    if (mobileNavQuery.addEventListener) mobileNavQuery.addEventListener('change', handleMobileNavQueryChange);
+    else mobileNavQuery.addListener(handleMobileNavQueryChange);
   }
 
   // Work dropdown in the nav
@@ -170,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const center = r.left + r.width / 2;
       el.style.top = (r.bottom + 22) + 'px';
       el.style.left = Math.max(8, Math.min(center - width / 2, window.innerWidth - width - 8)) + 'px';
-    }) : null;
+    }, dropToggle) : null;
 
     dropToggle.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -275,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
       el.style.top = (r.bottom + 22) + 'px';
       el.style.left = Math.max(8, Math.min(center - width / 2, window.innerWidth - width - 8)) + 'px';
       el.style.right = '';
-    });
+    }, settingsToggle);
     const closeSettings = () => {
       settings.classList.remove('is-open');
       settingsToggle.setAttribute('aria-expanded', 'false');
