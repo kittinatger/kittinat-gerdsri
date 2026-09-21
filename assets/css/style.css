@@ -1107,10 +1107,9 @@ a.chip:active { transform: scale(0.95); }
     background: none;
     padding: 4px 0 0 14px;
     min-width: 0;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-    transition: none;
+    /* Inline content here, not a floating popup — collapse/expand still
+       follows .nav-dropdown.is-open via the opacity/visibility rules
+       above; only override transform/position/chrome, not visibility. */
   }
   .settings-panel {
     left: 0;
