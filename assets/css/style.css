@@ -1107,10 +1107,17 @@ a.chip:active { transform: scale(0.95); }
     background: none;
     padding: 4px 0 0 14px;
     min-width: 0;
-    /* Inline content here, not a floating popup — collapse/expand still
-       follows .nav-dropdown.is-open via the opacity/visibility rules
-       above; only override transform/position/chrome, not visibility. */
+    /* This is normal in-flow content here, not a floating popup, so the
+       opacity/visibility approach used for the animated popups would
+       leave a blank gap when "closed" (opacity:0 still reserves layout
+       height). Collapse it out of flow with display instead. */
+    display: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: none;
   }
+  .nav-dropdown.is-open .nav-dropdown-menu { display: flex; }
   .settings-panel {
     left: 0;
     right: 0;
