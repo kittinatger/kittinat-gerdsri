@@ -220,20 +220,6 @@ document.addEventListener('DOMContentLoaded', () => {
             '</svg>' +
           '</button>' +
         '</div>' +
-        '<div class="settings-section">' +
-          `<p class="settings-label">${settingsLabel['Text Size']}<span class="beta-badge">${settingsLabel['Beta']}</span></p>` +
-          '<div class="text-size-slider">' +
-            '<span class="text-size-value" aria-hidden="true"></span>' +
-            '<input type="range" class="text-size-range" min="0" max="3" step="1" value="0" aria-label="Text size">' +
-            '<div class="text-size-ticks" aria-hidden="true"><span></span><span></span><span></span><span></span></div>' +
-          '</div>' +
-        '</div>' +
-        '<div class="settings-section settings-section-row">' +
-          `<p class="settings-label">${settingsLabel['Reduced Motion']}</p>` +
-          '<button class="motion-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle reduced motion">' +
-            '<span class="motion-toggle-thumb"></span>' +
-          '</button>' +
-        '</div>' +
       '</div>';
     navRight.insertBefore(settings, navToggle);
 
@@ -277,7 +263,11 @@ document.addEventListener('DOMContentLoaded', () => {
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('portfolio-theme', next);
     });
-    // Text size (beta), a 4-step slider. Same flash-free pattern as the
+    // Text size (beta) and Reduced Motion are disabled for now (their
+    // settings-section markup above is removed), but the wiring below is
+    // kept intact — guarded by these element-existence checks — so both
+    // can be re-enabled later just by restoring their HTML blocks above.
+    // Text size, a 4-step slider. Same flash-free pattern as the
     // theme toggle — the inline script in <head> applies a saved step
     // before first paint — this just moves <html data-text-size> and
     // remembers it.
@@ -291,16 +281,18 @@ document.addEventListener('DOMContentLoaded', () => {
       textSizeValue.style.left = pct + '%';
       textSizeValue.textContent = textSizeSteps[step];
     };
-    const initialTextSizeStep = Number(document.documentElement.getAttribute('data-text-size')) || 0;
-    textSizeRange.value = String(initialTextSizeStep);
-    applyTextSizeUI(initialTextSizeStep);
-    textSizeRange.addEventListener('input', () => {
-      const step = Number(textSizeRange.value);
-      applyTextSizeUI(step);
-      if (step === 0) document.documentElement.removeAttribute('data-text-size');
-      else document.documentElement.setAttribute('data-text-size', String(step));
-      localStorage.setItem('portfolio-text-size', String(step));
-    });
+    if (textSizeRange) {
+      const initialTextSizeStep = Number(document.documentElement.getAttribute('data-text-size')) || 0;
+      textSizeRange.value = String(initialTextSizeStep);
+      applyTextSizeUI(initialTextSizeStep);
+      textSizeRange.addEventListener('input', () => {
+        const step = Number(textSizeRange.value);
+        applyTextSizeUI(step);
+        if (step === 0) document.documentElement.removeAttribute('data-text-size');
+        else document.documentElement.setAttribute('data-text-size', String(step));
+        localStorage.setItem('portfolio-text-size', String(step));
+      });
+    }
     // Reduced motion. Kills transitions/animations site-wide via the CSS
     // attribute selector, and separately tells the browser to skip the
     // cross-page view transition (see the inline <head> script, which does
@@ -317,16 +309,18 @@ document.addEventListener('DOMContentLoaded', () => {
         styleTag.remove();
       }
     };
-    const initialReducedMotion = document.documentElement.getAttribute('data-reduced-motion') === 'true';
-    motionToggle.setAttribute('aria-checked', String(initialReducedMotion));
-    motionToggle.addEventListener('click', () => {
-      const next = motionToggle.getAttribute('aria-checked') !== 'true';
-      motionToggle.setAttribute('aria-checked', String(next));
-      if (next) document.documentElement.setAttribute('data-reduced-motion', 'true');
-      else document.documentElement.removeAttribute('data-reduced-motion');
-      localStorage.setItem('portfolio-reduced-motion', String(next));
-      applyViewTransitionOverride(next);
-    });
+    if (motionToggle) {
+      const initialReducedMotion = document.documentElement.getAttribute('data-reduced-motion') === 'true';
+      motionToggle.setAttribute('aria-checked', String(initialReducedMotion));
+      motionToggle.addEventListener('click', () => {
+        const next = motionToggle.getAttribute('aria-checked') !== 'true';
+        motionToggle.setAttribute('aria-checked', String(next));
+        if (next) document.documentElement.setAttribute('data-reduced-motion', 'true');
+        else document.documentElement.removeAttribute('data-reduced-motion');
+        localStorage.setItem('portfolio-reduced-motion', String(next));
+        applyViewTransitionOverride(next);
+      });
+    }
     document.addEventListener('click', (e) => {
       const insideToggle = settings.contains(e.target);
       const insidePanel = settingsPanel.contains(e.target);
