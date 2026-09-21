@@ -1151,6 +1151,8 @@ a.chip:active { transform: scale(0.95); }
     border: none;
     box-shadow: none;
     background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     padding: 4px 0 0 14px;
     min-width: 0;
     /* This is normal in-flow content here, not a floating popup, so the
