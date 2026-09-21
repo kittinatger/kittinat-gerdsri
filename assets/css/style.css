@@ -88,6 +88,14 @@
 }
 
 html { scroll-behavior: smooth; }
+
+/* Scroll reveal: main.js tags top-level sections with .reveal on load, then
+   adds .is-visible via IntersectionObserver as each one enters the
+   viewport. Starts already visible so content never depends on JS running
+   (progressive enhancement) — only .reveal (added by JS) opts an element
+   into the hidden starting state below. */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+.reveal.is-visible { opacity: 1; transform: translateY(0); }
 html, body {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -193,6 +201,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   box-shadow: var(--shadow-soft);
 }
 .btn-primary:hover { background: var(--navy-dark); transform: translateY(-2px); }
+.btn-primary:active { transform: translateY(0) scale(0.97); }
 
 .btn-outline {
   background: transparent;
@@ -200,6 +209,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   color: var(--navy);
 }
 .btn-outline:hover { background: var(--navy); color: var(--white); transform: translateY(-2px); }
+.btn-outline:active { transform: translateY(0) scale(0.97); }
 
 .btn-icon svg { width: 15px; height: 15px; flex-shrink: 0; }
 
@@ -278,7 +288,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   display: flex;
   align-items: center;
   gap: 5px;
-  transition: color 0.2s ease, background 0.2s ease;
+  transition: color 0.2s ease, background 0.2s ease, transform 0.15s ease;
 }
 
 .nav-dropdown-toggle .caret {
@@ -297,7 +307,9 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   position: absolute;
   top: calc(100% + 22px);
   left: 50%;
-  transform: translateX(-50%);
+  --panel-base-transform: translateX(-50%);
+  --panel-anim-transform: translateY(-6px) scale(0.97);
+  transform: var(--panel-base-transform) var(--panel-anim-transform);
   background: var(--glass-bg);
   backdrop-filter: saturate(220%) blur(22px);
   -webkit-backdrop-filter: saturate(220%) blur(22px);
@@ -306,13 +318,24 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   box-shadow: 0 14px 36px -10px rgba(15, 44, 89, 0.3), var(--glass-shadow);
   padding: 8px;
   min-width: 220px;
-  display: none;
+  display: flex;
   flex-direction: column;
   z-index: 200;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform-origin: top center;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
 }
 
 .nav-dropdown.is-open .nav-dropdown-menu,
-.nav-dropdown-menu.is-open { display: flex; }
+.nav-dropdown-menu.is-open {
+  --panel-anim-transform: translateY(0) scale(1);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0s;
+}
 
 /* Not scoped under .main-nav: the menu is reparented to <body> while open
    (see main.js), so these must match regardless of its DOM location. */
@@ -333,6 +356,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   border: none;
   cursor: pointer;
   padding: 8px;
+  transition: transform 0.15s ease;
 }
 .nav-toggle span {
   display: block;
@@ -341,6 +365,13 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   background: var(--heading);
   margin: 5px 0;
   transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* Shared press feedback for every icon/toggle button in the header and
+   settings panel — a quick scale-down on :active so clicks feel tactile. */
+.theme-toggle:active, .settings-toggle:active, .nav-toggle:active,
+.nav-dropdown-toggle:active, .sort-toggle:active, .lightbox-close:active {
+  transform: scale(0.9);
 }
 
 .theme-toggle {
@@ -355,7 +386,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   color: var(--ink);
   cursor: pointer;
   padding: 0;
-  transition: color 0.2s ease, background 0.2s ease;
+  transition: color 0.2s ease, background 0.2s ease, transform 0.15s ease;
 }
 .theme-toggle:hover { color: var(--heading); background: var(--nav-hover-bg); }
 .theme-toggle svg { width: 19px; height: 19px; }
@@ -423,8 +454,9 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   padding: 0;
   cursor: pointer;
   flex-shrink: 0;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
 }
+.motion-toggle:active, .toggle-switch:active { transform: scale(0.94); }
 .motion-toggle-thumb, .toggle-switch-thumb {
   position: absolute;
   top: 1px;
@@ -471,7 +503,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   color: var(--ink);
   cursor: pointer;
   padding: 0;
-  transition: color 0.2s ease, background 0.2s ease;
+  transition: color 0.2s ease, background 0.2s ease, transform 0.15s ease;
 }
 .settings-toggle svg { width: 19px; height: 19px; }
 .settings-toggle:hover,
@@ -644,7 +676,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   padding: 7px 14px;
   cursor: pointer;
   white-space: nowrap;
-  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
 }
 .sort-toggle:hover { color: var(--heading); background: var(--nav-hover-bg); }
 .sort-toggle .sort-caret { font-size: 0.65em; transition: transform 0.2s ease; }
@@ -683,6 +715,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 }
 .gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
 .gallery figure:hover img { transform: scale(1.06); }
+.gallery figure:active img { transform: scale(1.02); }
 
 .gallery figure.wide { aspect-ratio: 8 / 5; grid-column: span 2; }
 .gallery figure.landscape { aspect-ratio: unset; height: 360px; grid-column: span 2; }
@@ -779,6 +812,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   transition: transform 0.28s ease, box-shadow 0.28s ease;
 }
 .project-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-soft); }
+.project-card:active { transform: translateY(-3px) scale(0.99); }
 .project-card-cover {
   aspect-ratio: 16 / 9;
   overflow: hidden;
@@ -852,8 +886,9 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   padding: 0.55em 1.1em;
   border-radius: 999px;
 }
-a.chip { transition: background 0.2s ease, border-color 0.2s ease; }
+a.chip { transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease; }
 a.chip:hover { background: var(--nav-hover-bg); border-color: var(--navy); }
+a.chip:active { transform: scale(0.95); }
 
 /* Legal / disclaimer note */
 .legal-note {
@@ -882,14 +917,30 @@ a.chip:hover { background: var(--nav-hover-bg); border-color: var(--navy); }
   background: rgba(15, 22, 35, 0.55);
   backdrop-filter: saturate(180%) blur(28px);
   -webkit-backdrop-filter: saturate(180%) blur(28px);
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   padding: 5vh 4vw;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0s linear 0.25s;
 }
-.lightbox.is-open { display: flex; }
-.lightbox img { max-width: 100%; max-height: 90vh; border-radius: 10px; }
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.25s ease, visibility 0s linear 0s;
+}
+.lightbox img {
+  max-width: 100%;
+  max-height: 90vh;
+  border-radius: 10px;
+  transform: scale(0.94);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lightbox.is-open img { transform: scale(1); }
 .lightbox-close {
   position: absolute;
   top: 24px;
@@ -905,7 +956,9 @@ a.chip:hover { background: var(--nav-hover-bg); border-color: var(--navy); }
   border-radius: 50%;
   font-size: 1.2rem;
   cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease;
 }
+.lightbox-close:hover { background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.14) 100%); }
 
 /* ---------- Contact CTA ---------- */
 .cta {
@@ -1029,10 +1082,23 @@ a.chip:hover { background: var(--nav-hover-bg); border-color: var(--navy); }
     align-items: flex-start;
     padding: 18px clamp(20px, 5vw, 36px) 24px;
     gap: 12px;
-    display: none;
+    display: flex;
     z-index: 200;
+    --panel-base-transform: none;
+    --panel-anim-transform: translateY(-8px);
+    transform: var(--panel-base-transform) var(--panel-anim-transform);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0.22s;
   }
-  .main-nav.is-open { display: flex; }
+  .main-nav.is-open {
+    --panel-anim-transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0s;
+  }
   .nav-dropdown .nav-dropdown-menu {
     position: static;
     transform: none;
@@ -1041,6 +1107,10 @@ a.chip:hover { background: var(--nav-hover-bg); border-color: var(--navy); }
     background: none;
     padding: 4px 0 0 14px;
     min-width: 0;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: none;
   }
   .settings-panel {
     left: 0;

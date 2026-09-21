@@ -101,7 +101,13 @@ document.addEventListener('DOMContentLoaded', () => {
       panel.parentNode.insertBefore(anchor, panel);
       document.body.appendChild(panel);
       panel.style.position = 'fixed';
-      panel.style.transform = 'none';
+      // The panel's own CSS composes `transform` from a --panel-base-transform
+      // custom property (its resting-position offset, e.g. translateX(-50%))
+      // and --panel-anim-transform (the open/close animation). Floating no
+      // longer needs the base offset since computePosition sets an absolute
+      // left/top — clearing the custom property (not `transform` itself)
+      // keeps the animation half intact.
+      panel.style.setProperty('--panel-base-transform', 'none');
       placed = true;
       reposition();
       window.addEventListener('scroll', reposition, { passive: true });
@@ -118,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
       panel.style.left = '';
       panel.style.right = '';
       panel.style.width = '';
-      panel.style.transform = '';
+      panel.style.removeProperty('--panel-base-transform');
       placed = false;
     }
     return { place, remove };
@@ -442,5 +448,27 @@ document.addEventListener('DOMContentLoaded', () => {
     lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+  }
+
+  // Scroll reveal: fade/rise each top-level section in as it enters the
+  // viewport. Elements only opt into the hidden starting state once .reveal
+  // is added here, so a page with JS disabled (or this running before
+  // IntersectionObserver support lands) just shows everything normally.
+  if ('IntersectionObserver' in window) {
+    const revealTargets = document.querySelectorAll('.page-hero, main > section');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revealTargets.forEach((el, i) => {
+      el.classList.add('reveal');
+      // The hero is what's on screen at load — reveal it immediately
+      // rather than waiting on the observer's first tick.
+      if (i === 0) el.classList.add('is-visible');
+      else revealObserver.observe(el);
+    });
   }
 });
