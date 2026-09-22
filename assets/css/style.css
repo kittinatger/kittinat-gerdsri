@@ -103,6 +103,16 @@ html, body {
   -moz-user-select: none;
   user-select: none;
   overscroll-behavior: none;
+  overscroll-behavior-x: none;
+  overscroll-behavior-y: none;
+  /* The Work dropdown / settings panel stay display:flex even when
+     "closed" (only opacity/visibility hide them, so they can animate
+     in) and rest at their un-floated position — off to the side —
+     until JS floats and repositions them on open. That invisible box
+     still counts toward layout overflow, which was creating real
+     horizontal scroll room with nothing visible in it. Nothing on
+     this site scrolls sideways on purpose, so clip it here. */
+  overflow-x: hidden;
 }
 img, svg { -webkit-user-drag: none; user-drag: none; }
 html[data-allow-select="true"], html[data-allow-select="true"] body {
