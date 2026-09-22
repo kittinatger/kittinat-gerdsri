@@ -262,7 +262,12 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   font-family: var(--font-display);
   font-size: 1.2rem;
   color: var(--heading);
+  transition: opacity 0.2s ease, transform 0.15s ease;
 }
+@media (hover: hover) and (pointer: fine) {
+  .brand:hover { opacity: 0.8; }
+}
+.brand:active { transform: scale(0.97); }
 .brand img { height: 34px; width: auto; }
 :root[data-theme="dark"] .brand img,
 :root[data-theme="dark"] .footer-brand img,
@@ -658,6 +663,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 @media (hover: hover) and (pointer: fine) {
   .tile:hover { transform: translateY(-6px); box-shadow: var(--shadow-soft); }
 }
+.tile:active { transform: translateY(-3px) scale(0.98); }
 
 .tile-icon {
   width: 40px;
@@ -905,7 +911,8 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   font-weight: 600;
   margin-bottom: 1.4em;
 }
-.breadcrumb a { color: var(--navy); }
+.breadcrumb a { color: var(--navy); transition: opacity 0.15s ease; }
+.breadcrumb a:active { opacity: 0.6; }
 @media (hover: hover) and (pointer: fine) {
   .breadcrumb a:hover { text-decoration: underline; }
 }
@@ -1073,7 +1080,8 @@ a.chip:active { transform: scale(0.95); }
   margin: 0 0 1em;
 }
 .footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.65em; }
-.footer-col a { font-size: 0.92rem; color: var(--ink); transition: color 0.2s ease; }
+.footer-col a { font-size: 0.92rem; color: var(--ink); transition: color 0.2s ease, opacity 0.15s ease; }
+.footer-col a:active { opacity: 0.6; }
 @media (hover: hover) and (pointer: fine) {
   .footer-col a:hover { color: var(--heading); }
 }
@@ -1090,7 +1098,8 @@ a.chip:active { transform: scale(0.95); }
   color: var(--ink-soft);
 }
 .footer-bottom-legal { display: none; gap: 8px; }
-.footer-bottom-legal a { color: var(--ink-soft); transition: color 0.2s ease; }
+.footer-bottom-legal a { color: var(--ink-soft); transition: color 0.2s ease, opacity 0.15s ease; }
+.footer-bottom-legal a:active { opacity: 0.6; }
 @media (hover: hover) and (pointer: fine) {
   .footer-bottom-legal a:hover { color: var(--heading); }
 }
