@@ -102,6 +102,7 @@ html, body {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+  overscroll-behavior: none;
 }
 img, svg { -webkit-user-drag: none; user-drag: none; }
 html[data-allow-select="true"], html[data-allow-select="true"] body {
