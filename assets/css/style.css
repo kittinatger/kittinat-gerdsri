@@ -111,8 +111,13 @@ html, body {
      until JS floats and repositions them on open. That invisible box
      still counts toward layout overflow, which was creating real
      horizontal scroll room with nothing visible in it. Nothing on
-     this site scrolls sideways on purpose, so clip it here. */
-  overflow-x: hidden;
+     this site scrolls sideways on purpose, so clip it here — using
+     `clip` rather than `hidden` specifically, since `hidden` forces
+     overflow-y to `auto` on the axis that didn't ask for it (per the
+     CSS overflow spec's box behavior), which turns html/body into a
+     nested scroll container and silently breaks position:sticky on
+     .site-header. `clip` doesn't have that side effect. */
+  overflow-x: clip;
 }
 img, svg { -webkit-user-drag: none; user-drag: none; }
 html[data-allow-select="true"], html[data-allow-select="true"] body {
@@ -239,8 +244,7 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 
 /* ---------- Header ---------- */
 .site-header {
-  position: sticky;
-  top: 14px;
+  position: static;
   z-index: 100;
   view-transition-name: site-header;
   width: min(calc(100% - 2 * clamp(12px, 3vw, 32px)), var(--max-width));
@@ -252,6 +256,10 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
   border: 1px solid var(--glass-border);
   box-shadow: 0 10px 34px -14px rgba(15, 44, 89, 0.35), var(--glass-shadow);
   transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+html[data-sticky-navbar="true"] .site-header {
+  position: sticky;
+  top: 14px;
 }
 
 .site-header .wrap {

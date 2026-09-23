@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Terms & Support': 'Terms & Support', 'Language': 'Language', 'Theme': 'Theme',
       'Text Size': 'Text Size', 'Beta': 'Beta', 'Reduced Motion': 'Reduced Motion',
       'Enable Zoom': 'Enable Zoom', 'Enable Select/Drag': 'Enable Select/Drag',
+      'Sticky Navbar': 'Sticky Navbar',
       'Changing these may cause unexpected results.': 'Changing these may cause unexpected results.',
       'Translated by AI — changing the language may cause unexpected results.': 'Translated by AI — changing the language may cause unexpected results.'
     },
@@ -34,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Terms & Support': 'ข้อกำหนดและการสนับสนุน', 'Language': 'ภาษา', 'Theme': 'ธีม',
       'Text Size': 'ขนาดตัวอักษร', 'Beta': 'เบต้า', 'Reduced Motion': 'ลดการเคลื่อนไหว',
       'Enable Zoom': 'เปิดใช้งานการซูม', 'Enable Select/Drag': 'เปิดใช้งานการเลือก/ลากข้อความ',
+      'Sticky Navbar': 'แถบนำทางแบบติดขอบจอ',
       'Changing these may cause unexpected results.': 'การเปลี่ยนแปลงนี้อาจทำให้เกิดผลลัพธ์ที่ไม่คาดคิด',
       'Translated by AI — changing the language may cause unexpected results.': 'แปลโดย AI — การเปลี่ยนภาษาอาจทำให้เกิดผลลัพธ์ที่ไม่คาดคิด'
     },
@@ -47,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Terms & Support': '条款与支持', 'Language': '语言', 'Theme': '主题',
       'Text Size': '文字大小', 'Beta': '测试版', 'Reduced Motion': '减少动态效果',
       'Enable Zoom': '启用缩放', 'Enable Select/Drag': '启用选择/拖动',
+      'Sticky Navbar': '固定导航栏',
       'Changing these may cause unexpected results.': '更改这些设置可能会导致意外结果。',
       'Translated by AI — changing the language may cause unexpected results.': '由 AI 翻译——更改语言可能会导致意外结果。'
     }
@@ -262,6 +265,12 @@ document.addEventListener('DOMContentLoaded', () => {
             '</svg>' +
           '</button>' +
         '</div>' +
+        '<div class="settings-section settings-section-row">' +
+          `<p class="settings-label">${settingsLabel['Sticky Navbar']}</p>` +
+          '<button class="toggle-switch sticky-navbar-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle sticky navigation bar">' +
+            '<span class="toggle-switch-thumb"></span>' +
+          '</button>' +
+        '</div>' +
         '<div class="settings-section">' +
           '<div class="settings-section-row">' +
             `<p class="settings-label">${settingsLabel['Enable Zoom']}</p>` +
@@ -327,6 +336,22 @@ document.addEventListener('DOMContentLoaded', () => {
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('portfolio-theme', next);
     });
+    // Sticky Navbar — off by default (the header is position:static in
+    // style.css). Turning this on sets data-sticky-navbar on <html>, which a
+    // CSS override switches the header back to position:sticky.
+    const stickyNavbarToggle = settingsPanel.querySelector('.sticky-navbar-toggle');
+    if (stickyNavbarToggle) {
+      const initialSticky = localStorage.getItem('portfolio-sticky-navbar') === 'true';
+      stickyNavbarToggle.setAttribute('aria-checked', String(initialSticky));
+      if (initialSticky) document.documentElement.setAttribute('data-sticky-navbar', 'true');
+      stickyNavbarToggle.addEventListener('click', () => {
+        const next = stickyNavbarToggle.getAttribute('aria-checked') !== 'true';
+        stickyNavbarToggle.setAttribute('aria-checked', String(next));
+        if (next) document.documentElement.setAttribute('data-sticky-navbar', 'true');
+        else document.documentElement.removeAttribute('data-sticky-navbar');
+        localStorage.setItem('portfolio-sticky-navbar', String(next));
+      });
+    }
     // Enable Zoom — off by default (the viewport meta tag in <head> ships
     // with user-scalable=no). Turning this on relaxes that same meta tag at
     // runtime; turning it off restores the no-zoom content string.
