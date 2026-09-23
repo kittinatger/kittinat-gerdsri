@@ -872,12 +872,29 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
    isn't silently overridden by the hover lift on mouse/trackpad. */
 .project-card:active { transform: translateY(-3px) scale(0.99); }
 .project-card-cover {
+  position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: var(--navy-darker);
 }
 .project-card-cover img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
 .project-card-cover video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.project-card-status {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 3px 10px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(15, 22, 35, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 999px;
+  z-index: 1;
+}
 
 .project-card-cover.cover-contain {
   display: flex;

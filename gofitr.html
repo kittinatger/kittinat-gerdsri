@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script>if(location.hostname==='kittinatger.github.io'){location.replace('https://kittinat-gerdsri.vercel.app'+location.pathname.replace(/^\/kittinat-gerdsri/,'')+location.search+location.hash);}</script>
+<script>(function(){try{var t=localStorage.getItem('portfolio-theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);var s=localStorage.getItem('portfolio-text-size');if(s==='1'||s==='2'||s==='3'){document.documentElement.setAttribute('data-text-size',s);}if(localStorage.getItem('portfolio-reduced-motion')==='true'){document.documentElement.setAttribute('data-reduced-motion','true');var st=document.createElement('style');st.id='vt-override';st.textContent='@view-transition{navigation:none;}';document.head.appendChild(st);}}catch(e){}})();</script>
+<title>GoFitr - Fitness Tracker (In Development) | Kittinat Gerdsri</title>
+<meta name="description" content="GoFitr — a local-first fitness tracker in development by Kittinat Gerdsri, with workout logging, progress charts, and a fully local nutrition tracker, with all data staying private in the browser.">
+<link rel="icon" type="image/svg+xml" href="assets/img/brand/favicon-light.svg" media="(prefers-color-scheme: light)">
+<link rel="icon" type="image/svg+xml" href="assets/img/brand/favicon-dark.svg" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="assets/img/brand/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Kittinat Gerdsri">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#eef1f5">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/img/brand/logo-mark.png" alt="Kittinat Gerdsri logo">
+      <span>Kittinat Gerdsri</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">Work <span class="caret"><svg viewBox="0 0 20.3027 20.5176" fill="currentColor" aria-hidden="true"><path d="M19.9414 1.38672C19.9414 0.546875 19.3066 0.0195312 18.3105 0.0195312L1.64062 0.00976562C0.634766 0.00976562 0 0.537109 0 1.37695C0 1.83594 0.195312 2.1875 0.439453 2.68555L8.45703 19.2578C8.92578 20.2051 9.36523 20.5176 9.9707 20.5176C10.5859 20.5176 11.0254 20.2051 11.4844 19.2578L19.5117 2.68555C19.7461 2.19727 19.9414 1.8457 19.9414 1.38672Z"></path></svg></span></button>
+        <div class="nav-dropdown-menu">
+        <a href="core-discipline.html">Core Discipline</a>
+        <a href="graphics-drawing.html">Graphics / Drawing</a>
+        <a href="sports.html">Sports</a>
+        <a href="ai-coding.html" aria-current="page">AI / Coding</a>
+        <a href="3d-design-animation.html">3D Design / Animation</a>
+        <a href="teamwork.html">Teamwork</a>
+        <a href="robotics.html">Robotics</a>
+        <a href="photography.html">Photography</a>
+        <a href="music.html">Music</a>
+        </div>
+      </div>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="breadcrumb"><a href="ai-coding.html">← AI / Coding</a></p>
+      <p class="eyebrow">Project 03 · In Development</p>
+      <h1>GoFitr</h1>
+      <p class="tagline">Fitness tracking, kept private</p>
+      <p class="lede">GoFitr is a local-first fitness tracker: log workouts with sets, reps, and weight, track body weight over time, and log meals against a fully local database of 500+ foods — all without an account or a server, since everything is stored right in your browser. Sign in with Google, Apple, or GitHub if you want a portable login, or just create a local username and password; either way, your data never leaves your device.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://go-fitr-kittinat-gerdsri.vercel.app" target="_blank" rel="noopener">Try GoFitr →</a>
+        <a class="btn btn-outline" href="https://github.com/kittinatger/gofitr-kittinat-gerdsri" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>What it does</h2>
+
+      <h3>Workout tracking</h3>
+      <p class="lede">Log workouts with multiple exercises, each with its own sets, reps, weight, and notes. A dashboard surfaces your current streak, weekly training volume, and weekly and total workout counts, and full workout history is filterable per exercise. Progress charts track max weight and total volume over time, alongside automatically tracked personal records.</p>
+
+      <h3>Nutrition tracking</h3>
+      <p class="lede">A daily food log against calorie and macro goals, backed by a built-in database of 500+ common foods, drinks, desserts, and dishes — browsable by category or searchable, with no external food API involved. Custom foods, saved meals, and bookmarked foods make repeat logging fast, and picking any food opens a detail view with serving size, macros, and a full micronutrient breakdown before it's added.</p>
+
+      <h3>Body weight &amp; accounts</h3>
+      <p class="lede">Body weight logging with a trend chart, a kg/lb unit toggle throughout, and full export/import of your data as JSON, or clearing it entirely. Sign in with Google, Apple, or GitHub through Clerk, or create a local account — each account's data stays private on that device, since nothing is synced to a server.</p>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="wrap">
+      <h2>Why I built it</h2>
+      <p class="lede">Most fitness and nutrition apps want an account, a subscription, and a copy of your data on their servers before they'll let you log a single set. GoFitr is the opposite bet: everything — workouts, meals, body weight, even the food database — lives entirely in your own browser, with social login available for convenience but never required. It's also a chance to build something substantial without reaching for a framework: no build step, no bundler, just HTML, CSS, and JavaScript doing the work directly.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <p class="lede">GoFitr is vanilla HTML, CSS, and JavaScript with no build step, using Chart.js for the progress and trend charts and Clerk for optional Google, Apple, and GitHub sign-in, run entirely from the client with no server-side auth code involved. All workout, nutrition, and body weight data lives in the browser's localStorage, scoped per account so local accounts on the same device stay isolated from each other. The nutrition database's 500+ entries, including full micronutrient breakdowns, are hand-authored and served locally rather than pulled from a live food API.</p>
+    </div>
+  </section>
+
+  <section class="section section-soft">
+    <div class="wrap">
+      <h2>Try it yourself</h2>
+      <p class="lede">The live app is free to use — create a local account in seconds, or sign in with Google, Apple, or GitHub, and start logging a workout or a meal. Nothing is sent anywhere but your own browser's storage.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://go-fitr-kittinat-gerdsri.vercel.app" target="_blank" rel="noopener">Explore GoFitr →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h3>Tools</h3>
+      <div class="chip-row">
+        <span class="chip">HTML5</span>
+        <span class="chip">CSS3</span>
+        <span class="chip">JavaScript</span>
+        <span class="chip">Chart.js</span>
+        <span class="chip">Clerk</span>
+        <span class="chip">Vercel</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h3>Good to know</h3>
+      <p class="lede">GoFitr is still actively in development — features, design, and stored data are all subject to change without notice, so don't rely on it yet for anything you can't afford to lose. Since data lives in localStorage rather than a server, it's tied to the specific browser and device you used to log it: clearing site data, switching browsers, or switching devices means starting over unless you've exported a backup. The built-in nutrition database's values are hand-authored approximations from general nutrition knowledge, not sourced from a lab or certified database.</p>
+    </div>
+  </section>
+
+  </main>
+
+<div class="closing-card">
+    <section class="closing-cta" id="contact">
+      <div class="wrap">
+        <h2>Get in Touch.</h2>
+        <p>Got a project in mind? Let's talk.</p>
+        <div class="closing-cta-actions">
+          <a class="btn btn-primary btn-icon" href="mailto:kittinatg@gmail.com"><svg viewBox="0 0 27.7539 27.373" fill="currentColor" aria-hidden="true"><path d="M15.625 27.373C16.4551 27.373 17.041 26.6895 17.4609 25.5762L25.8008 3.78906C25.9961 3.28125 26.1035 2.83203 26.1035 2.46094C26.1035 1.71875 25.6543 1.25977 24.9121 1.25977C24.5312 1.25977 24.0918 1.37695 23.584 1.57227L1.69922 9.94141C0.712891 10.3223 0 10.9082 0 11.748C0 12.7734 0.761719 13.1445 1.91406 13.4863L9.11133 15.6836C9.81445 15.8984 10.2441 15.8594 10.7324 15.4102L24.4141 2.5293C24.5703 2.39258 24.7363 2.40234 24.8535 2.50977C24.9805 2.61719 24.9707 2.80273 24.8438 2.95898L11.9922 16.6699C11.5625 17.1387 11.5039 17.5586 11.7188 18.291L13.8574 25.3711C14.209 26.5625 14.5801 27.373 15.625 27.373Z"></path></svg>Email kittinatg@gmail.com</a>
+          <a class="btn btn-outline" href="index.html#work">See my work</a>
+        </div>
+      </div>
+    </section>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-grid">
+        <div class="footer-brand-col">
+          <div class="footer-brand">
+            <img src="assets/img/brand/logo-mark.png" alt="Kittinat Gerdsri">
+            <span>Kittinat Gerdsri</span>
+          </div>
+          <img class="footer-brand-mark" src="assets/img/brand/logo-mark-tight.png" alt="" aria-hidden="true">
+        </div>
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="core-discipline.html">Core Discipline</a></li>
+            <li><a href="graphics-drawing.html">Graphics / Drawing</a></li>
+            <li><a href="sports.html">Sports</a></li>
+            <li><a href="ai-coding.html">AI / Coding</a></li>
+            <li><a href="3d-design-animation.html">3D Design / Animation</a></li>
+            <li><a href="teamwork.html">Teamwork</a></li>
+            <li><a href="robotics.html">Robotics</a></li>
+            <li><a href="photography.html">Photography</a></li>
+            <li><a href="music.html">Music</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Social Profiles</h4>
+          <ul>
+            <li><a href="https://github.com/kittinatger" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.facebook.com/KittinatG" target="_blank" rel="noopener">Facebook</a></li>
+            <li><a href="https://www.tiktok.com/@kittinatg.will" target="_blank" rel="noopener">TikTok</a></li>
+            <li><a href="https://www.threads.com/@kittinatg.will" target="_blank" rel="noopener">Threads</a></li>
+            <li><a href="https://www.instagram.com/kittinatg.will" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="mailto:kittinatg@gmail.com">Email</a></li>
+          </ul>
+        </div>
+        <div class="footer-col footer-col-legal">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="terms.html">Terms &amp; Support</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> Kittinat Gerdsri. All rights reserved.</span>
+        <nav class="footer-bottom-legal">
+          <a href="privacy.html">Privacy Policy</a>
+          <span aria-hidden="true">·</span>
+          <a href="terms.html">Terms &amp; Support</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+  </div>
+
+<div class="lightbox">
+  <button class="lightbox-close" aria-label="Close">✕</button>
+  <img src="" alt="">
+</div>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="assets/js/translations.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
