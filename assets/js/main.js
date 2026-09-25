@@ -484,9 +484,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // drives every .gallery section on that page at once; filtering only
   // toggles visibility (via .is-filtered-out), so it doesn't disturb the
   // sort toggle above, which reorders the same figures.
-  const certFilterBar = document.querySelector('.cert-filter-bar');
-  if (certFilterBar) {
-    const filterButtons = [...certFilterBar.querySelectorAll('.cert-filter-btn')];
+  const certFilter = document.querySelector('.cert-filter');
+  if (certFilter) {
+    const filterButtons = [...certFilter.querySelectorAll('.cert-filter-btn')];
     const galleries = [...document.querySelectorAll('.gallery')];
     const awardedLevels = new Set(['gold', 'silver', 'bronze', 'merit']);
     const applyFilter = (filter) => {
