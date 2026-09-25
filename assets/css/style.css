@@ -779,6 +779,48 @@ html[data-sticky-navbar="true"] .site-header {
 .gallery figure.doc img { width: 100%; height: auto; object-fit: contain; }
 .gallery.cols-3 { grid-template-columns: repeat(3, 1fr); }
 
+/* Certificate award filter bar */
+.cert-filter-bar { padding: 1.6em 0 0; }
+.cert-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+.cert-filter::-webkit-scrollbar { display: none; }
+@media (min-width: 640px) {
+  .cert-filter { flex-wrap: wrap; overflow-x: visible; }
+}
+.cert-filter-btn {
+  flex: 0 0 auto;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .cert-filter-btn:hover { color: var(--heading); background: var(--nav-hover-bg); }
+}
+.cert-filter-btn:active { transform: scale(0.96); }
+.cert-filter-btn.is-active {
+  color: var(--white);
+  background: var(--navy);
+  border-color: var(--navy);
+}
+
+.is-filtered-out { display: none; }
+
 /* Fanned / overlap gallery: equal-width strips that expand and come
    forward on hover, revealing the full shot — each a little browser-window
    mockup floating on its own gradient backdrop. */

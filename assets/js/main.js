@@ -480,6 +480,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Filter certificate galleries by award level. One filter bar per page
+  // drives every .gallery section on that page at once; filtering only
+  // toggles visibility (via .is-filtered-out), so it doesn't disturb the
+  // sort toggle above, which reorders the same figures.
+  const certFilterBar = document.querySelector('.cert-filter-bar');
+  if (certFilterBar) {
+    const filterButtons = [...certFilterBar.querySelectorAll('.cert-filter-btn')];
+    const galleries = [...document.querySelectorAll('.gallery')];
+    const awardedLevels = new Set(['gold', 'silver', 'bronze', 'merit']);
+    const applyFilter = (filter) => {
+      galleries.forEach(gallery => {
+        gallery.querySelectorAll('figure[data-date]').forEach(fig => {
+          const award = fig.dataset.award;
+          const visible = filter === 'all'
+            || (filter === 'awarded' && awardedLevels.has(award))
+            || award === filter;
+          fig.classList.toggle('is-filtered-out', !visible);
+        });
+        const comingSoon = gallery.querySelector('figure.coming-soon');
+        if (comingSoon) comingSoon.classList.toggle('is-filtered-out', filter !== 'all');
+      });
+    };
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.toggle('is-active', b === btn));
+        applyFilter(btn.dataset.filter);
+      });
+    });
+  }
+
   // Lightbox for gallery images
   const lightbox = document.querySelector('.lightbox');
   if (lightbox) {
