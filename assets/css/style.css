@@ -779,47 +779,36 @@ html[data-sticky-navbar="true"] .site-header {
 .gallery figure.doc img { width: 100%; height: auto; object-fit: contain; }
 .gallery.cols-3 { grid-template-columns: repeat(3, 1fr); }
 
-/* Certificate award filter bar, sits inline in a .gallery-heading next to the sort toggle */
-.cert-filter {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex: 1 1 320px;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding-bottom: 2px;
-}
-.cert-filter::-webkit-scrollbar { display: none; }
-@media (min-width: 900px) {
-  .cert-filter { flex-wrap: wrap; overflow-x: visible; }
-}
-.cert-filter-btn {
-  flex: 0 0 auto;
-  font-family: var(--font-body);
-  font-size: 0.78rem;
+/* Certificate award filter, a dropdown sitting inline in a .gallery-heading
+   next to the sort toggle — same button styling as .sort-toggle and the
+   same floating glass-menu pattern as the "Work" nav dropdown / settings
+   popup (see makeFloating in main.js). */
+.cert-filter { position: relative; }
+.cert-filter-toggle { display: inline-flex; }
+.cert-filter.is-open .cert-filter-toggle,
+.cert-filter-toggle[aria-expanded="true"] { color: var(--heading); background: var(--nav-hover-bg); }
+.cert-filter.is-open .cert-filter-toggle .sort-caret { transform: rotate(180deg); }
+
+.cert-filter-menu { min-width: 168px; }
+.cert-filter-option {
+  font-family: inherit;
+  font-size: 0.9rem;
   font-weight: 600;
-  color: var(--ink-soft);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 7px 14px;
+  color: var(--ink);
+  background: none;
+  border: none;
+  text-align: left;
   cursor: pointer;
-  white-space: nowrap;
-  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: color 0.2s ease, background 0.2s ease;
 }
 @media (hover: hover) and (pointer: fine) {
-  .cert-filter-btn:hover { color: var(--heading); background: var(--nav-hover-bg); }
+  .cert-filter-option:hover { background: var(--nav-hover-bg); }
 }
-.cert-filter-btn:active { transform: scale(0.96); }
-.cert-filter-btn.is-active {
-  color: var(--white);
-  background: var(--navy);
-  border-color: var(--navy);
-}
+.cert-filter-option.is-active { color: var(--navy); background: var(--nav-hover-bg); }
 
-.is-filtered-out { display: none; }
+.gallery figure.is-filtered-out { display: none; }
 
 /* Fanned / overlap gallery: equal-width strips that expand and come
    forward on hover, revealing the full shot — each a little browser-window

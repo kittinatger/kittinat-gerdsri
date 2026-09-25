@@ -480,15 +480,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Filter certificate galleries by award level. One filter bar per page
-  // drives every .gallery section on that page at once; filtering only
-  // toggles visibility (via .is-filtered-out), so it doesn't disturb the
-  // sort toggle above, which reorders the same figures.
+  // Filter certificate galleries by award level. One filter dropdown per
+  // page drives every .gallery section on that page at once; filtering
+  // only toggles visibility (via .is-filtered-out), so it doesn't disturb
+  // the sort toggle beside it, which reorders the same figures. Built as
+  // the same floating glass-panel dropdown as the "Work" nav menu and the
+  // settings popup (button + makeFloating menu).
   const certFilter = document.querySelector('.cert-filter');
   if (certFilter) {
-    const filterButtons = [...certFilter.querySelectorAll('.cert-filter-btn')];
+    const filterToggle = certFilter.querySelector('.cert-filter-toggle');
+    const filterLabel = filterToggle.querySelector('.cert-filter-label');
+    const filterMenu = certFilter.querySelector('.cert-filter-menu');
+    const filterOptions = [...filterMenu.querySelectorAll('.cert-filter-option')];
     const galleries = [...document.querySelectorAll('.gallery')];
     const awardedLevels = new Set(['gold', 'silver', 'bronze', 'merit']);
+    const floatingFilterMenu = makeFloating(filterMenu, (el) => {
+      const r = filterToggle.getBoundingClientRect();
+      const width = el.offsetWidth || 200;
+      el.style.top = (r.bottom + 8) + 'px';
+      el.style.left = Math.max(8, Math.min(r.left, window.innerWidth - width - 8)) + 'px';
+    }, filterToggle);
     const applyFilter = (filter) => {
       galleries.forEach(gallery => {
         gallery.querySelectorAll('figure[data-date]').forEach(fig => {
@@ -502,12 +513,33 @@ document.addEventListener('DOMContentLoaded', () => {
         if (comingSoon) comingSoon.classList.toggle('is-filtered-out', filter !== 'all');
       });
     };
-    filterButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterButtons.forEach(b => b.classList.toggle('is-active', b === btn));
-        applyFilter(btn.dataset.filter);
+    const closeFilterMenu = () => {
+      certFilter.classList.remove('is-open');
+      filterToggle.setAttribute('aria-expanded', 'false');
+      filterMenu.classList.remove('is-open');
+      floatingFilterMenu.remove();
+    };
+    filterToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = certFilter.classList.toggle('is-open');
+      filterToggle.setAttribute('aria-expanded', String(open));
+      filterMenu.classList.toggle('is-open', open);
+      if (open) floatingFilterMenu.place(); else floatingFilterMenu.remove();
+    });
+    filterOptions.forEach(opt => {
+      opt.addEventListener('click', () => {
+        filterOptions.forEach(o => o.classList.toggle('is-active', o === opt));
+        filterLabel.textContent = opt.textContent;
+        applyFilter(opt.dataset.filter);
+        closeFilterMenu();
       });
     });
+    document.addEventListener('click', (e) => {
+      const insideToggle = certFilter.contains(e.target);
+      const insideMenu = filterMenu.contains(e.target);
+      if (!insideToggle && !insideMenu) closeFilterMenu();
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeFilterMenu(); });
   }
 
   // Lightbox for gallery images
