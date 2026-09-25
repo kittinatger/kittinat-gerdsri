@@ -580,4 +580,53 @@ document.addEventListener('DOMContentLoaded', () => {
       else revealObserver.observe(el);
     });
   }
+
+  // Pull-to-refresh. The browser's native overscroll bounce/refresh is
+  // turned off site-wide (see `overscroll-behavior: none` in style.css,
+  // there to stop the page rubber-banding when installed as a standalone
+  // app), so this replaces it with the same gesture: pull down from the
+  // very top of the page, release past the threshold, and the page
+  // reloads. Touch-only — desktop pointers don't send touch events, so
+  // this never activates on a mouse.
+  const ptrIndicator = document.createElement('div');
+  ptrIndicator.className = 'ptr-indicator';
+  ptrIndicator.innerHTML = '<span class="ptr-spinner"></span>';
+  document.body.appendChild(ptrIndicator);
+
+  const PTR_THRESHOLD = 64;
+  let ptrStartY = 0;
+  let ptrPulling = false;
+  let ptrRefreshing = false;
+
+  const ptrReset = () => {
+    ptrPulling = false;
+    ptrIndicator.classList.remove('is-visible', 'is-ready');
+  };
+
+  document.addEventListener('touchstart', (e) => {
+    if (ptrRefreshing || window.scrollY > 0) { ptrPulling = false; return; }
+    ptrStartY = e.touches[0].clientY;
+    ptrPulling = true;
+  }, { passive: true });
+
+  document.addEventListener('touchmove', (e) => {
+    if (!ptrPulling || ptrRefreshing) return;
+    if (window.scrollY > 0) { ptrReset(); return; }
+    const delta = e.touches[0].clientY - ptrStartY;
+    if (delta <= 0) { ptrReset(); return; }
+    ptrIndicator.classList.add('is-visible');
+    ptrIndicator.classList.toggle('is-ready', delta >= PTR_THRESHOLD);
+  }, { passive: true });
+
+  const ptrEnd = () => {
+    if (!ptrPulling || ptrRefreshing) return;
+    const ready = ptrIndicator.classList.contains('is-ready');
+    ptrPulling = false;
+    if (!ready) { ptrReset(); return; }
+    ptrRefreshing = true;
+    ptrIndicator.classList.add('is-refreshing');
+    window.location.reload();
+  };
+  document.addEventListener('touchend', ptrEnd);
+  document.addEventListener('touchcancel', ptrReset);
 });

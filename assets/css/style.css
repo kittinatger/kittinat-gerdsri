@@ -1078,6 +1078,48 @@ a.chip:active { transform: scale(0.95); }
   .lightbox-close:hover { background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.14) 100%); }
 }
 
+/* ---------- Pull-to-refresh ---------- */
+/* Stands in for the native overscroll refresh gesture, which
+   `overscroll-behavior: none` above turns off site-wide. Purely a visual
+   cue driven by main.js toggling .is-visible/.is-ready/.is-refreshing —
+   it doesn't track the finger's exact position, just whether a pull past
+   the threshold is in progress. */
+.ptr-indicator {
+  position: fixed;
+  top: 78px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.5);
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  backdrop-filter: saturate(220%) blur(22px);
+  -webkit-backdrop-filter: saturate(220%) blur(22px);
+  border: 1px solid var(--glass-border);
+  border-radius: 50%;
+  box-shadow: 0 10px 26px -8px rgba(15, 44, 89, 0.3), var(--glass-shadow);
+  opacity: 0;
+  z-index: 999;
+  pointer-events: none;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.ptr-indicator.is-visible { opacity: 1; transform: translateX(-50%) scale(1); }
+.ptr-spinner {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  border-top-color: var(--ink-soft);
+  transition: border-color 0.18s ease;
+}
+.ptr-indicator.is-ready .ptr-spinner,
+.ptr-indicator.is-refreshing .ptr-spinner { border-color: var(--navy); border-top-color: transparent; }
+.ptr-indicator.is-refreshing .ptr-spinner { animation: ptr-spin 0.7s linear infinite; }
+@keyframes ptr-spin { to { transform: rotate(360deg); } }
+[data-reduced-motion] .ptr-indicator.is-refreshing .ptr-spinner { animation: none; }
+
 /* ---------- Contact CTA ---------- */
 .cta {
   background: linear-gradient(155deg, var(--navy) 0%, var(--navy-darker) 100%);
