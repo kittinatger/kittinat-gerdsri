@@ -480,20 +480,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Filter certificate galleries by award level. One filter dropdown per
-  // page drives every .gallery section on that page at once; filtering
-  // only toggles visibility (via .is-filtered-out), so it doesn't disturb
-  // the sort toggle beside it, which reorders the same figures. Built as
-  // the same floating glass-panel dropdown as the "Work" nav menu and the
-  // settings popup (button + makeFloating menu).
-  const certFilter = document.querySelector('.cert-filter');
-  if (certFilter) {
+  // Filter certificate galleries by award level. Each .cert-filter dropdown
+  // drives only the .gallery in its own section (the next sibling of the
+  // .gallery-heading it lives in) — a page like Core Discipline has one
+  // per subject (Mathematics, English, Chinese, Sciences), and each filters
+  // independently. Filtering only toggles visibility (via
+  // .is-filtered-out), so it doesn't disturb the sort toggle beside it,
+  // which reorders the same figures. Built as the same floating glass-panel
+  // dropdown as the "Work" nav menu and the settings popup (button +
+  // makeFloating menu).
+  const awardedLevels = new Set(['gold', 'silver', 'bronze', 'merit']);
+  document.querySelectorAll('.cert-filter').forEach(certFilter => {
     const filterToggle = certFilter.querySelector('.cert-filter-toggle');
     const filterLabel = filterToggle.querySelector('.cert-filter-label');
     const filterMenu = certFilter.querySelector('.cert-filter-menu');
     const filterOptions = [...filterMenu.querySelectorAll('.cert-filter-option')];
-    const galleries = [...document.querySelectorAll('.gallery')];
-    const awardedLevels = new Set(['gold', 'silver', 'bronze', 'merit']);
+    const gallery = certFilter.closest('.gallery-heading')?.nextElementSibling;
+    if (!gallery || !gallery.classList.contains('gallery')) return;
     const floatingFilterMenu = makeFloating(filterMenu, (el) => {
       const r = filterToggle.getBoundingClientRect();
       const width = el.offsetWidth || 200;
@@ -501,17 +504,15 @@ document.addEventListener('DOMContentLoaded', () => {
       el.style.left = Math.max(8, Math.min(r.left, window.innerWidth - width - 8)) + 'px';
     }, filterToggle);
     const applyFilter = (filter) => {
-      galleries.forEach(gallery => {
-        gallery.querySelectorAll('figure[data-date]').forEach(fig => {
-          const award = fig.dataset.award;
-          const visible = filter === 'all'
-            || (filter === 'awarded' && awardedLevels.has(award))
-            || award === filter;
-          fig.classList.toggle('is-filtered-out', !visible);
-        });
-        const comingSoon = gallery.querySelector('figure.coming-soon');
-        if (comingSoon) comingSoon.classList.toggle('is-filtered-out', filter !== 'all');
+      gallery.querySelectorAll('figure[data-date]').forEach(fig => {
+        const award = fig.dataset.award;
+        const visible = filter === 'all'
+          || (filter === 'awarded' && awardedLevels.has(award))
+          || award === filter;
+        fig.classList.toggle('is-filtered-out', !visible);
       });
+      const comingSoon = gallery.querySelector('figure.coming-soon');
+      if (comingSoon) comingSoon.classList.toggle('is-filtered-out', filter !== 'all');
     };
     const closeFilterMenu = () => {
       certFilter.classList.remove('is-open');
@@ -540,7 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!insideToggle && !insideMenu) closeFilterMenu();
     });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeFilterMenu(); });
-  }
+  });
 
   // Lightbox for gallery images
   const lightbox = document.querySelector('.lightbox');
