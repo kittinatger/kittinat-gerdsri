@@ -511,8 +511,6 @@ document.addEventListener('DOMContentLoaded', () => {
           || award === filter;
         fig.classList.toggle('is-filtered-out', !visible);
       });
-      const comingSoon = gallery.querySelector('figure.coming-soon');
-      if (comingSoon) comingSoon.classList.toggle('is-filtered-out', filter !== 'all');
     };
     const closeFilterMenu = () => {
       certFilter.classList.remove('is-open');
