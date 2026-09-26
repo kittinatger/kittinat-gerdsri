@@ -459,7 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // data-date) is newer than everything else, so it leads under "Newest
   // first" and trails under "Oldest first".
   document.querySelectorAll('.gallery-heading').forEach(heading => {
-    const sortToggle = heading.querySelector('.sort-toggle');
+    const sortToggle = heading.querySelector('.sort-toggle:not(.cert-filter-toggle)');
     const gallery = heading.nextElementSibling;
     if (!sortToggle || !gallery || !gallery.classList.contains('gallery')) return;
     const comingSoon = gallery.querySelector('figure.coming-soon');
