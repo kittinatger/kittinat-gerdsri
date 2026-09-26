@@ -713,6 +713,7 @@ html[data-sticky-navbar="true"] .site-header {
 /* ---------- Gallery ---------- */
 .gallery-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 1.4em; }
 .gallery + .gallery-heading { margin-top: 3em; }
+.gallery-heading-controls { display: flex; align-items: center; gap: 8px; }
 
 .sort-toggle {
   display: inline-flex;

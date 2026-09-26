@@ -125,21 +125,23 @@
     <div class="wrap">
       <div class="gallery-heading">
         <h2>Awards</h2>
-        <div class="cert-filter">
-          <button type="button" class="cert-filter-toggle sort-toggle" aria-haspopup="true" aria-expanded="false">
-            <span class="cert-filter-label">All</span>
+        <div class="gallery-heading-controls">
+          <div class="cert-filter">
+            <button type="button" class="cert-filter-toggle sort-toggle" aria-haspopup="true" aria-expanded="false">
+              <span class="cert-filter-label">All</span>
+              <span class="sort-caret" aria-hidden="true">▾</span>
+            </button>
+            <div class="cert-filter-menu nav-dropdown-menu">
+              <button type="button" class="cert-filter-option is-active" data-filter="all">All</button>
+              <button type="button" class="cert-filter-option" data-filter="awarded">Awards</button>
+            </div>
+          </div>
+          <button class="sort-toggle" type="button" data-order="desc" aria-label="Sort by date">
+            <span class="sort-label-newest">Newest first</span>
+            <span class="sort-label-oldest">Oldest first</span>
             <span class="sort-caret" aria-hidden="true">▾</span>
           </button>
-          <div class="cert-filter-menu nav-dropdown-menu">
-            <button type="button" class="cert-filter-option is-active" data-filter="all">All</button>
-            <button type="button" class="cert-filter-option" data-filter="awarded">Awards</button>
-          </div>
         </div>
-        <button class="sort-toggle" type="button" data-order="desc" aria-label="Sort by date">
-          <span class="sort-label-newest">Newest first</span>
-          <span class="sort-label-oldest">Oldest first</span>
-          <span class="sort-caret" aria-hidden="true">▾</span>
-        </button>
       </div>
       <div class="gallery">
         <figure data-date="2026-09-21" data-award="participate">
