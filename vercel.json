@@ -1,0 +1,14 @@
+{
+  "redirects": [
+    {
+      "source": "/robotics",
+      "destination": "/ai-coding",
+      "permanent": true
+    },
+    {
+      "source": "/robotics.html",
+      "destination": "/ai-coding.html",
+      "permanent": true
+    }
+  ]
+}
