@@ -490,6 +490,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // dropdown as the "Work" nav menu and the settings popup (button +
   // makeFloating menu).
   const awardedLevels = new Set(['gold', 'silver', 'bronze', 'merit']);
+  // Each toggle below stops its click from bubbling to document (so opening
+  // one doesn't immediately trigger its own outside-click close). On a page
+  // with several filters — Core Discipline has one per subject — that also
+  // means opening filter B's menu never reaches filter A's own outside-click
+  // listener, leaving A open underneath B. Instances are tracked here so
+  // opening any one explicitly closes the rest, and outside-click/Escape are
+  // each bound once for all of them instead of once per filter.
+  const certFilterInstances = [];
   document.querySelectorAll('.cert-filter').forEach(certFilter => {
     const filterToggle = certFilter.querySelector('.cert-filter-toggle');
     const filterLabel = filterToggle.querySelector('.cert-filter-label');
@@ -520,7 +528,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     filterToggle.addEventListener('click', (e) => {
       e.stopPropagation();
-      const open = certFilter.classList.toggle('is-open');
+      const open = !certFilter.classList.contains('is-open');
+      certFilterInstances.forEach(inst => { if (inst.certFilter !== certFilter) inst.closeFilterMenu(); });
+      certFilter.classList.toggle('is-open', open);
       filterToggle.setAttribute('aria-expanded', String(open));
       filterMenu.classList.toggle('is-open', open);
       if (open) floatingFilterMenu.place(); else floatingFilterMenu.remove();
@@ -533,13 +543,20 @@ document.addEventListener('DOMContentLoaded', () => {
         closeFilterMenu();
       });
     });
-    document.addEventListener('click', (e) => {
-      const insideToggle = certFilter.contains(e.target);
-      const insideMenu = filterMenu.contains(e.target);
-      if (!insideToggle && !insideMenu) closeFilterMenu();
-    });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeFilterMenu(); });
+    certFilterInstances.push({ certFilter, filterMenu, closeFilterMenu });
   });
+  if (certFilterInstances.length) {
+    document.addEventListener('click', (e) => {
+      certFilterInstances.forEach(({ certFilter, filterMenu, closeFilterMenu }) => {
+        const insideToggle = certFilter.contains(e.target);
+        const insideMenu = filterMenu.contains(e.target);
+        if (!insideToggle && !insideMenu) closeFilterMenu();
+      });
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') certFilterInstances.forEach(inst => inst.closeFilterMenu());
+    });
+  }
 
   // Lightbox for gallery images
   const lightbox = document.querySelector('.lightbox');
