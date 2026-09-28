@@ -558,21 +558,70 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Lightbox for gallery images
+  // Lightbox for gallery images. Clicking an image opens it within the
+  // context of its own .gallery — prev/next (buttons, arrow keys, or a
+  // touch swipe) step through that gallery's currently visible images, so
+  // a cert-filter's hidden figures are skipped and navigation never jumps
+  // into a different section's gallery.
   const lightbox = document.querySelector('.lightbox');
   if (lightbox) {
     const lightboxImg = lightbox.querySelector('img');
-    document.querySelectorAll('.gallery figure img').forEach(img => {
-      img.addEventListener('click', () => {
-        lightboxImg.src = img.dataset.full || img.src;
-        lightboxImg.alt = img.alt;
-        lightbox.classList.add('is-open');
+    const prevBtn = lightbox.querySelector('.lightbox-prev');
+    const nextBtn = lightbox.querySelector('.lightbox-next');
+    let currentGroup = [];
+    let currentIndex = -1;
+
+    const showImage = (index) => {
+      if (!currentGroup.length) return;
+      currentIndex = (index + currentGroup.length) % currentGroup.length;
+      const img = currentGroup[currentIndex];
+      lightboxImg.src = img.dataset.full || img.src;
+      lightboxImg.alt = img.alt;
+    };
+    const showPrev = () => showImage(currentIndex - 1);
+    const showNext = () => showImage(currentIndex + 1);
+
+    document.querySelectorAll('.gallery').forEach(gallery => {
+      [...gallery.querySelectorAll('figure img')].forEach(img => {
+        img.addEventListener('click', () => {
+          currentGroup = [...gallery.querySelectorAll('figure:not(.is-filtered-out) img')];
+          const hasMultiple = currentGroup.length > 1;
+          if (prevBtn) prevBtn.hidden = !hasMultiple;
+          if (nextBtn) nextBtn.hidden = !hasMultiple;
+          showImage(currentGroup.indexOf(img));
+          lightbox.classList.add('is-open');
+        });
       });
     });
+
     const closeLightbox = () => lightbox.classList.remove('is-open');
     lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
     lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowLeft') showPrev();
+      else if (e.key === 'ArrowRight') showNext();
+    });
+
+    // Touch swipe: a horizontal drag past a small threshold, without too
+    // much vertical drift (so a scroll attempt doesn't get mistaken for a
+    // swipe), steps to the next/previous image.
+    let touchStartX = 0;
+    let touchStartY = 0;
+    lightbox.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    lightbox.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
+        if (dx < 0) showNext(); else showPrev();
+      }
+    }, { passive: true });
   }
 
   // Scroll reveal: fade/rise each top-level section in as it enters the

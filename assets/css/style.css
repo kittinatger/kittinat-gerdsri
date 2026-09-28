@@ -1079,6 +1079,32 @@ a.chip:active { transform: scale(0.95); }
   .lightbox-close:hover { background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.14) 100%); }
 }
 
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.3);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), inset 0 -6px 10px -6px rgba(0,0,0,0.4);
+  color: #fff;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+.lightbox-nav[hidden] { display: none; }
+.lightbox-nav:active { transform: translateY(-50%) scale(0.9); }
+.lightbox-prev { left: clamp(12px, 4vw, 32px); }
+.lightbox-next { right: clamp(12px, 4vw, 32px); }
+@media (hover: hover) and (pointer: fine) {
+  .lightbox-nav:hover { background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.14) 100%); }
+}
+
 /* ---------- Pull-to-refresh ---------- */
 /* Stands in for the native overscroll refresh gesture, which
    `overscroll-behavior: none` above turns off site-wide. Purely a visual
