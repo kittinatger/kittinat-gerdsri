@@ -600,7 +600,8 @@ html[data-sticky-navbar="true"] .site-header {
 
 /* ---------- Hero ---------- */
 .hero {
-  padding: clamp(56px, 9vw, 108px) 0 clamp(40px, 6vw, 72px);
+  position: relative;
+  padding: clamp(56px, 9vw, 108px) 0 clamp(64px, 9vw, 96px);
 }
 .hero .wrap {
   display: grid;
@@ -618,6 +619,35 @@ html[data-sticky-navbar="true"] .site-header {
 .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
 
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 1.6em; }
+.hero-availability { margin-top: 1.6em; }
+
+.hero-scroll-indicator {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(20px, 3vh, 36px);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  color: var(--ink-soft);
+  opacity: 0.7;
+  animation: hero-scroll-bounce 2.2s ease-in-out infinite;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+.hero-scroll-indicator svg { width: 14px; height: 14px; transform: rotate(90deg); }
+@media (hover: hover) and (pointer: fine) {
+  .hero-scroll-indicator:hover { opacity: 1; color: var(--navy); }
+}
+@keyframes hero-scroll-bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(8px); }
+}
+@media (max-width: 1023px) {
+  .hero-scroll-indicator { display: none; }
+}
+:root[data-reduced-motion="true"] .hero-scroll-indicator { animation: none; }
 
 /* Page hero (discipline pages) */
 .page-hero {
@@ -716,14 +746,28 @@ html[data-sticky-navbar="true"] .site-header {
   filter: brightness(0) invert(1);
   opacity: 0.95;
 }
+.tile-text { margin-top: 0.9em; }
 .tile-label {
+  display: block;
   font-family: var(--font-display);
   color: var(--white);
   font-size: 1.15rem;
-  margin-top: 0.9em;
   line-height: 1.25;
 }
 .discipline-grid .tile:first-child .tile-label { font-size: 1.4rem; }
+.tile-tagline {
+  display: block;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.6);
+  margin-top: 0.3em;
+  line-height: 1.3;
+  transition: color 0.25s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover .tile-tagline { color: rgba(255,255,255,0.85); }
+}
 
 .tile-arrow {
   position: absolute;
