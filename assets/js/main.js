@@ -717,48 +717,57 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('touchend', ptrEnd);
   document.addEventListener('touchcancel', ptrReset);
 
-  // Edge-swipe back: a rightward drag that starts within 30px of the left
-  // edge navigates back in history, mirroring the iOS back gesture.
-  // Ignored while the lightbox is open (it has its own swipe handler).
-  const BACK_EDGE = 30;
-  const BACK_THRESHOLD = 60;
+  // Edge-swipe back/forward: a drag from the left edge (rightward) goes back;
+  // a drag from the right edge (leftward) goes forward. Both mirror the iOS
+  // swipe gesture. Ignored while the lightbox is open.
+  const EDGE_SIZE = 30;
+  const EDGE_THRESHOLD = 60;
 
   const backIndicator = document.createElement('div');
   backIndicator.className = 'back-swipe-indicator';
   document.body.appendChild(backIndicator);
 
-  let backStartX = 0;
-  let backStartY = 0;
-  let backActive = false;
+  const fwdIndicator = document.createElement('div');
+  fwdIndicator.className = 'fwd-swipe-indicator';
+  document.body.appendChild(fwdIndicator);
 
-  const backReset = () => {
-    backActive = false;
-    backIndicator.classList.remove('is-visible', 'is-ready');
-  };
+  let backStartX = 0, backStartY = 0, backActive = false;
+  let fwdStartX = 0, fwdStartY = 0, fwdActive = false;
+
+  const backReset = () => { backActive = false; backIndicator.classList.remove('is-visible', 'is-ready'); };
+  const fwdReset  = () => { fwdActive  = false; fwdIndicator.classList.remove('is-visible', 'is-ready'); };
 
   document.addEventListener('touchstart', (e) => {
     if (lightbox.classList.contains('is-open')) return;
     const x = e.touches[0].clientX;
-    if (x > BACK_EDGE) return;
-    backStartX = x;
-    backStartY = e.touches[0].clientY;
-    backActive = true;
+    const y = e.touches[0].clientY;
+    if (x <= EDGE_SIZE) {
+      backStartX = x; backStartY = y; backActive = true;
+    } else if (x >= window.innerWidth - EDGE_SIZE) {
+      fwdStartX = x; fwdStartY = y; fwdActive = true;
+    }
   }, { passive: true });
 
   document.addEventListener('touchmove', (e) => {
-    if (!backActive) return;
-    const dx = e.touches[0].clientX - backStartX;
-    const dy = e.touches[0].clientY - backStartY;
-    if (dx <= 0 || Math.abs(dy) > Math.abs(dx)) { backReset(); return; }
-    backIndicator.classList.add('is-visible');
-    backIndicator.classList.toggle('is-ready', dx >= BACK_THRESHOLD);
+    const x = e.touches[0].clientX;
+    const y = e.touches[0].clientY;
+    if (backActive) {
+      const dx = x - backStartX, dy = y - backStartY;
+      if (dx <= 0 || Math.abs(dy) > Math.abs(dx)) { backReset(); return; }
+      backIndicator.classList.add('is-visible');
+      backIndicator.classList.toggle('is-ready', dx >= EDGE_THRESHOLD);
+    }
+    if (fwdActive) {
+      const dx = x - fwdStartX, dy = y - fwdStartY;
+      if (dx >= 0 || Math.abs(dy) > Math.abs(dx)) { fwdReset(); return; }
+      fwdIndicator.classList.add('is-visible');
+      fwdIndicator.classList.toggle('is-ready', -dx >= EDGE_THRESHOLD);
+    }
   }, { passive: true });
 
   document.addEventListener('touchend', () => {
-    if (!backActive) return;
-    const ready = backIndicator.classList.contains('is-ready');
-    backReset();
-    if (ready) history.back();
+    if (backActive) { const r = backIndicator.classList.contains('is-ready'); backReset(); if (r) history.back(); }
+    if (fwdActive)  { const r = fwdIndicator.classList.contains('is-ready');  fwdReset();  if (r) history.forward(); }
   });
-  document.addEventListener('touchcancel', backReset);
+  document.addEventListener('touchcancel', () => { backReset(); fwdReset(); });
 });
