@@ -1200,7 +1200,7 @@ a.chip:active { transform: scale(0.95); }
 
 /* ---------- Contact Page ---------- */
 .contact-hero {
-  padding: clamp(72px, 12vh, 140px) 0 clamp(40px, 6vw, 64px);
+  padding: clamp(72px, 12vh, 140px) 0 clamp(16px, 2.5vw, 28px);
 }
 .contact-hero-text { max-width: 760px; }
 .contact-h1 {
@@ -1214,6 +1214,8 @@ a.chip:active { transform: scale(0.95); }
   margin: 0;
   line-height: 1.7;
 }
+
+.contact-connect { padding-top: clamp(16px, 2.5vw, 28px); }
 
 /* Connect section layout */
 .contact-layout {
