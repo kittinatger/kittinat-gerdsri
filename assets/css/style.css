@@ -1180,6 +1180,8 @@ a.chip:active { transform: scale(0.95); }
   transform: translateY(-50%) translateX(0);
 }
 .back-swipe-indicator.is-ready { color: var(--navy); }
+[data-hide-swipe-indicators] .back-swipe-indicator,
+[data-hide-swipe-indicators] .lightbox-nav { display: none !important; }
 
 /* ---------- Contact CTA ---------- */
 .cta {

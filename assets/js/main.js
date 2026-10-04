@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Terms & Support': 'Terms & Support', 'Language': 'Language', 'Theme': 'Theme',
       'Text Size': 'Text Size', 'Beta': 'Beta', 'Reduced Motion': 'Reduced Motion',
       'Enable Zoom': 'Enable Zoom', 'Enable Select/Drag': 'Enable Select/Drag',
-      'Sticky Navbar': 'Sticky Navbar',
+      'Sticky Navbar': 'Sticky Navbar', 'Swipe Indicators': 'Swipe Indicators',
       'Changing these may cause unexpected results.': 'Changing these may cause unexpected results.',
       'Translated by AI — changing the language may cause unexpected results.': 'Translated by AI — changing the language may cause unexpected results.'
     },
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Terms & Support': 'ข้อกำหนดและการสนับสนุน', 'Language': 'ภาษา', 'Theme': 'ธีม',
       'Text Size': 'ขนาดตัวอักษร', 'Beta': 'เบต้า', 'Reduced Motion': 'ลดการเคลื่อนไหว',
       'Enable Zoom': 'เปิดใช้งานการซูม', 'Enable Select/Drag': 'เปิดใช้งานการเลือก/ลากข้อความ',
-      'Sticky Navbar': 'แถบนำทางแบบติดขอบจอ',
+      'Sticky Navbar': 'แถบนำทางแบบติดขอบจอ', 'Swipe Indicators': 'ตัวบ่งชี้การปัด',
       'Changing these may cause unexpected results.': 'การเปลี่ยนแปลงนี้อาจทำให้เกิดผลลัพธ์ที่ไม่คาดคิด',
       'Translated by AI — changing the language may cause unexpected results.': 'แปลโดย AI — การเปลี่ยนภาษาอาจทำให้เกิดผลลัพธ์ที่ไม่คาดคิด'
     },
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Terms & Support': '条款与支持', 'Language': '语言', 'Theme': '主题',
       'Text Size': '文字大小', 'Beta': '测试版', 'Reduced Motion': '减少动态效果',
       'Enable Zoom': '启用缩放', 'Enable Select/Drag': '启用选择/拖动',
-      'Sticky Navbar': '固定导航栏',
+      'Sticky Navbar': '固定导航栏', 'Swipe Indicators': '滑动指示器',
       'Changing these may cause unexpected results.': '更改这些设置可能会导致意外结果。',
       'Translated by AI — changing the language may cause unexpected results.': '由 AI 翻译——更改语言可能会导致意外结果。'
     }
@@ -271,6 +271,12 @@ document.addEventListener('DOMContentLoaded', () => {
             '<span class="toggle-switch-thumb"></span>' +
           '</button>' +
         '</div>' +
+        '<div class="settings-section settings-section-row">' +
+          `<p class="settings-label">${settingsLabel['Swipe Indicators']}</p>` +
+          '<button class="toggle-switch swipe-indicators-toggle" type="button" role="switch" aria-checked="true" aria-label="Toggle swipe indicators">' +
+            '<span class="toggle-switch-thumb"></span>' +
+          '</button>' +
+        '</div>' +
         '<div class="settings-section">' +
           '<div class="settings-section-row">' +
             `<p class="settings-label">${settingsLabel['Enable Zoom']}</p>` +
@@ -350,6 +356,22 @@ document.addEventListener('DOMContentLoaded', () => {
         if (next) document.documentElement.setAttribute('data-sticky-navbar', 'true');
         else document.documentElement.removeAttribute('data-sticky-navbar');
         localStorage.setItem('portfolio-sticky-navbar', String(next));
+      });
+    }
+    // Swipe Indicators — on by default. Turning off sets
+    // data-hide-swipe-indicators on <html>, which CSS uses to hide the
+    // back-swipe indicator and the lightbox nav buttons.
+    const swipeIndicatorsToggle = settingsPanel.querySelector('.swipe-indicators-toggle');
+    if (swipeIndicatorsToggle) {
+      const initialIndicators = localStorage.getItem('portfolio-swipe-indicators') !== 'false';
+      swipeIndicatorsToggle.setAttribute('aria-checked', String(initialIndicators));
+      if (!initialIndicators) document.documentElement.setAttribute('data-hide-swipe-indicators', 'true');
+      swipeIndicatorsToggle.addEventListener('click', () => {
+        const next = swipeIndicatorsToggle.getAttribute('aria-checked') !== 'true';
+        swipeIndicatorsToggle.setAttribute('aria-checked', String(next));
+        if (next) document.documentElement.removeAttribute('data-hide-swipe-indicators');
+        else document.documentElement.setAttribute('data-hide-swipe-indicators', 'true');
+        localStorage.setItem('portfolio-swipe-indicators', String(next));
       });
     }
     // Enable Zoom — off by default (the viewport meta tag in <head> ships
