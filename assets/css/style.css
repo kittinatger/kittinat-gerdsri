@@ -1108,6 +1108,9 @@ a.chip:active { transform: scale(0.95); }
   z-index: 1;
   top: 24px;
   right: clamp(20px, 5vw, 48px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -1117,10 +1120,10 @@ a.chip:active { transform: scale(0.95); }
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  font-size: 1.2rem;
   cursor: pointer;
   transition: transform 0.15s ease, background 0.2s ease;
 }
+.lightbox-close svg { width: 15px; height: 15px; }
 @media (hover: hover) and (pointer: fine) {
   .lightbox-close:hover { background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.14) 100%); }
 }
