@@ -267,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
         '</div>' +
         '<div class="settings-section settings-section-row">' +
           `<p class="settings-label">${settingsLabel['Sticky Navbar']}</p>` +
-          '<button class="toggle-switch sticky-navbar-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle sticky navigation bar">' +
+          '<button class="toggle-switch sticky-navbar-toggle" type="button" role="switch" aria-checked="true" aria-label="Toggle sticky navigation bar">' +
             '<span class="toggle-switch-thumb"></span>' +
           '</button>' +
         '</div>' +
@@ -347,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // CSS override switches the header back to position:sticky.
     const stickyNavbarToggle = settingsPanel.querySelector('.sticky-navbar-toggle');
     if (stickyNavbarToggle) {
-      const initialSticky = localStorage.getItem('portfolio-sticky-navbar') === 'true';
+      const initialSticky = localStorage.getItem('portfolio-sticky-navbar') !== 'false';
       stickyNavbarToggle.setAttribute('aria-checked', String(initialSticky));
       if (initialSticky) document.documentElement.setAttribute('data-sticky-navbar', 'true');
       stickyNavbarToggle.addEventListener('click', () => {
