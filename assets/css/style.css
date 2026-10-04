@@ -1571,6 +1571,11 @@ a.chip:active { transform: scale(0.95); }
   .hero .wrap { grid-template-columns: 1fr; }
   .hero-photo-wrap { max-width: 380px; margin: 0 auto; }
   /* about-pillars handled by its own breakpoints above */
+}
+@media (max-width: 559px) {
+  .hero-photo-wrap { max-width: 260px; }
+}
+@media (max-width: 920px) {
   /* discipline-grid handled by its own breakpoints above */
   .gallery { grid-template-columns: repeat(2, 1fr); }
   .gallery figure.wide { grid-column: span 2; }
