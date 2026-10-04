@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Text Size': 'Text Size', 'Beta': 'Beta', 'Reduced Motion': 'Reduced Motion',
       'Enable Zoom': 'Enable Zoom', 'Enable Select/Drag': 'Enable Select/Drag',
       'Sticky Navbar': 'Sticky Navbar',
-      'Swipe Indicators': 'Swipe Indicators', 'Lightbox Buttons': 'Lightbox Buttons',
+      'Swipe Indicators': 'Swipe Indicators',
       'Changing these may cause unexpected results.': 'Changing these may cause unexpected results.',
       'Translated by AI — changing the language may cause unexpected results.': 'Translated by AI — changing the language may cause unexpected results.'
     },
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Text Size': 'ขนาดตัวอักษร', 'Beta': 'เบต้า', 'Reduced Motion': 'ลดการเคลื่อนไหว',
       'Enable Zoom': 'เปิดใช้งานการซูม', 'Enable Select/Drag': 'เปิดใช้งานการเลือก/ลากข้อความ',
       'Sticky Navbar': 'แถบนำทางแบบติดขอบจอ',
-      'Swipe Indicators': 'ตัวบ่งชี้การปัด', 'Lightbox Buttons': 'ปุ่มไลท์บ็อกซ์',
+      'Swipe Indicators': 'ตัวบ่งชี้การปัด',
       'Changing these may cause unexpected results.': 'การเปลี่ยนแปลงนี้อาจทำให้เกิดผลลัพธ์ที่ไม่คาดคิด',
       'Translated by AI — changing the language may cause unexpected results.': 'แปลโดย AI — การเปลี่ยนภาษาอาจทำให้เกิดผลลัพธ์ที่ไม่คาดคิด'
     },
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Text Size': '文字大小', 'Beta': '测试版', 'Reduced Motion': '减少动态效果',
       'Enable Zoom': '启用缩放', 'Enable Select/Drag': '启用选择/拖动',
       'Sticky Navbar': '固定导航栏',
-      'Swipe Indicators': '滑动指示器', 'Lightbox Buttons': '灯箱按钮',
+      'Swipe Indicators': '滑动指示器',
       'Changing these may cause unexpected results.': '更改这些设置可能会导致意外结果。',
       'Translated by AI — changing the language may cause unexpected results.': '由 AI 翻译——更改语言可能会导致意外结果。'
     }
@@ -281,12 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
               '<span class="toggle-switch-thumb"></span>' +
             '</button>' +
           '</div>' +
-          '<div class="settings-section-row" style="margin-top:10px;">' +
-            `<p class="settings-label">${settingsLabel['Lightbox Buttons']}</p>` +
-            '<button class="toggle-switch lightbox-buttons-toggle" type="button" role="switch" aria-checked="true" aria-label="Toggle lightbox navigation buttons">' +
-              '<span class="toggle-switch-thumb"></span>' +
-            '</button>' +
-          '</div>' +
         '</div>' +
         '<div class="settings-section">' +
           '<div class="settings-section-row">' +
@@ -382,21 +376,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (next) document.documentElement.removeAttribute('data-hide-swipe-indicators');
         else document.documentElement.setAttribute('data-hide-swipe-indicators', 'true');
         localStorage.setItem('portfolio-swipe-indicators', String(next));
-      });
-    }
-    // Lightbox Buttons — on by default. Controls the prev/next nav buttons
-    // inside the lightbox independently of the edge-swipe indicators.
-    const lightboxButtonsToggle = settingsPanel.querySelector('.lightbox-buttons-toggle');
-    if (lightboxButtonsToggle) {
-      const initial = localStorage.getItem('portfolio-lightbox-buttons') !== 'false';
-      lightboxButtonsToggle.setAttribute('aria-checked', String(initial));
-      if (!initial) document.documentElement.setAttribute('data-hide-lightbox-buttons', 'true');
-      lightboxButtonsToggle.addEventListener('click', () => {
-        const next = lightboxButtonsToggle.getAttribute('aria-checked') !== 'true';
-        lightboxButtonsToggle.setAttribute('aria-checked', String(next));
-        if (next) document.documentElement.removeAttribute('data-hide-lightbox-buttons');
-        else document.documentElement.setAttribute('data-hide-lightbox-buttons', 'true');
-        localStorage.setItem('portfolio-lightbox-buttons', String(next));
       });
     }
     // Enable Zoom — off by default (the viewport meta tag in <head> ships
