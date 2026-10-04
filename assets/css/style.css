@@ -699,7 +699,7 @@ html[data-sticky-navbar="true"] .site-header {
   flex-wrap: wrap;
   column-gap: 20px;
   row-gap: 0.6em;
-  margin-top: 1em;
+  margin-top: 2.2em;
 }
 .hero-ask-ai {
   display: inline-flex;
