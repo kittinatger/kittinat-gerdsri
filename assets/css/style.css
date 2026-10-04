@@ -650,12 +650,29 @@ html[data-sticky-navbar="true"] .site-header {
 .page-hero {
   padding: clamp(52px, 8vw, 92px) 0 clamp(28px, 5vw, 48px);
   text-align: left;
+  background-image: radial-gradient(ellipse 55% 70% at 10% 55%, rgba(29,79,156,0.09) 0%, transparent 70%);
+}
+[data-theme="dark"] .page-hero {
+  background-image: radial-gradient(ellipse 55% 70% at 10% 55%, rgba(110,161,232,0.07) 0%, transparent 70%);
 }
 .page-hero .lede { max-width: 72ch; }
 
 /* ---------- About ---------- */
 .section { padding: clamp(48px, 7vw, 88px) 0; }
-.section-soft { background: var(--bg-soft); }
+.section-soft {
+  background-color: var(--bg-soft);
+  background-image: radial-gradient(ellipse 60% 70% at 90% 50%, rgba(29,79,156,0.07) 0%, transparent 65%);
+}
+[data-theme="dark"] .section-soft {
+  background-image: radial-gradient(ellipse 60% 70% at 90% 50%, rgba(110,161,232,0.06) 0%, transparent 65%);
+}
+/* Subtle top-center glow on plain sections (work grid, galleries, etc.) */
+.section:not(.section-soft) {
+  background-image: radial-gradient(ellipse 50% 50% at 50% 0%, rgba(29,79,156,0.055) 0%, transparent 65%);
+}
+[data-theme="dark"] .section:not(.section-soft) {
+  background-image: radial-gradient(ellipse 50% 50% at 50% 0%, rgba(110,161,232,0.045) 0%, transparent 65%);
+}
 
 .about-grid {
   display: grid;
