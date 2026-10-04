@@ -745,7 +745,6 @@ html[data-sticky-navbar="true"] .site-header {
 
 .legal-doc {
   max-width: 72ch;
-  margin: 0 auto;
 }
 .legal-section {
   display: grid;
