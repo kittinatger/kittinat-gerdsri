@@ -1231,7 +1231,7 @@ a.chip:active { transform: scale(0.95); }
   flex-direction: column;
   justify-content: space-between;
   gap: 20px;
-  padding: 20px clamp(24px, 3.5vw, 40px) clamp(24px, 3.5vw, 40px);
+  padding: 28px clamp(24px, 3.5vw, 40px) clamp(24px, 3.5vw, 40px);
   background: var(--glass-bg);
   backdrop-filter: saturate(200%) blur(20px);
   -webkit-backdrop-filter: saturate(200%) blur(20px);
@@ -1284,13 +1284,12 @@ a.chip:active { transform: scale(0.95); }
   50%       { box-shadow: 0 0 0 6px rgba(34,197,94,0.08); }
 }
 
-/* Social section — top padding matches the info card's internal padding
-   so the "Find Me On" label lines up with "Email me directly" across. */
+/* Social section — sits flush with the grid top, same as the info
+   card's border, so "Find Me On" lines up with the card's top edge. */
 .contact-socials {
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding-top: 20px;
 }
 .contact-social-grid {
   display: grid;
