@@ -1376,14 +1376,14 @@ a.chip:active { transform: scale(0.95); }
 /* Tablet */
 @media (max-width: 1023px) and (min-width: 560px) {
   .contact-intro { max-width: 100%; }
-  .contact-layout { grid-template-columns: 1fr; gap: 20px; }
+  .contact-layout { grid-template-columns: 1fr; gap: 40px; }
 }
 
 /* Mobile */
 @media (max-width: 559px) {
   .contact-h1 { font-size: clamp(2.6rem, 9vw, 3.5rem); }
   .contact-intro { max-width: 100%; }
-  .contact-layout { grid-template-columns: 1fr; gap: 16px; }
+  .contact-layout { grid-template-columns: 1fr; gap: 40px; }
   .contact-social-grid { grid-template-columns: 1fr; }
   .social-tile--wide { grid-column: 1; }
 }
