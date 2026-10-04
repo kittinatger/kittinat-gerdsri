@@ -600,24 +600,51 @@ html[data-sticky-navbar="true"] .site-header {
 
 /* ---------- Hero ---------- */
 .hero {
-  padding: clamp(56px, 9vw, 108px) 0 clamp(40px, 6vw, 72px);
+  min-height: 100svh;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 70% at 15% 50%, rgba(29,79,156,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+[data-theme="dark"] .hero::before {
+  background: radial-gradient(ellipse 60% 70% at 15% 50%, rgba(110,161,232,0.08) 0%, transparent 70%);
 }
 .hero .wrap {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: clamp(28px, 5vw, 64px);
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(40px, 6vw, 80px);
   align-items: center;
+  padding-top: clamp(88px, 12vh, 140px);
+  padding-bottom: clamp(64px, 10vh, 120px);
+  position: relative;
+  z-index: 1;
 }
-.hero-copy h1 { margin-bottom: 0.25em; }
+.hero-copy { max-width: 600px; }
+.hero-copy h1 {
+  margin-bottom: 0.2em;
+  font-size: clamp(3rem, 5.5vw, 5.2rem);
+  line-height: 1.05;
+}
 .hero-photo {
-  border-radius: var(--radius);
+  border-radius: calc(var(--radius) * 2.5);
   overflow: hidden;
-  box-shadow: var(--shadow-soft);
   aspect-ratio: 3 / 4;
+  box-shadow: 0 48px 96px rgba(0,0,0,0.22), 0 12px 28px rgba(0,0,0,0.12);
+}
+[data-theme="dark"] .hero-photo {
+  box-shadow: 0 48px 96px rgba(0,0,0,0.45), 0 12px 28px rgba(0,0,0,0.25);
 }
 .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
 
-.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 1.6em; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 2em; }
 
 /* Page hero (discipline pages) */
 .page-hero {
@@ -1289,8 +1316,14 @@ a.chip:active { transform: scale(0.95); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 920px) {
-  .hero .wrap { grid-template-columns: 1fr; }
-  .hero-photo { max-width: 380px; }
+  .hero {
+    min-height: auto;
+    padding: clamp(56px, 9vw, 100px) 0 clamp(40px, 6vw, 72px);
+  }
+  .hero .wrap { grid-template-columns: 1fr; padding-top: 0; padding-bottom: 0; }
+  .hero-copy { max-width: 100%; }
+  .hero-copy h1 { font-size: clamp(2.6rem, 7vw, 3.6rem); }
+  .hero-photo { max-width: 340px; }
   /* about-grid handled by its own breakpoints above */
   /* discipline-grid handled by its own breakpoints above */
   .gallery { grid-template-columns: repeat(2, 1fr); }
