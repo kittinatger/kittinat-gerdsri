@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
       'Text Size': 'Text Size', 'Beta': 'Beta', 'Reduced Motion': 'Reduced Motion',
       'Enable Zoom': 'Enable Zoom', 'Enable Select/Drag': 'Enable Select/Drag',
       'Sticky Navbar': 'Sticky Navbar',
-      'Swipe Indicators': 'Swipe Indicators',
       'Changing these may cause unexpected results.': 'Changing these may cause unexpected results.',
       'Translated by AI — changing the language may cause unexpected results.': 'Translated by AI — changing the language may cause unexpected results.'
     },
@@ -37,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
       'Text Size': 'ขนาดตัวอักษร', 'Beta': 'เบต้า', 'Reduced Motion': 'ลดการเคลื่อนไหว',
       'Enable Zoom': 'เปิดใช้งานการซูม', 'Enable Select/Drag': 'เปิดใช้งานการเลือก/ลากข้อความ',
       'Sticky Navbar': 'แถบนำทางแบบติดขอบจอ',
-      'Swipe Indicators': 'ตัวบ่งชี้การปัด',
       'Changing these may cause unexpected results.': 'การเปลี่ยนแปลงนี้อาจทำให้เกิดผลลัพธ์ที่ไม่คาดคิด',
       'Translated by AI — changing the language may cause unexpected results.': 'แปลโดย AI — การเปลี่ยนภาษาอาจทำให้เกิดผลลัพธ์ที่ไม่คาดคิด'
     },
@@ -52,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
       'Text Size': '文字大小', 'Beta': '测试版', 'Reduced Motion': '减少动态效果',
       'Enable Zoom': '启用缩放', 'Enable Select/Drag': '启用选择/拖动',
       'Sticky Navbar': '固定导航栏',
-      'Swipe Indicators': '滑动指示器',
       'Changing these may cause unexpected results.': '更改这些设置可能会导致意外结果。',
       'Translated by AI — changing the language may cause unexpected results.': '由 AI 翻译——更改语言可能会导致意外结果。'
     }
@@ -275,14 +272,6 @@ document.addEventListener('DOMContentLoaded', () => {
           '</button>' +
         '</div>' +
         '<div class="settings-section">' +
-          '<div class="settings-section-row touch-only-setting">' +
-            `<p class="settings-label">${settingsLabel['Swipe Indicators']}</p>` +
-            '<button class="toggle-switch swipe-indicators-toggle" type="button" role="switch" aria-checked="true" aria-label="Toggle swipe indicators">' +
-              '<span class="toggle-switch-thumb"></span>' +
-            '</button>' +
-          '</div>' +
-        '</div>' +
-        '<div class="settings-section">' +
           '<div class="settings-section-row">' +
             `<p class="settings-label">${settingsLabel['Enable Zoom']}</p>` +
             '<button class="toggle-switch zoom-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle pinch-to-zoom">' +
@@ -361,21 +350,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (next) document.documentElement.setAttribute('data-sticky-navbar', 'true');
         else document.documentElement.removeAttribute('data-sticky-navbar');
         localStorage.setItem('portfolio-sticky-navbar', String(next));
-      });
-    }
-    // Swipe Indicators — on by default. Controls the edge-swipe back/forward
-    // pill indicators only (not the lightbox buttons).
-    const swipeIndicatorsToggle = settingsPanel.querySelector('.swipe-indicators-toggle');
-    if (swipeIndicatorsToggle) {
-      const initial = localStorage.getItem('portfolio-swipe-indicators') !== 'false';
-      swipeIndicatorsToggle.setAttribute('aria-checked', String(initial));
-      if (!initial) document.documentElement.setAttribute('data-hide-swipe-indicators', 'true');
-      swipeIndicatorsToggle.addEventListener('click', () => {
-        const next = swipeIndicatorsToggle.getAttribute('aria-checked') !== 'true';
-        swipeIndicatorsToggle.setAttribute('aria-checked', String(next));
-        if (next) document.documentElement.removeAttribute('data-hide-swipe-indicators');
-        else document.documentElement.setAttribute('data-hide-swipe-indicators', 'true');
-        localStorage.setItem('portfolio-swipe-indicators', String(next));
       });
     }
     // Enable Zoom — off by default (the viewport meta tag in <head> ships
@@ -722,24 +696,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('touchcancel', ptrReset);
 
   // Edge-swipe back/forward: a drag from the left edge (rightward) goes back;
-  // a drag from the right edge (leftward) goes forward. Both mirror the iOS
-  // swipe gesture. Ignored while the lightbox is open.
+  // a drag from the right edge (leftward) goes forward.
+  // Ignored while the lightbox is open.
   const EDGE_SIZE = 30;
   const EDGE_THRESHOLD = 60;
-
-  const backIndicator = document.createElement('div');
-  backIndicator.className = 'back-swipe-indicator';
-  document.body.appendChild(backIndicator);
-
-  const fwdIndicator = document.createElement('div');
-  fwdIndicator.className = 'fwd-swipe-indicator';
-  document.body.appendChild(fwdIndicator);
 
   let backStartX = 0, backStartY = 0, backActive = false;
   let fwdStartX = 0, fwdStartY = 0, fwdActive = false;
 
-  const backReset = () => { backActive = false; backIndicator.classList.remove('is-visible', 'is-ready'); };
-  const fwdReset  = () => { fwdActive  = false; fwdIndicator.classList.remove('is-visible', 'is-ready'); };
+  const backReset = () => { backActive = false; };
+  const fwdReset  = () => { fwdActive  = false; };
 
   document.addEventListener('touchstart', (e) => {
     if (lightbox.classList.contains('is-open')) return;
@@ -757,21 +723,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const y = e.touches[0].clientY;
     if (backActive) {
       const dx = x - backStartX, dy = y - backStartY;
-      if (dx <= 0 || Math.abs(dy) > Math.abs(dx)) { backReset(); return; }
-      backIndicator.classList.add('is-visible');
-      backIndicator.classList.toggle('is-ready', dx >= EDGE_THRESHOLD);
+      if (dx <= 0 || Math.abs(dy) > Math.abs(dx)) backReset();
     }
     if (fwdActive) {
       const dx = x - fwdStartX, dy = y - fwdStartY;
-      if (dx >= 0 || Math.abs(dy) > Math.abs(dx)) { fwdReset(); return; }
-      fwdIndicator.classList.add('is-visible');
-      fwdIndicator.classList.toggle('is-ready', -dx >= EDGE_THRESHOLD);
+      if (dx >= 0 || Math.abs(dy) > Math.abs(dx)) fwdReset();
     }
   }, { passive: true });
 
-  document.addEventListener('touchend', () => {
-    if (backActive) { const r = backIndicator.classList.contains('is-ready'); backReset(); if (r) history.back(); }
-    if (fwdActive)  { const r = fwdIndicator.classList.contains('is-ready');  fwdReset();  if (r) history.forward(); }
+  document.addEventListener('touchend', (e) => {
+    if (backActive) {
+      const dx = e.changedTouches[0].clientX - backStartX;
+      backReset();
+      if (dx >= EDGE_THRESHOLD) history.back();
+    }
+    if (fwdActive) {
+      const dx = e.changedTouches[0].clientX - fwdStartX;
+      fwdReset();
+      if (-dx >= EDGE_THRESHOLD) history.forward();
+    }
   });
   document.addEventListener('touchcancel', () => { backReset(); fwdReset(); });
 });
