@@ -1149,6 +1149,38 @@ a.chip:active { transform: scale(0.95); }
 @keyframes ptr-spin { to { transform: rotate(360deg); } }
 [data-reduced-motion] .ptr-indicator.is-refreshing .ptr-spinner { animation: none; }
 
+/* Back-swipe indicator — appears on the left edge while an edge-swipe back
+   gesture is in progress. Shows a chevron; turns solid when past threshold. */
+.back-swipe-indicator {
+  position: fixed;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%) translateX(-8px);
+  opacity: 0;
+  width: 32px;
+  height: 32px;
+  background: var(--surface-glass);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  font-size: 18px;
+  line-height: 1;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease, color 0.15s ease;
+  z-index: 900;
+}
+.back-swipe-indicator::after { content: '‹'; }
+.back-swipe-indicator.is-visible {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+.back-swipe-indicator.is-ready { color: var(--navy); }
+
 /* ---------- Contact CTA ---------- */
 .cta {
   background: linear-gradient(155deg, var(--navy) 0%, var(--navy-darker) 100%);

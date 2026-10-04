@@ -694,4 +694,49 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   document.addEventListener('touchend', ptrEnd);
   document.addEventListener('touchcancel', ptrReset);
+
+  // Edge-swipe back: a rightward drag that starts within 30px of the left
+  // edge navigates back in history, mirroring the iOS back gesture.
+  // Ignored while the lightbox is open (it has its own swipe handler).
+  const BACK_EDGE = 30;
+  const BACK_THRESHOLD = 60;
+
+  const backIndicator = document.createElement('div');
+  backIndicator.className = 'back-swipe-indicator';
+  document.body.appendChild(backIndicator);
+
+  let backStartX = 0;
+  let backStartY = 0;
+  let backActive = false;
+
+  const backReset = () => {
+    backActive = false;
+    backIndicator.classList.remove('is-visible', 'is-ready');
+  };
+
+  document.addEventListener('touchstart', (e) => {
+    if (lightbox.classList.contains('is-open')) return;
+    const x = e.touches[0].clientX;
+    if (x > BACK_EDGE) return;
+    backStartX = x;
+    backStartY = e.touches[0].clientY;
+    backActive = true;
+  }, { passive: true });
+
+  document.addEventListener('touchmove', (e) => {
+    if (!backActive) return;
+    const dx = e.touches[0].clientX - backStartX;
+    const dy = e.touches[0].clientY - backStartY;
+    if (dx <= 0 || Math.abs(dy) > Math.abs(dx)) { backReset(); return; }
+    backIndicator.classList.add('is-visible');
+    backIndicator.classList.toggle('is-ready', dx >= BACK_THRESHOLD);
+  }, { passive: true });
+
+  document.addEventListener('touchend', () => {
+    if (!backActive) return;
+    const ready = backIndicator.classList.contains('is-ready');
+    backReset();
+    if (ready) history.back();
+  });
+  document.addEventListener('touchcancel', backReset);
 });
