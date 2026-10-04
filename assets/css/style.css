@@ -633,7 +633,7 @@ html[data-sticky-navbar="true"] .site-header {
   object-position: 50% 15%;
   display: block;
 }
-.hero-inner { position: relative; z-index: 1; }
+.hero-inner { position: relative; z-index: 1; width: 100%; }
 .hero-copy { max-width: 540px; }
 .hero-copy h1 { margin-bottom: 0.25em; }
 .hero-name-accent { color: var(--navy); }
