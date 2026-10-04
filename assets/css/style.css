@@ -726,34 +726,12 @@ html[data-sticky-navbar="true"] .site-header {
   .discipline-grid .tile:first-child .tile-label { font-size: 1.15rem; }
 }
 
-/* ---- Mobile ---- */
+/* ---- Mobile: single column of full cards (original layout) ---- */
 @media (max-width: 559px) {
   .discipline-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    grid-template-columns: 1fr;
   }
-  .tile {
-    flex-direction: row;
-    align-items: center;
-    min-height: unset;
-    padding: 1.1em 1.3em;
-    gap: 1em;
-  }
-  .tile-icon { width: 32px; height: 32px; flex-shrink: 0; }
-  .tile-label {
-    font-size: 1.05rem;
-    margin-top: 0;
-    flex: 1;
-  }
-  .discipline-grid .tile:first-child .tile-label { font-size: 1.05rem; }
-  .tile-arrow {
-    position: static;
-    flex-shrink: 0;
-    opacity: 0.6;
-    width: 0.9rem;
-    height: 0.9rem;
-  }
+  .discipline-grid .tile:first-child .tile-label { font-size: 1.15rem; }
 }
 
 /* ---------- Gallery ---------- */
