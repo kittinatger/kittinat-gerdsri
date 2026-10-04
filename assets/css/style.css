@@ -636,7 +636,7 @@ html[data-sticky-navbar="true"] .site-header {
   animation: hero-scroll-bounce 2.2s ease-in-out infinite;
   transition: opacity 0.2s ease, color 0.2s ease;
 }
-.hero-scroll-indicator svg { width: 14px; height: 14px; transform: rotate(90deg); }
+.hero-scroll-indicator svg { width: 14px; height: 14px; }
 @media (hover: hover) and (pointer: fine) {
   .hero-scroll-indicator:hover { opacity: 1; color: var(--navy); }
 }
