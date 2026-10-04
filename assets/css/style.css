@@ -1216,14 +1216,15 @@ a.chip:active { transform: scale(0.95); }
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
   gap: clamp(20px, 3.5vw, 48px);
-  align-items: start;
+  align-items: stretch;
 }
 
 /* Info card — simple glass card: label, big email, arrow */
 .contact-info-card {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 20px;
   padding: clamp(24px, 3.5vw, 40px);
   background: var(--glass-bg);
   backdrop-filter: saturate(200%) blur(20px);
@@ -1236,6 +1237,7 @@ a.chip:active { transform: scale(0.95); }
   position: relative;
   transition: transform 0.28s ease, box-shadow 0.28s ease;
 }
+.contact-info-main { display: flex; flex-direction: column; gap: 8px; }
 .contact-info-addr {
   font-family: var(--font-display);
   font-size: clamp(1.15rem, 2.2vw, 1.7rem);
@@ -1276,8 +1278,14 @@ a.chip:active { transform: scale(0.95); }
   50%       { box-shadow: 0 0 0 6px rgba(34,197,94,0.08); }
 }
 
-/* Social section */
-.contact-socials { display: flex; flex-direction: column; gap: 14px; }
+/* Social section — top padding matches the info card's internal padding
+   so the "Find Me On" label lines up with "Email me directly" across. */
+.contact-socials {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: clamp(24px, 3.5vw, 40px);
+}
 .contact-social-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
