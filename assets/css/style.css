@@ -1219,32 +1219,40 @@ a.chip:active { transform: scale(0.95); }
   align-items: start;
 }
 
-/* Info card */
+/* Info card — simple glass card: label, big email, arrow */
 .contact-info-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: clamp(24px, 3.5vw, 40px);
   background: var(--glass-bg);
   backdrop-filter: saturate(200%) blur(20px);
   -webkit-backdrop-filter: saturate(200%) blur(20px);
   border: 1px solid var(--glass-border);
   border-radius: 24px;
-  padding: clamp(24px, 3.5vw, 40px);
   box-shadow: var(--shadow-soft), var(--glass-shadow);
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  text-decoration: none;
+  color: var(--ink);
+  position: relative;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
 }
-.contact-info-heading {
+.contact-info-addr {
   font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 600;
+  font-size: clamp(1.15rem, 2.2vw, 1.7rem);
+  font-weight: 500;
   color: var(--heading);
+  word-break: break-all;
   margin: 0;
-  line-height: 1.25;
+  padding-right: 2em;
 }
-.contact-info-sub {
-  color: var(--ink-soft);
-  font-size: 0.9rem;
-  line-height: 1.65;
-  margin: 0;
+.contact-info-arrow {
+  position: absolute;
+  top: clamp(24px, 3.5vw, 40px);
+  right: clamp(24px, 3.5vw, 40px);
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  transition: transform 0.22s ease;
 }
 .contact-availability {
   display: flex;
@@ -1330,6 +1338,13 @@ a.chip:active { transform: scale(0.95); }
 
 /* Hover states — desktop only */
 @media (hover: hover) and (pointer: fine) {
+  .contact-info-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 32px 72px -20px rgba(15,44,89,0.38), var(--glass-shadow);
+  }
+  .contact-info-card:hover .contact-info-arrow {
+    transform: translate(3px, -3px);
+  }
   .social-tile:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-soft);
