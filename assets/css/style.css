@@ -1211,8 +1211,8 @@ a.chip:active { transform: scale(0.95); }
 }
 .fwd-swipe-indicator.is-ready { color: var(--navy); }
 [data-hide-swipe-indicators] .back-swipe-indicator,
-[data-hide-swipe-indicators] .fwd-swipe-indicator,
-[data-hide-swipe-indicators] .lightbox-nav { display: none !important; }
+[data-hide-swipe-indicators] .fwd-swipe-indicator { display: none !important; }
+[data-hide-lightbox-buttons] .lightbox-nav { display: none !important; }
 
 /* ---------- Contact CTA ---------- */
 .cta {
