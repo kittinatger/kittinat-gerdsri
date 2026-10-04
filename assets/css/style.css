@@ -65,6 +65,32 @@
   @view-transition {
     navigation: auto;
   }
+
+  /* Staggered fade: old page fades out FIRST, then new page fades in.
+     This prevents the jarring double-exposure where both pages are visible
+     at different scroll positions simultaneously. The brief gap between them
+     shows the body background, which is clean and neutral. */
+  @keyframes vt-fade-out {
+    to { opacity: 0; }
+  }
+  @keyframes vt-fade-in {
+    from { opacity: 0; }
+  }
+
+  ::view-transition-old(root) {
+    animation: 200ms ease-in both vt-fade-out;
+  }
+  ::view-transition-new(root) {
+    animation: 240ms ease-out 180ms both vt-fade-in;
+  }
+
+  /* Header stays fixed in place — it's identical on every page so it
+     shouldn't animate at all; instant swap is cleaner than a crossfade. */
+  ::view-transition-old(site-header),
+  ::view-transition-new(site-header) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
 }
 
 /* Respect both the OS-level reduced-motion preference and the in-site
