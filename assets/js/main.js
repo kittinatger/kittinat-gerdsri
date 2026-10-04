@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
           '</button>' +
         '</div>' +
         '<div class="settings-section">' +
-          '<div class="settings-section-row">' +
+          '<div class="settings-section-row touch-only-setting">' +
             `<p class="settings-label">${settingsLabel['Swipe Indicators']}</p>` +
             '<button class="toggle-switch swipe-indicators-toggle" type="button" role="switch" aria-checked="true" aria-label="Toggle swipe indicators">' +
               '<span class="toggle-switch-thumb"></span>' +

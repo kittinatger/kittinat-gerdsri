@@ -1214,6 +1214,7 @@ a.chip:active { transform: scale(0.95); }
    mouse); they're only useful on touch screens. */
 @media (hover: hover) and (pointer: fine) {
   .back-swipe-indicator, .fwd-swipe-indicator { display: none !important; }
+  .touch-only-setting { display: none !important; }
 }
 [data-hide-swipe-indicators] .back-swipe-indicator,
 [data-hide-swipe-indicators] .fwd-swipe-indicator { display: none !important; }
