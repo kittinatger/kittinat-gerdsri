@@ -1210,6 +1210,11 @@ a.chip:active { transform: scale(0.95); }
   transform: translateY(-50%) translateX(0);
 }
 .fwd-swipe-indicator.is-ready { color: var(--navy); }
+/* Hide edge-swipe indicators on true pointer devices (desktop/laptop with
+   mouse); they're only useful on touch screens. */
+@media (hover: hover) and (pointer: fine) {
+  .back-swipe-indicator, .fwd-swipe-indicator { display: none !important; }
+}
 [data-hide-swipe-indicators] .back-swipe-indicator,
 [data-hide-swipe-indicators] .fwd-swipe-indicator { display: none !important; }
 [data-hide-lightbox-buttons] .lightbox-nav { display: none !important; }
