@@ -605,7 +605,7 @@ html[data-sticky-navbar="true"] .site-header {
 }
 .hero .wrap {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
+  grid-template-columns: 1.4fr 0.6fr;
   gap: clamp(28px, 5vw, 64px);
   align-items: center;
 }
@@ -614,6 +614,8 @@ html[data-sticky-navbar="true"] .site-header {
 
 .hero-photo-wrap {
   position: relative;
+  max-width: 340px;
+  margin-left: auto;
 }
 .hero-photo-wrap::before {
   content: '';
@@ -1567,7 +1569,7 @@ a.chip:active { transform: scale(0.95); }
 /* ---------- Responsive ---------- */
 @media (max-width: 920px) {
   .hero .wrap { grid-template-columns: 1fr; }
-  .hero-photo-wrap { max-width: 380px; }
+  .hero-photo-wrap { max-width: 380px; margin: 0 auto; }
   /* about-pillars handled by its own breakpoints above */
   /* discipline-grid handled by its own breakpoints above */
   .gallery { grid-template-columns: repeat(2, 1fr); }
