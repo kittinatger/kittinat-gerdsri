@@ -662,17 +662,14 @@ html[data-sticky-navbar="true"] .site-header {
 .grid-intro .eyebrow { display: block; }
 
 /* ---- Discipline grid ----
-   Desktop (≥1024px): 4-col bento — first tile spans 2 cols for emphasis.
-   8 tiles: [featured×2, B, C, D] row1, [E, F, G, H] row2. Clean 2-row layout.
+   Desktop (≥1024px): 4-col bento, 2 clean rows of 4. First tile slightly
+   taller via padding to give it emphasis without breaking the flow.
    Tablet (560–1023px): uniform 2-col grid.
    Mobile (<560px): slim horizontal list rows (icon + label + arrow). */
 .discipline-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 14px;
-}
-.discipline-grid .tile:first-child {
-  grid-column: span 2;
 }
 
 .tile {
@@ -726,9 +723,6 @@ html[data-sticky-navbar="true"] .site-header {
   .discipline-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  .discipline-grid .tile:first-child {
-    grid-column: unset;
-  }
   .discipline-grid .tile:first-child .tile-label { font-size: 1.15rem; }
 }
 
@@ -745,9 +739,6 @@ html[data-sticky-navbar="true"] .site-header {
     min-height: unset;
     padding: 1.1em 1.3em;
     gap: 1em;
-  }
-  .discipline-grid .tile:first-child {
-    grid-column: unset;
   }
   .tile-icon { width: 32px; height: 32px; flex-shrink: 0; }
   .tile-label {
