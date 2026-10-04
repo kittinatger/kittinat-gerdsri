@@ -659,19 +659,29 @@ html[data-sticky-navbar="true"] .site-header {
 
 /* ---------- About ---------- */
 .section { padding: clamp(48px, 7vw, 88px) 0; }
+
+/* section-soft fades in/out at its edges so there's no hard background boundary
+   with adjacent sections during scroll or page transitions. */
 .section-soft {
   background-color: var(--bg-soft);
-  background-image: radial-gradient(ellipse 60% 70% at 90% 50%, rgba(29,79,156,0.07) 0%, transparent 65%);
+  background-image:
+    linear-gradient(to bottom, var(--bg) 0px, transparent 80px),
+    linear-gradient(to top,    var(--bg) 0px, transparent 80px),
+    radial-gradient(ellipse 60% 70% at 90% 50%, rgba(29,79,156,0.07) 0%, transparent 65%);
 }
 [data-theme="dark"] .section-soft {
-  background-image: radial-gradient(ellipse 60% 70% at 90% 50%, rgba(110,161,232,0.06) 0%, transparent 65%);
+  background-image:
+    linear-gradient(to bottom, var(--bg) 0px, transparent 80px),
+    linear-gradient(to top,    var(--bg) 0px, transparent 80px),
+    radial-gradient(ellipse 60% 70% at 90% 50%, rgba(110,161,232,0.06) 0%, transparent 65%);
 }
-/* Subtle top-center glow on plain sections (work grid, galleries, etc.) */
+/* Mid-section glow on plain sections — centered vertically so it doesn't
+   create a visible tinted band right at the section edge. */
 .section:not(.section-soft) {
-  background-image: radial-gradient(ellipse 50% 50% at 50% 0%, rgba(29,79,156,0.055) 0%, transparent 65%);
+  background-image: radial-gradient(ellipse 55% 60% at 50% 45%, rgba(29,79,156,0.05) 0%, transparent 70%);
 }
 [data-theme="dark"] .section:not(.section-soft) {
-  background-image: radial-gradient(ellipse 50% 50% at 50% 0%, rgba(110,161,232,0.045) 0%, transparent 65%);
+  background-image: radial-gradient(ellipse 55% 60% at 50% 45%, rgba(110,161,232,0.04) 0%, transparent 70%);
 }
 
 .about-grid {
