@@ -632,9 +632,29 @@ html[data-sticky-navbar="true"] .site-header {
 
 .about-grid {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: clamp(24px, 5vw, 56px);
+  grid-template-columns: 1fr 1.6fr;
+  gap: clamp(32px, 5vw, 72px);
   align-items: start;
+}
+@media (max-width: 1023px) and (min-width: 560px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .about-grid > div:last-child {
+    column-count: 2;
+    column-gap: 28px;
+  }
+  .about-grid > div:last-child .lede {
+    break-inside: avoid;
+    margin-top: 0;
+  }
+}
+@media (max-width: 559px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
 }
 
 .stat-row {
@@ -1271,7 +1291,7 @@ a.chip:active { transform: scale(0.95); }
 @media (max-width: 920px) {
   .hero .wrap { grid-template-columns: 1fr; }
   .hero-photo { max-width: 380px; }
-  .about-grid { grid-template-columns: 1fr; }
+  /* about-grid handled by its own breakpoints above */
   /* discipline-grid handled by its own breakpoints above */
   .gallery { grid-template-columns: repeat(2, 1fr); }
   .gallery figure.wide { grid-column: span 2; }
