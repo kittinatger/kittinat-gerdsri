@@ -612,6 +612,61 @@ html[data-sticky-navbar="true"] .site-header {
 .hero-copy h1 { margin-bottom: 0.25em; }
 .hero-name-accent { color: var(--navy); }
 
+/* Role word cycler — replaces the static tagline visually; the
+   original phrase stays for screen readers via .sr-only. Pure CSS,
+   no JS: four spans staggered 1/4 of the loop apart, each fading in,
+   holding, then fading out while the next one starts. */
+.hero-role-cycle {
+  position: relative;
+  display: block;
+  height: 1.5em;
+  overflow: hidden;
+}
+.hero-role-cycle span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: hero-role-cycle 12s infinite;
+}
+.hero-role-cycle span:nth-child(1) { animation-delay: 0s; }
+.hero-role-cycle span:nth-child(2) { animation-delay: 3s; }
+.hero-role-cycle span:nth-child(3) { animation-delay: 6s; }
+.hero-role-cycle span:nth-child(4) { animation-delay: 9s; }
+@keyframes hero-role-cycle {
+  0% { opacity: 0; transform: translateY(10px); }
+  4%, 21% { opacity: 1; transform: translateY(0); }
+  25%, 100% { opacity: 0; transform: translateY(-10px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-role-cycle span { animation: none; opacity: 0; transform: none; }
+  .hero-role-cycle span:first-child { opacity: 1; }
+}
+:root[data-reduced-motion="true"] .hero-role-cycle span { animation: none; opacity: 0; transform: none; }
+:root[data-reduced-motion="true"] .hero-role-cycle span:first-child { opacity: 1; }
+
+.hero-stats {
+  display: flex;
+  gap: clamp(28px, 4vw, 44px);
+  margin-top: 1.7em;
+}
+.hero-stat { display: flex; flex-direction: column; }
+.hero-stat strong {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.1rem);
+  color: var(--heading);
+  line-height: 1;
+}
+.hero-stat span {
+  font-size: 0.76rem;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-top: 0.35em;
+}
+
 .hero-photo-wrap {
   position: relative;
   max-width: 340px;
