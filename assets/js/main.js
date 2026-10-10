@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Text Size': 'Text Size', 'Beta': 'Beta', 'Reduced Motion': 'Reduced Motion',
       'Enable Zoom': 'Enable Zoom', 'Enable Select/Drag': 'Enable Select/Drag',
       'Sticky Navbar': 'Sticky Navbar',
+      'Pull to refresh': 'Pull to refresh', 'Release to refresh': 'Release to refresh', 'Refreshing…': 'Refreshing…',
       'Changing these may cause unexpected results.': 'Changing these may cause unexpected results.',
       'Translated by AI — changing the language may cause unexpected results.': 'Translated by AI — changing the language may cause unexpected results.'
     },
@@ -36,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Text Size': 'ขนาดตัวอักษร', 'Beta': 'เบต้า', 'Reduced Motion': 'ลดการเคลื่อนไหว',
       'Enable Zoom': 'เปิดใช้งานการซูม', 'Enable Select/Drag': 'เปิดใช้งานการเลือก/ลากข้อความ',
       'Sticky Navbar': 'แถบนำทางแบบติดขอบจอ',
+      'Pull to refresh': 'ดึงเพื่อรีเฟรช', 'Release to refresh': 'ปล่อยเพื่อรีเฟรช', 'Refreshing…': 'กำลังรีเฟรช…',
       'Changing these may cause unexpected results.': 'การเปลี่ยนแปลงนี้อาจทำให้เกิดผลลัพธ์ที่ไม่คาดคิด',
       'Translated by AI — changing the language may cause unexpected results.': 'แปลโดย AI — การเปลี่ยนภาษาอาจทำให้เกิดผลลัพธ์ที่ไม่คาดคิด'
     },
@@ -50,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'Text Size': '文字大小', 'Beta': '测试版', 'Reduced Motion': '减少动态效果',
       'Enable Zoom': '启用缩放', 'Enable Select/Drag': '启用选择/拖动',
       'Sticky Navbar': '固定导航栏',
+      'Pull to refresh': '下拉以刷新', 'Release to refresh': '松开以刷新', 'Refreshing…': '正在刷新…',
       'Changing these may cause unexpected results.': '更改这些设置可能会导致意外结果。',
       'Translated by AI — changing the language may cause unexpected results.': '由 AI 翻译——更改语言可能会导致意外结果。'
     }
@@ -663,10 +666,28 @@ document.addEventListener('DOMContentLoaded', () => {
   // very top of the page, release past the threshold, and the page
   // reloads. Touch-only — desktop pointers don't send touch events, so
   // this never activates on a mouse.
+  //
+  // Redesigned as a glass pill with a live circular progress ring (fills
+  // as the finger pulls, using the classic stroke-dasharray="100 100"
+  // percentage trick — r=15.9155 makes the circle's circumference exactly
+  // 100), a caret that flips 180° once past the threshold, and a label
+  // that steps through "Pull to refresh" -> "Release to refresh" ->
+  // "Refreshing…".
+  const ptrLabel = translations[selectedLanguage] || translations.en;
   const ptrIndicator = document.createElement('div');
   ptrIndicator.className = 'ptr-indicator';
-  ptrIndicator.innerHTML = '<span class="ptr-spinner"></span>';
+  ptrIndicator.innerHTML =
+    '<span class="ptr-ring-wrap">' +
+      '<svg class="ptr-ring" viewBox="0 0 36 36" aria-hidden="true">' +
+        '<circle class="ptr-ring-track" cx="18" cy="18" r="15.9155"></circle>' +
+        '<circle class="ptr-ring-progress" cx="18" cy="18" r="15.9155" stroke-dasharray="100 100" stroke-dashoffset="100"></circle>' +
+      '</svg>' +
+      '<svg class="ptr-arrow" viewBox="0 0 20.3027 20.5176" fill="currentColor" aria-hidden="true"><path d="M19.9414 1.38672C19.9414 0.546875 19.3066 0.0195312 18.3105 0.0195312L1.64062 0.00976562C0.634766 0.00976562 0 0.537109 0 1.37695C0 1.83594 0.195312 2.1875 0.439453 2.68555L8.45703 19.2578C8.92578 20.2051 9.36523 20.5176 9.9707 20.5176C10.5859 20.5176 11.0254 20.2051 11.4844 19.2578L19.5117 2.68555C19.7461 2.19727 19.9414 1.8457 19.9414 1.38672Z"></path></svg>' +
+    '</span>' +
+    `<span class="ptr-label">${ptrLabel['Pull to refresh']}</span>`;
   document.body.appendChild(ptrIndicator);
+  const ptrRingProgress = ptrIndicator.querySelector('.ptr-ring-progress');
+  const ptrLabelEl = ptrIndicator.querySelector('.ptr-label');
 
   const PTR_THRESHOLD = 64;
   let ptrStartY = 0;
@@ -676,6 +697,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const ptrReset = () => {
     ptrPulling = false;
     ptrIndicator.classList.remove('is-visible', 'is-ready');
+    ptrRingProgress.style.strokeDashoffset = '100';
+    ptrLabelEl.textContent = ptrLabel['Pull to refresh'];
   };
 
   document.addEventListener('touchstart', (e) => {
@@ -689,8 +712,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.scrollY > 0) { ptrReset(); return; }
     const delta = e.touches[0].clientY - ptrStartY;
     if (delta <= 0) { ptrReset(); return; }
+    const progress = Math.min(1, delta / PTR_THRESHOLD);
+    ptrRingProgress.style.strokeDashoffset = String(100 - progress * 100);
     ptrIndicator.classList.add('is-visible');
-    ptrIndicator.classList.toggle('is-ready', delta >= PTR_THRESHOLD);
+    const ready = delta >= PTR_THRESHOLD;
+    ptrIndicator.classList.toggle('is-ready', ready);
+    ptrLabelEl.textContent = ready ? ptrLabel['Release to refresh'] : ptrLabel['Pull to refresh'];
   }, { passive: true });
 
   const ptrEnd = () => {
@@ -700,6 +727,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!ready) { ptrReset(); return; }
     ptrRefreshing = true;
     ptrIndicator.classList.add('is-refreshing');
+    ptrLabelEl.textContent = ptrLabel['Refreshing…'];
     window.location.reload();
   };
   document.addEventListener('touchend', ptrEnd);
