@@ -667,37 +667,63 @@ document.addEventListener('DOMContentLoaded', () => {
   // reloads. Touch-only — desktop pointers don't send touch events, so
   // this never activates on a mouse.
   //
-  // Redesigned as a glass pill with a live circular progress ring (fills
-  // as the finger pulls, using the classic stroke-dasharray="100 100"
-  // percentage trick — r=15.9155 makes the circle's circumference exactly
-  // 100), a caret that flips 180° once past the threshold, and a label
-  // that steps through "Pull to refresh" -> "Release to refresh" ->
-  // "Refreshing…".
+  // Redesigned as a "liquid glass" drop that stretches and pinches live
+  // with the finger (height + border-radius set directly, no transition,
+  // so it tracks 1:1 — the same instant-follow feel as the edge-swipe
+  // gesture below), pops with an elastic overshoot + ripple burst the
+  // instant it crosses the threshold, then morphs smoothly into a
+  // spinning circle on refresh. A .ptr-snap class is added only during
+  // the release animation (snap-back or morph-to-circle), so live
+  // dragging stays instant while the release still gets a springy
+  // cubic-bezier transition.
   const ptrLabel = translations[selectedLanguage] || translations.en;
   const ptrIndicator = document.createElement('div');
   ptrIndicator.className = 'ptr-indicator';
   ptrIndicator.innerHTML =
-    '<span class="ptr-ring-wrap">' +
-      '<svg class="ptr-ring" viewBox="0 0 36 36" aria-hidden="true">' +
-        '<circle class="ptr-ring-track" cx="18" cy="18" r="15.9155"></circle>' +
-        '<circle class="ptr-ring-progress" cx="18" cy="18" r="15.9155" stroke-dasharray="100 100" stroke-dashoffset="100"></circle>' +
-      '</svg>' +
+    '<span class="ptr-drop">' +
       '<svg class="ptr-arrow" viewBox="0 0 20.3027 20.5176" fill="currentColor" aria-hidden="true"><path d="M19.9414 1.38672C19.9414 0.546875 19.3066 0.0195312 18.3105 0.0195312L1.64062 0.00976562C0.634766 0.00976562 0 0.537109 0 1.37695C0 1.83594 0.195312 2.1875 0.439453 2.68555L8.45703 19.2578C8.92578 20.2051 9.36523 20.5176 9.9707 20.5176C10.5859 20.5176 11.0254 20.2051 11.4844 19.2578L19.5117 2.68555C19.7461 2.19727 19.9414 1.8457 19.9414 1.38672Z"></path></svg>' +
     '</span>' +
     `<span class="ptr-label">${ptrLabel['Pull to refresh']}</span>`;
   document.body.appendChild(ptrIndicator);
-  const ptrRingProgress = ptrIndicator.querySelector('.ptr-ring-progress');
+  const ptrDrop = ptrIndicator.querySelector('.ptr-drop');
+  const ptrArrow = ptrIndicator.querySelector('.ptr-arrow');
   const ptrLabelEl = ptrIndicator.querySelector('.ptr-label');
 
   const PTR_THRESHOLD = 64;
+  const PTR_BASE = 28; // resting drop diameter, px
+  const PTR_STRETCH = 20; // max extra height at full pull, px
   let ptrStartY = 0;
   let ptrPulling = false;
   let ptrRefreshing = false;
+  let ptrWasReady = false;
+  let ptrPopTimer = null;
+
+  // Live-follow: called on every touchmove, no transition, 1:1 with the
+  // finger. progress is 0-1 (clamped at the threshold).
+  const ptrApplyProgress = (progress) => {
+    const stretch = progress * PTR_STRETCH;
+    const pinch = 50 - progress * 38; // bottom corners pinch into a point
+    ptrDrop.style.height = (PTR_BASE + stretch) + 'px';
+    ptrDrop.style.borderRadius = `50% 50% ${pinch}% ${pinch}% / 50% 50% ${pinch * 0.55}% ${pinch * 0.55}%`;
+    ptrDrop.style.transform = `scale(${0.72 + progress * 0.33})`;
+    ptrArrow.style.transform = `rotate(${progress * 180}deg)`;
+  };
+  // Release: clears the live inline values so the CSS resting/is-ready/
+  // is-refreshing rules take over, with .ptr-snap giving that a springy
+  // transition instead of jumping.
+  const ptrClearProgress = () => {
+    ptrDrop.style.height = '';
+    ptrDrop.style.borderRadius = '';
+    ptrDrop.style.transform = '';
+    ptrArrow.style.transform = '';
+  };
 
   const ptrReset = () => {
     ptrPulling = false;
-    ptrIndicator.classList.remove('is-visible', 'is-ready');
-    ptrRingProgress.style.strokeDashoffset = '100';
+    ptrWasReady = false;
+    ptrIndicator.classList.add('ptr-snap');
+    ptrIndicator.classList.remove('is-visible', 'is-ready', 'ptr-pop');
+    ptrClearProgress();
     ptrLabelEl.textContent = ptrLabel['Pull to refresh'];
   };
 
@@ -705,6 +731,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (ptrRefreshing || window.scrollY > 0) { ptrPulling = false; return; }
     ptrStartY = e.touches[0].clientY;
     ptrPulling = true;
+    ptrWasReady = false;
+    ptrIndicator.classList.remove('ptr-snap', 'ptr-pop');
     // The CSS top:78px fallback assumes a single-line header; on narrow
     // phones the brand name wraps to two lines and the header grows
     // taller, which used to leave the indicator overlapping it. Anchor
@@ -719,20 +747,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const delta = e.touches[0].clientY - ptrStartY;
     if (delta <= 0) { ptrReset(); return; }
     const progress = Math.min(1, delta / PTR_THRESHOLD);
-    ptrRingProgress.style.strokeDashoffset = String(100 - progress * 100);
     ptrIndicator.classList.add('is-visible');
+    ptrApplyProgress(progress);
     const ready = delta >= PTR_THRESHOLD;
     ptrIndicator.classList.toggle('is-ready', ready);
     ptrLabelEl.textContent = ready ? ptrLabel['Release to refresh'] : ptrLabel['Pull to refresh'];
+    // Crossing into "ready" for the first time this pull: a one-shot
+    // elastic pop + ripple burst, purely as tactile feedback — doesn't
+    // affect the live stretch/pinch tracking above.
+    if (ready && !ptrWasReady) {
+      ptrWasReady = true;
+      clearTimeout(ptrPopTimer);
+      ptrIndicator.classList.remove('ptr-pop');
+      void ptrIndicator.offsetWidth; // restart the animation if re-triggered
+      ptrIndicator.classList.add('ptr-pop');
+      ptrPopTimer = setTimeout(() => ptrIndicator.classList.remove('ptr-pop'), 500);
+    } else if (!ready) {
+      ptrWasReady = false;
+    }
   }, { passive: true });
 
   const ptrEnd = () => {
     if (!ptrPulling || ptrRefreshing) return;
     const ready = ptrIndicator.classList.contains('is-ready');
     ptrPulling = false;
-    if (!ready) { ptrReset(); return; }
+    ptrIndicator.classList.add('ptr-snap');
+    if (!ready) {
+      ptrIndicator.classList.remove('is-visible', 'is-ready');
+      ptrClearProgress();
+      ptrLabelEl.textContent = ptrLabel['Pull to refresh'];
+      return;
+    }
     ptrRefreshing = true;
     ptrIndicator.classList.add('is-refreshing');
+    ptrClearProgress();
     ptrLabelEl.textContent = ptrLabel['Refreshing…'];
     window.location.reload();
   };
