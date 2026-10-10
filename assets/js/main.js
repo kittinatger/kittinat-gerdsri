@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
       '3D Design / Animation': '3D Design / Animation', 'Teamwork': 'Teamwork',
       'Robotics': 'Robotics', 'Photography': 'Photography', 'Music': 'Music',
       'Navigation': 'Navigation', 'Legal': 'Legal', 'Privacy Policy': 'Privacy Policy',
-      'Terms & Support': 'Terms & Support', 'Language': 'Language', 'Theme': 'Theme',
+      'Terms & Support': 'Terms & Support', 'Settings': 'Settings', 'Language': 'Language', 'Theme': 'Theme',
       'Text Size': 'Text Size', 'Beta': 'Beta', 'Reduced Motion': 'Reduced Motion',
       'Enable Zoom': 'Enable Zoom', 'Enable Select/Drag': 'Enable Select/Drag',
       'Sticky Navbar': 'Sticky Navbar',
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
       '3D Design / Animation': 'การออกแบบ 3 มิติ / แอนิเมชัน', 'Teamwork': 'การทำงานเป็นทีม',
       'Robotics': 'หุ่นยนต์', 'Photography': 'การถ่ายภาพ', 'Music': 'ดนตรี',
       'Navigation': 'เมนูนำทาง', 'Legal': 'ข้อมูลทางกฎหมาย', 'Privacy Policy': 'นโยบายความเป็นส่วนตัว',
-      'Terms & Support': 'ข้อกำหนดและการสนับสนุน', 'Language': 'ภาษา', 'Theme': 'ธีม',
+      'Terms & Support': 'ข้อกำหนดและการสนับสนุน', 'Settings': 'การตั้งค่า', 'Language': 'ภาษา', 'Theme': 'ธีม',
       'Text Size': 'ขนาดตัวอักษร', 'Beta': 'เบต้า', 'Reduced Motion': 'ลดการเคลื่อนไหว',
       'Enable Zoom': 'เปิดใช้งานการซูม', 'Enable Select/Drag': 'เปิดใช้งานการเลือก/ลากข้อความ',
       'Sticky Navbar': 'แถบนำทางแบบติดขอบจอ',
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
       '3D Design / Animation': '3D 设计 / 动画', 'Teamwork': '团队合作',
       'Robotics': '机器人', 'Photography': '摄影', 'Music': '音乐',
       'Navigation': '导航', 'Legal': '法律信息', 'Privacy Policy': '隐私政策',
-      'Terms & Support': '条款与支持', 'Language': '语言', 'Theme': '主题',
+      'Terms & Support': '条款与支持', 'Settings': '设置', 'Language': '语言', 'Theme': '主题',
       'Text Size': '文字大小', 'Beta': '测试版', 'Reduced Motion': '减少动态效果',
       'Enable Zoom': '启用缩放', 'Enable Select/Drag': '启用选择/拖动',
       'Sticky Navbar': '固定导航栏',
@@ -58,6 +58,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const languageNames = {
     en: 'English (Original)', th: 'Thai', 'zh-CN': 'Mandarin (Mainland)'
   };
+  // Short pill labels for the settings panel's language switcher.
+  const langShort = { en: 'EN', th: 'TH', 'zh-CN': '中' };
   const selectedLanguage = localStorage.getItem('portfolio-language') || 'en';
 
   function translateTextNodes(language, suppliedDictionary) {
@@ -243,49 +245,50 @@ document.addEventListener('DOMContentLoaded', () => {
           '<path d="M11.9141 26.2012L14.2773 26.2012C14.9512 26.2012 15.4199 25.8105 15.5762 25.1367L16.2207 22.4121C16.6699 22.2559 17.1191 22.0801 17.5195 21.8945L19.9023 23.3691C20.4688 23.7305 21.0938 23.6719 21.5527 23.2031L23.2129 21.5527C23.6816 21.084 23.75 20.4492 23.3691 19.873L21.9043 17.5098C22.0898 17.0898 22.2656 16.6602 22.4023 16.2305L25.1465 15.5859C25.8203 15.4297 26.1914 14.9609 26.1914 14.2871L26.1914 11.9531C26.1914 11.2891 25.8203 10.8301 25.1465 10.6641L22.4219 10.0098C22.2656 9.54102 22.0801 9.11133 21.9238 8.73047L23.3887 6.32812C23.75 5.75195 23.7109 5.15625 23.2324 4.67773L21.5527 3.01758C21.0742 2.57812 20.498 2.48047 19.9316 2.8418L17.5195 4.33594C17.1289 4.14062 16.6895 3.97461 16.2207 3.81836L15.5762 1.06445C15.4199 0.390625 14.9512 0 14.2773 0L11.9141 0C11.2402 0 10.7715 0.390625 10.6152 1.06445L9.9707 3.79883C9.52148 3.95508 9.07227 4.12109 8.66211 4.32617L6.25977 2.8418C5.69336 2.48047 5.09766 2.55859 4.63867 3.01758L2.95898 4.67773C2.48047 5.15625 2.44141 5.75195 2.80273 6.32812L4.26758 8.73047C4.11133 9.11133 3.92578 9.54102 3.76953 10.0098L1.04492 10.6641C0.380859 10.8301 0 11.2891 0 11.9531L0 14.2871C0 14.9609 0.380859 15.4297 1.04492 15.5859L3.78906 16.2305C3.92578 16.6602 4.10156 17.0898 4.28711 17.5098L2.82227 19.873C2.44141 20.4492 2.50977 21.084 2.97852 21.5527L4.63867 23.2031C5.09766 23.6719 5.72266 23.7305 6.28906 23.3691L8.67188 21.8945C9.08203 22.0801 9.52148 22.2559 9.9707 22.4121L10.6152 25.1367C10.7715 25.8105 11.2402 26.2012 11.9141 26.2012ZM13.0957 17.5781C10.625 17.5781 8.61328 15.5664 8.61328 13.0957C8.61328 10.625 10.625 8.61328 13.0957 8.61328C15.5664 8.61328 17.5781 10.625 17.5781 13.0957C17.5781 15.5664 15.5664 17.5781 13.0957 17.5781Z"></path>' +
         '</svg>' +
       '</button>' +
-      '<div class="settings-panel nav-dropdown-menu">' +
-        '<div class="settings-section">' +
+      '<div class="settings-panel nav-dropdown-menu settings-panel-v2">' +
+        `<p class="settings-title">${settingsLabel['Settings']}</p>` +
+        '<div class="settings-lang-block">' +
           `<p class="settings-label">${settingsLabel['Language']}</p>` +
-          '<div class="language-options">' +
+          '<div class="language-options settings-lang-pills">' +
           Object.entries(languageNames).map(([code, name]) =>
-            `<a href="#" data-lang="${code}"${code === selectedLanguage ? ' aria-current="true"' : ''}>${name}</a>`
+            `<a href="#" data-lang="${code}"${code === selectedLanguage ? ' aria-current="true"' : ''} aria-label="${name}">${langShort[code] || code}</a>`
           ).join('') +
           '</div>' +
           `<p class="settings-warning">${settingsLabel['Translated by AI — changing the language may cause unexpected results.']}</p>` +
         '</div>' +
-        '<div class="settings-section settings-section-row">' +
-          `<p class="settings-label">${settingsLabel['Theme']}</p>` +
-          '<button class="theme-toggle" type="button" aria-label="Toggle dark mode">' +
-            '<svg class="icon-sun" viewBox="0 0 27.4805 27.1973" fill="currentColor" aria-hidden="true">' +
-              '<path d="M13.5547 4.69727C14.0723 4.69727 14.4824 4.27734 14.4824 3.76953L14.4824 0.927734C14.4824 0.419922 14.0723 0 13.5547 0C13.0469 0 12.6367 0.419922 12.6367 0.927734L12.6367 3.76953C12.6367 4.27734 13.0469 4.69727 13.5547 4.69727ZM19.834 7.31445C20.1953 7.66602 20.7812 7.68555 21.1523 7.31445L23.1641 5.30273C23.5254 4.94141 23.5156 4.3457 23.1641 3.98438C22.8027 3.63281 22.2168 3.62305 21.8555 3.98438L19.834 6.00586C19.4727 6.36719 19.4824 6.95312 19.834 7.31445ZM22.4316 13.5938C22.4316 14.1016 22.8516 14.5117 23.3594 14.5117L26.1914 14.5117C26.6992 14.5117 27.1191 14.1016 27.1191 13.5938C27.1191 13.0859 26.6992 12.666 26.1914 12.666L23.3594 12.666C22.8516 12.666 22.4316 13.0859 22.4316 13.5938ZM19.834 19.873C19.4824 20.2344 19.4727 20.8301 19.834 21.1816L21.8555 23.2031C22.2168 23.5645 22.8027 23.5449 23.1641 23.1934C23.5156 22.832 23.5254 22.2461 23.1641 21.8945L21.1426 19.873C20.7812 19.5215 20.1953 19.5215 19.834 19.873ZM13.5547 22.4902C13.0469 22.4902 12.6367 22.9004 12.6367 23.4082L12.6367 26.25C12.6367 26.7676 13.0469 27.1777 13.5547 27.1777C14.0723 27.1777 14.4824 26.7676 14.4824 26.25L14.4824 23.4082C14.4824 22.9004 14.0723 22.4902 13.5547 22.4902ZM7.28516 19.873C6.92383 19.5215 6.32812 19.5215 5.9668 19.873L3.95508 21.8848C3.59375 22.2363 3.60352 22.8223 3.94531 23.1836C4.30664 23.5352 4.90234 23.5547 5.25391 23.1934L7.27539 21.1816C7.62695 20.8301 7.62695 20.2344 7.28516 19.873ZM4.67773 13.5938C4.67773 13.0859 4.26758 12.666 3.75977 12.666L0.927734 12.666C0.419922 12.666 0 13.0859 0 13.5938C0 14.1016 0.419922 14.5117 0.927734 14.5117L3.75977 14.5117C4.26758 14.5117 4.67773 14.1016 4.67773 13.5938ZM7.27539 7.31445C7.62695 6.96289 7.62695 6.35742 7.28516 6.00586L5.26367 3.98438C4.92188 3.64258 4.32617 3.63281 3.96484 3.98438C3.61328 4.3457 3.60352 4.94141 3.95508 5.29297L5.9668 7.31445C6.32812 7.67578 6.91406 7.66602 7.27539 7.31445Z"></path>' +
-              '<path d="M13.5449 19.873C17.0117 19.873 19.834 17.0605 19.834 13.5938C19.834 10.127 17.0117 7.30469 13.5449 7.30469C10.0781 7.30469 7.26562 10.127 7.26562 13.5938C7.26562 17.0605 10.0781 19.873 13.5449 19.873Z"></path>' +
-            '</svg>' +
-            '<svg class="icon-moon" viewBox="0 0 25.4297 25.3088" fill="currentColor" aria-hidden="true">' +
-              '<path d="M13.0859 25.2277C18.5254 25.2277 22.9883 21.9464 24.9414 17.6691C25.3027 16.9171 24.834 16.38 24.0918 16.6241C23.1836 16.9464 21.6113 17.3077 20.0488 17.3077C12.4414 17.3077 8.11523 12.9816 8.11523 5.37414C8.11523 3.8507 8.4375 2.30773 8.93555 1.0675C9.25781 0.256952 8.70117-0.23133 7.91992 0.110467C3.69141 1.90734 0 6.38976 0 12.132C0 19.3585 5.86914 25.2277 13.0859 25.2277Z"></path>' +
-            '</svg>' +
+        '<div class="settings-tiles">' +
+          '<button class="settings-tile theme-toggle" type="button" aria-label="Toggle dark mode">' +
+            '<span class="settings-tile-icon">' +
+              '<svg class="icon-sun" viewBox="0 0 27.4805 27.1973" fill="currentColor" aria-hidden="true">' +
+                '<path d="M13.5547 4.69727C14.0723 4.69727 14.4824 4.27734 14.4824 3.76953L14.4824 0.927734C14.4824 0.419922 14.0723 0 13.5547 0C13.0469 0 12.6367 0.419922 12.6367 0.927734L12.6367 3.76953C12.6367 4.27734 13.0469 4.69727 13.5547 4.69727ZM19.834 7.31445C20.1953 7.66602 20.7812 7.68555 21.1523 7.31445L23.1641 5.30273C23.5254 4.94141 23.5156 4.3457 23.1641 3.98438C22.8027 3.63281 22.2168 3.62305 21.8555 3.98438L19.834 6.00586C19.4727 6.36719 19.4824 6.95312 19.834 7.31445ZM22.4316 13.5938C22.4316 14.1016 22.8516 14.5117 23.3594 14.5117L26.1914 14.5117C26.6992 14.5117 27.1191 14.1016 27.1191 13.5938C27.1191 13.0859 26.6992 12.666 26.1914 12.666L23.3594 12.666C22.8516 12.666 22.4316 13.0859 22.4316 13.5938ZM19.834 19.873C19.4824 20.2344 19.4727 20.8301 19.834 21.1816L21.8555 23.2031C22.2168 23.5645 22.8027 23.5449 23.1641 23.1934C23.5156 22.832 23.5254 22.2461 23.1641 21.8945L21.1426 19.873C20.7812 19.5215 20.1953 19.5215 19.834 19.873ZM13.5547 22.4902C13.0469 22.4902 12.6367 22.9004 12.6367 23.4082L12.6367 26.25C12.6367 26.7676 13.0469 27.1777 13.5547 27.1777C14.0723 27.1777 14.4824 26.7676 14.4824 26.25L14.4824 23.4082C14.4824 22.9004 14.0723 22.4902 13.5547 22.4902ZM7.28516 19.873C6.92383 19.5215 6.32812 19.5215 5.9668 19.873L3.95508 21.8848C3.59375 22.2363 3.60352 22.8223 3.94531 23.1836C4.30664 23.5352 4.90234 23.5547 5.25391 23.1934L7.27539 21.1816C7.62695 20.8301 7.62695 20.2344 7.28516 19.873ZM4.67773 13.5938C4.67773 13.0859 4.26758 12.666 3.75977 12.666L0.927734 12.666C0.419922 12.666 0 13.0859 0 13.5938C0 14.1016 0.419922 14.5117 0.927734 14.5117L3.75977 14.5117C4.26758 14.5117 4.67773 14.1016 4.67773 13.5938ZM7.27539 7.31445C7.62695 6.96289 7.62695 6.35742 7.28516 6.00586L5.26367 3.98438C4.92188 3.64258 4.32617 3.63281 3.96484 3.98438C3.61328 4.3457 3.60352 4.94141 3.95508 5.29297L5.9668 7.31445C6.32812 7.67578 6.91406 7.66602 7.27539 7.31445Z"></path>' +
+                '<path d="M13.5449 19.873C17.0117 19.873 19.834 17.0605 19.834 13.5938C19.834 10.127 17.0117 7.30469 13.5449 7.30469C10.0781 7.30469 7.26562 10.127 7.26562 13.5938C7.26562 17.0605 10.0781 19.873 13.5449 19.873Z"></path>' +
+              '</svg>' +
+              '<svg class="icon-moon" viewBox="0 0 25.4297 25.3088" fill="currentColor" aria-hidden="true">' +
+                '<path d="M13.0859 25.2277C18.5254 25.2277 22.9883 21.9464 24.9414 17.6691C25.3027 16.9171 24.834 16.38 24.0918 16.6241C23.1836 16.9464 21.6113 17.3077 20.0488 17.3077C12.4414 17.3077 8.11523 12.9816 8.11523 5.37414C8.11523 3.8507 8.4375 2.30773 8.93555 1.0675C9.25781 0.256952 8.70117-0.23133 7.91992 0.110467C3.69141 1.90734 0 6.38976 0 12.132C0 19.3585 5.86914 25.2277 13.0859 25.2277Z"></path>' +
+              '</svg>' +
+            '</span>' +
+            `<span class="settings-tile-label">${settingsLabel['Theme']}</span>` +
+          '</button>' +
+          '<button class="settings-tile sticky-navbar-toggle" type="button" role="switch" aria-checked="true" aria-label="Toggle sticky navigation bar">' +
+            '<span class="settings-tile-icon">' +
+              '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C7.58 2 4 5.58 4 10c0 5.25 7 11.5 7.3 11.76a1 1 0 001.4 0C12.9 21.5 20 15.25 20 10c0-4.42-3.58-8-8-8zm0 11a3 3 0 110-6 3 3 0 010 6z"></path></svg>' +
+            '</span>' +
+            `<span class="settings-tile-label">${settingsLabel['Sticky Navbar']}</span>` +
+          '</button>' +
+          '<button class="settings-tile zoom-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle pinch-to-zoom">' +
+            '<span class="settings-tile-icon">' +
+              '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>' +
+            '</span>' +
+            `<span class="settings-tile-label">${settingsLabel['Enable Zoom']}</span>` +
+          '</button>' +
+          '<button class="settings-tile select-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle text selection and image dragging">' +
+            '<span class="settings-tile-icon">' +
+              '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"></path></svg>' +
+            '</span>' +
+            `<span class="settings-tile-label">${settingsLabel['Enable Select/Drag']}</span>` +
           '</button>' +
         '</div>' +
-        '<div class="settings-section settings-section-row">' +
-          `<p class="settings-label">${settingsLabel['Sticky Navbar']}</p>` +
-          '<button class="toggle-switch sticky-navbar-toggle" type="button" role="switch" aria-checked="true" aria-label="Toggle sticky navigation bar">' +
-            '<span class="toggle-switch-thumb"></span>' +
-          '</button>' +
-        '</div>' +
-        '<div class="settings-section">' +
-          '<div class="settings-section-row">' +
-            `<p class="settings-label">${settingsLabel['Enable Zoom']}</p>` +
-            '<button class="toggle-switch zoom-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle pinch-to-zoom">' +
-              '<span class="toggle-switch-thumb"></span>' +
-            '</button>' +
-          '</div>' +
-          '<div class="settings-section-row" style="margin-top:10px;">' +
-            `<p class="settings-label">${settingsLabel['Enable Select/Drag']}</p>` +
-            '<button class="toggle-switch select-toggle" type="button" role="switch" aria-checked="false" aria-label="Toggle text selection and image dragging">' +
-              '<span class="toggle-switch-thumb"></span>' +
-            '</button>' +
-          '</div>' +
-          `<p class="settings-warning">${settingsLabel['Changing these may cause unexpected results.']}</p>` +
-        '</div>' +
+        `<p class="settings-warning settings-foot-warning">${settingsLabel['Changing these may cause unexpected results.']}</p>` +
       '</div>';
     navRight.insertBefore(settings, navToggle);
 
