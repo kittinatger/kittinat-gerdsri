@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     en: 'English (Original)', th: 'Thai', 'zh-CN': 'Mandarin (Mainland)'
   };
   // Short pill labels for the settings panel's language switcher.
-  const langShort = { en: 'EN', th: 'TH', 'zh-CN': '中' };
+  const langShort = { en: 'EN', th: 'ไทย', 'zh-CN': '中' };
   const selectedLanguage = localStorage.getItem('portfolio-language') || 'en';
 
   function translateTextNodes(language, suppliedDictionary) {
