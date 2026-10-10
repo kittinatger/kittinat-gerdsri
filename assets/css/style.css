@@ -1503,10 +1503,7 @@ a.chip:active { transform: scale(0.95); }
   transform: scale(0.72);
 }
 .ptr-indicator.ptr-snap .ptr-drop {
-  transition: height 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
-              border-radius 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
-              transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
-              background 0.2s ease;
+  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s ease;
 }
 .ptr-indicator.is-ready .ptr-drop,
 .ptr-indicator.is-refreshing .ptr-drop {

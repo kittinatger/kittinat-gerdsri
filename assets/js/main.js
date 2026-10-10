@@ -690,8 +690,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const ptrLabelEl = ptrIndicator.querySelector('.ptr-label');
 
   const PTR_THRESHOLD = 64;
-  const PTR_BASE = 28; // resting drop diameter, px
-  const PTR_STRETCH = 20; // max extra height at full pull, px
   let ptrStartY = 0;
   let ptrPulling = false;
   let ptrRefreshing = false;
@@ -699,12 +697,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let ptrPopTimer = null;
 
   // Live-follow: called on every touchmove, no transition, 1:1 with the
-  // finger. progress is 0-1 (clamped at the threshold).
+  // finger. progress is 0-1 (clamped at the threshold). Stays a circle
+  // throughout — just grows as the pull progresses.
   const ptrApplyProgress = (progress) => {
-    const stretch = progress * PTR_STRETCH;
-    const pinch = 50 - progress * 38; // bottom corners pinch into a point
-    ptrDrop.style.height = (PTR_BASE + stretch) + 'px';
-    ptrDrop.style.borderRadius = `50% 50% ${pinch}% ${pinch}% / 50% 50% ${pinch * 0.55}% ${pinch * 0.55}%`;
     ptrDrop.style.transform = `scale(${0.72 + progress * 0.33})`;
     ptrArrow.style.transform = `rotate(${progress * 180}deg)`;
   };
@@ -712,8 +707,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // is-refreshing rules take over, with .ptr-snap giving that a springy
   // transition instead of jumping.
   const ptrClearProgress = () => {
-    ptrDrop.style.height = '';
-    ptrDrop.style.borderRadius = '';
     ptrDrop.style.transform = '';
     ptrArrow.style.transform = '';
   };
