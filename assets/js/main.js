@@ -705,6 +705,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (ptrRefreshing || window.scrollY > 0) { ptrPulling = false; return; }
     ptrStartY = e.touches[0].clientY;
     ptrPulling = true;
+    // The CSS top:78px fallback assumes a single-line header; on narrow
+    // phones the brand name wraps to two lines and the header grows
+    // taller, which used to leave the indicator overlapping it. Anchor
+    // to the header's real bottom edge instead, same pattern as the nav
+    // dropdown and settings panel's own floating position logic.
+    if (header) ptrIndicator.style.top = (header.getBoundingClientRect().bottom + 16) + 'px';
   }, { passive: true });
 
   document.addEventListener('touchmove', (e) => {
