@@ -627,7 +627,7 @@ html[data-sticky-navbar="true"] .site-header {
 
 .settings-tiles {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
 }
 .settings-tile {
@@ -636,6 +636,9 @@ html[data-sticky-navbar="true"] .site-header {
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  width: auto;
+  height: auto;
+  min-width: 0;
   padding: 14px 8px;
   border-radius: 14px;
   border: 1px solid var(--line);
@@ -645,9 +648,16 @@ html[data-sticky-navbar="true"] .site-header {
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 .settings-tile:active { transform: scale(0.96); }
-.settings-tile-icon { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; }
+.settings-tile-icon { width: 22px; height: 22px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
 .settings-tile-icon svg { width: 100%; height: 100%; }
-.settings-tile-label { font-size: 0.74rem; font-weight: 600; text-align: center; line-height: 1.25; }
+.settings-tile-label {
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
 .settings-tile[aria-checked="true"] {
   background: var(--nav-hover-bg);
   border-color: var(--navy);
