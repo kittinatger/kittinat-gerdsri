@@ -582,7 +582,7 @@ html[data-sticky-navbar="true"] .site-header {
 }
 
 /* ---- Settings panel v2: "control center" tile layout ---- */
-.settings-panel-v2 { min-width: 272px; padding: 18px; }
+.settings-panel-v2 { min-width: 272px; padding: 18px; transform-origin: top right; }
 .settings-title {
   margin: 0 0 16px;
   font-family: var(--font-display);

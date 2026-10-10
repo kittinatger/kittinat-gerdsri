@@ -303,11 +303,18 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.right = (window.innerWidth - r.right) + 'px';
         return;
       }
+      // Right-align the panel's edge with the toggle's edge rather than
+      // centering it under the toggle. The panel got much wider in the v2
+      // tile redesign, and the toggle sits near the right edge of the
+      // header — centering a wide panel under a right-side anchor made it
+      // bleed far past the left edge of the viewport and over the hero
+      // content. Anchoring from the right (like a standard dropdown) keeps
+      // it tucked under the gear icon regardless of panel width.
       const r = settingsToggle.getBoundingClientRect();
       const width = el.offsetWidth || 224;
-      const center = r.left + r.width / 2;
+      const left = Math.max(8, Math.min(r.right - width, window.innerWidth - width - 8));
       el.style.top = (r.bottom + 22) + 'px';
-      el.style.left = Math.max(8, Math.min(center - width / 2, window.innerWidth - width - 8)) + 'px';
+      el.style.left = left + 'px';
       el.style.right = '';
     }, settingsToggle);
     const closeSettings = () => {
