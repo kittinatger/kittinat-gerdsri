@@ -830,14 +830,16 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.addEventListener('touchcancel', () => { backReset(); fwdReset(); });
 
-  // Featured-work showcase: fanned card carousel on the homepage.
-  const showcaseStage = document.querySelector('.showcase-stage');
-  if (showcaseStage) {
-    const scCards = Array.from(showcaseStage.querySelectorAll('.showcase-card'));
-    const scDots = Array.from(document.querySelectorAll('.showcase-dot'));
-    const scCaptions = Array.from(document.querySelectorAll('.showcase-caption-item'));
-    const scPrev = document.querySelector('.showcase-prev');
-    const scNext = document.querySelector('.showcase-next');
+  // Fanned card carousels (hero photos, featured-work projects). Each
+  // .showcase-block on the page runs as its own independent instance.
+  document.querySelectorAll('.showcase-block').forEach((block) => {
+    const stage = block.querySelector('.showcase-stage');
+    if (!stage) return;
+    const scCards = Array.from(stage.querySelectorAll('.showcase-card'));
+    const scDots = Array.from(block.querySelectorAll('.showcase-dot'));
+    const scCaptions = Array.from(block.querySelectorAll('.showcase-caption-item'));
+    const scPrev = block.querySelector('.showcase-prev');
+    const scNext = block.querySelector('.showcase-next');
     const scCount = scCards.length;
     let scActive = 0;
 
@@ -882,5 +884,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', scRender);
     scRender();
-  }
+  });
 });
