@@ -854,7 +854,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const scCount = scCards.length;
     let scActive = 0;
 
-    const scRender = () => {
+    const scRender = (stagger) => {
       const cardW = scCards[0].offsetWidth;
       const spacing = cardW * 0.62;
       scCards.forEach((card) => {
@@ -869,6 +869,7 @@ document.addEventListener('DOMContentLoaded', () => {
         card.style.transform = `translate(-50%, -50%) translateX(${x}px) rotate(${rotate}deg) scale(${scale})`;
         card.style.zIndex = String(50 - abs * 10);
         card.style.opacity = abs > 2 ? '0' : String(1 - abs * 0.18);
+        card.style.transitionDelay = stagger ? `${abs * 0.08}s` : '0s';
         card.classList.toggle('is-active', diff === 0);
       });
       scDots.forEach((dot) => dot.classList.toggle('is-active', Number(dot.dataset.index) === scActive));
@@ -893,7 +894,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (scPrev) scPrev.addEventListener('click', () => scGoTo(scActive - 1));
     if (scNext) scNext.addEventListener('click', () => scGoTo(scActive + 1));
 
-    window.addEventListener('resize', scRender);
-    scRender();
+    window.addEventListener('resize', () => scRender(false));
+
+    // Entrance: gather every card at the center first so the real layout
+    // (set a frame later) animates in as a staggered fan-out, outer cards
+    // leading. Double rAF so the gathered state actually paints first.
+    scCards.forEach((card) => {
+      card.style.transform = 'translate(-50%, -50%) scale(0.5)';
+      card.style.opacity = '0';
+      card.style.zIndex = '1';
+    });
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => scRender(true));
+    });
   });
 });
