@@ -820,12 +820,12 @@ html[data-sticky-navbar="true"] .site-header {
 }
 
 @media (max-width: 759px) {
-  .hero-arc { max-width: 300px; height: 124px; }
-  .hero-arc-card { width: 64px; border-radius: 12px; }
-  .hero-arc-card-1 { --tx: -112px; --ty: 36px; }
-  .hero-arc-card-2 { --tx: -58px; --ty: 8px; }
-  .hero-arc-card-4 { --tx: 58px; --ty: 8px; }
-  .hero-arc-card-5 { --tx: 112px; --ty: 36px; }
+  .hero-arc { max-width: 360px; height: 196px; }
+  .hero-arc-card { width: 100px; border-radius: 16px; }
+  .hero-arc-card-1 { --tx: -180px; --ty: 60px; }
+  .hero-arc-card-2 { --tx: -92px; --ty: 14px; }
+  .hero-arc-card-4 { --tx: 92px; --ty: 14px; }
+  .hero-arc-card-5 { --tx: 180px; --ty: 60px; }
 }
 
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 1.6em; }
