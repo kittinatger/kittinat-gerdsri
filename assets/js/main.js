@@ -659,6 +659,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Hero photo arc: deal the cards in from a gathered stack with a
+  // staggered fan-out. Double rAF so the gathered state actually paints
+  // before it's removed, otherwise some browsers skip the transition.
+  const heroArc = document.querySelector('.hero-arc');
+  if (heroArc) {
+    heroArc.classList.add('will-deal');
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => heroArc.classList.remove('will-deal'));
+    });
+  }
+
   // Pull-to-refresh. The browser's native overscroll bounce/refresh is
   // turned off site-wide (see `overscroll-behavior: none` in style.css,
   // there to stop the page rubber-banding when installed as a standalone
