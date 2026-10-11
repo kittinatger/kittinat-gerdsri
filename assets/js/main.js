@@ -829,4 +829,58 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   document.addEventListener('touchcancel', () => { backReset(); fwdReset(); });
+
+  // Featured-work showcase: fanned card carousel on the homepage.
+  const showcaseStage = document.querySelector('.showcase-stage');
+  if (showcaseStage) {
+    const scCards = Array.from(showcaseStage.querySelectorAll('.showcase-card'));
+    const scDots = Array.from(document.querySelectorAll('.showcase-dot'));
+    const scCaptions = Array.from(document.querySelectorAll('.showcase-caption-item'));
+    const scPrev = document.querySelector('.showcase-prev');
+    const scNext = document.querySelector('.showcase-next');
+    const scCount = scCards.length;
+    let scActive = 0;
+
+    const scRender = () => {
+      const cardW = scCards[0].offsetWidth;
+      const spacing = cardW * 0.62;
+      scCards.forEach((card) => {
+        const i = Number(card.dataset.index);
+        let diff = i - scActive;
+        if (diff > scCount / 2) diff -= scCount;
+        if (diff < -scCount / 2) diff += scCount;
+        const abs = Math.abs(diff);
+        const scale = Math.max(0.6, 1 - abs * 0.16);
+        const x = diff * spacing;
+        const rotate = diff * -6;
+        card.style.transform = `translate(-50%, -50%) translateX(${x}px) rotate(${rotate}deg) scale(${scale})`;
+        card.style.zIndex = String(50 - abs * 10);
+        card.style.opacity = abs > 2 ? '0' : String(1 - abs * 0.18);
+        card.classList.toggle('is-active', diff === 0);
+      });
+      scDots.forEach((dot) => dot.classList.toggle('is-active', Number(dot.dataset.index) === scActive));
+      scCaptions.forEach((cap) => cap.classList.toggle('is-active', Number(cap.dataset.index) === scActive));
+    };
+
+    const scGoTo = (i) => {
+      scActive = ((i % scCount) + scCount) % scCount;
+      scRender();
+    };
+
+    scCards.forEach((card) => {
+      card.addEventListener('click', (e) => {
+        const i = Number(card.dataset.index);
+        if (i !== scActive) {
+          e.preventDefault();
+          scGoTo(i);
+        }
+      });
+    });
+    scDots.forEach((dot) => dot.addEventListener('click', () => scGoTo(Number(dot.dataset.index))));
+    if (scPrev) scPrev.addEventListener('click', () => scGoTo(scActive - 1));
+    if (scNext) scNext.addEventListener('click', () => scGoTo(scActive + 1));
+
+    window.addEventListener('resize', scRender);
+    scRender();
+  }
 });
