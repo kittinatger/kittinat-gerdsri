@@ -515,10 +515,10 @@ document.addEventListener('DOMContentLoaded', () => {
     figure.appendChild(badge);
   });
 
-  // Hover/focus caption on Core Discipline certificate thumbnails, built
+  // Tap-to-reveal caption on Core Discipline certificate thumbnails, built
   // from the same alt text and data-date already on each figure — no new
-  // copy, just surfaced so a cert can be identified without opening the
-  // lightbox.
+  // copy, just surfaced on demand (via the small info toggle) so a cert
+  // can be identified without opening the lightbox or cluttering the grid.
   document.querySelectorAll('.page-core-discipline .gallery figure[data-date]').forEach(figure => {
     const img = figure.querySelector('img');
     if (!img || !img.alt) return;
@@ -537,6 +537,19 @@ document.addEventListener('DOMContentLoaded', () => {
       caption.appendChild(dateEl);
     }
     figure.appendChild(caption);
+
+    const infoToggle = document.createElement('button');
+    infoToggle.type = 'button';
+    infoToggle.className = 'cert-info-toggle';
+    infoToggle.textContent = 'i';
+    infoToggle.setAttribute('aria-label', 'Show certificate details');
+    infoToggle.setAttribute('aria-expanded', 'false');
+    infoToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = caption.classList.toggle('is-open');
+      infoToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    figure.appendChild(infoToggle);
   });
 
   const awardedLevels = new Set(['champion', 'gold', 'silver', 'bronze', 'merit', 'pass', 'grade']);
