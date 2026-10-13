@@ -705,12 +705,16 @@ html[data-sticky-navbar="true"] .site-header {
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100svh;
   padding: clamp(56px, 9vw, 108px) 0 clamp(64px, 9vw, 96px);
 }
 .hero .wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 .hero-copy { max-width: 640px; text-align: center; }
 .hero .hero-actions { justify-content: center; }
@@ -826,11 +830,6 @@ html[data-sticky-navbar="true"] .site-header {
   .hero-arc-card-2 { --tx: -92px; --ty: 14px; }
   .hero-arc-card-4 { --tx: 92px; --ty: 14px; }
   .hero-arc-card-5 { --tx: 180px; --ty: 60px; }
-
-  /* The content block is shorter than the screen on most phones now —
-     center it within a full-viewport-tall hero instead of leaving it
-     stacked at the top with empty space below. */
-  .hero { display: flex; align-items: center; min-height: 100svh; }
 }
 
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 1.6em; }
