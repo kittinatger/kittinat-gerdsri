@@ -634,6 +634,28 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentGroup = [];
     let currentIndex = -1;
 
+    // On Core Discipline, mirror the grid's tap-to-reveal cert caption
+    // inside the lightbox too, built from the same alt text/data-date.
+    let lightboxInfoToggle = null;
+    let lightboxCaption = null;
+    if (document.body.classList.contains('page-core-discipline')) {
+      lightboxInfoToggle = document.createElement('button');
+      lightboxInfoToggle.type = 'button';
+      lightboxInfoToggle.className = 'lightbox-info-toggle';
+      lightboxInfoToggle.textContent = 'i';
+      lightboxInfoToggle.setAttribute('aria-label', 'Show certificate details');
+      lightboxInfoToggle.setAttribute('aria-expanded', 'false');
+      lightboxInfoToggle.hidden = true;
+      lightboxCaption = document.createElement('div');
+      lightboxCaption.className = 'lightbox-caption';
+      lightboxInfoToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = lightboxCaption.classList.toggle('is-open');
+        lightboxInfoToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+      lightbox.append(lightboxInfoToggle, lightboxCaption);
+    }
+
     // Zoom + pan. zoomScale 1 = fit (default); up to maxZoom. Pan is in
     // screen px, loosely clamped so the image can't be dragged entirely
     // off-frame. Applied as an inline transform that overrides the plain
@@ -672,6 +694,29 @@ document.addEventListener('DOMContentLoaded', () => {
       lightboxImg.src = img.dataset.full || img.src;
       lightboxImg.alt = img.alt;
       resetZoom();
+      if (lightboxInfoToggle && lightboxCaption) {
+        const figure = img.closest('figure[data-date]');
+        lightboxCaption.classList.remove('is-open');
+        lightboxInfoToggle.setAttribute('aria-expanded', 'false');
+        if (figure) {
+          const date = new Date(figure.dataset.date + 'T00:00:00');
+          const dateLabel = Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+          lightboxCaption.innerHTML = '';
+          const title = document.createElement('span');
+          title.className = 'lightbox-caption-title';
+          title.textContent = img.alt;
+          lightboxCaption.appendChild(title);
+          if (dateLabel) {
+            const dateEl = document.createElement('span');
+            dateEl.className = 'lightbox-caption-date';
+            dateEl.textContent = dateLabel;
+            lightboxCaption.appendChild(dateEl);
+          }
+          lightboxInfoToggle.hidden = false;
+        } else {
+          lightboxInfoToggle.hidden = true;
+        }
+      }
     };
     const showPrev = () => showImage(currentIndex - 1);
     const showNext = () => showImage(currentIndex + 1);
