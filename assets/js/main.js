@@ -634,19 +634,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentGroup = [];
     let currentIndex = -1;
 
-    // On Core Discipline, mirror each thumbnail's badge and caption inside
-    // the lightbox too, built from the same alt text/data-date, always
-    // visible (no tap needed — the lightbox has room for it).
-    let lightboxBadge = null;
+    // On Core Discipline, show each thumbnail's badge and caption below the
+    // image in the lightbox too, built from the same alt text/data-date —
+    // as a plain caption in flow, not an overlay on top of the cert.
     let lightboxCaption = null;
     if (document.body.classList.contains('page-core-discipline')) {
-      lightboxBadge = document.createElement('span');
-      lightboxBadge.className = 'lightbox-badge';
-      lightboxBadge.hidden = true;
       lightboxCaption = document.createElement('div');
       lightboxCaption.className = 'lightbox-caption';
       lightboxCaption.hidden = true;
-      lightbox.append(lightboxBadge, lightboxCaption);
+      lightbox.appendChild(lightboxCaption);
     }
 
     // Zoom + pan. zoomScale 1 = fit (default); up to maxZoom. Pan is in
@@ -687,24 +683,20 @@ document.addEventListener('DOMContentLoaded', () => {
       lightboxImg.src = img.dataset.full || img.src;
       lightboxImg.alt = img.alt;
       resetZoom();
-      if (lightboxBadge) {
-        const awardFigure = img.closest('figure[data-award]');
-        const level = awardFigure && awardFigure.dataset.award;
-        const label = awardFigure && (awardFigure.dataset.awardLabel || awardBadgeLabels[level]);
-        if (label) {
-          lightboxBadge.className = `lightbox-badge award-badge-${level}`;
-          lightboxBadge.textContent = label;
-          lightboxBadge.hidden = false;
-        } else {
-          lightboxBadge.hidden = true;
-        }
-      }
       if (lightboxCaption) {
         const figure = img.closest('figure[data-date]');
         if (figure) {
           const date = new Date(figure.dataset.date + 'T00:00:00');
           const dateLabel = Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+          const level = figure.dataset.award;
+          const tagLabel = level && (figure.dataset.awardLabel || awardBadgeLabels[level]);
           lightboxCaption.innerHTML = '';
+          if (tagLabel) {
+            const tag = document.createElement('span');
+            tag.className = `lightbox-caption-tag tag-${level}`;
+            tag.textContent = tagLabel;
+            lightboxCaption.appendChild(tag);
+          }
           const title = document.createElement('span');
           title.className = 'lightbox-caption-title';
           title.textContent = img.alt;

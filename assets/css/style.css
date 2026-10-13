@@ -1502,124 +1502,111 @@ a.chip:active { transform: scale(0.95); }
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(15, 22, 35, 0.55);
-  backdrop-filter: saturate(180%) blur(28px);
-  -webkit-backdrop-filter: saturate(180%) blur(28px);
+  background: rgba(6, 8, 13, 0.93);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 18px;
   z-index: 1000;
-  padding: 5vh 4vw;
+  padding: 7vh 5vw;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+  transition: opacity 0.2s ease, visibility 0s linear 0.2s;
 }
 .lightbox.is-open {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transition: opacity 0.25s ease, visibility 0s linear 0s;
+  transition: opacity 0.2s ease, visibility 0s linear 0s;
 }
 .lightbox img {
   max-width: 100%;
-  max-height: 90vh;
-  border-radius: 10px;
-  transform: scale(0.94);
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  max-height: 78vh;
+  border-radius: 6px;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.25s ease, transform 0.25s ease;
   touch-action: none;
   cursor: zoom-in;
 }
-.lightbox.is-open img { transform: scale(1); }
+.lightbox.is-open img { opacity: 1; transform: scale(1); }
 .lightbox img.is-zoomed { cursor: grab; border-radius: 0; }
 .lightbox img.is-zoomed:active { cursor: grabbing; }
+
 .lightbox-close {
   position: absolute;
   z-index: 1;
-  top: 24px;
-  right: clamp(20px, 5vw, 48px);
+  top: clamp(16px, 3vh, 28px);
+  right: clamp(16px, 4vw, 40px);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.3);
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), inset 0 -6px 10px -6px rgba(0,0,0,0.4);
-  color: #fff;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.65);
+  width: 40px;
+  height: 40px;
   cursor: pointer;
-  transition: transform 0.15s ease, background 0.2s ease;
+  transition: color 0.15s ease, transform 0.15s ease;
 }
-.lightbox-close svg { width: 15px; height: 15px; }
+.lightbox-close svg { width: 16px; height: 16px; }
+.lightbox-close:active { transform: scale(0.9); }
 @media (hover: hover) and (pointer: fine) {
-  .lightbox-close:hover { background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.14) 100%); }
+  .lightbox-close:hover { color: #fff; }
 }
 
 .lightbox-nav {
   position: absolute;
   z-index: 1;
-  bottom: 24px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.3);
-  box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), inset 0 -6px 10px -6px rgba(0,0,0,0.4);
-  color: #fff;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  font-size: 1.6rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  width: 48px;
+  height: 48px;
+  font-size: 2rem;
   line-height: 1;
   cursor: pointer;
-  transition: transform 0.15s ease, background 0.2s ease;
+  transition: color 0.15s ease, transform 0.15s ease;
 }
 .lightbox-nav[hidden] { display: none; }
-.lightbox-nav:active { transform: scale(0.9); }
-.lightbox-prev { left: clamp(12px, 4vw, 32px); }
-.lightbox-next { right: clamp(12px, 4vw, 32px); }
+.lightbox-nav:active { transform: translateY(-50%) scale(0.88); }
+.lightbox-prev { left: clamp(4px, 2vw, 20px); }
+.lightbox-next { right: clamp(4px, 2vw, 20px); }
 @media (hover: hover) and (pointer: fine) {
-  .lightbox-nav:hover { background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.14) 100%); }
+  .lightbox-nav:hover { color: #fff; }
 }
-
-.lightbox-badge {
-  position: absolute;
-  z-index: 1;
-  top: 28px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 5px 14px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  color: #fff;
-  border-radius: 999px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-.lightbox-badge[hidden] { display: none; }
 
 .lightbox-caption {
-  position: absolute;
-  z-index: 1;
-  left: 50%;
-  bottom: 24px;
-  transform: translateX(-50%);
-  max-width: min(520px, 86vw);
-  padding: 10px 18px;
-  border-radius: 14px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.07) 100%);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.3);
-  color: #fff;
+  max-width: min(560px, 90vw);
   text-align: center;
+  color: rgba(255, 255, 255, 0.9);
 }
 .lightbox-caption[hidden] { display: none; }
-.lightbox-caption-title { display: block; font-size: 0.8rem; font-weight: 600; line-height: 1.35; }
-.lightbox-caption-date { display: block; font-size: 0.7rem; opacity: 0.75; margin-top: 2px; }
+.lightbox-caption-tag {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.lightbox-caption-tag.tag-champion { color: #c874dd; }
+.lightbox-caption-tag.tag-gold { color: #e8bf3f; }
+.lightbox-caption-tag.tag-silver { color: #b7c0cb; }
+.lightbox-caption-tag.tag-bronze { color: #e0905a; }
+.lightbox-caption-tag.tag-merit { color: #6f9eef; }
+.lightbox-caption-tag.tag-pass { color: #4fcb8c; }
+.lightbox-caption-tag.tag-grade { color: #3fc3d2; }
+.lightbox-caption-tag.tag-participate { color: rgba(255, 255, 255, 0.55); }
+.lightbox-caption-tag.tag-attend { color: #ab93d9; }
+.lightbox-caption-title { display: block; font-size: 0.85rem; font-weight: 600; line-height: 1.4; }
+.lightbox-caption-date { display: block; font-size: 0.72rem; color: rgba(255, 255, 255, 0.5); margin-top: 4px; }
 
 /* ---------- Pull-to-refresh ---------- */
 /* Stands in for the native overscroll refresh gesture, which
