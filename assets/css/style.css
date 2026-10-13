@@ -1506,8 +1506,9 @@ a.chip:active { transform: scale(0.95); }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: none;
+  background: rgba(255, 255, 255, 0.1);
   border: none;
+  border-radius: 50%;
   color: rgba(255, 255, 255, 0.65);
   width: 40px;
   height: 40px;
@@ -1525,8 +1526,9 @@ a.chip:active { transform: scale(0.95); }
   z-index: 1;
   top: 50%;
   transform: translateY(-50%);
-  background: none;
+  background: rgba(255, 255, 255, 0.1);
   border: none;
+  border-radius: 50%;
   color: rgba(255, 255, 255, 0.5);
   width: 48px;
   height: 48px;
@@ -1552,19 +1554,10 @@ a.chip:active { transform: scale(0.95); }
     top: auto;
     bottom: clamp(10px, 2.5vh, 20px);
     transform: none;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
   }
   .lightbox-nav:active { transform: scale(0.88); }
   .lightbox-prev { left: clamp(10px, 4vw, 24px); }
   .lightbox-next { right: clamp(10px, 4vw, 24px); }
-
-  /* Same reasoning applies to the close button — give it the matching
-     subtle circle so all three controls read consistently. */
-  .lightbox-close {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-  }
 }
 
 .lightbox-caption {
