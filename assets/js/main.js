@@ -515,43 +515,6 @@ document.addEventListener('DOMContentLoaded', () => {
     figure.appendChild(badge);
   });
 
-  // Tap-to-reveal caption on Core Discipline certificate thumbnails, built
-  // from the same alt text and data-date already on each figure — no new
-  // copy, just surfaced on demand (via the small info toggle) so a cert
-  // can be identified without opening the lightbox or cluttering the grid.
-  document.querySelectorAll('.page-core-discipline .gallery figure[data-date]').forEach(figure => {
-    const img = figure.querySelector('img');
-    if (!img || !img.alt) return;
-    const date = new Date(figure.dataset.date + 'T00:00:00');
-    const dateLabel = Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-    const caption = document.createElement('figcaption');
-    caption.className = 'cert-caption';
-    const title = document.createElement('span');
-    title.className = 'cert-caption-title';
-    title.textContent = img.alt;
-    caption.appendChild(title);
-    if (dateLabel) {
-      const dateEl = document.createElement('span');
-      dateEl.className = 'cert-caption-date';
-      dateEl.textContent = dateLabel;
-      caption.appendChild(dateEl);
-    }
-    figure.appendChild(caption);
-
-    const infoToggle = document.createElement('button');
-    infoToggle.type = 'button';
-    infoToggle.className = 'cert-info-toggle';
-    infoToggle.textContent = 'i';
-    infoToggle.setAttribute('aria-label', 'Show certificate details');
-    infoToggle.setAttribute('aria-expanded', 'false');
-    infoToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = caption.classList.toggle('is-open');
-      infoToggle.setAttribute('aria-expanded', String(isOpen));
-    });
-    figure.appendChild(infoToggle);
-  });
-
   const awardedLevels = new Set(['champion', 'gold', 'silver', 'bronze', 'merit', 'pass', 'grade']);
   // Each toggle below stops its click from bubbling to document (so opening
   // one doesn't immediately trigger its own outside-click close). On a page
