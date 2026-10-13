@@ -840,27 +840,36 @@ html[data-sticky-navbar="true"] .site-header {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  column-gap: 20px;
-  row-gap: 0.6em;
+  gap: 10px;
   margin-top: 2.2em;
 }
 .hero-ask-ai {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  font-size: 0.82rem;
+  gap: 9px;
+  padding: 0.5em 1.15em 0.5em 0.5em;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: var(--navy);
+  color: var(--heading);
   text-decoration: none;
-  border-bottom: 1px solid transparent;
-  padding-bottom: 1px;
-  transition: border-color 0.2s ease, opacity 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
-.hero-ask-ai svg { width: 13px; height: 13px; flex-shrink: 0; }
+.hero-ask-ai svg {
+  width: 28px;
+  height: 28px;
+  padding: 7px;
+  border-radius: 50%;
+  background: var(--nav-hover-bg);
+  color: var(--navy);
+  flex-shrink: 0;
+}
+.hero-ask-ai:active { transform: scale(0.96); }
 @media (hover: hover) and (pointer: fine) {
-  .hero-ask-ai:hover { border-bottom-color: var(--navy); }
+  .hero-ask-ai:hover { border-color: var(--navy); box-shadow: var(--shadow-soft); transform: translateY(-2px); }
 }
-.hero-ask-ai:active { opacity: 0.7; }
 
 .hero-scroll-indicator {
   position: absolute;
