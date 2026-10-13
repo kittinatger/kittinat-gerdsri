@@ -1248,6 +1248,8 @@ html[data-sticky-navbar="true"] .site-header {
 .award-badge-silver { background: rgba(90, 100, 115, 0.85); }
 .award-badge-bronze { background: rgba(140, 78, 36, 0.85); }
 .award-badge-merit { background: rgba(29, 79, 156, 0.85); }
+.award-badge-pass { background: rgba(37, 119, 66, 0.85); }
+.award-badge-grade { background: rgba(80, 95, 115, 0.85); }
 .award-badge-participate { background: rgba(15, 22, 35, 0.72); }
 
 /* Fanned / overlap gallery: equal-width strips that expand and come
