@@ -1243,6 +1243,7 @@ html[data-sticky-navbar="true"] .site-header {
   -webkit-backdrop-filter: blur(8px);
   border-radius: 999px;
 }
+.award-badge-champion { background: rgba(142, 36, 170, 0.85); }
 .award-badge-gold { background: rgba(161, 122, 11, 0.85); }
 .award-badge-silver { background: rgba(90, 100, 115, 0.85); }
 .award-badge-bronze { background: rgba(140, 78, 36, 0.85); }
