@@ -1561,8 +1561,7 @@ a.chip:active { transform: scale(0.95); }
 .lightbox-nav {
   position: absolute;
   z-index: 1;
-  top: 50%;
-  transform: translateY(-50%);
+  bottom: 24px;
   background: linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.08) 100%);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -1578,7 +1577,7 @@ a.chip:active { transform: scale(0.95); }
   transition: transform 0.15s ease, background 0.2s ease;
 }
 .lightbox-nav[hidden] { display: none; }
-.lightbox-nav:active { transform: translateY(-50%) scale(0.9); }
+.lightbox-nav:active { transform: scale(0.9); }
 .lightbox-prev { left: clamp(12px, 4vw, 32px); }
 .lightbox-next { right: clamp(12px, 4vw, 32px); }
 @media (hover: hover) and (pointer: fine) {
