@@ -515,6 +515,30 @@ document.addEventListener('DOMContentLoaded', () => {
     figure.appendChild(badge);
   });
 
+  // Hover/focus caption on Core Discipline certificate thumbnails, built
+  // from the same alt text and data-date already on each figure — no new
+  // copy, just surfaced so a cert can be identified without opening the
+  // lightbox.
+  document.querySelectorAll('.page-core-discipline .gallery figure[data-date]').forEach(figure => {
+    const img = figure.querySelector('img');
+    if (!img || !img.alt) return;
+    const date = new Date(figure.dataset.date + 'T00:00:00');
+    const dateLabel = Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+    const caption = document.createElement('figcaption');
+    caption.className = 'cert-caption';
+    const title = document.createElement('span');
+    title.className = 'cert-caption-title';
+    title.textContent = img.alt;
+    caption.appendChild(title);
+    if (dateLabel) {
+      const dateEl = document.createElement('span');
+      dateEl.className = 'cert-caption-date';
+      dateEl.textContent = dateLabel;
+      caption.appendChild(dateEl);
+    }
+    figure.appendChild(caption);
+  });
+
   const awardedLevels = new Set(['champion', 'gold', 'silver', 'bronze', 'merit', 'pass', 'grade']);
   // Each toggle below stops its click from bubbling to document (so opening
   // one doesn't immediately trigger its own outside-click close). On a page
