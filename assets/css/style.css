@@ -1585,6 +1585,23 @@ a.chip:active { transform: scale(0.95); }
   .lightbox-nav:hover { background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.14) 100%); }
 }
 
+.lightbox-badge {
+  position: absolute;
+  z-index: 1;
+  top: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 5px 14px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #fff;
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.lightbox-badge[hidden] { display: none; }
+
 .lightbox-info-toggle {
   position: absolute;
   z-index: 1;

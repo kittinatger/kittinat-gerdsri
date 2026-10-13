@@ -636,9 +636,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // On Core Discipline, mirror the grid's tap-to-reveal cert caption
     // inside the lightbox too, built from the same alt text/data-date.
+    let lightboxBadge = null;
     let lightboxInfoToggle = null;
     let lightboxCaption = null;
     if (document.body.classList.contains('page-core-discipline')) {
+      lightboxBadge = document.createElement('span');
+      lightboxBadge.className = 'lightbox-badge';
+      lightboxBadge.hidden = true;
+      lightbox.appendChild(lightboxBadge);
+
       lightboxInfoToggle = document.createElement('button');
       lightboxInfoToggle.type = 'button';
       lightboxInfoToggle.className = 'lightbox-info-toggle';
@@ -694,6 +700,18 @@ document.addEventListener('DOMContentLoaded', () => {
       lightboxImg.src = img.dataset.full || img.src;
       lightboxImg.alt = img.alt;
       resetZoom();
+      if (lightboxBadge) {
+        const awardFigure = img.closest('figure[data-award]');
+        const level = awardFigure && awardFigure.dataset.award;
+        const label = awardFigure && (awardFigure.dataset.awardLabel || awardBadgeLabels[level]);
+        if (label) {
+          lightboxBadge.className = `lightbox-badge award-badge-${level}`;
+          lightboxBadge.textContent = label;
+          lightboxBadge.hidden = false;
+        } else {
+          lightboxBadge.hidden = true;
+        }
+      }
       if (lightboxInfoToggle && lightboxCaption) {
         const figure = img.closest('figure[data-date]');
         lightboxCaption.classList.remove('is-open');
