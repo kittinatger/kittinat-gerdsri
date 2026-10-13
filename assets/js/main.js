@@ -502,6 +502,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // which reorders the same figures. Built as the same floating glass-panel
   // dropdown as the "Work" nav menu and the settings popup (button +
   // makeFloating menu).
+  // Core Discipline quick-jump nav: highlight whichever subject section is
+  // currently in view as the page scrolls.
+  const jumpItems = document.querySelectorAll('.discipline-jump-item');
+  if (jumpItems.length && 'IntersectionObserver' in window) {
+    const jumpTargets = [...jumpItems].map(item => document.getElementById(item.dataset.jump)).filter(Boolean);
+    const setActiveJump = (id) => {
+      jumpItems.forEach(item => item.classList.toggle('is-active', item.dataset.jump === id));
+    };
+    const jumpObserver = new IntersectionObserver((entries) => {
+      const visible = entries.filter(e => e.isIntersecting);
+      if (visible.length) setActiveJump(visible[0].target.id);
+    }, { rootMargin: '-110px 0px -70% 0px' });
+    jumpTargets.forEach(el => jumpObserver.observe(el));
+  }
+
   // Award-level badges on Core Discipline certificate thumbnails, read
   // straight off the same data-award attribute the filter below uses.
   const awardBadgeLabels = { champion: 'Champion', gold: 'Gold', silver: 'Silver', bronze: 'Bronze', merit: 'Merit', pass: 'Passed', participate: 'Participant' };

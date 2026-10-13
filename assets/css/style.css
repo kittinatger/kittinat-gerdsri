@@ -1216,7 +1216,68 @@ html[data-sticky-navbar="true"] .site-header {
 
 /* ---------- Core Discipline page ---------- */
 #mathematics, #sciences, #english, #chinese { scroll-margin-top: 100px; }
-.discipline-jump-row { margin-top: 1.8em; justify-content: center; }
+
+.discipline-jump {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 760px;
+  margin: 2em auto 0;
+}
+.discipline-jump-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 1.1em 0.8em 0.9em;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  text-align: center;
+  color: var(--heading);
+  text-decoration: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+.discipline-jump-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--nav-hover-bg);
+  color: var(--navy);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.discipline-jump-label { font-size: 0.85rem; font-weight: 600; }
+.discipline-jump-count {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--navy);
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+.discipline-jump-item:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .discipline-jump-item:hover { border-color: var(--navy); box-shadow: var(--shadow-soft); transform: translateY(-2px); }
+}
+.discipline-jump-item.is-active { border-color: var(--navy); background: var(--nav-hover-bg); }
+.discipline-jump-item.is-active .discipline-jump-icon { background: var(--navy); color: #fff; }
+@media (max-width: 559px) {
+  .discipline-jump { grid-template-columns: repeat(2, 1fr); }
+}
 .page-core-discipline .gallery figure { position: relative; }
 .award-badge {
   position: absolute;
