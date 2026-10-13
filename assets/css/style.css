@@ -823,6 +823,9 @@ html[data-sticky-navbar="true"] .site-header {
   }
 }
 
+@media (min-width: 760px) {
+  .hero-arc { margin-bottom: clamp(40px, 5vw, 64px); }
+}
 @media (max-width: 759px) {
   .hero-arc { max-width: 360px; height: 196px; }
   .hero-arc-card { width: 100px; border-radius: 16px; }
