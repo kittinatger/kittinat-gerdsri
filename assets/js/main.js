@@ -676,8 +676,42 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     };
-    const showPrev = () => showImage(currentIndex - 1);
-    const showNext = () => showImage(currentIndex + 1);
+    // Direction-aware slide + fade between images, instead of a hard cut.
+    // The old image/caption animate out, then showImage() swaps content
+    // while it's invisible off to one side, then animates back in from
+    // there — all on the same elements, so no second <img> is needed.
+    let navAnimating = false;
+    const animateNav = (direction) => {
+      if (navAnimating || currentGroup.length < 2) { showImage(currentIndex + direction); return; }
+      navAnimating = true;
+      const exitX = direction === 1 ? -28 : 28;
+      const enterX = direction === 1 ? 28 : -28;
+      const els = lightboxCaption ? [lightboxImg, lightboxCaption] : [lightboxImg];
+      els.forEach(el => {
+        el.style.transition = 'opacity 0.16s ease, transform 0.16s ease';
+        el.style.opacity = '0';
+        el.style.transform = `translateX(${exitX}px)`;
+      });
+      setTimeout(() => {
+        showImage(currentIndex + direction);
+        els.forEach(el => {
+          el.style.transition = 'none';
+          el.style.transform = `translateX(${enterX}px)`;
+        });
+        void lightboxImg.offsetWidth;
+        els.forEach(el => {
+          el.style.transition = 'opacity 0.24s cubic-bezier(0.22, 1, 0.36, 1), transform 0.24s cubic-bezier(0.22, 1, 0.36, 1)';
+          el.style.opacity = '1';
+          el.style.transform = 'translateX(0)';
+        });
+        setTimeout(() => {
+          els.forEach(el => { el.style.transition = ''; el.style.opacity = ''; el.style.transform = ''; });
+          navAnimating = false;
+        }, 240);
+      }, 160);
+    };
+    const showPrev = () => animateNav(-1);
+    const showNext = () => animateNav(1);
 
     document.querySelectorAll('.gallery').forEach(gallery => {
       [...gallery.querySelectorAll('figure img')].forEach(img => {
