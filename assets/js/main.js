@@ -502,6 +502,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // which reorders the same figures. Built as the same floating glass-panel
   // dropdown as the "Work" nav menu and the settings popup (button +
   // makeFloating menu).
+  // Award-level badges on Core Discipline certificate thumbnails, read
+  // straight off the same data-award attribute the filter below uses.
+  const awardBadgeLabels = { gold: 'Gold', silver: 'Silver', bronze: 'Bronze', merit: 'Merit', participate: 'Participant' };
+  document.querySelectorAll('.page-core-discipline .gallery figure[data-award]').forEach(figure => {
+    const level = figure.dataset.award;
+    const label = awardBadgeLabels[level];
+    if (!label) return;
+    const badge = document.createElement('span');
+    badge.className = `award-badge award-badge-${level}`;
+    badge.textContent = label;
+    figure.appendChild(badge);
+  });
+
   const awardedLevels = new Set(['gold', 'silver', 'bronze', 'merit']);
   // Each toggle below stops its click from bubbling to document (so opening
   // one doesn't immediately trigger its own outside-click close). On a page
