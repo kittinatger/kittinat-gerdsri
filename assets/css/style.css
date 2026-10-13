@@ -1294,15 +1294,15 @@ html[data-sticky-navbar="true"] .site-header {
   -webkit-backdrop-filter: blur(8px);
   border-radius: 999px;
 }
-.award-badge-champion { background: rgba(142, 36, 170, 0.85); }
-.award-badge-gold { background: rgba(161, 122, 11, 0.85); }
-.award-badge-silver { background: rgba(90, 100, 115, 0.85); }
-.award-badge-bronze { background: rgba(140, 78, 36, 0.85); }
-.award-badge-merit { background: rgba(29, 79, 156, 0.85); }
-.award-badge-pass { background: rgba(37, 119, 66, 0.85); }
-.award-badge-grade { background: rgba(80, 95, 115, 0.85); }
-.award-badge-participate { background: rgba(15, 22, 35, 0.72); }
-.award-badge-attend { background: rgba(70, 82, 100, 0.72); }
+.award-badge-champion { background: rgba(150, 40, 175, 0.85); }
+.award-badge-gold { background: rgba(201, 160, 20, 0.85); }
+.award-badge-silver { background: rgba(107, 117, 130, 0.85); }
+.award-badge-bronze { background: rgba(161, 82, 36, 0.85); }
+.award-badge-merit { background: rgba(37, 99, 201, 0.85); }
+.award-badge-pass { background: rgba(33, 140, 86, 0.85); }
+.award-badge-grade { background: rgba(13, 138, 148, 0.85); }
+.award-badge-participate { background: rgba(46, 52, 66, 0.85); }
+.award-badge-attend { background: rgba(110, 92, 150, 0.85); }
 
 /* Fanned / overlap gallery: equal-width strips that expand and come
    forward on hover, revealing the full shot — each a little browser-window
