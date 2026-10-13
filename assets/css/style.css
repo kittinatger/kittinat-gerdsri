@@ -1302,6 +1302,7 @@ html[data-sticky-navbar="true"] .site-header {
 .award-badge-pass { background: rgba(37, 119, 66, 0.85); }
 .award-badge-grade { background: rgba(80, 95, 115, 0.85); }
 .award-badge-participate { background: rgba(15, 22, 35, 0.72); }
+.award-badge-attend { background: rgba(70, 82, 100, 0.72); }
 
 /* Fanned / overlap gallery: equal-width strips that expand and come
    forward on hover, revealing the full shot — each a little browser-window

@@ -519,7 +519,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Award-level badges on Core Discipline certificate thumbnails, read
   // straight off the same data-award attribute the filter below uses.
-  const awardBadgeLabels = { champion: 'Champion', gold: 'Gold', silver: 'Silver', bronze: 'Bronze', merit: 'Merit', pass: 'Passed', participate: 'Participant' };
+  const awardBadgeLabels = { champion: 'Champion', gold: 'Gold', silver: 'Silver', bronze: 'Bronze', merit: 'Merit', pass: 'Passed', participate: 'Participant', attend: 'Attended' };
   document.querySelectorAll('.page-core-discipline .gallery figure[data-award]').forEach(figure => {
     const level = figure.dataset.award;
     const label = figure.dataset.awardLabel || awardBadgeLabels[level];
