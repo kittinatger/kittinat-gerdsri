@@ -634,32 +634,19 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentGroup = [];
     let currentIndex = -1;
 
-    // On Core Discipline, mirror the grid's tap-to-reveal cert caption
-    // inside the lightbox too, built from the same alt text/data-date.
+    // On Core Discipline, mirror each thumbnail's badge and caption inside
+    // the lightbox too, built from the same alt text/data-date, always
+    // visible (no tap needed — the lightbox has room for it).
     let lightboxBadge = null;
-    let lightboxInfoToggle = null;
     let lightboxCaption = null;
     if (document.body.classList.contains('page-core-discipline')) {
       lightboxBadge = document.createElement('span');
       lightboxBadge.className = 'lightbox-badge';
       lightboxBadge.hidden = true;
-      lightbox.appendChild(lightboxBadge);
-
-      lightboxInfoToggle = document.createElement('button');
-      lightboxInfoToggle.type = 'button';
-      lightboxInfoToggle.className = 'lightbox-info-toggle';
-      lightboxInfoToggle.textContent = 'i';
-      lightboxInfoToggle.setAttribute('aria-label', 'Show certificate details');
-      lightboxInfoToggle.setAttribute('aria-expanded', 'false');
-      lightboxInfoToggle.hidden = true;
       lightboxCaption = document.createElement('div');
       lightboxCaption.className = 'lightbox-caption';
-      lightboxInfoToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isOpen = lightboxCaption.classList.toggle('is-open');
-        lightboxInfoToggle.setAttribute('aria-expanded', String(isOpen));
-      });
-      lightbox.append(lightboxInfoToggle, lightboxCaption);
+      lightboxCaption.hidden = true;
+      lightbox.append(lightboxBadge, lightboxCaption);
     }
 
     // Zoom + pan. zoomScale 1 = fit (default); up to maxZoom. Pan is in
@@ -712,10 +699,8 @@ document.addEventListener('DOMContentLoaded', () => {
           lightboxBadge.hidden = true;
         }
       }
-      if (lightboxInfoToggle && lightboxCaption) {
+      if (lightboxCaption) {
         const figure = img.closest('figure[data-date]');
-        lightboxCaption.classList.remove('is-open');
-        lightboxInfoToggle.setAttribute('aria-expanded', 'false');
         if (figure) {
           const date = new Date(figure.dataset.date + 'T00:00:00');
           const dateLabel = Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
@@ -730,9 +715,9 @@ document.addEventListener('DOMContentLoaded', () => {
             dateEl.textContent = dateLabel;
             lightboxCaption.appendChild(dateEl);
           }
-          lightboxInfoToggle.hidden = false;
+          lightboxCaption.hidden = false;
         } else {
-          lightboxInfoToggle.hidden = true;
+          lightboxCaption.hidden = true;
         }
       }
     };
