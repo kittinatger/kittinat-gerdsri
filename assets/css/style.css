@@ -1217,16 +1217,6 @@ html[data-sticky-navbar="true"] .site-header {
 /* ---------- Core Discipline page ---------- */
 #mathematics, #sciences, #english, #chinese { scroll-margin-top: 100px; }
 .discipline-jump-row { margin-top: 1.8em; justify-content: center; }
-.discipline-section-number {
-  display: inline-block;
-  margin-right: 0.5em;
-  font-family: var(--font-display);
-  font-size: 0.6em;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: var(--navy);
-  vertical-align: middle;
-}
 .page-core-discipline .gallery figure { position: relative; }
 .award-badge {
   position: absolute;
