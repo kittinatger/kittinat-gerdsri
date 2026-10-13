@@ -1548,8 +1548,12 @@ a.chip:active { transform: scale(0.95); }
   border-radius: 10px;
   transform: scale(0.94);
   transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  touch-action: none;
+  cursor: zoom-in;
 }
 .lightbox.is-open img { transform: scale(1); }
+.lightbox img.is-zoomed { cursor: grab; border-radius: 0; }
+.lightbox img.is-zoomed:active { cursor: grabbing; }
 .lightbox-close {
   position: absolute;
   z-index: 1;

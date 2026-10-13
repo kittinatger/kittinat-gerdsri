@@ -612,12 +612,44 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentGroup = [];
     let currentIndex = -1;
 
+    // Zoom + pan. zoomScale 1 = fit (default); up to maxZoom. Pan is in
+    // screen px, loosely clamped so the image can't be dragged entirely
+    // off-frame. Applied as an inline transform that overrides the plain
+    // CSS scale(1)/scale(0.94) open/close rule once zoomed.
+    const maxZoom = 4;
+    let zoomScale = 1;
+    let panX = 0;
+    let panY = 0;
+
+    const clampPan = () => {
+      const rect = lightboxImg.getBoundingClientRect();
+      const baseW = rect.width / zoomScale;
+      const baseH = rect.height / zoomScale;
+      const maxX = Math.max(0, (baseW * zoomScale - baseW) / 2);
+      const maxY = Math.max(0, (baseH * zoomScale - baseH) / 2);
+      panX = Math.min(maxX, Math.max(-maxX, panX));
+      panY = Math.min(maxY, Math.max(-maxY, panY));
+    };
+    const applyZoom = (withTransition) => {
+      lightboxImg.style.transition = withTransition ? 'transform 0.2s ease' : 'none';
+      lightboxImg.style.transform = zoomScale === 1 ? '' : `translate(${panX}px, ${panY}px) scale(${zoomScale})`;
+      lightboxImg.classList.toggle('is-zoomed', zoomScale > 1);
+    };
+    const resetZoom = () => { zoomScale = 1; panX = 0; panY = 0; applyZoom(false); };
+    const setZoom = (next, withTransition) => {
+      zoomScale = Math.min(maxZoom, Math.max(1, next));
+      if (zoomScale === 1) { panX = 0; panY = 0; }
+      clampPan();
+      applyZoom(withTransition);
+    };
+
     const showImage = (index) => {
       if (!currentGroup.length) return;
       currentIndex = (index + currentGroup.length) % currentGroup.length;
       const img = currentGroup[currentIndex];
       lightboxImg.src = img.dataset.full || img.src;
       lightboxImg.alt = img.alt;
+      resetZoom();
     };
     const showPrev = () => showImage(currentIndex - 1);
     const showNext = () => showImage(currentIndex + 1);
@@ -635,7 +667,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    const closeLightbox = () => lightbox.classList.remove('is-open');
+    const closeLightbox = () => { lightbox.classList.remove('is-open'); resetZoom(); };
     lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
     if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
     if (nextBtn) nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
@@ -643,20 +675,80 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', (e) => {
       if (!lightbox.classList.contains('is-open')) return;
       if (e.key === 'Escape') closeLightbox();
-      else if (e.key === 'ArrowLeft') showPrev();
-      else if (e.key === 'ArrowRight') showNext();
+      else if (e.key === 'ArrowLeft' && zoomScale === 1) showPrev();
+      else if (e.key === 'ArrowRight' && zoomScale === 1) showNext();
     });
 
-    // Touch swipe: a horizontal drag past a small threshold, without too
-    // much vertical drift (so a scroll attempt doesn't get mistaken for a
-    // swipe), steps to the next/previous image.
+    // Desktop: double-click toggles zoom, mouse wheel zooms continuously,
+    // and dragging pans once zoomed.
+    lightboxImg.addEventListener('dblclick', (e) => {
+      e.stopPropagation();
+      setZoom(zoomScale > 1 ? 1 : 2.5, true);
+    });
+    lightbox.addEventListener('wheel', (e) => {
+      if (!lightbox.classList.contains('is-open')) return;
+      e.preventDefault();
+      setZoom(zoomScale - e.deltaY * 0.0025, false);
+    }, { passive: false });
+
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let panStartX = 0;
+    let panStartY = 0;
+    lightboxImg.addEventListener('mousedown', (e) => {
+      if (zoomScale === 1) return;
+      isDragging = true;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      panStartX = panX;
+      panStartY = panY;
+      e.preventDefault();
+    });
+    window.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      panX = panStartX + (e.clientX - dragStartX);
+      panY = panStartY + (e.clientY - dragStartY);
+      clampPan();
+      applyZoom(false);
+    });
+    window.addEventListener('mouseup', () => { isDragging = false; });
+
+    // Touch: pinch-to-zoom with two fingers; a single-finger drag pans
+    // while zoomed in, or steps to the next/previous image (swipe) at the
+    // default 1x fit, same threshold-based swipe as before.
     let touchStartX = 0;
     let touchStartY = 0;
+    let pinchStartDist = 0;
+    let pinchStartScale = 1;
+    const touchDist = (touches) => Math.hypot(touches[0].clientX - touches[1].clientX, touches[0].clientY - touches[1].clientY);
+
     lightbox.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
+      if (e.touches.length === 2) {
+        pinchStartDist = touchDist(e.touches);
+        pinchStartScale = zoomScale;
+      } else if (e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        panStartX = panX;
+        panStartY = panY;
+      }
     }, { passive: true });
+    lightbox.addEventListener('touchmove', (e) => {
+      if (e.touches.length === 2) {
+        e.preventDefault();
+        const scale = pinchStartScale * (touchDist(e.touches) / pinchStartDist);
+        setZoom(scale, false);
+      } else if (e.touches.length === 1 && zoomScale > 1) {
+        e.preventDefault();
+        panX = panStartX + (e.touches[0].clientX - touchStartX);
+        panY = panStartY + (e.touches[0].clientY - touchStartY);
+        clampPan();
+        applyZoom(false);
+      }
+    }, { passive: false });
     lightbox.addEventListener('touchend', (e) => {
+      if (zoomScale > 1 || e.touches.length > 0) return;
       const dx = e.changedTouches[0].clientX - touchStartX;
       const dy = e.changedTouches[0].clientY - touchStartY;
       if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) {
