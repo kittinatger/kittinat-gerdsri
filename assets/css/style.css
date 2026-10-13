@@ -716,7 +716,7 @@ html[data-sticky-navbar="true"] .site-header {
   align-items: center;
   width: 100%;
 }
-.hero-copy { max-width: 640px; text-align: center; }
+.hero-copy { max-width: 720px; text-align: center; }
 .hero .hero-actions { justify-content: center; }
 .hero-copy h1 { margin-bottom: 0.25em; }
 .hero-name-accent { color: var(--navy); }
@@ -839,27 +839,28 @@ html[data-sticky-navbar="true"] .site-header {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   margin-top: 1.2em;
 }
 .hero-ask-ai {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
-  padding: 0.5em 1.15em 0.5em 0.5em;
+  gap: 7px;
+  padding: 0.42em 0.95em 0.42em 0.42em;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 999px;
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--heading);
   text-decoration: none;
+  white-space: nowrap;
   transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 .hero-ask-ai svg {
-  width: 28px;
-  height: 28px;
-  padding: 7px;
+  width: 24px;
+  height: 24px;
+  padding: 6px;
   border-radius: 50%;
   background: var(--nav-hover-bg);
   color: var(--navy);
