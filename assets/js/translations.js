@@ -381,7 +381,9 @@ window.PORTFOLIO_TRANSLATIONS = {
     "The Grand Stage, Thailand · Churairat Music": "เวทีแกรนด์สเตจ ประเทศไทย · จุไรรัตน์ มิวสิค",
     "Trinity College London, Piano, Grade 2": "ทรินิตี้คอลเลจลอนดอน, เปียโน, เกรด 2",
     "Volunteer": "จิตอาสา",
-    "Chulabhorn Royal Academy · Recreational Music Project": "ราชวิทยาลัยจุฬาภรณ์ · โครงการดนตรีนันทนาการ"
+    "Chulabhorn Royal Academy · Recreational Music Project": "ราชวิทยาลัยจุฬาภรณ์ · โครงการดนตรีนันทนาการ",
+    "First-Class Honors": "เกียรตินิยมอันดับหนึ่ง",
+    "NEPA (National English Proficiency Assessment) 2025 — Excellence Round, Junior High School": "NEPA (National English Proficiency Assessment) 2025 — รอบ Excellence ระดับมัธยมศึกษาตอนต้น"
   },
   "zh-CN": {
     "Kittinat Gerdsri": "Kittinat Gerdsri",
@@ -765,6 +767,8 @@ window.PORTFOLIO_TRANSLATIONS = {
     "The Grand Stage, Thailand · Churairat Music": "泰国大舞台 · Churairat Music",
     "Trinity College London, Piano, Grade 2": "英国伦敦圣三一学院，钢琴，2 级",
     "Volunteer": "志愿者",
-    "Chulabhorn Royal Academy · Recreational Music Project": "朱拉蓬皇家学院 · 康乐音乐项目"
+    "Chulabhorn Royal Academy · Recreational Music Project": "朱拉蓬皇家学院 · 康乐音乐项目",
+    "First-Class Honors": "一等荣誉",
+    "NEPA (National English Proficiency Assessment) 2025 — Excellence Round, Junior High School": "NEPA (National English Proficiency Assessment) 2025 — 卓越赛（初中组）"
   }
 };
