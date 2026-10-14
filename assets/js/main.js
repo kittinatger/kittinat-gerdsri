@@ -1194,6 +1194,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // Touch has no hover, so a tap plays the hover animation instead: the
+  // tapped concert ticket / film strip / locked locker gets .is-active for a
+  // moment (the CSS mirrors its :hover rules). Delegated, so the film strips
+  // that are built later are covered too. Scrolling fires pointercancel, not
+  // pointerup, so swiping past never triggers it.
+  const tapHold = { perf: 3200, 'film-roll': 2600, 'locker-empty': 800 };
+  const tapTimers = new WeakMap();
+  document.addEventListener('pointerup', (e) => {
+    if (e.pointerType !== 'touch') return;
+    const target = e.target.closest('.perf, .film-roll, .locker-empty');
+    if (!target) return;
+    if (target.matches('.perf') && e.target.closest('video, button, a, .video-frame')) return;
+    const kind = ['perf', 'film-roll', 'locker-empty'].find(k => target.classList.contains(k));
+    clearTimeout(tapTimers.get(target));
+    target.classList.remove('is-active');
+    void target.offsetWidth; // restart one-shot animations (the lock rattle)
+    target.classList.add('is-active');
+    tapTimers.set(target, setTimeout(() => target.classList.remove('is-active'), tapHold[kind]));
+  });
+
   // Scroll reveal: fade/rise each top-level section in as it enters the
   // viewport. Elements only opt into the hidden starting state once .reveal
   // is added here, so a page with JS disabled (or this running before
