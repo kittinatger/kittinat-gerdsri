@@ -498,6 +498,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Same toggle for the Sports lockers: sorts whole lockers by the date on
+  // their front figure. Ties (several lockers share a year) keep their
+  // original order so the toggle only moves what's genuinely newer/older.
+  document.querySelectorAll('.locker-row').forEach(row => {
+    const sortToggle = row.closest('.wrap')?.querySelector('.gallery-heading .sort-toggle');
+    if (!sortToggle) return;
+    const lockers = [...row.querySelectorAll(':scope > .locker')];
+    const original = new Map(lockers.map((l, i) => [l, i]));
+    const dateOf = l => l.querySelector('figure[data-date]')?.dataset.date || '';
+    const applySort = (order) => {
+      [...lockers].sort((a, b) => {
+        const byDate = dateOf(a).localeCompare(dateOf(b));
+        return byDate !== 0 ? (order === 'desc' ? -byDate : byDate) : original.get(a) - original.get(b);
+      }).forEach(l => row.appendChild(l));
+    };
+    applySort('desc');
+    sortToggle.addEventListener('click', () => {
+      const next = sortToggle.dataset.order === 'desc' ? 'asc' : 'desc';
+      sortToggle.dataset.order = next;
+      applySort(next);
+    });
+  });
+
   // Filter certificate galleries by award level. Each .cert-filter dropdown
   // drives only the .gallery in its own section (the next sibling of the
   // .gallery-heading it lives in) — a page like Core Discipline has one
