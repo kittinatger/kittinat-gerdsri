@@ -1296,20 +1296,7 @@ html[data-sticky-navbar="true"] .site-header {
 }
 .locker-front figure.trophy img { object-fit: contain; padding: 0; }
 .locker-label { font-size: 0.72rem; font-weight: 600; color: rgba(255, 255, 255, 0.9); line-height: 1.3; }
-.locker-hint {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 9px;
-  border-radius: 999px;
-  font-size: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.06);
-}
-.locker-hint svg { width: 10px; height: 10px; }
+.locker-front figure.trophy, .locker-back figure { cursor: zoom-in; }
 .locker-back {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -1317,7 +1304,6 @@ html[data-sticky-navbar="true"] .site-header {
   padding: 8px;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
 }
-.locker-back .locker-hint { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); color: var(--ink-soft); background: var(--surface); border: 1px solid var(--line); z-index: 1; }
 .locker-back figure {
   width: 100%;
   height: 100%;
@@ -1325,30 +1311,37 @@ html[data-sticky-navbar="true"] .site-header {
   border: none;
   border-radius: 6px;
 }
-.locker-zoom {
-  position: absolute;
+/* The only flip trigger — identical pill button on both faces, so the
+   image itself is free to behave like a normal gallery photo (click to
+   zoom) and nothing else on the card toggles the flip. */
+.locker-flip {
+  position: relative;
   z-index: 2;
-  top: 8px;
-  right: 8px;
-  width: 26px;
-  height: 26px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 50%;
-  background: rgba(15, 22, 35, 0.55);
+  gap: 5px;
+  padding: 5px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
   color: #fff;
-  cursor: zoom-in;
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
   transition: background 0.15s ease, transform 0.15s ease;
 }
-.locker-back .locker-zoom { background: rgba(15, 22, 35, 0.65); }
-.locker-zoom svg { width: 13px; height: 13px; }
+.locker-back .locker-flip { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); }
+.locker-flip svg { width: 10px; height: 10px; }
 @media (hover: hover) and (pointer: fine) {
   .locker:hover .locker-front { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.25), 0 20px 36px -16px rgba(0, 0, 0, 0.7); transform: translateY(-3px); }
-  .locker-zoom:hover { background: rgba(15, 22, 35, 0.82); transform: scale(1.08); }
+  .locker-flip:hover { background: rgba(255, 255, 255, 0.18); }
+  .locker-back .locker-flip:hover { transform: translateX(-50%) scale(1.04); }
 }
-.locker:active .locker-front { transform: translateY(-1px) scale(0.98); }
+.locker-flip:active { transform: scale(0.96); }
+.locker-back .locker-flip:active { transform: translateX(-50%) scale(0.96); }
 @media (max-width: 920px) {
   .locker-row { grid-template-columns: repeat(3, 1fr); }
   .locker-bank { padding: 24px 18px 16px; }

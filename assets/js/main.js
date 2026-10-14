@@ -515,20 +515,15 @@ document.addEventListener('DOMContentLoaded', () => {
     figure.appendChild(badge);
   });
 
-  // Locker row (Sports Awards): clicking anywhere on the locker — including
-  // the trophy/cert image — flips it open to reveal the certificate behind
-  // the trophy (Enter/Space do the same for keyboard users). A small
-  // dedicated zoom button on each face opens that image in the lightbox
-  // instead, stopping propagation so it doesn't also trigger the flip.
+  // Locker row (Sports Awards): the only thing that flips the locker is its
+  // own flip button — identical on both faces — so the trophy/cert image
+  // is free to behave like every other gallery image (click opens the
+  // lightbox). Enter/Space on the flip button do the same as a click.
   document.querySelectorAll('.locker').forEach(locker => {
     const toggle = () => {
       const isOpen = locker.classList.toggle('is-open');
-      locker.setAttribute('aria-expanded', String(isOpen));
+      locker.querySelectorAll('.locker-flip').forEach(btn => btn.setAttribute('aria-expanded', String(isOpen)));
     };
-    locker.addEventListener('click', toggle);
-    locker.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-    });
     const front = locker.querySelector('.locker-front');
     if (front) {
       const handle = document.createElement('span');
@@ -538,24 +533,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     locker.querySelectorAll('.locker-face').forEach(face => {
-      const img = face.querySelector('img');
-      if (!img) return;
-      const zoomBtn = document.createElement('button');
-      zoomBtn.type = 'button';
-      zoomBtn.className = 'locker-zoom';
-      zoomBtn.setAttribute('aria-label', 'View full size');
-      zoomBtn.innerHTML = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="8.5" cy="8.5" r="6"></circle><path d="M13 13l5 5" stroke-linecap="round"></path></svg>';
-      zoomBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (window.__openImageInLightbox) window.__openImageInLightbox(locker.closest('.gallery'), img);
-      });
-      face.appendChild(zoomBtn);
-
-      const hint = document.createElement('span');
-      hint.className = 'locker-hint';
-      const hintLabel = face.classList.contains('locker-back') ? 'Tap to close' : 'Tap to open';
-      hint.innerHTML = `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 10a7 7 0 1 1 2.1 5" stroke-linecap="round"></path><path d="M3 14v-4h4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>${hintLabel}</span>`;
-      face.appendChild(hint);
+      const flipBtn = document.createElement('button');
+      flipBtn.type = 'button';
+      flipBtn.className = 'locker-flip';
+      flipBtn.setAttribute('aria-expanded', 'false');
+      flipBtn.setAttribute('aria-label', 'Flip locker');
+      flipBtn.innerHTML = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 10a7 7 0 1 1 2.1 5" stroke-linecap="round"></path><path d="M3 14v-4h4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Flip</span>';
+      flipBtn.addEventListener('click', toggle);
+      face.appendChild(flipBtn);
     });
   });
 
@@ -784,14 +769,9 @@ document.addEventListener('DOMContentLoaded', () => {
       showImage(currentGroup.indexOf(img));
       lightbox.classList.add('is-open');
     };
-    window.__openImageInLightbox = openImageInLightbox;
 
     document.querySelectorAll('.gallery').forEach(gallery => {
-      // Locker images (Sports Awards) open via their dedicated zoom button
-      // instead — a plain click there flips the locker, so it must not
-      // also pop the lightbox.
       [...gallery.querySelectorAll('figure img')].forEach(img => {
-        if (img.closest('.locker-face')) return;
         img.addEventListener('click', () => openImageInLightbox(gallery, img));
       });
     });
