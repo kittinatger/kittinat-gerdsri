@@ -1246,26 +1246,54 @@ html[data-sticky-navbar="true"] .site-header {
   aspect-ratio: 1;
   background: none;
   border: none;
-  cursor: zoom-in;
 }
 .locker-front figure.trophy img { object-fit: contain; padding: 0; }
 .locker-label { font-size: 0.74rem; font-weight: 600; color: rgba(255, 255, 255, 0.88); line-height: 1.3; }
+.locker-hint {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.5);
+}
+.locker-hint svg { width: 11px; height: 11px; }
 .locker-back {
   background: var(--surface);
   border: 1px solid var(--line);
   transform: rotateY(180deg);
   padding: 8px;
 }
+.locker-back .locker-hint { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); color: var(--ink-soft); background: var(--surface); padding: 2px 8px; border-radius: 999px; z-index: 1; }
 .locker-back figure {
   width: 100%;
   height: 100%;
   aspect-ratio: unset;
   border: none;
   border-radius: 8px;
+}
+.locker-zoom {
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  right: 8px;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(15, 22, 35, 0.55);
+  color: #fff;
   cursor: zoom-in;
 }
+.locker-back .locker-zoom { background: rgba(15, 22, 35, 0.65); }
+.locker-zoom svg { width: 13px; height: 13px; }
 @media (hover: hover) and (pointer: fine) {
   .locker:hover .locker-front { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 20px 34px -16px rgba(0, 0, 0, 0.65); transform: translateY(-2px); }
+  .locker-zoom:hover { background: rgba(15, 22, 35, 0.8); }
 }
 @media (max-width: 920px) {
   .locker-row { grid-template-columns: repeat(3, 1fr); }
