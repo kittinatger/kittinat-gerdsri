@@ -522,13 +522,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // lightbox). Enter/Space on the flip button do the same as a click.
   document.querySelectorAll('.locker').forEach(locker => {
     const front = locker.querySelector('.locker-front');
+    const back = locker.querySelector('.locker-back');
     if (front) {
       const handle = document.createElement('span');
       handle.className = 'locker-handle';
       handle.setAttribute('aria-hidden', 'true');
       front.appendChild(handle);
     }
-
+    // iOS Safari's backface-visibility/preserve-3d support is unreliable
+    // even with -webkit- prefixes — it can render both faces stacked
+    // instead of hiding the one facing away. Belt-and-braces: explicitly
+    // hide the inactive face with visibility, timed to the midpoint of
+    // the flip so it still reads as a rotation rather than a hard cut.
+    if (back) back.classList.add('is-facing-away');
+    let flipTimer = null;
     const flipBtn = document.createElement('button');
     flipBtn.type = 'button';
     flipBtn.className = 'locker-flip';
@@ -536,8 +543,13 @@ document.addEventListener('DOMContentLoaded', () => {
     flipBtn.setAttribute('aria-label', 'Flip locker');
     flipBtn.innerHTML = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 10a7 7 0 1 1 2.1 5" stroke-linecap="round"></path><path d="M3 14v-4h4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Flip</span>';
     flipBtn.addEventListener('click', () => {
-      const isOpen = locker.classList.toggle('is-open');
-      flipBtn.setAttribute('aria-expanded', String(isOpen));
+      const opening = locker.classList.toggle('is-open');
+      flipBtn.setAttribute('aria-expanded', String(opening));
+      clearTimeout(flipTimer);
+      flipTimer = setTimeout(() => {
+        if (front) front.classList.toggle('is-facing-away', opening);
+        if (back) back.classList.toggle('is-facing-away', !opening);
+      }, 350);
     });
     locker.appendChild(flipBtn);
   });

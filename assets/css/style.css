@@ -1248,6 +1248,10 @@ html[data-sticky-navbar="true"] .site-header {
   backface-visibility: hidden;
   text-align: center;
 }
+/* Belt-and-braces for iOS Safari (see main.js): explicitly hide whichever
+   face isn't the active one, instead of relying solely on backface-
+   visibility/preserve-3d support. */
+.locker-face.is-facing-away { visibility: hidden; }
 /* backface-visibility on the face alone doesn't reliably hide positioned
    descendants that create their own stacking context (badges, the flip
    button, the handle) — without this, the front face's badge bleeds
