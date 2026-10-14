@@ -1414,12 +1414,12 @@ html[data-sticky-navbar="true"] .site-header {
   transform: translate(-50%, -50%) rotate(-8deg);
   text-align: center;
   font-family: 'Permanent Marker', 'Noto Sans Thai', 'Noto Sans SC', cursive;
-  font-size: 1.4rem;
+  font-size: 0.95rem;
   line-height: 1.05;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.04em;
   color: #f2b863;
-  text-shadow: 0 0 10px rgba(240, 160, 60, 0.45), 1px 1px 0 rgba(0, 0, 0, 0.55);
-  opacity: 0.92;
+  text-shadow: 0 0 6px rgba(240, 160, 60, 0.3), 1px 1px 0 rgba(0, 0, 0, 0.5);
+  opacity: 0.5;
   pointer-events: none;
   user-select: none;
 }
@@ -1429,7 +1429,7 @@ html[data-sticky-navbar="true"] .site-header {
 @media (max-width: 480px) {
   .gallery-masonry { --mgap: 10px; column-gap: 10px; }
   .film-roll { border-radius: 12px; }
-  .film-roll-tag { font-size: 1.2rem; }
+  .film-roll-tag { font-size: 0.85rem; }
   .gallery-masonry figure,
   .gallery-masonry figure.wide { margin-bottom: 10px; border-radius: 12px; }
 }
