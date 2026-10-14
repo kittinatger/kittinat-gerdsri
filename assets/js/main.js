@@ -64,6 +64,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Short pill labels for the settings panel's language switcher.
   const langShort = { en: 'EN', th: 'ไทย', 'zh-CN': '中' };
   const selectedLanguage = localStorage.getItem('portfolio-language') || 'en';
+  // For text built in JS after the load-time translation pass above.
+  const tr = (text) => {
+    if (selectedLanguage === 'en' || !text) return text;
+    return window.PORTFOLIO_TRANSLATIONS?.[selectedLanguage]?.[text] || translations[selectedLanguage]?.[text] || text;
+  };
 
   function translateTextNodes(language, suppliedDictionary) {
     const dictionary = suppliedDictionary || translations[language] || translations.en;
@@ -511,7 +516,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!label) return;
     const badge = document.createElement('span');
     badge.className = `award-badge award-badge-${level}`;
-    badge.textContent = label;
+    badge.textContent = tr(label);
     figure.appendChild(badge);
   });
 
@@ -540,8 +545,8 @@ document.addEventListener('DOMContentLoaded', () => {
     flipBtn.type = 'button';
     flipBtn.className = 'locker-flip';
     flipBtn.setAttribute('aria-expanded', 'false');
-    flipBtn.setAttribute('aria-label', 'Flip locker');
-    flipBtn.innerHTML = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 10a7 7 0 1 1 2.1 5" stroke-linecap="round"></path><path d="M3 14v-4h4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Flip</span>';
+    flipBtn.setAttribute('aria-label', tr('Flip locker'));
+    flipBtn.innerHTML = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 10a7 7 0 1 1 2.1 5" stroke-linecap="round"></path><path d="M3 14v-4h4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>' + tr('Flip') + '</span>';
     flipBtn.addEventListener('click', () => {
       const opening = locker.classList.toggle('is-open');
       flipBtn.setAttribute('aria-expanded', String(opening));
@@ -700,7 +705,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const date = new Date((figure.dataset.date || '') + 'T00:00:00');
           const dateLabel = figure.dataset.year || (Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }));
           const level = figure.dataset.award;
-          const tagLabel = level && (figure.dataset.awardLabel || awardBadgeLabels[level]);
+          const tagLabel = level && tr(figure.dataset.awardLabel || awardBadgeLabels[level]);
           lightboxCaption.innerHTML = '';
           if (tagLabel) {
             const tag = document.createElement('span');
@@ -710,7 +715,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
           const title = document.createElement('span');
           title.className = 'lightbox-caption-title';
-          title.textContent = figure.dataset.caption || img.alt;
+          title.textContent = tr(figure.dataset.caption || img.alt);
           lightboxCaption.appendChild(title);
           if (dateLabel) {
             const dateEl = document.createElement('span');
