@@ -1347,7 +1347,7 @@ html[data-sticky-navbar="true"] .site-header {
 }
 .locker-flip svg { width: 11px; height: 11px; }
 @media (hover: hover) and (pointer: fine) {
-  .locker-inner:hover { filter: brightness(1.04); }
+  .locker:not(.is-open) .locker-front:hover { border-color: rgba(255, 255, 255, 0.28); }
   .locker-flip:hover { background: var(--nav-hover-bg); color: var(--heading); }
 }
 .locker-flip:active { transform: scale(0.94); }
