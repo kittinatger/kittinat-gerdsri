@@ -367,7 +367,9 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Through the lens": "ผ่านเลนส์",
     "Light": "แสง",
     "Detail": "รายละเอียด",
-    "Perspective": "มุมกล้อง"
+    "Perspective": "มุมกล้อง",
+    "frame": "ภาพ",
+    "frames": "ภาพ"
   },
   "zh-CN": {
     "Kittinat Gerdsri": "Kittinat Gerdsri",
@@ -737,6 +739,8 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Through the lens": "透过镜头",
     "Light": "光影",
     "Detail": "细节",
-    "Perspective": "视角"
+    "Perspective": "视角",
+    "frame": "张",
+    "frames": "张"
   }
 };

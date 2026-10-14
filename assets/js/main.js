@@ -950,6 +950,36 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
+  // Photography masonry wall: a live "N frames" count beside the heading, and
+  // each frame fades up (lightly staggered) as it scrolls into view. Without
+  // IntersectionObserver the frames simply stay visible.
+  document.querySelectorAll('.gallery-masonry').forEach(gal => {
+    const figs = [...gal.querySelectorAll('figure')];
+    const heading = gal.closest('.wrap')?.querySelector('.gallery-heading');
+    if (heading && !heading.querySelector('.gallery-count')) {
+      const meta = document.createElement('div');
+      meta.className = 'gallery-heading-controls';
+      const count = document.createElement('span');
+      count.className = 'gallery-count';
+      count.textContent = figs.length + ' ' + tr(figs.length === 1 ? 'frame' : 'frames');
+      meta.appendChild(count);
+      heading.appendChild(meta);
+    }
+    if (!('IntersectionObserver' in window)) return;
+    gal.classList.add('is-reveal-ready');
+    const frameObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        frameObserver.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+    figs.forEach((fig, i) => {
+      fig.style.setProperty('--d', ((i % 4) * 70) + 'ms');
+      frameObserver.observe(fig);
+    });
+  });
+
   // Scroll reveal: fade/rise each top-level section in as it enters the
   // viewport. Elements only opt into the hidden starting state once .reveal
   // is added here, so a page with JS disabled (or this running before

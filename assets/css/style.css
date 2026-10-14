@@ -1260,6 +1260,84 @@ html[data-sticky-navbar="true"] .site-header {
 .gallery figure.trophy { background: #fff; }
 .gallery figure.trophy img { object-fit: contain; padding: 14px; }
 
+/* ---------- Photography masonry wall ---------- */
+/* Photos keep their natural shape (no 4:5 cropping) and flow into columns.
+   Each frame gets a hover fade + film-style frame number from a CSS
+   counter, and fades up in sequence as it scrolls into view. */
+.gallery-masonry {
+  display: block;
+  column-count: 3;
+  column-gap: 16px;
+  counter-reset: frame;
+}
+.gallery-masonry figure,
+.gallery-masonry figure.wide {
+  position: relative;
+  aspect-ratio: auto;
+  grid-column: auto;
+  break-inside: avoid;
+  margin: 0 0 16px;
+  border-radius: 16px;
+  counter-increment: frame;
+}
+.gallery-masonry img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: initial;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.gallery-masonry figure::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 55%, rgba(8, 16, 32, 0.62) 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.gallery-masonry figure::after {
+  content: counter(frame, decimal-leading-zero);
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  z-index: 2;
+  pointer-events: none;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .gallery-masonry figure:hover::before { opacity: 1; }
+  .gallery-masonry figure:hover::after { opacity: 1; transform: translateY(0); }
+}
+.gallery-masonry.is-reveal-ready figure {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s ease var(--d, 0ms), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0ms);
+}
+.gallery-masonry.is-reveal-ready figure.is-in { opacity: 1; transform: none; }
+.gallery-count {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 900px) {
+  .gallery-masonry { column-count: 2; }
+}
+@media (max-width: 480px) {
+  .gallery-masonry { column-gap: 10px; }
+  .gallery-masonry figure,
+  .gallery-masonry figure.wide { margin-bottom: 10px; border-radius: 12px; }
+}
+
 /* ---------- Locker bank (Sports Awards) ---------- */
 /* The row sits inside a steel-toned cabinet frame with a baseboard, so it
    reads as one locker bank rather than a set of loose cards. */
