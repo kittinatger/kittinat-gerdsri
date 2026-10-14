@@ -1024,6 +1024,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const frames = document.createElement('div');
         frames.className = 'film-roll-frames';
         roll.appendChild(frames);
+        const grain = document.createElement('div');
+        grain.className = 'film-roll-grain';
+        roll.appendChild(grain);
+        const tag = document.createElement('span');
+        tag.className = 'film-roll-tag';
+        tag.textContent = tr('Coming Soon');
+        roll.appendChild(tag);
         col.el.appendChild(roll);
       });
     };
