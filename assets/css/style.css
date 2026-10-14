@@ -1183,6 +1183,13 @@ html[data-sticky-navbar="true"] .site-header {
 .gallery figure.doc img { width: 100%; height: auto; object-fit: contain; }
 .gallery.cols-3 { grid-template-columns: repeat(3, 1fr); }
 
+/* Trophy photos sit next to their matching certificate scan in the same
+   grid. Unlike a document scan, a trophy render is already a clean
+   object on its own backdrop, so it reads better framed on white and
+   shown whole rather than cropped to fill the card like a cover photo. */
+.gallery figure.trophy { background: #fff; }
+.gallery figure.trophy img { object-fit: contain; padding: 14px; }
+
 /* Certificate award filter, a dropdown sitting inline in a .gallery-heading
    next to the sort toggle — same button styling as .sort-toggle and the
    same floating glass-menu pattern as the "Work" nav dropdown / settings
