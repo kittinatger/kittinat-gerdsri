@@ -1411,6 +1411,7 @@ html[data-sticky-navbar="true"] .site-header {
   letter-spacing: 0.02em;
   color: var(--lk-graffiti);
   text-shadow: 0 0 9px var(--lk-graffiti-glow), 1px 1px 0 var(--lk-graffiti-edge);
+  opacity: 0.42;
   pointer-events: none;
   user-select: none;
 }
