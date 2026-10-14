@@ -847,6 +847,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const openImageInLightbox = (gallery, img) => {
       currentGroup = [...gallery.querySelectorAll('figure:not(.is-filtered-out) img')];
+      if (gallery.classList.contains('gallery-masonry')) {
+        currentGroup.sort((a, b) => (Number(a.closest('figure').dataset.order) || 0) - (Number(b.closest('figure').dataset.order) || 0));
+      }
       const hasMultiple = currentGroup.length > 1;
       if (prevBtn) prevBtn.hidden = !hasMultiple;
       if (nextBtn) nextBtn.hidden = !hasMultiple;
@@ -950,11 +953,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
-  // Photography masonry wall: a live "N frames" count beside the heading, and
-  // each frame fades up (lightly staggered) as it scrolls into view. Without
-  // IntersectionObserver the frames simply stay visible.
+  // Photography masonry wall. Photos are dealt into the shortest column in
+  // reading order (so left-to-right, top-to-bottom roughly matches the
+  // lightbox order), and any column that ends short gets a strip of film
+  // rolled out to fill the leftover space. Rebuilt when the column count or
+  // width changes. Also: a live "N frames" count beside the heading, and
+  // each frame fades up (lightly staggered) as it scrolls into view.
   document.querySelectorAll('.gallery-masonry').forEach(gal => {
     const figs = [...gal.querySelectorAll('figure')];
+    figs.forEach((fig, i) => {
+      fig.dataset.order = String(i);
+      fig.dataset.frame = String(i + 1).padStart(2, '0');
+    });
+
     const heading = gal.closest('.wrap')?.querySelector('.gallery-heading');
     if (heading && !heading.querySelector('.gallery-count')) {
       const meta = document.createElement('div');
@@ -965,6 +976,68 @@ document.addEventListener('DOMContentLoaded', () => {
       meta.appendChild(count);
       heading.appendChild(meta);
     }
+
+    let builtFor = '';
+    const buildWall = () => {
+      const style = getComputedStyle(gal);
+      const cols = parseInt(style.getPropertyValue('--cols'), 10) || 3;
+      const gap = parseFloat(style.getPropertyValue('--mgap')) || 16;
+      const width = gal.clientWidth;
+      const key = cols + ':' + Math.round(width);
+      if (!width || key === builtFor) return;
+      builtFor = key;
+
+      gal.querySelectorAll('.film-roll').forEach(el => el.remove());
+      figs.forEach(fig => gal.appendChild(fig));
+      gal.querySelectorAll('.masonry-col').forEach(el => el.remove());
+
+      const colWidth = (width - gap * (cols - 1)) / cols;
+      const columns = [];
+      for (let c = 0; c < cols; c++) {
+        const col = document.createElement('div');
+        col.className = 'masonry-col';
+        gal.appendChild(col);
+        columns.push({ el: col, height: 0, count: 0 });
+      }
+      figs.forEach(fig => {
+        const img = fig.querySelector('img');
+        const ratio = (img && img.naturalWidth && img.naturalHeight) ? img.naturalWidth / img.naturalHeight : 0.75;
+        const target = columns.reduce((a, b) => (b.height < a.height ? b : a));
+        target.height += (target.count ? gap : 0) + colWidth / ratio;
+        target.count += 1;
+        target.el.appendChild(fig);
+      });
+      gal.classList.add('is-built');
+
+      // Use the real laid-out heights (borders, rounding) rather than the
+      // estimates used for dealing, so the strips end flush with the tallest.
+      const actual = columns.map(c => c.el.getBoundingClientRect().height);
+      const tallest = Math.max(...actual);
+      columns.forEach((col, i) => {
+        const room = tallest - actual[i] - gap;
+        if (room < 70) return;
+        const roll = document.createElement('div');
+        roll.className = 'film-roll';
+        roll.setAttribute('aria-hidden', 'true');
+        roll.style.height = Math.floor(room) + 'px';
+        roll.style.setProperty('--pitch', Math.round((colWidth - 44) / 1.5 + 10) + 'px');
+        const frames = document.createElement('div');
+        frames.className = 'film-roll-frames';
+        roll.appendChild(frames);
+        col.el.appendChild(roll);
+      });
+    };
+
+    // Wait (briefly) for the photos so their real proportions are known.
+    const loaded = figs.map(fig => {
+      const img = fig.querySelector('img');
+      if (!img || img.complete) return Promise.resolve();
+      return new Promise(res => { img.addEventListener('load', res, { once: true }); img.addEventListener('error', res, { once: true }); });
+    });
+    Promise.race([Promise.all(loaded), new Promise(res => setTimeout(res, 4000))]).then(buildWall);
+    let resizeTimer;
+    window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(buildWall, 150); });
+
     if (!('IntersectionObserver' in window)) return;
     gal.classList.add('is-reveal-ready');
     const frameObserver = new IntersectionObserver((entries) => {
