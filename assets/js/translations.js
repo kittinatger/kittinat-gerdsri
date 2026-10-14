@@ -359,7 +359,11 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Trinity College London Grade 2 Piano certificate awarded with Merit": "เกียรติบัตร Trinity College London เปียโน Grade 2 ด้วยผลระดับ Merit",
     "Award Locker": "ล็อกเกอร์รางวัล",
     "Mindset": "แนวคิด",
-    "Competition": "การแข่งขัน"
+    "Competition": "การแข่งขัน",
+    "Foundations": "รากฐาน",
+    "Focus": "สมาธิ",
+    "Analytical skills": "ทักษะการวิเคราะห์",
+    "Clear communication": "การสื่อสารอย่างชัดเจน"
   },
   "zh-CN": {
     "Kittinat Gerdsri": "Kittinat Gerdsri",
@@ -721,6 +725,10 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Trinity College London Grade 2 Piano certificate awarded with Merit": "Trinity College London 钢琴 2 级证书，成绩为 Merit（优异）",
     "Award Locker": "奖项储物柜",
     "Mindset": "心态",
-    "Competition": "赛事"
+    "Competition": "赛事",
+    "Foundations": "基础",
+    "Focus": "专注力",
+    "Analytical skills": "分析能力",
+    "Clear communication": "清晰表达"
   }
 };
