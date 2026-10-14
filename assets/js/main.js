@@ -501,10 +501,37 @@ document.addEventListener('DOMContentLoaded', () => {
   // Same toggle for the Sports lockers: sorts whole lockers by the date on
   // their front figure. Ties (several lockers share a year) keep their
   // original order so the toggle only moves what's genuinely newer/older.
+  // Empty "spare" lockers fill whatever slots the last row would otherwise
+  // leave open, so the bank always reads as a full cabinet. They're rebuilt
+  // from scratch on every call (and on resize, when the column count
+  // changes), so adding or removing a real locker just works.
+  const fillLockerRow = (row) => {
+    row.querySelectorAll(':scope > .locker-empty').forEach(el => el.remove());
+    const cols = getComputedStyle(row).gridTemplateColumns.split(' ').filter(Boolean).length;
+    const count = row.querySelectorAll(':scope > .locker:not(.locker-empty)').length;
+    const missing = cols > 1 ? (cols - (count % cols)) % cols : 0;
+    for (let i = 0; i < missing; i++) {
+      const spare = document.createElement('div');
+      spare.className = 'locker locker-empty';
+      spare.setAttribute('aria-hidden', 'true');
+      spare.innerHTML = '<div class="locker-inner"><div class="locker-face locker-front"><span class="locker-handle"></span><span class="locker-lock"></span></div></div>';
+      row.appendChild(spare);
+    }
+    return cols;
+  };
+  document.querySelectorAll('.locker-row').forEach(row => {
+    let lastCols = fillLockerRow(row);
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(() => {
+        const cols = getComputedStyle(row).gridTemplateColumns.split(' ').filter(Boolean).length;
+        if (cols !== lastCols) lastCols = fillLockerRow(row);
+      }).observe(row);
+    }
+  });
   document.querySelectorAll('.locker-row').forEach(row => {
     const sortToggle = row.closest('.wrap')?.querySelector('.gallery-heading .sort-toggle');
     if (!sortToggle) return;
-    const lockers = [...row.querySelectorAll(':scope > .locker')];
+    const lockers = [...row.querySelectorAll(':scope > .locker:not(.locker-empty)')];
     const original = new Map(lockers.map((l, i) => [l, i]));
     const dateOf = l => l.querySelector('figure[data-date]')?.dataset.date || '';
     const applySort = (order) => {
@@ -512,6 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const byDate = dateOf(a).localeCompare(dateOf(b));
         return byDate !== 0 ? (order === 'desc' ? -byDate : byDate) : original.get(a) - original.get(b);
       }).forEach(l => row.appendChild(l));
+      fillLockerRow(row);
     };
     applySort('desc');
     sortToggle.addEventListener('click', () => {
@@ -548,7 +576,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // rotation, so it never flips itself) — so the trophy/cert image is
   // free to behave like every other gallery image (click opens the
   // lightbox). Enter/Space on the flip button do the same as a click.
-  document.querySelectorAll('.locker').forEach(locker => {
+  document.querySelectorAll('.locker:not(.locker-empty)').forEach(locker => {
     const front = locker.querySelector('.locker-front');
     const back = locker.querySelector('.locker-back');
     if (front) {

@@ -1209,11 +1209,13 @@ html[data-sticky-navbar="true"] .site-header {
   --lk-label: var(--heading);
   --lk-handle: linear-gradient(90deg, #77839a 0%, #d6dce8 45%, #5b6880 100%);
   --lk-handle-shadow: 0 1px 3px rgba(15, 44, 89, 0.4);
-  --lk-hinge: #8794ab;
   --lk-lock: #6c7890;
   --lk-lock-slot: #1b2a41;
-  padding: 28px 22px 18px;
-  border-radius: 20px;
+  --lk-px: 22px;
+  --lk-pb: 18px;
+  --lk-radius: 20px;
+  padding: 28px var(--lk-px) var(--lk-pb);
+  border-radius: var(--lk-radius);
   background: var(--lk-bank-bg);
   border: 1px solid var(--lk-bank-border);
   box-shadow: var(--lk-bank-shadow);
@@ -1233,7 +1235,6 @@ html[data-sticky-navbar="true"] .site-header {
   --lk-label: rgba(255, 255, 255, 0.9);
   --lk-handle: linear-gradient(90deg, #aab2c4 0%, #e8ecf4 45%, #8d94a8 100%);
   --lk-handle-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-  --lk-hinge: #8d94a8;
   --lk-lock: #8d94a8;
   --lk-lock-slot: #11151f;
 }
@@ -1249,8 +1250,8 @@ html[data-sticky-navbar="true"] .site-header {
   content: '';
   display: block;
   height: 14px;
-  margin: 18px -22px -18px;
-  border-radius: 0 0 20px 20px;
+  margin: 18px calc(var(--lk-px) * -1) calc(var(--lk-pb) * -1);
+  border-radius: 0 0 var(--lk-radius) var(--lk-radius);
   background: var(--lk-base-bg);
   box-shadow: var(--lk-base-shadow);
 }
@@ -1316,22 +1317,6 @@ html[data-sticky-navbar="true"] .site-header {
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--lk-number);
-}
-.locker-front::before {
-  /* Two hinges down the left edge */
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 5px;
-  background: linear-gradient(180deg,
-    transparent 0, transparent 13%,
-    var(--lk-hinge) 13%, var(--lk-hinge) 23%,
-    transparent 23%, transparent 77%,
-    var(--lk-hinge) 77%, var(--lk-hinge) 87%,
-    transparent 87%);
-  border-radius: 0 3px 3px 0;
 }
 .locker-lock {
   /* Small keyed lock under the handle */
@@ -1403,6 +1388,8 @@ html[data-sticky-navbar="true"] .site-header {
    3D rotation, so it reads the same whichever face is showing and the
    image itself is free to behave like a normal gallery photo (click to
    zoom); nothing else on the card toggles the flip. */
+.locker-empty { pointer-events: none; }
+.locker-empty .locker-front { opacity: 0.5; }
 .locker-flip {
   display: inline-flex;
   align-items: center;
@@ -1429,12 +1416,12 @@ html[data-sticky-navbar="true"] .site-header {
 .locker-flip:focus-visible { outline: 2px solid var(--navy); outline-offset: 2px; }
 @media (max-width: 920px) {
   .locker-row { grid-template-columns: repeat(3, 1fr); }
-  .locker-bank { padding: 24px 18px 16px; }
+  .locker-bank { --lk-px: 18px; --lk-pb: 16px; padding-top: 24px; }
 }
 @media (max-width: 559px) {
   .locker-row { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .locker-label { font-size: 0.68rem; }
-  .locker-bank { padding: 20px 14px 14px; border-radius: 16px; }
+  .locker-bank { --lk-px: 14px; --lk-pb: 14px; --lk-radius: 16px; padding-top: 20px; }
   .locker-handle { width: 5px; height: 20px; }
   .locker-lock { top: calc(50% + 19px); width: 7px; height: 7px; }
 }
