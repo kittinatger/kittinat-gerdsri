@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-title" content="Kittinat Gerdsri">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#eef1f5">
-<link rel="stylesheet" href="assets/css/style.css?v=1791983604">
+<link rel="stylesheet" href="assets/css/style.css?v=1791983866">
 </head>
 <body>
 
@@ -83,54 +83,64 @@
   <section class="section">
     <div class="wrap">
       <div class="gallery-heading">
-        <h2>The Grand Stage, Thailand</h2>
+        <h2>Performances</h2>
       </div>
-      <p>Organised by Churairat Music at the Bangkok Art and Culture Centre.</p>
-      <div class="video-row">
-        <div class="video-frame">
-          <video src="assets/video/music-grand-stage-thailand.mp4" controls preload="metadata"></video>
-        </div>
-        <div class="video-frame">
-          <img src="assets/img/pages/music/01-grand-stage-thailand-piano.jpg" alt="Kittinat seated at a grand piano before The Grand Stage, Thailand concert backdrop">
-        </div>
+      <div class="perf-list">
+        <article class="perf">
+          <header class="perf-head">
+            <span class="perf-stub" aria-hidden="true"></span>
+            <div class="perf-title">
+              <h3>The Grand Stage, Thailand</h3>
+              <p>Organised by Churairat Music at the Bangkok Art and Culture Centre.</p>
+            </div>
+          </header>
+          <div class="perf-media">
+            <div class="video-frame">
+              <video src="assets/video/music-grand-stage-thailand.mp4" controls preload="metadata"></video>
+            </div>
+            <figure class="perf-photo">
+              <img src="assets/img/pages/music/01-grand-stage-thailand-piano.jpg" alt="Kittinat seated at a grand piano before The Grand Stage, Thailand concert backdrop">
+            </figure>
+          </div>
+          <p class="credit">© Kittinat Gerdsri</p>
+        </article>
+        <article class="perf">
+          <header class="perf-head">
+            <span class="perf-stub" aria-hidden="true"></span>
+            <div class="perf-title">
+              <h3>Starbucks Reserve Roastery, Shanghai, China</h3>
+              <p>"Play Me, I'm Yours" — public piano performance.</p>
+            </div>
+          </header>
+          <div class="perf-media">
+            <div class="video-frame">
+              <video src="assets/video/music-starbucks-shanghai.mp4" controls preload="metadata"></video>
+            </div>
+            <figure class="perf-photo">
+              <img src="assets/img/pages/music/02-graffiti-piano-performance.jpg" alt="Kittinat playing the graffiti-painted Play Me I'm Yours public piano at the Starbucks Reserve Roastery in Shanghai">
+            </figure>
+          </div>
+          <p class="credit">© Kittinat Gerdsri</p>
+        </article>
+        <article class="perf">
+          <header class="perf-head">
+            <span class="perf-stub" aria-hidden="true"></span>
+            <div class="perf-title">
+              <h3>Saga-Arashiyama Train Station, Arashiyama, Japan</h3>
+              <p>Public piano performance.</p>
+            </div>
+          </header>
+          <div class="perf-media">
+            <div class="video-frame">
+              <video src="assets/video/music-arashiyama-japan.mp4" controls preload="metadata"></video>
+            </div>
+            <figure class="perf-photo">
+              <img src="assets/img/pages/music/03-antique-upright-piano.jpg" alt="Kittinat playing an antique upright piano at Saga-Arashiyama Train Station in Japan">
+            </figure>
+          </div>
+          <p class="credit">© Kittinat Gerdsri</p>
+        </article>
       </div>
-      <p class="credit">© Kittinat Gerdsri</p>
-    </div>
-  </section>
-
-  <section class="section section-soft">
-    <div class="wrap">
-      <div class="gallery-heading">
-        <h2>Starbucks Reserve Roastery, Shanghai, China</h2>
-      </div>
-      <p>"Play Me, I'm Yours" — public piano performance.</p>
-      <div class="video-row">
-        <div class="video-frame">
-          <video src="assets/video/music-starbucks-shanghai.mp4" controls preload="metadata"></video>
-        </div>
-        <div class="video-frame">
-          <img src="assets/img/pages/music/02-graffiti-piano-performance.jpg" alt="Kittinat playing the graffiti-painted Play Me I'm Yours public piano at the Starbucks Reserve Roastery in Shanghai">
-        </div>
-      </div>
-      <p class="credit">© Kittinat Gerdsri</p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="gallery-heading">
-        <h2>Saga-Arashiyama Train Station, Arashiyama, Japan</h2>
-      </div>
-      <p>Public piano performance.</p>
-      <div class="video-row">
-        <div class="video-frame">
-          <video src="assets/video/music-arashiyama-japan.mp4" controls preload="metadata"></video>
-        </div>
-        <div class="video-frame">
-          <img src="assets/img/pages/music/03-antique-upright-piano.jpg" alt="Kittinat playing an antique upright piano at Saga-Arashiyama Train Station in Japan">
-        </div>
-      </div>
-      <p class="credit">© Kittinat Gerdsri</p>
     </div>
   </section>
 
@@ -167,18 +177,14 @@
           <img src="assets/img/pages/music/05-trinity-college-certificate.jpg" alt="Trinity College London Grade 2 Piano certificate awarded with Merit" data-full="assets/img/pages/music/05-trinity-college-certificate.jpg">
         </figure>
       </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <h3>Achievements</h3>
+      <h3 class="perf-institutions-title">Institutions</h3>
       <div class="chip-row">
         <span class="chip">Trinity College London Thailand</span>
         <span class="chip">YAMAHA Music Thailand</span>
       </div>
     </div>
   </section>
+
 
   </main>
 
@@ -256,7 +262,7 @@
 </div>
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-  <script src="assets/js/translations.js?v=1791983604"></script>
-  <script src="assets/js/main.js?v=1791983604"></script>
+  <script src="assets/js/translations.js?v=1791983866"></script>
+  <script src="assets/js/main.js?v=1791983866"></script>
 </body>
 </html>

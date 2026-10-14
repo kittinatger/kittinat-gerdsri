@@ -375,7 +375,9 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Patience": "ความอดทน",
     "Precision": "ความแม่นยำ",
     "Playback speed": "ความเร็วในการเล่น",
-    "Picture in picture": "ภาพซ้อนภาพ"
+    "Picture in picture": "ภาพซ้อนภาพ",
+    "Performances": "การแสดง",
+    "Institutions": "สถาบัน"
   },
   "zh-CN": {
     "Kittinat Gerdsri": "Kittinat Gerdsri",
@@ -753,6 +755,8 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Patience": "耐心",
     "Precision": "精准",
     "Playback speed": "播放速度",
-    "Picture in picture": "画中画"
+    "Picture in picture": "画中画",
+    "Performances": "演出",
+    "Institutions": "机构"
   }
 };
