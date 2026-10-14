@@ -695,9 +695,9 @@ document.addEventListener('DOMContentLoaded', () => {
       lightboxImg.alt = img.alt;
       resetZoom();
       if (lightboxCaption) {
-        const figure = img.closest('figure[data-date]');
+        const figure = img.closest('figure[data-date], figure[data-caption]');
         if (figure) {
-          const date = new Date(figure.dataset.date + 'T00:00:00');
+          const date = new Date((figure.dataset.date || '') + 'T00:00:00');
           const dateLabel = Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
           const level = figure.dataset.award;
           const tagLabel = level && (figure.dataset.awardLabel || awardBadgeLabels[level]);
@@ -710,7 +710,7 @@ document.addEventListener('DOMContentLoaded', () => {
           }
           const title = document.createElement('span');
           title.className = 'lightbox-caption-title';
-          title.textContent = img.alt;
+          title.textContent = figure.dataset.caption || img.alt;
           lightboxCaption.appendChild(title);
           if (dateLabel) {
             const dateEl = document.createElement('span');
