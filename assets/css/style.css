@@ -1296,13 +1296,16 @@ html[data-sticky-navbar="true"] .site-header {
   aspect-ratio: 1;
   background: none;
   border: none;
-  /* Un-set the relative positioning .page-core-discipline .gallery figure
-     normally gives every figure, so the award badge (absolutely
-     positioned inside it) escapes up to the front face itself instead —
-     landing in the actual top-left corner of the card, same spot it
-     lands on the back face (whose figure does fill the whole card). */
-  position: static;
 }
+/* Un-set the relative positioning .page-core-discipline .gallery figure
+   normally gives every figure, so the award badge (absolutely positioned
+   inside it) escapes up to the front face itself instead — landing in
+   the actual top-left corner of the card, same spot it lands on the
+   back face (whose figure does fill the whole card). Needs the extra
+   .locker ancestor class to out-specificity .page-core-discipline
+   .gallery figure, which ties on specificity and comes later in the
+   file otherwise. */
+.locker .locker-front figure.trophy { position: static; }
 .locker-front figure.trophy img { object-fit: contain; padding: 0; }
 .locker-label { font-size: 0.72rem; font-weight: 600; color: rgba(255, 255, 255, 0.9); line-height: 1.3; }
 .locker-front figure.trophy, .locker-back figure { cursor: zoom-in; }
