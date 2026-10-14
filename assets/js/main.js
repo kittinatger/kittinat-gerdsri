@@ -601,11 +601,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // image in the lightbox too, built from the same alt text/data-date —
     // as a plain caption in flow, not an overlay on top of the cert.
     let lightboxCaption = null;
+    let lightboxBadgePill = null;
     if (document.body.classList.contains('page-core-discipline')) {
       lightboxCaption = document.createElement('div');
       lightboxCaption.className = 'lightbox-caption';
       lightboxCaption.hidden = true;
       lightbox.appendChild(lightboxCaption);
+
+      // On mobile only (see CSS), the award tag moves out of the caption
+      // and into this pill, centered in the gap between the bottom-row
+      // prev/next arrows — same color treatment as the grid's badges.
+      lightboxBadgePill = document.createElement('span');
+      lightboxBadgePill.className = 'lightbox-badge-pill';
+      lightboxBadgePill.hidden = true;
+      lightbox.appendChild(lightboxBadgePill);
     }
 
     // Zoom + pan. zoomScale 1 = fit (default); up to maxZoom. Pan is in
@@ -671,8 +680,18 @@ document.addEventListener('DOMContentLoaded', () => {
             lightboxCaption.appendChild(dateEl);
           }
           lightboxCaption.hidden = false;
+          if (lightboxBadgePill) {
+            if (tagLabel) {
+              lightboxBadgePill.className = `lightbox-badge-pill award-badge-${level}`;
+              lightboxBadgePill.textContent = tagLabel;
+              lightboxBadgePill.hidden = false;
+            } else {
+              lightboxBadgePill.hidden = true;
+            }
+          }
         } else {
           lightboxCaption.hidden = true;
+          if (lightboxBadgePill) lightboxBadgePill.hidden = true;
         }
       }
     };
