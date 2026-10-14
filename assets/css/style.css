@@ -905,27 +905,8 @@ html[data-sticky-navbar="true"] .site-header {
   text-align: left;
 }
 .page-hero .lede { max-width: 72ch; }
-/* Sports intro: two numbered cards over a faint pitch motif (centre circle
-   + halfway line). Copy stays in single text nodes so translations apply. */
-.sports-hero { position: relative; overflow: hidden; }
-.sports-hero::before,
-.sports-hero::after { content: ''; position: absolute; pointer-events: none; }
-.sports-hero::before {
-  width: clamp(260px, 38vw, 460px);
-  aspect-ratio: 1;
-  border: 2px solid var(--line);
-  border-radius: 50%;
-  right: -9%;
-  top: -14%;
-}
-.sports-hero::after {
-  width: 2px;
-  top: 0;
-  bottom: 0;
-  right: calc(-9% + clamp(130px, 19vw, 230px));
-  background: var(--line);
-}
-.sports-hero .wrap { position: relative; z-index: 1; }
+/* Sports intro: two numbered cards. Copy stays in single text nodes so
+   translations apply. */
 .sports-intro {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -967,7 +948,6 @@ html[data-sticky-navbar="true"] .site-header {
 .sports-intro-card .lede { margin: 0; max-width: none; font-size: 1.02rem; line-height: 1.7; }
 @media (max-width: 820px) {
   .sports-intro { grid-template-columns: 1fr; }
-  .sports-hero::after { display: none; }
 }
 
 /* ---------- Legal pages (terms / privacy) ---------- */
