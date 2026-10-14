@@ -698,7 +698,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const figure = img.closest('figure[data-date], figure[data-caption]');
         if (figure) {
           const date = new Date((figure.dataset.date || '') + 'T00:00:00');
-          const dateLabel = Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+          const dateLabel = figure.dataset.year || (Number.isNaN(date.getTime()) ? '' : date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }));
           const level = figure.dataset.award;
           const tagLabel = level && (figure.dataset.awardLabel || awardBadgeLabels[level]);
           lightboxCaption.innerHTML = '';
