@@ -515,15 +515,12 @@ document.addEventListener('DOMContentLoaded', () => {
     figure.appendChild(badge);
   });
 
-  // Locker row (Sports Awards): the only thing that flips the locker is its
-  // own flip button — identical on both faces — so the trophy/cert image
-  // is free to behave like every other gallery image (click opens the
+  // Locker row (Sports Awards): the only thing that flips the locker is a
+  // single shared flip button sitting below the card (outside the 3D
+  // rotation, so it never flips itself) — so the trophy/cert image is
+  // free to behave like every other gallery image (click opens the
   // lightbox). Enter/Space on the flip button do the same as a click.
   document.querySelectorAll('.locker').forEach(locker => {
-    const toggle = () => {
-      const isOpen = locker.classList.toggle('is-open');
-      locker.querySelectorAll('.locker-flip').forEach(btn => btn.setAttribute('aria-expanded', String(isOpen)));
-    };
     const front = locker.querySelector('.locker-front');
     if (front) {
       const handle = document.createElement('span');
@@ -532,16 +529,17 @@ document.addEventListener('DOMContentLoaded', () => {
       front.appendChild(handle);
     }
 
-    locker.querySelectorAll('.locker-face').forEach(face => {
-      const flipBtn = document.createElement('button');
-      flipBtn.type = 'button';
-      flipBtn.className = 'locker-flip';
-      flipBtn.setAttribute('aria-expanded', 'false');
-      flipBtn.setAttribute('aria-label', 'Flip locker');
-      flipBtn.innerHTML = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 10a7 7 0 1 1 2.1 5" stroke-linecap="round"></path><path d="M3 14v-4h4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Flip</span>';
-      flipBtn.addEventListener('click', toggle);
-      face.appendChild(flipBtn);
+    const flipBtn = document.createElement('button');
+    flipBtn.type = 'button';
+    flipBtn.className = 'locker-flip';
+    flipBtn.setAttribute('aria-expanded', 'false');
+    flipBtn.setAttribute('aria-label', 'Flip locker');
+    flipBtn.innerHTML = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 10a7 7 0 1 1 2.1 5" stroke-linecap="round"></path><path d="M3 14v-4h4" stroke-linecap="round" stroke-linejoin="round"></path></svg><span>Flip</span>';
+    flipBtn.addEventListener('click', () => {
+      const isOpen = locker.classList.toggle('is-open');
+      flipBtn.setAttribute('aria-expanded', String(isOpen));
     });
+    locker.appendChild(flipBtn);
   });
 
   const awardedLevels = new Set(['champion', 'gold', 'silver', 'bronze', 'merit', 'pass', 'grade']);
