@@ -1064,6 +1064,106 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Video player extras. The native three-dot menu is stripped of Download,
+  // Playback speed and Picture-in-picture (those can't be restyled), and our
+  // own glass buttons for speed and PiP sit in the top-right of the frame.
+  document.querySelectorAll('.video-frame video[controls]').forEach(video => {
+    const frame = video.closest('.video-frame');
+    if (!frame) return;
+    video.setAttribute('controlsList', 'nodownload noplaybackrate');
+    video.disablePictureInPicture = true;
+
+    const tools = document.createElement('div');
+    tools.className = 'video-tools';
+
+    // --- Playback speed ---
+    const speeds = [0.5, 0.75, 1, 1.25, 1.5, 2];
+    const speedWrap = document.createElement('div');
+    speedWrap.className = 'video-speed';
+    const speedBtn = document.createElement('button');
+    speedBtn.type = 'button';
+    speedBtn.className = 'video-tool-btn';
+    speedBtn.setAttribute('aria-haspopup', 'true');
+    speedBtn.setAttribute('aria-expanded', 'false');
+    speedBtn.setAttribute('aria-label', tr('Playback speed'));
+    speedBtn.title = tr('Playback speed');
+    const speedMenu = document.createElement('div');
+    speedMenu.className = 'video-speed-menu';
+    speedMenu.hidden = true;
+    const optionBtns = speeds.map(rate => {
+      const opt = document.createElement('button');
+      opt.type = 'button';
+      opt.className = 'video-speed-option';
+      opt.textContent = rate + '\u00d7';
+      opt.addEventListener('click', () => {
+        video.playbackRate = rate;
+        closeMenu();
+        speedBtn.focus();
+      });
+      speedMenu.appendChild(opt);
+      return { rate, opt };
+    });
+    const syncSpeed = () => {
+      speedBtn.textContent = video.playbackRate + '\u00d7';
+      optionBtns.forEach(({ rate, opt }) => opt.classList.toggle('is-active', rate === video.playbackRate));
+    };
+    const closeMenu = () => {
+      speedMenu.hidden = true;
+      speedBtn.setAttribute('aria-expanded', 'false');
+    };
+    speedBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = speedMenu.hidden;
+      speedMenu.hidden = !open;
+      speedBtn.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', (e) => { if (!speedWrap.contains(e.target)) closeMenu(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+    video.addEventListener('ratechange', syncSpeed);
+    syncSpeed();
+    speedWrap.append(speedBtn, speedMenu);
+    tools.appendChild(speedWrap);
+
+    // --- Picture in picture (only where the browser supports it) ---
+    const standardPip = !!document.pictureInPictureEnabled;
+    const safariPip = typeof video.webkitSupportsPresentationMode === 'function' && video.webkitSupportsPresentationMode('picture-in-picture');
+    if (standardPip || safariPip) {
+      const pipBtn = document.createElement('button');
+      pipBtn.type = 'button';
+      pipBtn.className = 'video-tool-btn video-tool-icon';
+      pipBtn.setAttribute('aria-label', tr('Picture in picture'));
+      pipBtn.title = tr('Picture in picture');
+      pipBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><rect x="12" y="11" width="7" height="5" rx="1.2" fill="currentColor" stroke="none"></rect></svg>';
+      pipBtn.addEventListener('click', async () => {
+        try {
+          if (standardPip) {
+            if (document.pictureInPictureElement === video) {
+              await document.exitPictureInPicture();
+            } else {
+              video.disablePictureInPicture = false;
+              await video.requestPictureInPicture();
+            }
+          } else {
+            video.webkitSetPresentationMode(video.webkitPresentationMode === 'picture-in-picture' ? 'inline' : 'picture-in-picture');
+          }
+        } catch (err) {
+          video.disablePictureInPicture = true;
+        }
+      });
+      // Keep the native PiP entry hidden again once we leave PiP (setting it
+      // while in PiP would close the window).
+      video.addEventListener('leavepictureinpicture', () => { video.disablePictureInPicture = true; });
+      tools.appendChild(pipBtn);
+    }
+
+    // Tools stay visible while the video is paused (including before first
+    // play), and otherwise appear on hover/focus.
+    const syncVisibility = () => frame.classList.toggle('tools-visible', video.paused);
+    ['play', 'pause', 'ended', 'loadedmetadata'].forEach(ev => video.addEventListener(ev, syncVisibility));
+    syncVisibility();
+    frame.appendChild(tools);
+  });
+
   // Scroll reveal: fade/rise each top-level section in as it enters the
   // viewport. Elements only opt into the hidden starting state once .reveal
   // is added here, so a page with JS disabled (or this running before

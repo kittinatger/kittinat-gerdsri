@@ -373,7 +373,9 @@ window.PORTFOLIO_TRANSLATIONS = {
     "In every note": "ในทุกๆ โน้ต",
     "Creativity": "ความคิดสร้างสรรค์",
     "Patience": "ความอดทน",
-    "Precision": "ความแม่นยำ"
+    "Precision": "ความแม่นยำ",
+    "Playback speed": "ความเร็วในการเล่น",
+    "Picture in picture": "ภาพซ้อนภาพ"
   },
   "zh-CN": {
     "Kittinat Gerdsri": "Kittinat Gerdsri",
@@ -749,6 +751,8 @@ window.PORTFOLIO_TRANSLATIONS = {
     "In every note": "每一个音符",
     "Creativity": "创造力",
     "Patience": "耐心",
-    "Precision": "精准"
+    "Precision": "精准",
+    "Playback speed": "播放速度",
+    "Picture in picture": "画中画"
   }
 };
