@@ -529,6 +529,14 @@ document.addEventListener('DOMContentLoaded', () => {
     locker.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
     });
+    const front = locker.querySelector('.locker-front');
+    if (front) {
+      const handle = document.createElement('span');
+      handle.className = 'locker-handle';
+      handle.setAttribute('aria-hidden', 'true');
+      front.appendChild(handle);
+    }
+
     locker.querySelectorAll('.locker-face').forEach(face => {
       const img = face.querySelector('img');
       if (!img) return;
