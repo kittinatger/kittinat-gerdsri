@@ -515,6 +515,24 @@ document.addEventListener('DOMContentLoaded', () => {
     figure.appendChild(badge);
   });
 
+  // Locker row (Sports Awards): click/Enter/Space flips the locker open to
+  // reveal the certificate behind the trophy. Clicking the trophy or cert
+  // image itself opens the lightbox instead (stopPropagation keeps that
+  // from also toggling the flip).
+  document.querySelectorAll('.locker').forEach(locker => {
+    const toggle = () => {
+      const isOpen = locker.classList.toggle('is-open');
+      locker.setAttribute('aria-expanded', String(isOpen));
+    };
+    locker.addEventListener('click', toggle);
+    locker.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+    locker.querySelectorAll('img').forEach(img => {
+      img.addEventListener('click', (e) => e.stopPropagation());
+    });
+  });
+
   const awardedLevels = new Set(['champion', 'gold', 'silver', 'bronze', 'merit', 'pass', 'grade']);
   // Each toggle below stops its click from bubbling to document (so opening
   // one doesn't immediately trigger its own outside-click close). On a page
