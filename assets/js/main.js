@@ -1164,6 +1164,36 @@ document.addEventListener('DOMContentLoaded', () => {
     frame.appendChild(tools);
   });
 
+  // Concert tickets tilt toward the pointer and a light sheen follows it.
+  // Skipped on touch and when motion is reduced; the pointer is ignored while
+  // it's over the video so the player stays still under the controls.
+  const ticketsCanTilt = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    && document.documentElement.getAttribute('data-reduced-motion') !== 'true';
+  if (ticketsCanTilt) {
+    document.querySelectorAll('.perf').forEach(perf => {
+      const ticket = perf.querySelector('.ticket');
+      if (!ticket) return;
+      const reset = () => {
+        ticket.classList.remove('is-tracking');
+        ticket.style.setProperty('--rx', '0deg');
+        ticket.style.setProperty('--ry', '0deg');
+      };
+      perf.addEventListener('pointermove', (e) => {
+        const r = ticket.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width;
+        const py = (e.clientY - r.top) / r.height;
+        ticket.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+        ticket.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+        if (e.target.closest('.video-frame')) { reset(); return; }
+        ticket.classList.add('is-tracking');
+        ticket.style.setProperty('--ry', ((px - 0.5) * 6).toFixed(2) + 'deg');
+        ticket.style.setProperty('--rx', ((0.5 - py) * 4).toFixed(2) + 'deg');
+      });
+      perf.addEventListener('pointerleave', reset);
+    });
+  }
+
   // Scroll reveal: fade/rise each top-level section in as it enters the
   // viewport. Elements only opt into the hidden starting state once .reveal
   // is added here, so a page with JS disabled (or this running before

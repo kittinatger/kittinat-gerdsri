@@ -377,7 +377,11 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Playback speed": "ความเร็วในการเล่น",
     "Picture in picture": "ภาพซ้อนภาพ",
     "Performances": "การแสดง",
-    "Institutions": "สถาบัน"
+    "Institutions": "สถาบัน",
+    "Performer": "ผู้แสดง",
+    "Contributor": "ผู้มีส่วนร่วม",
+    "The Grand Stage, Thailand · Churairat Music": "เวทีแกรนด์สเตจ ประเทศไทย · จุไรรัตน์ มิวสิค",
+    "Trinity College London, Piano, Grade 2": "ทรินิตี้คอลเลจลอนดอน, เปียโน, เกรด 2"
   },
   "zh-CN": {
     "Kittinat Gerdsri": "Kittinat Gerdsri",
@@ -757,6 +761,10 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Playback speed": "播放速度",
     "Picture in picture": "画中画",
     "Performances": "演出",
-    "Institutions": "机构"
+    "Institutions": "机构",
+    "Performer": "表演者",
+    "Contributor": "贡献者",
+    "The Grand Stage, Thailand · Churairat Music": "泰国大舞台 · Churairat Music",
+    "Trinity College London, Piano, Grade 2": "英国伦敦圣三一学院，钢琴，2 级"
   }
 };
