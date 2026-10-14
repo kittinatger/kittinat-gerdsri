@@ -1670,8 +1670,44 @@ html[data-sticky-navbar="true"] .site-header {
    3D rotation, so it reads the same whichever face is showing and the
    image itself is free to behave like a normal gallery photo (click to
    zoom); nothing else on the card toggles the flip. */
-.locker-empty { pointer-events: none; }
-.locker-empty .locker-front { opacity: 0.5; }
+.locker-empty { cursor: not-allowed; }
+.locker-empty .locker-front { opacity: 0.5; transition: opacity 0.3s ease; }
+/* A padlock hangs from the spare locker's handle. Hovering rattles it and
+   the door, like trying a locked locker. */
+.locker-padlock {
+  position: absolute;
+  right: 3px;
+  top: calc(50% + 4px);
+  z-index: 2;
+  width: 24px;
+  height: 30px;
+  transform-origin: 50% 12%;
+  pointer-events: none;
+}
+.locker-padlock svg { display: block; width: 100%; height: 100%; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.35)); }
+.locker-padlock .padlock-shackle { stroke: var(--lk-lock); }
+.locker-padlock .padlock-body { fill: var(--lk-lock); }
+.locker-padlock .padlock-hole { fill: var(--lk-lock-slot); }
+@keyframes lock-rattle {
+  0%, 100% { transform: rotate(0); }
+  15% { transform: rotate(-16deg); }
+  35% { transform: rotate(13deg); }
+  55% { transform: rotate(-9deg); }
+  75% { transform: rotate(5deg); }
+}
+@keyframes door-shake {
+  0%, 100% { transform: translateX(0) rotate(0); }
+  20% { transform: translateX(-2px) rotate(-0.5deg); }
+  40% { transform: translateX(2px) rotate(0.5deg); }
+  60% { transform: translateX(-1.5px) rotate(-0.3deg); }
+  80% { transform: translateX(1px) rotate(0.2deg); }
+}
+@media (hover: hover) and (pointer: fine) {
+  .locker-empty:hover .locker-padlock { animation: lock-rattle 0.6s ease-in-out; }
+  .locker-empty:hover .locker-inner { animation: door-shake 0.45s ease-in-out; }
+  .locker-empty:hover .locker-front { opacity: 0.66; }
+  .locker-empty:hover .locker-graffiti { opacity: 0.75; }
+}
 /* Spray-painted tag across the empty door. A sibling of the face (not a
    child) so the face's dimming doesn't wash the paint out. */
 .locker-graffiti {
@@ -1688,6 +1724,7 @@ html[data-sticky-navbar="true"] .site-header {
   color: var(--lk-graffiti);
   text-shadow: 0 0 9px var(--lk-graffiti-glow), 1px 1px 0 var(--lk-graffiti-edge);
   opacity: 0.42;
+  transition: opacity 0.3s ease;
   pointer-events: none;
   user-select: none;
 }
@@ -1741,6 +1778,7 @@ html[data-sticky-navbar="true"] .site-header {
   .locker-handle { width: 5px; height: 20px; }
   .locker-lock { top: calc(50% + 19px); width: 7px; height: 7px; }
   .locker-graffiti { font-size: 1.3rem; }
+  .locker-padlock { width: 20px; height: 25px; right: 2px; }
 }
 
 /* Certificate award filter, a dropdown sitting inline in a .gallery-heading
