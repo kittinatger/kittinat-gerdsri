@@ -356,7 +356,8 @@ window.PORTFOLIO_TRANSLATIONS = {
     "HSK (Level 2) Chinese Proficiency Test Score Report 2026 — Total Score 153/200": "รายงานผลคะแนนสอบวัดระดับภาษาจีน HSK (ระดับ 2) 2026 — คะแนนรวม 153/200",
     "Saint Louis Hospital certificate for contributing to the Music with Love activity": "เกียรติบัตรจาก Saint Louis Hospital สำหรับการมีส่วนร่วมในกิจกรรม Music with Love",
     "Certificate of performance from The Grand Stage, Thailand concert organized by Churairat Music": "เกียรติบัตรการแสดงจากคอนเสิร์ต The Grand Stage, Thailand จัดโดย Churairat Music",
-    "Trinity College London Grade 2 Piano certificate awarded with Merit": "เกียรติบัตร Trinity College London เปียโน Grade 2 ด้วยผลระดับ Merit"
+    "Trinity College London Grade 2 Piano certificate awarded with Merit": "เกียรติบัตร Trinity College London เปียโน Grade 2 ด้วยผลระดับ Merit",
+    "Award Locker": "ล็อกเกอร์รางวัล"
   },
   "zh-CN": {
     "Kittinat Gerdsri": "Kittinat Gerdsri",
@@ -715,6 +716,7 @@ window.PORTFOLIO_TRANSLATIONS = {
     "HSK (Level 2) Chinese Proficiency Test Score Report 2026 — Total Score 153/200": "HSK（二级）汉语水平考试成绩报告 2026 — 总分 153/200",
     "Saint Louis Hospital certificate for contributing to the Music with Love activity": "Saint Louis Hospital 颁发的证书，表彰参与 Music with Love 活动",
     "Certificate of performance from The Grand Stage, Thailand concert organized by Churairat Music": "The Grand Stage, Thailand 音乐会演出证书，由 Churairat Music 主办",
-    "Trinity College London Grade 2 Piano certificate awarded with Merit": "Trinity College London 钢琴 2 级证书，成绩为 Merit（优异）"
+    "Trinity College London Grade 2 Piano certificate awarded with Merit": "Trinity College London 钢琴 2 级证书，成绩为 Merit（优异）",
+    "Award Locker": "奖项储物柜"
   }
 };

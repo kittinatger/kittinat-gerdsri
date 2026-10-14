@@ -1209,6 +1209,9 @@ html[data-sticky-navbar="true"] .site-header {
   --lk-label: var(--heading);
   --lk-handle: linear-gradient(90deg, #77839a 0%, #d6dce8 45%, #5b6880 100%);
   --lk-handle-shadow: 0 1px 3px rgba(15, 44, 89, 0.4);
+  --lk-hinge: #8794ab;
+  --lk-lock: #6c7890;
+  --lk-lock-slot: #1b2a41;
   padding: 28px 22px 18px;
   border-radius: 20px;
   background: var(--lk-bank-bg);
@@ -1230,6 +1233,9 @@ html[data-sticky-navbar="true"] .site-header {
   --lk-label: rgba(255, 255, 255, 0.9);
   --lk-handle: linear-gradient(90deg, #aab2c4 0%, #e8ecf4 45%, #8d94a8 100%);
   --lk-handle-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --lk-hinge: #8d94a8;
+  --lk-lock: #8d94a8;
+  --lk-lock-slot: #11151f;
 }
 .locker-row {
   display: grid;
@@ -1310,6 +1316,44 @@ html[data-sticky-navbar="true"] .site-header {
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--lk-number);
+}
+.locker-front::before {
+  /* Two hinges down the left edge */
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  background: linear-gradient(180deg,
+    transparent 0, transparent 13%,
+    var(--lk-hinge) 13%, var(--lk-hinge) 23%,
+    transparent 23%, transparent 77%,
+    var(--lk-hinge) 77%, var(--lk-hinge) 87%,
+    transparent 87%);
+  border-radius: 0 3px 3px 0;
+}
+.locker-lock {
+  /* Small keyed lock under the handle */
+  position: absolute;
+  right: 6px;
+  top: calc(50% + 24px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--lk-lock);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+.locker-lock::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1.5px;
+  height: 4px;
+  transform: translate(-50%, -50%);
+  background: var(--lk-lock-slot);
+  border-radius: 1px;
 }
 .locker-handle {
   position: absolute;
@@ -1392,6 +1436,7 @@ html[data-sticky-navbar="true"] .site-header {
   .locker-label { font-size: 0.68rem; }
   .locker-bank { padding: 20px 14px 14px; border-radius: 16px; }
   .locker-handle { width: 5px; height: 20px; }
+  .locker-lock { top: calc(50% + 19px); width: 7px; height: 7px; }
 }
 
 /* Certificate award filter, a dropdown sitting inline in a .gallery-heading

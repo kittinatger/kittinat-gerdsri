@@ -556,6 +556,10 @@ document.addEventListener('DOMContentLoaded', () => {
       handle.className = 'locker-handle';
       handle.setAttribute('aria-hidden', 'true');
       front.appendChild(handle);
+      const lock = document.createElement('span');
+      lock.className = 'locker-lock';
+      lock.setAttribute('aria-hidden', 'true');
+      front.appendChild(lock);
     }
     // iOS Safari's backface-visibility/preserve-3d support is unreliable
     // even with -webkit- prefixes — it can render both faces stacked
