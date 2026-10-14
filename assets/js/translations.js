@@ -363,7 +363,11 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Foundations": "รากฐาน",
     "Focus": "สมาธิ",
     "Analytical skills": "ทักษะการวิเคราะห์",
-    "Clear communication": "การสื่อสารอย่างชัดเจน"
+    "Clear communication": "การสื่อสารอย่างชัดเจน",
+    "Through the lens": "ผ่านเลนส์",
+    "Light": "แสง",
+    "Detail": "รายละเอียด",
+    "Perspective": "มุมกล้อง"
   },
   "zh-CN": {
     "Kittinat Gerdsri": "Kittinat Gerdsri",
@@ -729,6 +733,10 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Foundations": "基础",
     "Focus": "专注力",
     "Analytical skills": "分析能力",
-    "Clear communication": "清晰表达"
+    "Clear communication": "清晰表达",
+    "Through the lens": "透过镜头",
+    "Light": "光影",
+    "Detail": "细节",
+    "Perspective": "视角"
   }
 };
