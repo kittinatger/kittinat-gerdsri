@@ -1164,7 +1164,7 @@ document.addEventListener('DOMContentLoaded', () => {
     frame.appendChild(tools);
   });
 
-  // Concert tickets tilt toward the pointer and a light sheen follows it.
+  // Concert tickets tilt toward the pointer.
   // Skipped on touch and when motion is reduced; the pointer is ignored while
   // it's over the video so the player stays still under the controls.
   const ticketsCanTilt = window.matchMedia('(hover: hover) and (pointer: fine)').matches
@@ -1183,8 +1183,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const r = ticket.getBoundingClientRect();
         const px = (e.clientX - r.left) / r.width;
         const py = (e.clientY - r.top) / r.height;
-        ticket.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
-        ticket.style.setProperty('--my', (py * 100).toFixed(1) + '%');
         if (e.target.closest('.video-frame')) { reset(); return; }
         ticket.classList.add('is-tracking');
         ticket.style.setProperty('--ry', ((px - 0.5) * 6).toFixed(2) + 'deg');
