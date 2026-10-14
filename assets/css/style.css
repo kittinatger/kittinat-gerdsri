@@ -2225,7 +2225,6 @@ html[data-sticky-navbar="true"] .site-header {
   .perf:hover .ticket-icon { animation: note-hop 0.9s ease-in-out infinite; }
   .perf:hover .ticket-num { transform: scale(1.12); }
 }
-.perf-institutions-title { margin-top: clamp(28px, 4vw, 44px); }
 @media (max-width: 760px) {
   .perf { --stub: 76px; }
   .ticket {
