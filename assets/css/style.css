@@ -2094,58 +2094,62 @@ html[data-sticky-navbar="true"] .site-header {
 .video-frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .video-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 /* ---------- Music: performances as concert tickets ---------- */
-.perf-list { display: grid; gap: clamp(22px, 3.5vw, 36px); counter-reset: perf; }
+/* The ticket is cut out with a mask (real punched holes: the page shows
+   through), and a drop-shadow on the wrapper follows the cut shape. The
+   stub sits on the right with a perforation; on phones it drops to a strip
+   along the bottom. The stub number is a CSS counter. */
+.perf-list { display: grid; gap: clamp(24px, 4vw, 40px); counter-reset: perf; }
 .perf {
-  --notch: var(--bg);
-  position: relative;
-  overflow: hidden;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+  --stub: 124px;
+  --notch: 13px;
   counter-increment: perf;
-  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  filter: drop-shadow(0 16px 18px rgba(15, 44, 89, 0.16));
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), filter 0.3s ease;
 }
+:root[data-theme="dark"] .perf { filter: drop-shadow(0 16px 20px rgba(0, 0, 0, 0.5)); }
 @media (hover: hover) and (pointer: fine) {
-  .perf:hover { transform: translateY(-5px); box-shadow: var(--shadow-soft); }
+  .perf:hover { transform: translateY(-6px); filter: drop-shadow(0 24px 26px rgba(15, 44, 89, 0.24)); }
+  :root[data-theme="dark"] .perf:hover { filter: drop-shadow(0 24px 28px rgba(0, 0, 0, 0.6)); }
 }
-.perf-head { display: grid; grid-template-columns: auto 1fr; border-bottom: 1px solid var(--line); }
-.perf-stub {
+.ticket {
   position: relative;
   display: grid;
-  place-items: center;
-  min-width: clamp(76px, 11vw, 110px);
-  padding: 22px 18px;
-  border-right: 2px dashed var(--line);
-  background: var(--nav-hover-bg);
+  grid-template-columns: 1fr var(--stub);
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--surface) 58%, var(--nav-hover-bg) 150%);
+  -webkit-mask-image:
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0, #0000 calc(100% - 1px), #000),
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%, #0000 calc(100% - 1px), #000),
+    radial-gradient(circle var(--notch) at 0 50%, #0000 calc(100% - 1px), #000),
+    radial-gradient(circle var(--notch) at 100% 50%, #0000 calc(100% - 1px), #000);
+  -webkit-mask-composite: source-in, source-in, source-in;
+  mask-image:
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 0, #0000 calc(100% - 1px), #000),
+    radial-gradient(circle var(--notch) at calc(100% - var(--stub)) 100%, #0000 calc(100% - 1px), #000),
+    radial-gradient(circle var(--notch) at 0 50%, #0000 calc(100% - 1px), #000),
+    radial-gradient(circle var(--notch) at 100% 50%, #0000 calc(100% - 1px), #000);
+  mask-composite: intersect;
 }
-.perf-stub::before {
-  content: counter(perf, decimal-leading-zero);
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2.1rem);
-  font-weight: 600;
-  color: var(--navy);
-}
-.perf-stub::after {
-  /* Half-circle punched out of the top edge, like a torn ticket */
+.ticket::after {
+  /* the perforation */
   content: '';
   position: absolute;
-  top: -11px;
-  right: -12px;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--notch);
-  border: 1px solid var(--line);
+  top: calc(var(--notch) + 8px);
+  bottom: calc(var(--notch) + 8px);
+  right: var(--stub);
+  border-left: 2px dashed var(--line);
+  pointer-events: none;
 }
-.perf-title { padding: 20px clamp(18px, 3vw, 30px); align-self: center; }
-.perf-title h3 { margin: 0 0 0.3em; font-family: var(--font-display); font-size: clamp(1.2rem, 2.4vw, 1.55rem); color: var(--heading); }
+.ticket-main { min-width: 0; }
+.perf-head { padding: clamp(20px, 3vw, 30px) clamp(20px, 3vw, 32px) 0; }
+.perf-title h3 { margin: 0 0 0.3em; font-family: var(--font-display); font-size: clamp(1.25rem, 2.5vw, 1.7rem); color: var(--heading); }
 .perf-title p { margin: 0; color: var(--ink-soft); }
 .perf-media {
   display: grid;
   grid-template-columns: 1.6fr 1fr;
   gap: clamp(16px, 2.6vw, 26px);
   align-items: stretch;
-  padding: clamp(16px, 2.6vw, 26px);
+  padding: clamp(16px, 2.6vw, 24px) clamp(20px, 3vw, 32px);
 }
 .perf-media .video-frame { align-self: start; box-shadow: none; }
 .perf-photo {
@@ -2162,9 +2166,68 @@ html[data-sticky-navbar="true"] .site-header {
 @media (hover: hover) and (pointer: fine) {
   .perf:hover .perf-photo { transform: rotate(0) scale(1.02); }
 }
-.perf .credit { margin: 0; padding: 0 clamp(16px, 2.6vw, 26px) clamp(14px, 2.2vw, 22px); }
+.perf .credit { margin: 0; padding: 0 clamp(20px, 3vw, 32px) clamp(16px, 2.4vw, 24px); }
+.ticket-stub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 26px 12px;
+  color: var(--navy);
+}
+.ticket-icon svg { display: block; width: 26px; height: 26px; }
+.ticket-num::before {
+  content: counter(perf, decimal-leading-zero);
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1;
+}
+.ticket-barcode {
+  display: block;
+  width: 56px;
+  height: 104px;
+  opacity: 0.7;
+  background: repeating-linear-gradient(180deg,
+    var(--ink) 0 2px, transparent 2px 4px,
+    var(--ink) 4px 5px, transparent 5px 9px,
+    var(--ink) 9px 12px, transparent 12px 14px,
+    var(--ink) 14px 15px, transparent 15px 18px);
+}
 .perf-institutions-title { margin-top: clamp(28px, 4vw, 44px); }
 @media (max-width: 760px) {
+  .perf { --stub: 76px; }
+  .ticket {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto var(--stub);
+    -webkit-mask-image:
+      radial-gradient(circle var(--notch) at 0 calc(100% - var(--stub)), #0000 calc(100% - 1px), #000),
+      radial-gradient(circle var(--notch) at 100% calc(100% - var(--stub)), #0000 calc(100% - 1px), #000);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      radial-gradient(circle var(--notch) at 0 calc(100% - var(--stub)), #0000 calc(100% - 1px), #000),
+      radial-gradient(circle var(--notch) at 100% calc(100% - var(--stub)), #0000 calc(100% - 1px), #000);
+    mask-composite: intersect;
+  }
+  .ticket::after {
+    top: auto;
+    bottom: var(--stub);
+    left: calc(var(--notch) + 8px);
+    right: calc(var(--notch) + 8px);
+    border-left: none;
+    border-top: 2px dashed var(--line);
+  }
+  .ticket-stub { flex-direction: row; gap: 20px; padding: 0 20px; }
+  .ticket-barcode {
+    width: 118px;
+    height: 28px;
+    background: repeating-linear-gradient(90deg,
+      var(--ink) 0 2px, transparent 2px 4px,
+      var(--ink) 4px 5px, transparent 5px 9px,
+      var(--ink) 9px 12px, transparent 12px 14px,
+      var(--ink) 14px 15px, transparent 15px 18px);
+  }
   .perf-media { grid-template-columns: 1fr; }
   .perf-photo { aspect-ratio: 4 / 3; transform: rotate(0.8deg); }
   .perf:nth-child(even) .perf-photo { transform: rotate(-0.8deg); }
