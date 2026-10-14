@@ -1020,7 +1020,11 @@ document.addEventListener('DOMContentLoaded', () => {
         roll.className = 'film-roll';
         roll.setAttribute('aria-hidden', 'true');
         roll.style.height = Math.floor(room) + 'px';
-        roll.style.setProperty('--pitch', Math.round((colWidth - 44) / 1.5 + 10) + 'px');
+        const pitch = Math.round((colWidth - 44) / 1.5 + 10);
+        roll.style.setProperty('--pitch', pitch + 'px');
+        // Holes and frames scroll at the same speed (60px/s).
+        roll.style.setProperty('--frame-dur', (pitch / 60).toFixed(2) + 's');
+        roll.style.setProperty('--hole-dur', (22 / 60).toFixed(3) + 's');
         const frames = document.createElement('div');
         frames.className = 'film-roll-frames';
         roll.appendChild(frames);
