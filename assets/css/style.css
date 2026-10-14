@@ -5,7 +5,7 @@
    headings in Fraunces, body copy in Inter.
    =========================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Serif+Thai:wght@400;500;600;700&family=Permanent+Marker&display=swap');
 
 :root {
   --bg: #e8eef4;
@@ -1211,6 +1211,9 @@ html[data-sticky-navbar="true"] .site-header {
   --lk-handle-shadow: 0 1px 3px rgba(15, 44, 89, 0.4);
   --lk-lock: #6c7890;
   --lk-lock-slot: #1b2a41;
+  --lk-graffiti: #c2287f;
+  --lk-graffiti-glow: rgba(194, 40, 127, 0.3);
+  --lk-graffiti-edge: rgba(255, 255, 255, 0.75);
   --lk-px: 22px;
   --lk-pb: 18px;
   --lk-radius: 20px;
@@ -1237,6 +1240,9 @@ html[data-sticky-navbar="true"] .site-header {
   --lk-handle-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
   --lk-lock: #8d94a8;
   --lk-lock-slot: #11151f;
+  --lk-graffiti: #ff5fb0;
+  --lk-graffiti-glow: rgba(255, 95, 176, 0.5);
+  --lk-graffiti-edge: rgba(0, 0, 0, 0.45);
 }
 .locker-row {
   display: grid;
@@ -1390,6 +1396,39 @@ html[data-sticky-navbar="true"] .site-header {
    zoom); nothing else on the card toggles the flip. */
 .locker-empty { pointer-events: none; }
 .locker-empty .locker-front { opacity: 0.5; }
+/* Spray-painted tag across the empty door. A sibling of the face (not a
+   child) so the face's dimming doesn't wash the paint out. */
+.locker-graffiti {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 84%;
+  transform: translate(-50%, -50%) rotate(-11deg);
+  font-family: 'Permanent Marker', 'Noto Sans Thai', 'Noto Sans SC', cursive;
+  font-size: 1.5rem;
+  line-height: 1.05;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: var(--lk-graffiti);
+  text-shadow: 0 0 9px var(--lk-graffiti-glow), 1px 1px 0 var(--lk-graffiti-edge);
+  pointer-events: none;
+  user-select: none;
+}
+.locker-graffiti::after {
+  /* Paint drips */
+  content: '';
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  top: 80%;
+  height: 20px;
+  background:
+    linear-gradient(var(--lk-graffiti), var(--lk-graffiti)) 12% 0 / 2px 12px no-repeat,
+    linear-gradient(var(--lk-graffiti), var(--lk-graffiti)) 38% 0 / 2px 19px no-repeat,
+    linear-gradient(var(--lk-graffiti), var(--lk-graffiti)) 66% 0 / 2px 9px no-repeat,
+    linear-gradient(var(--lk-graffiti), var(--lk-graffiti)) 88% 0 / 2px 15px no-repeat;
+  opacity: 0.85;
+}
 .locker-flip {
   display: inline-flex;
   align-items: center;
@@ -1424,6 +1463,7 @@ html[data-sticky-navbar="true"] .site-header {
   .locker-bank { --lk-px: 14px; --lk-pb: 14px; --lk-radius: 16px; padding-top: 20px; }
   .locker-handle { width: 5px; height: 20px; }
   .locker-lock { top: calc(50% + 19px); width: 7px; height: 7px; }
+  .locker-graffiti { font-size: 1.3rem; }
 }
 
 /* Certificate award filter, a dropdown sitting inline in a .gallery-heading

@@ -514,7 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const spare = document.createElement('div');
       spare.className = 'locker locker-empty';
       spare.setAttribute('aria-hidden', 'true');
-      spare.innerHTML = '<div class="locker-inner"><div class="locker-face locker-front"><span class="locker-handle"></span><span class="locker-lock"></span></div></div>';
+      spare.innerHTML = '<div class="locker-inner"><div class="locker-face locker-front"><span class="locker-handle"></span><span class="locker-lock"></span></div><span class="locker-graffiti">' + tr('Coming Soon') + '</span></div>';
       row.appendChild(spare);
     }
     return cols;
