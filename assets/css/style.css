@@ -1358,6 +1358,7 @@ html[data-sticky-navbar="true"] .site-header {
   border-radius: 14px;
   background: linear-gradient(90deg, #0a0705 0%, #1b130c 50%, #0a0705 100%);
   box-shadow: inset 0 0 0 1px rgba(255, 170, 70, 0.14), inset 0 0 22px rgba(0, 0, 0, 0.65);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
 }
 .film-roll::before,
 .film-roll::after {
@@ -1369,6 +1370,7 @@ html[data-sticky-navbar="true"] .site-header {
   border-radius: 2px;
   background: repeating-linear-gradient(180deg, var(--bg) 0 11px, transparent 11px 22px);
   z-index: 3;
+  animation: film-advance 0.7s linear infinite paused;
 }
 .film-roll::before { left: 8px; }
 .film-roll::after { right: 8px; }
@@ -1385,6 +1387,8 @@ html[data-sticky-navbar="true"] .site-header {
       #120c07 calc(var(--pitch, 100px) - 10px),
       #120c07 var(--pitch, 100px));
   box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.55);
+  transition: filter 0.4s ease;
+  animation: film-roll 1.6s linear infinite paused;
 }
 .film-roll-grain {
   position: absolute;
@@ -1395,6 +1399,7 @@ html[data-sticky-navbar="true"] .site-header {
   background-size: 180px 180px;
   mix-blend-mode: soft-light;
   opacity: 0.85;
+  transition: opacity 0.4s ease;
   animation: film-grain 0.9s steps(1) infinite;
 }
 @keyframes film-grain {
@@ -1420,8 +1425,28 @@ html[data-sticky-navbar="true"] .site-header {
   color: #f2b863;
   text-shadow: 0 0 6px rgba(240, 160, 60, 0.3), 1px 1px 0 rgba(0, 0, 0, 0.5);
   opacity: 0.5;
+  transition: opacity 0.4s ease;
   pointer-events: none;
   user-select: none;
+}
+@keyframes film-advance { to { background-position: 0 22px; } }
+@keyframes film-roll {
+  from { background-position: 0 0, 0 0, 0 0; }
+  to { background-position: 0 0, 0 0, 0 var(--pitch, 100px); }
+}
+/* Hovering winds the film on: holes and frames advance, the strip lifts, the
+   leak and grain intensify. Pauses in place when the pointer leaves. */
+@media (hover: hover) and (pointer: fine) {
+  .film-roll:hover {
+    transform: translateY(-4px);
+    box-shadow: inset 0 0 0 1px rgba(255, 170, 70, 0.3), inset 0 0 22px rgba(0, 0, 0, 0.55), 0 20px 34px -18px rgba(0, 0, 0, 0.6);
+  }
+  .film-roll:hover::before,
+  .film-roll:hover::after,
+  .film-roll:hover .film-roll-frames { animation-play-state: running; }
+  .film-roll:hover .film-roll-frames { filter: brightness(1.18) saturate(1.1); }
+  .film-roll:hover .film-roll-grain { opacity: 1; }
+  .film-roll:hover .film-roll-tag { opacity: 0.85; }
 }
 @media (max-width: 900px) {
   .gallery-masonry { --cols: 2; column-count: 2; }
