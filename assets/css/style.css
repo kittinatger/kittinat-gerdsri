@@ -1245,6 +1245,11 @@ html[data-sticky-navbar="true"] .site-header {
   backface-visibility: hidden;
   text-align: center;
 }
+/* backface-visibility on the face alone doesn't reliably hide positioned
+   descendants that create their own stacking context (badges, the flip
+   button, the handle) — without this, the front face's badge bleeds
+   through, mirrored, when the back face is showing. */
+.locker-face * { backface-visibility: hidden; }
 .locker-front {
   background:
     repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0px, rgba(255, 255, 255, 0.025) 1px, transparent 1px, transparent 7px),
