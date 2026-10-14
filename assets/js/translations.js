@@ -369,7 +369,11 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Detail": "รายละเอียด",
     "Perspective": "มุมกล้อง",
     "frame": "ภาพ",
-    "frames": "ภาพ"
+    "frames": "ภาพ",
+    "In every note": "ในทุกๆ โน้ต",
+    "Creativity": "ความคิดสร้างสรรค์",
+    "Patience": "ความอดทน",
+    "Precision": "ความแม่นยำ"
   },
   "zh-CN": {
     "Kittinat Gerdsri": "Kittinat Gerdsri",
@@ -741,6 +745,10 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Detail": "细节",
     "Perspective": "视角",
     "frame": "张",
-    "frames": "张"
+    "frames": "张",
+    "In every note": "每一个音符",
+    "Creativity": "创造力",
+    "Patience": "耐心",
+    "Precision": "精准"
   }
 };
