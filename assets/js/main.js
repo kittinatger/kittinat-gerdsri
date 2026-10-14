@@ -595,9 +595,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterToggle = certFilter.querySelector('.cert-filter-toggle');
     const filterLabel = filterToggle.querySelector('.cert-filter-label');
     const filterMenu = certFilter.querySelector('.cert-filter-menu');
-    const filterOptions = [...filterMenu.querySelectorAll('.cert-filter-option')];
     const gallery = certFilter.closest('.gallery-heading')?.nextElementSibling;
     if (!gallery || !gallery.classList.contains('gallery')) return;
+    // "Participated" and "Attended" are different things, so each gets its own
+    // option — shown only when this section actually has a matching item.
+    const matchesFilter = (filter, award) => filter === 'all'
+      || (filter === 'awarded' && awardedLevels.has(award))
+      || award === filter;
+    const hasAny = (filter) => [...gallery.querySelectorAll('figure[data-date]')].some(fig => matchesFilter(filter, fig.dataset.award));
+    [['participate', 'Participated'], ['attend', 'Attended']].forEach(([value, label]) => {
+      if (filterMenu.querySelector(`[data-filter="${value}"]`) || !hasAny(value)) return;
+      const opt = document.createElement('button');
+      opt.type = 'button';
+      opt.className = 'cert-filter-option';
+      opt.dataset.filter = value;
+      opt.textContent = tr(label);
+      filterMenu.appendChild(opt);
+    });
+    filterMenu.querySelectorAll('.cert-filter-option').forEach(opt => {
+      if (opt.dataset.filter !== 'all' && !hasAny(opt.dataset.filter)) opt.remove();
+    });
+    const filterOptions = [...filterMenu.querySelectorAll('.cert-filter-option')];
     const floatingFilterMenu = makeFloating(filterMenu, (el) => {
       const r = filterToggle.getBoundingClientRect();
       const width = el.offsetWidth || 200;
@@ -606,11 +624,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, filterToggle);
     const applyFilter = (filter) => {
       gallery.querySelectorAll('figure[data-date]').forEach(fig => {
-        const award = fig.dataset.award;
-        const visible = filter === 'all'
-          || (filter === 'awarded' && awardedLevels.has(award))
-          || award === filter;
-        fig.classList.toggle('is-filtered-out', !visible);
+        fig.classList.toggle('is-filtered-out', !matchesFilter(filter, fig.dataset.award));
       });
     };
     const closeFilterMenu = () => {
