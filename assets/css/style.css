@@ -1124,10 +1124,10 @@ html[data-sticky-navbar="true"] .site-header {
 .tile:active { transform: translateY(-3px) scale(0.98); }
 
 .tile-icon {
+  display: block;
   width: 36px;
   height: 36px;
-  object-fit: contain;
-  filter: brightness(0) invert(1);
+  color: var(--white);
   opacity: 0.95;
 }
 .tile-text { margin-top: 0.9em; }
