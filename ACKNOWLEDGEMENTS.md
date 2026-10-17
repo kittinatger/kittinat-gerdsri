@@ -4,10 +4,10 @@ This project includes third-party assets subject to their own terms, separate fr
 
 ## Icons
 
-Several icons used across this site — including the theme toggle (sun/moon), the tile navigation arrows, and the email/paper-plane icon — are derived from [SF Symbols](https://developer.apple.com/sf-symbols/), Apple Inc.'s icon library. They are used as interface glyphs under the terms of the [SF Symbols license agreement](https://developer.apple.com/support/downloads/terms/sf-symbols/SF-Symbols-License-Agreement.pdf).
+Nearly every icon used across this site — navigation, settings, the video player controls, the footer and Contact page's social-platform marks (GitHub, Instagram, WhatsApp, Facebook, TikTok), and the discipline-tile glyphs — is from [Phosphor Icons](https://phosphoricons.com/), used under the MIT License (Copyright (c) 2020-2024 Phosphor Icons).
 
-SF Symbols are a trademark of Apple Inc. This project is an independent personal portfolio and is not affiliated with, sponsored by, or endorsed by Apple Inc.
+One exception is kept outside the Phosphor set on purpose: the locker padlock icon is a custom multi-part SVG whose pieces (shackle, body, keyhole) are individually themed via CSS, rather than a single-path icon-pack glyph.
 
 ## Developed by
 
-[Kittinat Gerdsri](https://kittinatger.github.io/kittinat-gerdsri/)
+[Kittinat Gerdsri](https://kittinat-gerdsri.vercel.app/)

@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## 2026-10-17
+
+### Changed
+- Replaced every icon site-wide (navigation, settings, lightbox, locker, discipline tiles, social links, footer) with exact [Phosphor Icons](https://phosphoricons.com/) paths, moving off the hand-drawn/SF-Symbols-derived icons used previously. See [ACKNOWLEDGEMENTS.md](ACKNOWLEDGEMENTS.md).
+- Rebuilt the custom video player controls (play/pause, skip ±5s, volume, PiP, fullscreen) as a minimal overlay directly over the video, replacing the previous multi-row control bar; dropped the speed and repeat controls.
+- Redesigned the site footer: a large editorial "Kittinat Gerdsri." signature line in place of the old link columns, social icons next to the tagline, and page navigation collapsed into a single inline row.
+- Moved the "back to top" control out of the footer's text row into its own floating glass button, shown only after scrolling.
+- Swapped the email icon (footer, Contact page, hero CTA) from a paper-plane glyph — too easily mistaken for Telegram's — to an open-envelope icon.
+- Replaced the Contact page's GitHub/Instagram/WhatsApp/Facebook/TikTok icons with Phosphor's own brand-logo glyphs.
+- Replaced the homepage discipline-tile icons (previously PNG images) with inline Phosphor icons, matching the rest of the site.
+
 ## 2026-09-30
 
 ### Fixed
