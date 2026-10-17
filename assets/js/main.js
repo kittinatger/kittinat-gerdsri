@@ -1064,24 +1064,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Video players get a fully custom control bar (play/pause, scrubber,
-  // time, volume, fullscreen) instead of the native one, plus the existing
-  // glass speed/PiP pill in the top-right. Icons below are drawn from
-  // scratch rather than using Apple's SF Symbols glyphs, which aren't
-  // licensed for use outside Apple-platform UI.
+  // Video players get one unified bottom control bar (three rows: scrub+time,
+  // then play/skip, then volume/speed/repeat/PiP/fullscreen) instead of the
+  // native controls. Previously speed+PiP lived in a separate floating pill
+  // in the top-right; that's folded into the same bar now, so there's a
+  // single piece of UI instead of two disconnected ones. Icons are drawn
+  // from scratch rather than using Apple's SF Symbols glyphs, which aren't
+  // licensed for use outside Apple-platform UI; explicit width/height
+  // attributes (not just CSS) keep them sized correctly on every browser.
   const videoIcons = {
-    play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z" fill="currentColor"></path></svg>',
-    pause: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4.5" width="4.2" height="15" rx="1" fill="currentColor"></rect><rect x="13.8" y="4.5" width="4.2" height="15" rx="1" fill="currentColor"></rect></svg>',
-    volumeHigh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5v5h4l5 4v-13l-5 4H3z" fill="currentColor" stroke="none"></path><path d="M16.2 8.3a5.6 5.6 0 0 1 0 7.4"></path><path d="M19 5.5a9.6 9.6 0 0 1 0 13"></path></svg>',
-    volumeLow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5v5h4l5 4v-13l-5 4H3z" fill="currentColor" stroke="none"></path><path d="M16.2 8.3a5.6 5.6 0 0 1 0 7.4"></path></svg>',
-    volumeMuted: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5v5h4l5 4v-13l-5 4H3z" fill="currentColor" stroke="none"></path><path d="M15.5 9.5l5 5M20.5 9.5l-5 5"></path></svg>',
-    enterFullscreen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4"></path></svg>',
-    exitFullscreen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4v4H5M15 4v4h4M9 20v-4H5M15 20v-4h4"></path></svg>',
-    pipEnter: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.2"></rect><rect x="12.5" y="10.5" width="7" height="5" rx="1.1" fill="currentColor" stroke="none"></rect></svg>',
-    pipExit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.2"></rect><path d="M14.5 13l3.5 3.5M18 13l-3.5 3.5" stroke-width="1.8"></path></svg>',
-    skipBack: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12a7 7 0 1 1 2.1 5"></path><path d="M5 7.5v4h4"></path><text x="12.8" y="15.1" font-size="8" font-family="inherit" font-weight="700" stroke="none" fill="currentColor">5</text></svg>',
-    skipForward: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12a7 7 0 1 0-2.1 5"></path><path d="M19 7.5v4h-4"></path><text x="7" y="15.1" font-size="8" font-family="inherit" font-weight="700" stroke="none" fill="currentColor">5</text></svg>',
-    repeat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h9a4 4 0 0 1 4 4v1"></path><path d="M4.5 5.5L6 7 4.5 8.5"></path><path d="M18 17H9a4 4 0 0 1-4-4v-1"></path><path d="M19.5 18.5L18 17l1.5-1.5"></path></svg>',
+    play: '<svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true"><path d="M7 4.5v15l13-7.5z" fill="currentColor"></path></svg>',
+    pause: '<svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true"><rect x="6" y="4.5" width="4.2" height="15" rx="1" fill="currentColor"></rect><rect x="13.8" y="4.5" width="4.2" height="15" rx="1" fill="currentColor"></rect></svg>',
+    volumeHigh: '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5v5h4l5 4v-13l-5 4H3z" fill="currentColor" stroke="none"></path><path d="M16.2 8.3a5.6 5.6 0 0 1 0 7.4"></path><path d="M19 5.5a9.6 9.6 0 0 1 0 13"></path></svg>',
+    volumeLow: '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5v5h4l5 4v-13l-5 4H3z" fill="currentColor" stroke="none"></path><path d="M16.2 8.3a5.6 5.6 0 0 1 0 7.4"></path></svg>',
+    volumeMuted: '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5v5h4l5 4v-13l-5 4H3z" fill="currentColor" stroke="none"></path><path d="M15.5 9.5l5 5M20.5 9.5l-5 5"></path></svg>',
+    enterFullscreen: '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4"></path></svg>',
+    exitFullscreen: '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4v4H5M15 4v4h4M9 20v-4H5M15 20v-4h4"></path></svg>',
+    pipEnter: '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.2"></rect><rect x="12.5" y="10.5" width="7" height="5" rx="1.1" fill="currentColor" stroke="none"></rect></svg>',
+    pipExit: '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.2"></rect><path d="M14.5 13l3.5 3.5M18 13l-3.5 3.5" stroke-width="1.8"></path></svg>',
+    // The "5" is a drawn vector digit (two strokes), not an SVG <text> glyph —
+    // <text> depends on the browser's font/baseline resolution inside SVG and
+    // rendered inconsistently across devices.
+    skipBack: '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 1 2.25 5.35"></path><path d="M4.5 7v4.3h4.3"></path><path d="M13.3 10.1h2.1v6.4"></path><path d="M12.9 16.5h3.1" stroke-width="1.6"></path></svg>',
+    skipForward: '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 0-2.25 5.35"></path><path d="M19.5 7v4.3h-4.3"></path><path d="M7.6 10.1h2.1v6.4"></path><path d="M7.2 16.5h3.1" stroke-width="1.6"></path></svg>',
+    repeat: '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h9a4 4 0 0 1 4 4v1"></path><path d="M4.5 5.5L6 7 4.5 8.5"></path><path d="M18 17H9a4 4 0 0 1-4-4v-1"></path><path d="M19.5 18.5L18 17l1.5-1.5"></path></svg>',
   };
   const formatTime = (s) => {
     if (!Number.isFinite(s)) return '0:00';
@@ -1097,40 +1103,42 @@ document.addEventListener('DOMContentLoaded', () => {
     video.disablePictureInPicture = true;
     frame.classList.add('has-custom-controls');
 
-    // --- Bottom control bar: play/pause, scrubber, time, volume, fullscreen ---
-    const bar = document.createElement('div');
-    bar.className = 'video-bar';
+    const iconBtn = (iconKey, labelKey) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'video-tool-btn video-tool-icon';
+      if (iconKey) btn.innerHTML = videoIcons[iconKey];
+      if (labelKey) { btn.setAttribute('aria-label', tr(labelKey)); btn.title = tr(labelKey); }
+      return btn;
+    };
 
-    const playBtn = document.createElement('button');
-    playBtn.type = 'button';
-    playBtn.className = 'video-tool-btn video-tool-icon video-play-btn';
-    playBtn.innerHTML = videoIcons.play;
+    // --- Play / pause ---
+    const playBtn = iconBtn('play', null);
+    playBtn.classList.add('video-play-btn');
     const syncPlay = () => {
       playBtn.innerHTML = video.paused ? videoIcons.play : videoIcons.pause;
       playBtn.setAttribute('aria-label', tr(video.paused ? 'Play' : 'Pause'));
-      playBtn.title = tr(video.paused ? 'Play' : 'Pause');
+      playBtn.title = playBtn.getAttribute('aria-label');
     };
     playBtn.addEventListener('click', () => { video.paused ? video.play() : video.pause(); });
     video.addEventListener('play', syncPlay);
     video.addEventListener('pause', syncPlay);
     syncPlay();
+    video.addEventListener('click', () => { video.paused ? video.play() : video.pause(); });
 
-    const skipBtn = (dir) => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'video-tool-btn video-tool-icon';
-      btn.innerHTML = videoIcons[dir === -1 ? 'skipBack' : 'skipForward'];
-      btn.setAttribute('aria-label', tr(dir === -1 ? 'Back 5 seconds' : 'Forward 5 seconds'));
-      btn.title = btn.getAttribute('aria-label');
+    // --- Skip back/forward 5s ---
+    const makeSkipBtn = (dir) => {
+      const btn = iconBtn(dir === -1 ? 'skipBack' : 'skipForward', dir === -1 ? 'Back 5 seconds' : 'Forward 5 seconds');
       btn.addEventListener('click', () => {
         if (!Number.isFinite(video.duration)) return;
         video.currentTime = Math.min(video.duration, Math.max(0, video.currentTime + dir * 5));
       });
       return btn;
     };
-    const skipBackBtn = skipBtn(-1);
-    const skipForwardBtn = skipBtn(1);
+    const skipBackBtn = makeSkipBtn(-1);
+    const skipForwardBtn = makeSkipBtn(1);
 
+    // --- Scrubber + time ---
     const scrubWrap = document.createElement('div');
     scrubWrap.className = 'video-scrub';
     scrubWrap.setAttribute('role', 'slider');
@@ -1175,11 +1183,10 @@ document.addEventListener('DOMContentLoaded', () => {
     ['timeupdate', 'loadedmetadata', 'durationchange'].forEach(ev => video.addEventListener(ev, syncTime));
     syncTime();
 
+    // --- Volume ---
     const volWrap = document.createElement('div');
     volWrap.className = 'video-volume';
-    const volBtn = document.createElement('button');
-    volBtn.type = 'button';
-    volBtn.className = 'video-tool-btn video-tool-icon';
+    const volBtn = iconBtn('volumeHigh', null);
     const volSlider = document.createElement('input');
     volSlider.type = 'range';
     volSlider.className = 'video-volume-slider';
@@ -1203,10 +1210,55 @@ document.addEventListener('DOMContentLoaded', () => {
     syncVolume();
     volWrap.append(volBtn, volSlider);
 
-    const repeatBtn = document.createElement('button');
-    repeatBtn.type = 'button';
-    repeatBtn.className = 'video-tool-btn video-tool-icon';
-    repeatBtn.innerHTML = videoIcons.repeat;
+    // --- Playback speed (popup pill, same pattern as before) ---
+    const speeds = [0.5, 0.75, 1, 1.25, 1.5, 2];
+    const speedWrap = document.createElement('div');
+    speedWrap.className = 'video-speed';
+    const speedBtn = document.createElement('button');
+    speedBtn.type = 'button';
+    speedBtn.className = 'video-tool-btn';
+    speedBtn.setAttribute('aria-haspopup', 'true');
+    speedBtn.setAttribute('aria-expanded', 'false');
+    speedBtn.setAttribute('aria-label', tr('Playback speed'));
+    speedBtn.title = speedBtn.getAttribute('aria-label');
+    const speedMenu = document.createElement('div');
+    speedMenu.className = 'video-speed-menu';
+    speedMenu.hidden = true;
+    const optionBtns = speeds.map(rate => {
+      const opt = document.createElement('button');
+      opt.type = 'button';
+      opt.className = 'video-speed-option';
+      opt.textContent = rate + '×';
+      opt.addEventListener('click', () => {
+        video.playbackRate = rate;
+        closeSpeedMenu();
+        speedBtn.focus();
+      });
+      speedMenu.appendChild(opt);
+      return { rate, opt };
+    });
+    const syncSpeed = () => {
+      speedBtn.textContent = video.playbackRate + '×';
+      optionBtns.forEach(({ rate, opt }) => opt.classList.toggle('is-active', rate === video.playbackRate));
+    };
+    const closeSpeedMenu = () => {
+      speedMenu.hidden = true;
+      speedBtn.setAttribute('aria-expanded', 'false');
+    };
+    speedBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = speedMenu.hidden;
+      speedMenu.hidden = !open;
+      speedBtn.setAttribute('aria-expanded', String(open));
+    });
+    document.addEventListener('click', (e) => { if (!speedWrap.contains(e.target)) closeSpeedMenu(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSpeedMenu(); });
+    video.addEventListener('ratechange', syncSpeed);
+    syncSpeed();
+    speedWrap.append(speedBtn, speedMenu);
+
+    // --- Repeat/loop toggle ---
+    const repeatBtn = iconBtn('repeat', null);
     repeatBtn.setAttribute('aria-pressed', 'false');
     const syncRepeat = () => {
       repeatBtn.classList.toggle('is-active', video.loop);
@@ -1217,95 +1269,12 @@ document.addEventListener('DOMContentLoaded', () => {
     repeatBtn.addEventListener('click', () => { video.loop = !video.loop; syncRepeat(); });
     syncRepeat();
 
-    const fsBtn = document.createElement('button');
-    fsBtn.type = 'button';
-    fsBtn.className = 'video-tool-btn video-tool-icon';
-    const syncFullscreen = () => {
-      const isFs = document.fullscreenElement === frame;
-      fsBtn.innerHTML = videoIcons[isFs ? 'exitFullscreen' : 'enterFullscreen'];
-      fsBtn.setAttribute('aria-label', tr(isFs ? 'Exit fullscreen' : 'Enter fullscreen'));
-      fsBtn.title = fsBtn.getAttribute('aria-label');
-    };
-    if (document.fullscreenEnabled) {
-      fsBtn.addEventListener('click', () => {
-        if (document.fullscreenElement === frame) document.exitFullscreen();
-        else frame.requestFullscreen().catch(() => {});
-      });
-      document.addEventListener('fullscreenchange', () => { if (document.fullscreenElement === frame || !document.fullscreenElement) syncFullscreen(); });
-      syncFullscreen();
-    } else {
-      fsBtn.disabled = true;
-      fsBtn.hidden = true;
-    }
-
-    const scrubRow = document.createElement('div');
-    scrubRow.className = 'video-bar-row video-bar-row-scrub';
-    scrubRow.append(scrubWrap, timeLabel);
-    const controlsRow = document.createElement('div');
-    controlsRow.className = 'video-bar-row video-bar-row-controls';
-    controlsRow.append(skipBackBtn, playBtn, skipForwardBtn, volWrap, repeatBtn, fsBtn);
-    bar.append(scrubRow, controlsRow);
-    frame.appendChild(bar);
-    video.addEventListener('click', () => { video.paused ? video.play() : video.pause(); });
-
-    const tools = document.createElement('div');
-    tools.className = 'video-tools';
-
-    // --- Playback speed ---
-    const speeds = [0.5, 0.75, 1, 1.25, 1.5, 2];
-    const speedWrap = document.createElement('div');
-    speedWrap.className = 'video-speed';
-    const speedBtn = document.createElement('button');
-    speedBtn.type = 'button';
-    speedBtn.className = 'video-tool-btn';
-    speedBtn.setAttribute('aria-haspopup', 'true');
-    speedBtn.setAttribute('aria-expanded', 'false');
-    speedBtn.setAttribute('aria-label', tr('Playback speed'));
-    speedBtn.title = tr('Playback speed');
-    const speedMenu = document.createElement('div');
-    speedMenu.className = 'video-speed-menu';
-    speedMenu.hidden = true;
-    const optionBtns = speeds.map(rate => {
-      const opt = document.createElement('button');
-      opt.type = 'button';
-      opt.className = 'video-speed-option';
-      opt.textContent = rate + '\u00d7';
-      opt.addEventListener('click', () => {
-        video.playbackRate = rate;
-        closeMenu();
-        speedBtn.focus();
-      });
-      speedMenu.appendChild(opt);
-      return { rate, opt };
-    });
-    const syncSpeed = () => {
-      speedBtn.textContent = video.playbackRate + '\u00d7';
-      optionBtns.forEach(({ rate, opt }) => opt.classList.toggle('is-active', rate === video.playbackRate));
-    };
-    const closeMenu = () => {
-      speedMenu.hidden = true;
-      speedBtn.setAttribute('aria-expanded', 'false');
-    };
-    speedBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const open = speedMenu.hidden;
-      speedMenu.hidden = !open;
-      speedBtn.setAttribute('aria-expanded', String(open));
-    });
-    document.addEventListener('click', (e) => { if (!speedWrap.contains(e.target)) closeMenu(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
-    video.addEventListener('ratechange', syncSpeed);
-    syncSpeed();
-    speedWrap.append(speedBtn, speedMenu);
-    tools.appendChild(speedWrap);
-
     // --- Picture in picture (only where the browser supports it) ---
     const standardPip = !!document.pictureInPictureEnabled;
     const safariPip = typeof video.webkitSupportsPresentationMode === 'function' && video.webkitSupportsPresentationMode('picture-in-picture');
+    let pipBtn = null;
     if (standardPip || safariPip) {
-      const pipBtn = document.createElement('button');
-      pipBtn.type = 'button';
-      pipBtn.className = 'video-tool-btn video-tool-icon';
+      pipBtn = iconBtn('pipEnter', null);
       const syncPip = () => {
         const active = standardPip ? document.pictureInPictureElement === video : video.webkitPresentationMode === 'picture-in-picture';
         pipBtn.innerHTML = videoIcons[active ? 'pipExit' : 'pipEnter'];
@@ -1334,15 +1303,48 @@ document.addEventListener('DOMContentLoaded', () => {
       video.addEventListener('leavepictureinpicture', () => { video.disablePictureInPicture = true; syncPip(); });
       if (!standardPip) video.addEventListener('webkitpresentationmodechanged', syncPip);
       syncPip();
-      tools.appendChild(pipBtn);
     }
 
-    // Tools stay visible while the video is paused (including before first
-    // play), and otherwise appear on hover/focus.
+    // --- Fullscreen ---
+    const fsBtn = iconBtn('enterFullscreen', null);
+    const syncFullscreen = () => {
+      const isFs = document.fullscreenElement === frame;
+      fsBtn.innerHTML = videoIcons[isFs ? 'exitFullscreen' : 'enterFullscreen'];
+      fsBtn.setAttribute('aria-label', tr(isFs ? 'Exit fullscreen' : 'Enter fullscreen'));
+      fsBtn.title = fsBtn.getAttribute('aria-label');
+    };
+    if (document.fullscreenEnabled) {
+      fsBtn.addEventListener('click', () => {
+        if (document.fullscreenElement === frame) document.exitFullscreen();
+        else frame.requestFullscreen().catch(() => {});
+      });
+      document.addEventListener('fullscreenchange', () => { if (document.fullscreenElement === frame || !document.fullscreenElement) syncFullscreen(); });
+      syncFullscreen();
+    } else {
+      fsBtn.disabled = true;
+      fsBtn.hidden = true;
+    }
+
+    // --- Assemble: one bar, three rows ---
+    const bar = document.createElement('div');
+    bar.className = 'video-bar';
+    const scrubRow = document.createElement('div');
+    scrubRow.className = 'video-bar-row video-bar-row-scrub';
+    scrubRow.append(scrubWrap, timeLabel);
+    const playRow = document.createElement('div');
+    playRow.className = 'video-bar-row video-bar-row-play';
+    playRow.append(skipBackBtn, playBtn, skipForwardBtn);
+    const extrasRow = document.createElement('div');
+    extrasRow.className = 'video-bar-row video-bar-row-extras';
+    extrasRow.append(volWrap, speedWrap, repeatBtn, ...(pipBtn ? [pipBtn] : []), fsBtn);
+    bar.append(scrubRow, playRow, extrasRow);
+    frame.appendChild(bar);
+
+    // Bar stays visible while the video is paused (including before first
+    // play), and otherwise appears on hover/focus.
     const syncVisibility = () => frame.classList.toggle('tools-visible', video.paused);
     ['play', 'pause', 'ended', 'loadedmetadata'].forEach(ev => video.addEventListener(ev, syncVisibility));
     syncVisibility();
-    frame.appendChild(tools);
   });
 
   // Concert tickets tilt toward the pointer.
