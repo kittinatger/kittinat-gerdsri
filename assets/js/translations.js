@@ -392,7 +392,11 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Unmute": "เปิดเสียง",
     "Enter fullscreen": "เข้าสู่โหมดเต็มจอ",
     "Exit fullscreen": "ออกจากโหมดเต็มจอ",
-    "Exit picture in picture": "ออกจากภาพซ้อนภาพ"
+    "Exit picture in picture": "ออกจากภาพซ้อนภาพ",
+    "Back 5 seconds": "ย้อนกลับ 5 วินาที",
+    "Forward 5 seconds": "เดินหน้า 5 วินาที",
+    "Loop on": "เล่นวนซ้ำ เปิด",
+    "Loop off": "เล่นวนซ้ำ ปิด"
   },
   "zh-CN": {
     "Kittinat Gerdsri": "Kittinat Gerdsri",
@@ -787,6 +791,10 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Unmute": "取消静音",
     "Enter fullscreen": "进入全屏",
     "Exit fullscreen": "退出全屏",
-    "Exit picture in picture": "退出画中画"
+    "Exit picture in picture": "退出画中画",
+    "Back 5 seconds": "后退 5 秒",
+    "Forward 5 seconds": "快进 5 秒",
+    "Loop on": "循环播放：开",
+    "Loop off": "循环播放：关"
   }
 };

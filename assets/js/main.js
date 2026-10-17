@@ -1079,6 +1079,9 @@ document.addEventListener('DOMContentLoaded', () => {
     exitFullscreen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4v4H5M15 4v4h4M9 20v-4H5M15 20v-4h4"></path></svg>',
     pipEnter: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.2"></rect><rect x="12.5" y="10.5" width="7" height="5" rx="1.1" fill="currentColor" stroke="none"></rect></svg>',
     pipExit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.2"></rect><path d="M14.5 13l3.5 3.5M18 13l-3.5 3.5" stroke-width="1.8"></path></svg>',
+    skipBack: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12a7 7 0 1 1 2.1 5"></path><path d="M5 7.5v4h4"></path><text x="12.8" y="15.1" font-size="8" font-family="inherit" font-weight="700" stroke="none" fill="currentColor">5</text></svg>',
+    skipForward: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12a7 7 0 1 0-2.1 5"></path><path d="M19 7.5v4h-4"></path><text x="7" y="15.1" font-size="8" font-family="inherit" font-weight="700" stroke="none" fill="currentColor">5</text></svg>',
+    repeat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h9a4 4 0 0 1 4 4v1"></path><path d="M4.5 5.5L6 7 4.5 8.5"></path><path d="M18 17H9a4 4 0 0 1-4-4v-1"></path><path d="M19.5 18.5L18 17l1.5-1.5"></path></svg>',
   };
   const formatTime = (s) => {
     if (!Number.isFinite(s)) return '0:00';
@@ -1111,6 +1114,22 @@ document.addEventListener('DOMContentLoaded', () => {
     video.addEventListener('play', syncPlay);
     video.addEventListener('pause', syncPlay);
     syncPlay();
+
+    const skipBtn = (dir) => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'video-tool-btn video-tool-icon skip-hide-xs';
+      btn.innerHTML = videoIcons[dir === -1 ? 'skipBack' : 'skipForward'];
+      btn.setAttribute('aria-label', tr(dir === -1 ? 'Back 5 seconds' : 'Forward 5 seconds'));
+      btn.title = btn.getAttribute('aria-label');
+      btn.addEventListener('click', () => {
+        if (!Number.isFinite(video.duration)) return;
+        video.currentTime = Math.min(video.duration, Math.max(0, video.currentTime + dir * 5));
+      });
+      return btn;
+    };
+    const skipBackBtn = skipBtn(-1);
+    const skipForwardBtn = skipBtn(1);
 
     const scrubWrap = document.createElement('div');
     scrubWrap.className = 'video-scrub';
@@ -1184,6 +1203,20 @@ document.addEventListener('DOMContentLoaded', () => {
     syncVolume();
     volWrap.append(volBtn, volSlider);
 
+    const repeatBtn = document.createElement('button');
+    repeatBtn.type = 'button';
+    repeatBtn.className = 'video-tool-btn video-tool-icon';
+    repeatBtn.innerHTML = videoIcons.repeat;
+    repeatBtn.setAttribute('aria-pressed', 'false');
+    const syncRepeat = () => {
+      repeatBtn.classList.toggle('is-active', video.loop);
+      repeatBtn.setAttribute('aria-pressed', String(video.loop));
+      repeatBtn.setAttribute('aria-label', tr(video.loop ? 'Loop on' : 'Loop off'));
+      repeatBtn.title = repeatBtn.getAttribute('aria-label');
+    };
+    repeatBtn.addEventListener('click', () => { video.loop = !video.loop; syncRepeat(); });
+    syncRepeat();
+
     const fsBtn = document.createElement('button');
     fsBtn.type = 'button';
     fsBtn.className = 'video-tool-btn video-tool-icon';
@@ -1205,7 +1238,7 @@ document.addEventListener('DOMContentLoaded', () => {
       fsBtn.hidden = true;
     }
 
-    bar.append(playBtn, scrubWrap, timeLabel, volWrap, fsBtn);
+    bar.append(skipBackBtn, playBtn, skipForwardBtn, scrubWrap, timeLabel, volWrap, repeatBtn, fsBtn);
     frame.appendChild(bar);
     video.addEventListener('click', () => { video.paused ? video.play() : video.pause(); });
 
