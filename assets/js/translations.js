@@ -391,7 +391,8 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Mute": "ปิดเสียง",
     "Unmute": "เปิดเสียง",
     "Enter fullscreen": "เข้าสู่โหมดเต็มจอ",
-    "Exit fullscreen": "ออกจากโหมดเต็มจอ"
+    "Exit fullscreen": "ออกจากโหมดเต็มจอ",
+    "Exit picture in picture": "ออกจากภาพซ้อนภาพ"
   },
   "zh-CN": {
     "Kittinat Gerdsri": "Kittinat Gerdsri",
@@ -785,6 +786,7 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Mute": "静音",
     "Unmute": "取消静音",
     "Enter fullscreen": "进入全屏",
-    "Exit fullscreen": "退出全屏"
+    "Exit fullscreen": "退出全屏",
+    "Exit picture in picture": "退出画中画"
   }
 };

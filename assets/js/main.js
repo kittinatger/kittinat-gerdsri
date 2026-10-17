@@ -1077,6 +1077,8 @@ document.addEventListener('DOMContentLoaded', () => {
     volumeMuted: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5v5h4l5 4v-13l-5 4H3z" fill="currentColor" stroke="none"></path><path d="M15.5 9.5l5 5M20.5 9.5l-5 5"></path></svg>',
     enterFullscreen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4"></path></svg>',
     exitFullscreen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4v4H5M15 4v4h4M9 20v-4H5M15 20v-4h4"></path></svg>',
+    pipEnter: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.2"></rect><rect x="12.5" y="10.5" width="7" height="5" rx="1.1" fill="currentColor" stroke="none"></rect></svg>',
+    pipExit: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.2"></rect><path d="M14.5 13l3.5 3.5M18 13l-3.5 3.5" stroke-width="1.8"></path></svg>',
   };
   const formatTime = (s) => {
     if (!Number.isFinite(s)) return '0:00';
@@ -1265,9 +1267,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const pipBtn = document.createElement('button');
       pipBtn.type = 'button';
       pipBtn.className = 'video-tool-btn video-tool-icon';
-      pipBtn.setAttribute('aria-label', tr('Picture in picture'));
-      pipBtn.title = tr('Picture in picture');
-      pipBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"></rect><rect x="12" y="11" width="7" height="5" rx="1.2" fill="currentColor" stroke="none"></rect></svg>';
+      const syncPip = () => {
+        const active = standardPip ? document.pictureInPictureElement === video : video.webkitPresentationMode === 'picture-in-picture';
+        pipBtn.innerHTML = videoIcons[active ? 'pipExit' : 'pipEnter'];
+        pipBtn.setAttribute('aria-label', tr(active ? 'Exit picture in picture' : 'Picture in picture'));
+        pipBtn.title = pipBtn.getAttribute('aria-label');
+      };
       pipBtn.addEventListener('click', async () => {
         try {
           if (standardPip) {
@@ -1286,7 +1291,10 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       // Keep the native PiP entry hidden again once we leave PiP (setting it
       // while in PiP would close the window).
-      video.addEventListener('leavepictureinpicture', () => { video.disablePictureInPicture = true; });
+      video.addEventListener('enterpictureinpicture', syncPip);
+      video.addEventListener('leavepictureinpicture', () => { video.disablePictureInPicture = true; syncPip(); });
+      if (!standardPip) video.addEventListener('webkitpresentationmodechanged', syncPip);
+      syncPip();
       tools.appendChild(pipBtn);
     }
 
