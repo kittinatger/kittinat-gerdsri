@@ -1118,7 +1118,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const skipBtn = (dir) => {
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'video-tool-btn video-tool-icon skip-hide-xs';
+      btn.className = 'video-tool-btn video-tool-icon';
       btn.innerHTML = videoIcons[dir === -1 ? 'skipBack' : 'skipForward'];
       btn.setAttribute('aria-label', tr(dir === -1 ? 'Back 5 seconds' : 'Forward 5 seconds'));
       btn.title = btn.getAttribute('aria-label');
@@ -1238,7 +1238,13 @@ document.addEventListener('DOMContentLoaded', () => {
       fsBtn.hidden = true;
     }
 
-    bar.append(skipBackBtn, playBtn, skipForwardBtn, scrubWrap, timeLabel, volWrap, repeatBtn, fsBtn);
+    const scrubRow = document.createElement('div');
+    scrubRow.className = 'video-bar-row video-bar-row-scrub';
+    scrubRow.append(scrubWrap, timeLabel);
+    const controlsRow = document.createElement('div');
+    controlsRow.className = 'video-bar-row video-bar-row-controls';
+    controlsRow.append(skipBackBtn, playBtn, skipForwardBtn, volWrap, repeatBtn, fsBtn);
+    bar.append(scrubRow, controlsRow);
     frame.appendChild(bar);
     video.addEventListener('click', () => { video.paused ? video.play() : video.pause(); });
 

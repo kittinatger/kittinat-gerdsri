@@ -2093,6 +2093,9 @@ html[data-sticky-navbar="true"] .site-header {
 
 /* Custom bottom control bar (play/pause, scrub, time, volume, fullscreen),
    replacing the native one entirely. Same glass-pill language as .video-tools. */
+/* Two rows — scrub+time on top, buttons below — rather than cramming
+   skip/play/volume/repeat/fullscreen plus the scrubber into one line,
+   which overflowed narrow phones. */
 .video-bar {
   position: absolute;
   left: 10px;
@@ -2100,10 +2103,10 @@ html[data-sticky-navbar="true"] .site-header {
   bottom: 10px;
   z-index: 3;
   display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 10px;
-  border-radius: 999px;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px 9px;
+  border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.22);
   background: rgba(10, 17, 32, 0.62);
   -webkit-backdrop-filter: blur(12px);
@@ -2112,6 +2115,9 @@ html[data-sticky-navbar="true"] .site-header {
   transform: translateY(6px);
   transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
+.video-bar-row { display: flex; align-items: center; min-width: 0; }
+.video-bar-row-scrub { gap: 10px; }
+.video-bar-row-controls { justify-content: space-between; gap: 4px; }
 .video-frame:hover .video-bar,
 .video-frame:focus-within .video-bar,
 .video-frame.tools-visible .video-bar { opacity: 1; transform: none; }
@@ -2187,14 +2193,11 @@ html[data-sticky-navbar="true"] .site-header {
   .video-volume:focus-within .video-volume-slider { width: 64px; opacity: 1; }
 }
 @media (max-width: 760px) {
-  .video-bar { left: 6px; right: 6px; bottom: 6px; padding: 5px 6px; gap: 3px; }
-  .video-time { font-size: 0.6rem; }
+  .video-bar { left: 6px; right: 6px; bottom: 6px; padding: 6px 8px 7px; gap: 3px; }
+  .video-time { font-size: 0.64rem; }
   .video-volume-slider { display: none; }
-  .video-bar .video-tool-icon { width: 28px; height: 34px; }
+  .video-bar .video-tool-icon { width: 30px; height: 30px; }
   .video-bar .video-tool-icon svg { width: 15px; height: 15px; }
-}
-@media (max-width: 380px) {
-  .video-bar .skip-hide-xs { display: none; }
 }
 .video-tool-btn.is-active { background: rgba(29, 79, 156, 0.85); border-color: rgba(255, 255, 255, 0.45); }
 .video-row .video-frame video { height: 100%; object-fit: cover; }
