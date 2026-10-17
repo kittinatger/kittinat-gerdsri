@@ -1526,4 +1526,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
   document.addEventListener('touchcancel', () => { backReset(); fwdReset(); });
+
+  const toTopBtn = document.querySelector('.footer-to-top');
+  if (toTopBtn) {
+    toTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
 });
