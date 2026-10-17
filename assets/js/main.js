@@ -1064,14 +1064,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Video players get one unified bottom control bar (three rows: scrub+time,
-  // then play/skip, then volume/speed/repeat/PiP/fullscreen) instead of the
-  // native controls. Previously speed+PiP lived in a separate floating pill
-  // in the top-right; that's folded into the same bar now, so there's a
-  // single piece of UI instead of two disconnected ones. Icons are drawn
-  // from scratch rather than using Apple's SF Symbols glyphs, which aren't
-  // licensed for use outside Apple-platform UI; explicit width/height
-  // attributes (not just CSS) keep them sized correctly on every browser.
+  // Video player: a minimal overlay over the video itself — a thin progress
+  // line at the bottom edge with the time tucked in the corner, a big
+  // centered play/pause flanked by skip ±5s, and small volume/fullscreen/PiP
+  // buttons in the top-right. No native controls, no speed or repeat
+  // controls. Icons are drawn from scratch rather than using Apple's SF
+  // Symbols glyphs, which aren't licensed for use outside Apple-platform UI;
+  // explicit width/height attributes (not just CSS) keep them sized
+  // correctly on every browser.
   const videoIcons = {
     play: '<svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true"><path d="M7 4.5v15l13-7.5z" fill="currentColor"></path></svg>',
     pause: '<svg viewBox="0 0 24 24" width="100%" height="100%" aria-hidden="true"><rect x="6" y="4.5" width="4.2" height="15" rx="1" fill="currentColor"></rect><rect x="13.8" y="4.5" width="4.2" height="15" rx="1" fill="currentColor"></rect></svg>',
@@ -1087,7 +1087,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // rendered inconsistently across devices.
     skipBack: '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 1 2.25 5.35"></path><path d="M4.5 7v4.3h4.3"></path><path d="M13.3 10.1h2.1v6.4"></path><path d="M12.9 16.5h3.1" stroke-width="1.6"></path></svg>',
     skipForward: '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 12a7.5 7.5 0 1 0-2.25 5.35"></path><path d="M19.5 7v4.3h-4.3"></path><path d="M7.6 10.1h2.1v6.4"></path><path d="M7.2 16.5h3.1" stroke-width="1.6"></path></svg>',
-    repeat: '<svg viewBox="0 0 24 24" width="100%" height="100%" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h9a4 4 0 0 1 4 4v1"></path><path d="M4.5 5.5L6 7 4.5 8.5"></path><path d="M18 17H9a4 4 0 0 1-4-4v-1"></path><path d="M19.5 18.5L18 17l1.5-1.5"></path></svg>',
   };
   const formatTime = (s) => {
     if (!Number.isFinite(s)) return '0:00';
@@ -1103,18 +1102,32 @@ document.addEventListener('DOMContentLoaded', () => {
     video.disablePictureInPicture = true;
     frame.classList.add('has-custom-controls');
 
-    const iconBtn = (iconKey, labelKey) => {
+    const iconBtn = (cls, iconKey) => {
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'video-tool-btn video-tool-icon';
+      btn.className = cls;
       if (iconKey) btn.innerHTML = videoIcons[iconKey];
-      if (labelKey) { btn.setAttribute('aria-label', tr(labelKey)); btn.title = tr(labelKey); }
       return btn;
     };
 
-    // --- Play / pause ---
-    const playBtn = iconBtn('play', null);
-    playBtn.classList.add('video-play-btn');
+    // --- Center cluster: skip back, play/pause, skip forward ---
+    const centerRow = document.createElement('div');
+    centerRow.className = 'video-center';
+
+    const makeSkipBtn = (dir) => {
+      const btn = iconBtn('video-skip-btn', dir === -1 ? 'skipBack' : 'skipForward');
+      btn.setAttribute('aria-label', tr(dir === -1 ? 'Back 5 seconds' : 'Forward 5 seconds'));
+      btn.title = btn.getAttribute('aria-label');
+      btn.addEventListener('click', () => {
+        if (!Number.isFinite(video.duration)) return;
+        video.currentTime = Math.min(video.duration, Math.max(0, video.currentTime + dir * 5));
+      });
+      return btn;
+    };
+    const skipBackBtn = makeSkipBtn(-1);
+    const skipForwardBtn = makeSkipBtn(1);
+
+    const playBtn = iconBtn('video-play-btn', 'play');
     const syncPlay = () => {
       playBtn.innerHTML = video.paused ? videoIcons.play : videoIcons.pause;
       playBtn.setAttribute('aria-label', tr(video.paused ? 'Play' : 'Pause'));
@@ -1126,19 +1139,78 @@ document.addEventListener('DOMContentLoaded', () => {
     syncPlay();
     video.addEventListener('click', () => { video.paused ? video.play() : video.pause(); });
 
-    // --- Skip back/forward 5s ---
-    const makeSkipBtn = (dir) => {
-      const btn = iconBtn(dir === -1 ? 'skipBack' : 'skipForward', dir === -1 ? 'Back 5 seconds' : 'Forward 5 seconds');
-      btn.addEventListener('click', () => {
-        if (!Number.isFinite(video.duration)) return;
-        video.currentTime = Math.min(video.duration, Math.max(0, video.currentTime + dir * 5));
-      });
-      return btn;
-    };
-    const skipBackBtn = makeSkipBtn(-1);
-    const skipForwardBtn = makeSkipBtn(1);
+    centerRow.append(skipBackBtn, playBtn, skipForwardBtn);
 
-    // --- Scrubber + time ---
+    // --- Top-right: volume, PiP (if supported), fullscreen ---
+    const topRow = document.createElement('div');
+    topRow.className = 'video-top';
+
+    const volBtn = iconBtn('video-tool-btn', 'volumeHigh');
+    const syncVolume = () => {
+      const icon = video.muted || video.volume === 0 ? 'volumeMuted' : video.volume < 0.5 ? 'volumeLow' : 'volumeHigh';
+      volBtn.innerHTML = videoIcons[icon];
+      volBtn.setAttribute('aria-label', tr(video.muted || video.volume === 0 ? 'Unmute' : 'Mute'));
+      volBtn.title = volBtn.getAttribute('aria-label');
+    };
+    volBtn.addEventListener('click', () => { video.muted = !video.muted; if (!video.muted && video.volume === 0) video.volume = 1; syncVolume(); });
+    video.addEventListener('volumechange', syncVolume);
+    syncVolume();
+    topRow.appendChild(volBtn);
+
+    const standardPip = !!document.pictureInPictureEnabled;
+    const safariPip = typeof video.webkitSupportsPresentationMode === 'function' && video.webkitSupportsPresentationMode('picture-in-picture');
+    if (standardPip || safariPip) {
+      const pipBtn = iconBtn('video-tool-btn', 'pipEnter');
+      const syncPip = () => {
+        const active = standardPip ? document.pictureInPictureElement === video : video.webkitPresentationMode === 'picture-in-picture';
+        pipBtn.innerHTML = videoIcons[active ? 'pipExit' : 'pipEnter'];
+        pipBtn.setAttribute('aria-label', tr(active ? 'Exit picture in picture' : 'Picture in picture'));
+        pipBtn.title = pipBtn.getAttribute('aria-label');
+      };
+      pipBtn.addEventListener('click', async () => {
+        try {
+          if (standardPip) {
+            if (document.pictureInPictureElement === video) {
+              await document.exitPictureInPicture();
+            } else {
+              video.disablePictureInPicture = false;
+              await video.requestPictureInPicture();
+            }
+          } else {
+            video.webkitSetPresentationMode(video.webkitPresentationMode === 'picture-in-picture' ? 'inline' : 'picture-in-picture');
+          }
+        } catch (err) {
+          video.disablePictureInPicture = true;
+        }
+      });
+      video.addEventListener('enterpictureinpicture', syncPip);
+      video.addEventListener('leavepictureinpicture', () => { video.disablePictureInPicture = true; syncPip(); });
+      if (!standardPip) video.addEventListener('webkitpresentationmodechanged', syncPip);
+      syncPip();
+      topRow.appendChild(pipBtn);
+    }
+
+    const fsBtn = iconBtn('video-tool-btn', 'enterFullscreen');
+    const syncFullscreen = () => {
+      const isFs = document.fullscreenElement === frame;
+      fsBtn.innerHTML = videoIcons[isFs ? 'exitFullscreen' : 'enterFullscreen'];
+      fsBtn.setAttribute('aria-label', tr(isFs ? 'Exit fullscreen' : 'Enter fullscreen'));
+      fsBtn.title = fsBtn.getAttribute('aria-label');
+    };
+    if (document.fullscreenEnabled) {
+      fsBtn.addEventListener('click', () => {
+        if (document.fullscreenElement === frame) document.exitFullscreen();
+        else frame.requestFullscreen().catch(() => {});
+      });
+      document.addEventListener('fullscreenchange', () => { if (document.fullscreenElement === frame || !document.fullscreenElement) syncFullscreen(); });
+      syncFullscreen();
+      topRow.appendChild(fsBtn);
+    }
+
+    // --- Bottom: thin full-width scrub line + time in the corner ---
+    const bottomRow = document.createElement('div');
+    bottomRow.className = 'video-bottom';
+
     const scrubWrap = document.createElement('div');
     scrubWrap.className = 'video-scrub';
     scrubWrap.setAttribute('role', 'slider');
@@ -1183,165 +1255,15 @@ document.addEventListener('DOMContentLoaded', () => {
     ['timeupdate', 'loadedmetadata', 'durationchange'].forEach(ev => video.addEventListener(ev, syncTime));
     syncTime();
 
-    // --- Volume ---
-    const volWrap = document.createElement('div');
-    volWrap.className = 'video-volume';
-    const volBtn = iconBtn('volumeHigh', null);
-    const volSlider = document.createElement('input');
-    volSlider.type = 'range';
-    volSlider.className = 'video-volume-slider';
-    volSlider.min = '0';
-    volSlider.max = '100';
-    volSlider.setAttribute('aria-label', tr('Volume'));
-    const syncVolume = () => {
-      const icon = video.muted || video.volume === 0 ? 'volumeMuted' : video.volume < 0.5 ? 'volumeLow' : 'volumeHigh';
-      volBtn.innerHTML = videoIcons[icon];
-      volBtn.setAttribute('aria-label', tr(video.muted || video.volume === 0 ? 'Unmute' : 'Mute'));
-      volBtn.title = volBtn.getAttribute('aria-label');
-      volSlider.value = String(video.muted ? 0 : Math.round(video.volume * 100));
-    };
-    volBtn.addEventListener('click', () => { video.muted = !video.muted; if (!video.muted && video.volume === 0) video.volume = 1; syncVolume(); });
-    volSlider.addEventListener('input', () => {
-      video.volume = Number(volSlider.value) / 100;
-      video.muted = video.volume === 0;
-      syncVolume();
-    });
-    video.addEventListener('volumechange', syncVolume);
-    syncVolume();
-    volWrap.append(volBtn, volSlider);
+    bottomRow.append(scrubWrap, timeLabel);
 
-    // --- Playback speed (popup pill, same pattern as before) ---
-    const speeds = [0.5, 0.75, 1, 1.25, 1.5, 2];
-    const speedWrap = document.createElement('div');
-    speedWrap.className = 'video-speed';
-    const speedBtn = document.createElement('button');
-    speedBtn.type = 'button';
-    speedBtn.className = 'video-tool-btn';
-    speedBtn.setAttribute('aria-haspopup', 'true');
-    speedBtn.setAttribute('aria-expanded', 'false');
-    speedBtn.setAttribute('aria-label', tr('Playback speed'));
-    speedBtn.title = speedBtn.getAttribute('aria-label');
-    const speedMenu = document.createElement('div');
-    speedMenu.className = 'video-speed-menu';
-    speedMenu.hidden = true;
-    const optionBtns = speeds.map(rate => {
-      const opt = document.createElement('button');
-      opt.type = 'button';
-      opt.className = 'video-speed-option';
-      opt.textContent = rate + '×';
-      opt.addEventListener('click', () => {
-        video.playbackRate = rate;
-        closeSpeedMenu();
-        speedBtn.focus();
-      });
-      speedMenu.appendChild(opt);
-      return { rate, opt };
-    });
-    const syncSpeed = () => {
-      speedBtn.textContent = video.playbackRate + '×';
-      optionBtns.forEach(({ rate, opt }) => opt.classList.toggle('is-active', rate === video.playbackRate));
-    };
-    const closeSpeedMenu = () => {
-      speedMenu.hidden = true;
-      speedBtn.setAttribute('aria-expanded', 'false');
-    };
-    speedBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const open = speedMenu.hidden;
-      speedMenu.hidden = !open;
-      speedBtn.setAttribute('aria-expanded', String(open));
-    });
-    document.addEventListener('click', (e) => { if (!speedWrap.contains(e.target)) closeSpeedMenu(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSpeedMenu(); });
-    video.addEventListener('ratechange', syncSpeed);
-    syncSpeed();
-    speedWrap.append(speedBtn, speedMenu);
+    const overlay = document.createElement('div');
+    overlay.className = 'video-overlay';
+    overlay.append(topRow, centerRow, bottomRow);
+    frame.appendChild(overlay);
 
-    // --- Repeat/loop toggle ---
-    const repeatBtn = iconBtn('repeat', null);
-    repeatBtn.setAttribute('aria-pressed', 'false');
-    const syncRepeat = () => {
-      repeatBtn.classList.toggle('is-active', video.loop);
-      repeatBtn.setAttribute('aria-pressed', String(video.loop));
-      repeatBtn.setAttribute('aria-label', tr(video.loop ? 'Loop on' : 'Loop off'));
-      repeatBtn.title = repeatBtn.getAttribute('aria-label');
-    };
-    repeatBtn.addEventListener('click', () => { video.loop = !video.loop; syncRepeat(); });
-    syncRepeat();
-
-    // --- Picture in picture (only where the browser supports it) ---
-    const standardPip = !!document.pictureInPictureEnabled;
-    const safariPip = typeof video.webkitSupportsPresentationMode === 'function' && video.webkitSupportsPresentationMode('picture-in-picture');
-    let pipBtn = null;
-    if (standardPip || safariPip) {
-      pipBtn = iconBtn('pipEnter', null);
-      const syncPip = () => {
-        const active = standardPip ? document.pictureInPictureElement === video : video.webkitPresentationMode === 'picture-in-picture';
-        pipBtn.innerHTML = videoIcons[active ? 'pipExit' : 'pipEnter'];
-        pipBtn.setAttribute('aria-label', tr(active ? 'Exit picture in picture' : 'Picture in picture'));
-        pipBtn.title = pipBtn.getAttribute('aria-label');
-      };
-      pipBtn.addEventListener('click', async () => {
-        try {
-          if (standardPip) {
-            if (document.pictureInPictureElement === video) {
-              await document.exitPictureInPicture();
-            } else {
-              video.disablePictureInPicture = false;
-              await video.requestPictureInPicture();
-            }
-          } else {
-            video.webkitSetPresentationMode(video.webkitPresentationMode === 'picture-in-picture' ? 'inline' : 'picture-in-picture');
-          }
-        } catch (err) {
-          video.disablePictureInPicture = true;
-        }
-      });
-      // Keep the native PiP entry hidden again once we leave PiP (setting it
-      // while in PiP would close the window).
-      video.addEventListener('enterpictureinpicture', syncPip);
-      video.addEventListener('leavepictureinpicture', () => { video.disablePictureInPicture = true; syncPip(); });
-      if (!standardPip) video.addEventListener('webkitpresentationmodechanged', syncPip);
-      syncPip();
-    }
-
-    // --- Fullscreen ---
-    const fsBtn = iconBtn('enterFullscreen', null);
-    const syncFullscreen = () => {
-      const isFs = document.fullscreenElement === frame;
-      fsBtn.innerHTML = videoIcons[isFs ? 'exitFullscreen' : 'enterFullscreen'];
-      fsBtn.setAttribute('aria-label', tr(isFs ? 'Exit fullscreen' : 'Enter fullscreen'));
-      fsBtn.title = fsBtn.getAttribute('aria-label');
-    };
-    if (document.fullscreenEnabled) {
-      fsBtn.addEventListener('click', () => {
-        if (document.fullscreenElement === frame) document.exitFullscreen();
-        else frame.requestFullscreen().catch(() => {});
-      });
-      document.addEventListener('fullscreenchange', () => { if (document.fullscreenElement === frame || !document.fullscreenElement) syncFullscreen(); });
-      syncFullscreen();
-    } else {
-      fsBtn.disabled = true;
-      fsBtn.hidden = true;
-    }
-
-    // --- Assemble: one bar, three rows ---
-    const bar = document.createElement('div');
-    bar.className = 'video-bar';
-    const scrubRow = document.createElement('div');
-    scrubRow.className = 'video-bar-row video-bar-row-scrub';
-    scrubRow.append(scrubWrap, timeLabel);
-    const playRow = document.createElement('div');
-    playRow.className = 'video-bar-row video-bar-row-play';
-    playRow.append(skipBackBtn, playBtn, skipForwardBtn);
-    const extrasRow = document.createElement('div');
-    extrasRow.className = 'video-bar-row video-bar-row-extras';
-    extrasRow.append(volWrap, speedWrap, repeatBtn, ...(pipBtn ? [pipBtn] : []), fsBtn);
-    bar.append(scrubRow, playRow, extrasRow);
-    frame.appendChild(bar);
-
-    // Bar stays visible while the video is paused (including before first
-    // play), and otherwise appears on hover/focus.
+    // Overlay stays visible while the video is paused (including before
+    // first play), and otherwise appears on hover/focus.
     const syncVisibility = () => frame.classList.toggle('tools-visible', video.paused);
     ['play', 'pause', 'ended', 'loadedmetadata'].forEach(ev => video.addEventListener(ev, syncVisibility));
     syncVisibility();
