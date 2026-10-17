@@ -2977,37 +2977,56 @@ a.chip:active { transform: scale(0.95); }
 .footer-bottom {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 6px 14px;
   padding-top: 22px;
   font-size: 0.82rem;
   color: var(--ink-soft);
 }
-.footer-bottom-left { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 14px; }
 .footer-bottom-legal { display: flex; gap: 8px; }
 .footer-bottom-legal a { color: var(--ink-soft); transition: color 0.2s ease, opacity 0.15s ease; }
 .footer-bottom-legal a:active { opacity: 0.6; }
 @media (hover: hover) and (pointer: fine) {
   .footer-bottom-legal a:hover { color: var(--heading); }
 }
-.footer-to-top {
+
+/* Floating back-to-top button: its own glass pill in the corner, same
+   treatment as the header, rather than a stray icon sitting in the
+   footer's text row. Hidden until the page has scrolled some distance
+   (toggled via .is-visible in main.js). */
+.back-to-top {
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  bottom: clamp(16px, 3vw, 28px);
+  z-index: 150;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex: none;
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  border: 1px solid var(--line);
-  color: var(--ink-soft);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  box-shadow: var(--shadow-soft), var(--glass-shadow);
+  backdrop-filter: saturate(220%) blur(16px);
+  -webkit-backdrop-filter: saturate(220%) blur(16px);
+  color: var(--navy);
   cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s, background 0.2s ease;
 }
-.footer-to-top svg { display: block; width: 15px; height: 15px; }
-.footer-to-top:active { transform: scale(0.9); }
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0s, background 0.2s ease;
+}
+.back-to-top svg { display: block; width: 18px; height: 18px; }
+.back-to-top:active { transform: scale(0.92); }
 @media (hover: hover) and (pointer: fine) {
-  .footer-to-top:hover { color: var(--navy); border-color: var(--navy); background: var(--nav-hover-bg); }
+  .back-to-top:hover { background: var(--nav-hover-bg); }
 }
 
 /* ---------- Responsive ---------- */
@@ -3098,7 +3117,6 @@ a.chip:active { transform: scale(0.95); }
 @media (max-width: 560px) {
   /* discipline-grid handled by its own breakpoints above */
   .gallery { grid-template-columns: repeat(2, 1fr); }
-  .footer-bottom { justify-content: flex-start; }
 }
 
 /* ---------- Touch: a tap plays the hover animation ----------

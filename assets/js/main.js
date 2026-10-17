@@ -1527,10 +1527,15 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   document.addEventListener('touchcancel', () => { backReset(); fwdReset(); });
 
-  const toTopBtn = document.querySelector('.footer-to-top');
+  const toTopBtn = document.querySelector('.back-to-top');
   if (toTopBtn) {
     toTopBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+    const toggleToTop = () => {
+      toTopBtn.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.6);
+    };
+    toggleToTop();
+    window.addEventListener('scroll', toggleToTop, { passive: true });
   }
 });
