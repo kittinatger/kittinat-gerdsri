@@ -1064,14 +1064,148 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Video player extras. The native three-dot menu is stripped of Download,
-  // Playback speed and Picture-in-picture (those can't be restyled), and our
-  // own glass buttons for speed and PiP sit in the top-right of the frame.
-  document.querySelectorAll('.video-frame video[controls]').forEach(video => {
+  // Video players get a fully custom control bar (play/pause, scrubber,
+  // time, volume, fullscreen) instead of the native one, plus the existing
+  // glass speed/PiP pill in the top-right. Icons below are drawn from
+  // scratch rather than using Apple's SF Symbols glyphs, which aren't
+  // licensed for use outside Apple-platform UI.
+  const videoIcons = {
+    play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z" fill="currentColor"></path></svg>',
+    pause: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="4.5" width="4.2" height="15" rx="1" fill="currentColor"></rect><rect x="13.8" y="4.5" width="4.2" height="15" rx="1" fill="currentColor"></rect></svg>',
+    volumeHigh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5v5h4l5 4v-13l-5 4H3z" fill="currentColor" stroke="none"></path><path d="M16.2 8.3a5.6 5.6 0 0 1 0 7.4"></path><path d="M19 5.5a9.6 9.6 0 0 1 0 13"></path></svg>',
+    volumeLow: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5v5h4l5 4v-13l-5 4H3z" fill="currentColor" stroke="none"></path><path d="M16.2 8.3a5.6 5.6 0 0 1 0 7.4"></path></svg>',
+    volumeMuted: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5v5h4l5 4v-13l-5 4H3z" fill="currentColor" stroke="none"></path><path d="M15.5 9.5l5 5M20.5 9.5l-5 5"></path></svg>',
+    enterFullscreen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V5h4M20 9V5h-4M4 15v4h4M20 15v4h-4"></path></svg>',
+    exitFullscreen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4v4H5M15 4v4h4M9 20v-4H5M15 20v-4h4"></path></svg>',
+  };
+  const formatTime = (s) => {
+    if (!Number.isFinite(s)) return '0:00';
+    s = Math.max(0, Math.round(s));
+    const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), sec = s % 60;
+    const mm = h ? String(m).padStart(2, '0') : String(m);
+    return (h ? h + ':' : '') + mm + ':' + String(sec).padStart(2, '0');
+  };
+  document.querySelectorAll('.video-frame video').forEach(video => {
     const frame = video.closest('.video-frame');
     if (!frame) return;
-    video.setAttribute('controlsList', 'nodownload noplaybackrate');
+    video.removeAttribute('controls');
     video.disablePictureInPicture = true;
+    frame.classList.add('has-custom-controls');
+
+    // --- Bottom control bar: play/pause, scrubber, time, volume, fullscreen ---
+    const bar = document.createElement('div');
+    bar.className = 'video-bar';
+
+    const playBtn = document.createElement('button');
+    playBtn.type = 'button';
+    playBtn.className = 'video-tool-btn video-tool-icon video-play-btn';
+    playBtn.innerHTML = videoIcons.play;
+    const syncPlay = () => {
+      playBtn.innerHTML = video.paused ? videoIcons.play : videoIcons.pause;
+      playBtn.setAttribute('aria-label', tr(video.paused ? 'Play' : 'Pause'));
+      playBtn.title = tr(video.paused ? 'Play' : 'Pause');
+    };
+    playBtn.addEventListener('click', () => { video.paused ? video.play() : video.pause(); });
+    video.addEventListener('play', syncPlay);
+    video.addEventListener('pause', syncPlay);
+    syncPlay();
+
+    const scrubWrap = document.createElement('div');
+    scrubWrap.className = 'video-scrub';
+    scrubWrap.setAttribute('role', 'slider');
+    scrubWrap.tabIndex = 0;
+    scrubWrap.setAttribute('aria-label', tr('Seek'));
+    scrubWrap.setAttribute('aria-valuemin', '0');
+    const scrubFill = document.createElement('div');
+    scrubFill.className = 'video-scrub-fill';
+    const scrubThumb = document.createElement('div');
+    scrubThumb.className = 'video-scrub-thumb';
+    scrubWrap.append(scrubFill, scrubThumb);
+    const seekTo = (clientX) => {
+      const r = scrubWrap.getBoundingClientRect();
+      const ratio = Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+      if (Number.isFinite(video.duration)) video.currentTime = ratio * video.duration;
+    };
+    let scrubbing = false;
+    scrubWrap.addEventListener('pointerdown', (e) => {
+      scrubbing = true;
+      seekTo(e.clientX);
+      try { scrubWrap.setPointerCapture(e.pointerId); } catch (err) { /* synthetic/invalid pointer id */ }
+    });
+    scrubWrap.addEventListener('pointermove', (e) => { if (scrubbing) seekTo(e.clientX); });
+    scrubWrap.addEventListener('pointerup', () => { scrubbing = false; });
+    scrubWrap.addEventListener('keydown', (e) => {
+      if (!Number.isFinite(video.duration)) return;
+      if (e.key === 'ArrowRight') { video.currentTime = Math.min(video.duration, video.currentTime + 5); e.preventDefault(); }
+      else if (e.key === 'ArrowLeft') { video.currentTime = Math.max(0, video.currentTime - 5); e.preventDefault(); }
+    });
+
+    const timeLabel = document.createElement('span');
+    timeLabel.className = 'video-time';
+    const syncTime = () => {
+      const dur = video.duration;
+      const ratio = Number.isFinite(dur) && dur > 0 ? video.currentTime / dur : 0;
+      scrubFill.style.width = (ratio * 100) + '%';
+      scrubThumb.style.left = (ratio * 100) + '%';
+      scrubWrap.setAttribute('aria-valuemax', Number.isFinite(dur) ? String(Math.round(dur)) : '0');
+      scrubWrap.setAttribute('aria-valuenow', String(Math.round(video.currentTime)));
+      timeLabel.textContent = formatTime(video.currentTime) + ' / ' + formatTime(dur);
+    };
+    ['timeupdate', 'loadedmetadata', 'durationchange'].forEach(ev => video.addEventListener(ev, syncTime));
+    syncTime();
+
+    const volWrap = document.createElement('div');
+    volWrap.className = 'video-volume';
+    const volBtn = document.createElement('button');
+    volBtn.type = 'button';
+    volBtn.className = 'video-tool-btn video-tool-icon';
+    const volSlider = document.createElement('input');
+    volSlider.type = 'range';
+    volSlider.className = 'video-volume-slider';
+    volSlider.min = '0';
+    volSlider.max = '100';
+    volSlider.setAttribute('aria-label', tr('Volume'));
+    const syncVolume = () => {
+      const icon = video.muted || video.volume === 0 ? 'volumeMuted' : video.volume < 0.5 ? 'volumeLow' : 'volumeHigh';
+      volBtn.innerHTML = videoIcons[icon];
+      volBtn.setAttribute('aria-label', tr(video.muted || video.volume === 0 ? 'Unmute' : 'Mute'));
+      volBtn.title = volBtn.getAttribute('aria-label');
+      volSlider.value = String(video.muted ? 0 : Math.round(video.volume * 100));
+    };
+    volBtn.addEventListener('click', () => { video.muted = !video.muted; if (!video.muted && video.volume === 0) video.volume = 1; syncVolume(); });
+    volSlider.addEventListener('input', () => {
+      video.volume = Number(volSlider.value) / 100;
+      video.muted = video.volume === 0;
+      syncVolume();
+    });
+    video.addEventListener('volumechange', syncVolume);
+    syncVolume();
+    volWrap.append(volBtn, volSlider);
+
+    const fsBtn = document.createElement('button');
+    fsBtn.type = 'button';
+    fsBtn.className = 'video-tool-btn video-tool-icon';
+    const syncFullscreen = () => {
+      const isFs = document.fullscreenElement === frame;
+      fsBtn.innerHTML = videoIcons[isFs ? 'exitFullscreen' : 'enterFullscreen'];
+      fsBtn.setAttribute('aria-label', tr(isFs ? 'Exit fullscreen' : 'Enter fullscreen'));
+      fsBtn.title = fsBtn.getAttribute('aria-label');
+    };
+    if (document.fullscreenEnabled) {
+      fsBtn.addEventListener('click', () => {
+        if (document.fullscreenElement === frame) document.exitFullscreen();
+        else frame.requestFullscreen().catch(() => {});
+      });
+      document.addEventListener('fullscreenchange', () => { if (document.fullscreenElement === frame || !document.fullscreenElement) syncFullscreen(); });
+      syncFullscreen();
+    } else {
+      fsBtn.disabled = true;
+      fsBtn.hidden = true;
+    }
+
+    bar.append(playBtn, scrubWrap, timeLabel, volWrap, fsBtn);
+    frame.appendChild(bar);
+    video.addEventListener('click', () => { video.paused ? video.play() : video.pause(); });
 
     const tools = document.createElement('div');
     tools.className = 'video-tools';

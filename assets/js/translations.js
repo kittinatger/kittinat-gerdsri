@@ -383,7 +383,15 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Volunteer": "จิตอาสา",
     "Chulabhorn Royal Academy · Recreational Music Project": "ราชวิทยาลัยจุฬาภรณ์ · โครงการดนตรีนันทนาการ",
     "First-Class Honors": "เกียรตินิยมอันดับหนึ่ง",
-    "NEPA (National English Proficiency Assessment) 2025 — Excellence Round, Junior High School": "NEPA (National English Proficiency Assessment) 2025 — รอบ Excellence ระดับมัธยมศึกษาตอนต้น"
+    "NEPA (National English Proficiency Assessment) 2025 — Excellence Round, Junior High School": "NEPA (National English Proficiency Assessment) 2025 — รอบ Excellence ระดับมัธยมศึกษาตอนต้น",
+    "Play": "เล่น",
+    "Pause": "หยุดชั่วคราว",
+    "Seek": "เลื่อนตำแหน่ง",
+    "Volume": "ระดับเสียง",
+    "Mute": "ปิดเสียง",
+    "Unmute": "เปิดเสียง",
+    "Enter fullscreen": "เข้าสู่โหมดเต็มจอ",
+    "Exit fullscreen": "ออกจากโหมดเต็มจอ"
   },
   "zh-CN": {
     "Kittinat Gerdsri": "Kittinat Gerdsri",
@@ -769,6 +777,14 @@ window.PORTFOLIO_TRANSLATIONS = {
     "Volunteer": "志愿者",
     "Chulabhorn Royal Academy · Recreational Music Project": "朱拉蓬皇家学院 · 康乐音乐项目",
     "First-Class Honors": "一等荣誉",
-    "NEPA (National English Proficiency Assessment) 2025 — Excellence Round, Junior High School": "NEPA (National English Proficiency Assessment) 2025 — 卓越赛（初中组）"
+    "NEPA (National English Proficiency Assessment) 2025 — Excellence Round, Junior High School": "NEPA (National English Proficiency Assessment) 2025 — 卓越赛（初中组）",
+    "Play": "播放",
+    "Pause": "暂停",
+    "Seek": "进度条",
+    "Volume": "音量",
+    "Mute": "静音",
+    "Unmute": "取消静音",
+    "Enter fullscreen": "进入全屏",
+    "Exit fullscreen": "退出全屏"
   }
 };
