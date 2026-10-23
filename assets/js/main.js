@@ -863,6 +863,12 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    // A program/recognition card can carry its own single-image "gallery"
+    // (e.g. a certificate thumbnail) outside the main photo grid.
+    document.querySelectorAll('.program-card-cert img').forEach(img => {
+      img.addEventListener('click', () => openImageInLightbox(img.closest('.program-card'), img));
+    });
+
     const closeLightbox = () => { lightbox.classList.remove('is-open'); resetZoom(); };
     lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
     if (prevBtn) prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
