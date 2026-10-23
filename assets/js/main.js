@@ -864,9 +864,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // A program/recognition card can carry its own single-image "gallery"
-    // (e.g. a certificate thumbnail) outside the main photo grid.
+    // (e.g. a certificate thumbnail) outside the main photo grid. The whole
+    // card is clickable, not just the thumbnail, matching how project-card
+    // links work elsewhere — but only once there's a real image to show; a
+    // placeholder cover (nothing to view yet) stays non-interactive.
     document.querySelectorAll('.program-card-cover img').forEach(img => {
-      img.addEventListener('click', () => openImageInLightbox(img.closest('.program-card'), img));
+      const card = img.closest('.program-card');
+      card.classList.add('is-clickable');
+      card.addEventListener('click', () => openImageInLightbox(card, img));
     });
 
     const closeLightbox = () => { lightbox.classList.remove('is-open'); resetZoom(); };

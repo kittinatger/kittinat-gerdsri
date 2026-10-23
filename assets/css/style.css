@@ -1299,7 +1299,14 @@ html[data-sticky-navbar="true"] .site-header {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 1.6em 1.4em;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+.program-card.is-clickable { cursor: pointer; }
+@media (hover: hover) and (pointer: fine) {
+  .program-card.is-clickable:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+  .program-card.is-clickable:hover .program-card-cover img { transform: scale(1.04); }
+}
+.program-card.is-clickable:active { transform: translateY(-2px) scale(0.99); }
 .program-card-cover {
   margin: -1.6em -1.4em 1.2em;
   aspect-ratio: 16 / 10;
@@ -1308,11 +1315,7 @@ html[data-sticky-navbar="true"] .site-header {
   border-bottom: 1px solid var(--line);
   background: #fff;
 }
-figure.program-card-cover { cursor: zoom-in; }
 .program-card-cover img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform 0.4s ease; }
-@media (hover: hover) and (pointer: fine) {
-  figure.program-card-cover:hover img { transform: scale(1.04); }
-}
 .program-card-cover-placeholder {
   display: flex;
   align-items: center;
