@@ -1300,31 +1300,27 @@ html[data-sticky-navbar="true"] .site-header {
   border-radius: var(--radius);
   padding: 1.6em 1.4em;
 }
-.program-card-cert {
+.program-card-cover {
   margin: -1.6em -1.4em 1.2em;
   aspect-ratio: 16 / 10;
   overflow: hidden;
   border-radius: var(--radius) var(--radius) 0 0;
   border-bottom: 1px solid var(--line);
   background: #fff;
-  cursor: zoom-in;
 }
-.program-card-cert img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform 0.4s ease; }
+figure.program-card-cover { cursor: zoom-in; }
+.program-card-cover img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform 0.4s ease; }
 @media (hover: hover) and (pointer: fine) {
-  .program-card-cert:hover img { transform: scale(1.04); }
+  figure.program-card-cover:hover img { transform: scale(1.04); }
 }
-.program-card-icon {
-  display: inline-flex;
+.program-card-cover-placeholder {
+  display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--nav-hover-bg);
-  color: var(--navy);
-  margin-bottom: 0.9em;
+  background: var(--bg-soft);
+  color: var(--ink-soft);
 }
-.program-card-icon svg { width: 22px; height: 22px; }
+.program-card-cover-placeholder svg { width: 40px; height: 40px; }
 .program-card h3 {
   font-family: var(--font-display);
   font-size: 1.15rem;

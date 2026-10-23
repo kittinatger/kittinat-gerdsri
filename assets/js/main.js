@@ -865,7 +865,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // A program/recognition card can carry its own single-image "gallery"
     // (e.g. a certificate thumbnail) outside the main photo grid.
-    document.querySelectorAll('.program-card-cert img').forEach(img => {
+    document.querySelectorAll('.program-card-cover img').forEach(img => {
       img.addEventListener('click', () => openImageInLightbox(img.closest('.program-card'), img));
     });
 
