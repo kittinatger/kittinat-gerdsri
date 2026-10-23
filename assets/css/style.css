@@ -1299,31 +1299,7 @@ html[data-sticky-navbar="true"] .site-header {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 1.6em 1.4em;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.program-card.is-clickable { cursor: pointer; }
-@media (hover: hover) and (pointer: fine) {
-  .program-card.is-clickable:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
-  .program-card.is-clickable:hover .program-card-cover img { transform: scale(1.04); }
-}
-.program-card.is-clickable:active { transform: translateY(-2px) scale(0.99); }
-.program-card-cover {
-  margin: -1.6em -1.4em 1.2em;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  border-radius: var(--radius) var(--radius) 0 0;
-  border-bottom: 1px solid var(--line);
-  background: #fff;
-}
-.program-card-cover img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform 0.4s ease; }
-.program-card-cover-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg-soft);
-  color: var(--ink-soft);
-}
-.program-card-cover-placeholder svg { width: 40px; height: 40px; }
 .program-card h3 {
   font-family: var(--font-display);
   font-size: 1.15rem;
@@ -1343,26 +1319,6 @@ html[data-sticky-navbar="true"] .site-header {
   border-radius: 999px;
   padding: 0.3em 0.9em;
 }
-.program-card-levels {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6em;
-}
-.program-card-levels li {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.8em;
-  padding-top: 0.6em;
-  border-top: 1px solid var(--line);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--ink);
-}
-.program-card-levels li:first-child { border-top: none; padding-top: 0; }
 @media (max-width: 720px) {
   .program-grid { grid-template-columns: 1fr; }
 }
@@ -2089,6 +2045,7 @@ html[data-sticky-navbar="true"] .site-header {
 }
 :root[data-theme="dark"] .project-card-cover.cover-contain { background: #0b2a22; }
 .project-card-cover.cover-contain img { width: 100%; height: 100%; object-fit: contain; }
+.project-card-cover.cover-contain svg { width: 56px; height: 56px; color: var(--ink-soft); }
 .project-card-body { padding: 1.3em 1.4em 1.5em; }
 .project-card-body h3 {
   font-family: var(--font-display);
