@@ -31,7 +31,6 @@
     const start = () => {
       if (cleanup || reducedMotion()) return;
       const cs = getComputedStyle(textEl);
-      const navy = getComputedStyle(document.documentElement).getPropertyValue('--navy').trim() || cs.color;
       cleanup = window.initFluidText(canvas, {
         text: text,
         font: {
@@ -43,7 +42,7 @@
           letterSpacing: cs.letterSpacing,
           textAlign: 'center',
         },
-        color: navy,
+        color: cs.color,
         splatRadius: 6,
         splatForce: 8,
         curl: 40,
