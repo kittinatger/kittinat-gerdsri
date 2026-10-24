@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-title" content="Kittinat Gerdsri">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#eef1f5">
-<link rel="stylesheet" href="assets/css/style.css?v=1792754128">
+<link rel="stylesheet" href="assets/css/style.css?v=1792828075">
 </head>
 <body>
 
@@ -63,7 +63,7 @@
         <div class="hero-arc-card hero-arc-card-5"><img src="assets/img/brand/hero-swing.jpg" alt=""></div>
       </div>
       <div class="hero-copy">
-        <h1>Hi, I'm <span class="hero-name-accent">Will</span>.</h1>
+        <h1>Hi, I'm <span class="hero-name-fluid" id="heroNameFluid"><span class="hero-name-accent">Will</span><canvas class="hero-name-fluid-canvas" aria-hidden="true"></canvas></span>.</h1>
         <p class="tagline">
           <span class="sr-only">Technology × Design × Structured Thinking</span>
           <span class="hero-role-cycle" aria-hidden="true">
@@ -229,7 +229,73 @@
   <button type="button" class="back-to-top" aria-label="Back to top"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M207.39,115.06A8,8,0,0,1,200,120H136v96a8,8,0,0,1-16,0V120H56a8,8,0,0,1-5.66-13.66l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,207.39,115.06Z"></path></svg></button>
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-  <script src="assets/js/translations.js?v=1792754128"></script>
-  <script src="assets/js/main.js?v=1792754128"></script>
+  <script src="assets/js/translations.js?v=1792828075"></script>
+  <script src="assets/js/main.js?v=1792828075"></script>
+  <script src="assets/js/fluid-text.js?v=1792828075"></script>
+  <script>
+    (function () {
+      const wrap = document.getElementById('heroNameFluid');
+      if (!wrap || !window.initFluidText) return;
+      const nameEl = wrap.querySelector('.hero-name-accent');
+      const canvas = wrap.querySelector('.hero-name-fluid-canvas');
+      if (!nameEl || !canvas) return;
+
+      const reducedMotion = () =>
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+        document.documentElement.getAttribute('data-reduced-motion') === 'true';
+
+      let cleanup = null;
+
+      const start = () => {
+        if (cleanup || reducedMotion()) return;
+        const cs = getComputedStyle(nameEl);
+        const navy = getComputedStyle(document.documentElement).getPropertyValue('--navy').trim() || cs.color;
+        cleanup = window.initFluidText(canvas, {
+          text: nameEl.textContent,
+          font: {
+            fontFamily: cs.fontFamily,
+            fontWeight: cs.fontWeight,
+            fontStyle: cs.fontStyle,
+            fontSize: cs.fontSize,
+            lineHeight: cs.lineHeight,
+            letterSpacing: cs.letterSpacing,
+            textAlign: 'center',
+          },
+          color: navy,
+          splatRadius: 6,
+          splatForce: 8,
+          curl: 40,
+          densityDissipation: 6,
+        });
+        if (cleanup) wrap.classList.add('is-active');
+      };
+
+      const stop = () => {
+        if (!cleanup) return;
+        cleanup();
+        cleanup = null;
+        wrap.classList.remove('is-active');
+      };
+
+      const restart = () => { stop(); start(); };
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(start);
+      } else {
+        start();
+      }
+
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(restart, 200);
+      });
+
+      new MutationObserver(restart).observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme', 'data-text-size', 'data-reduced-motion'],
+      });
+    })();
+  </script>
 </body>
 </html>

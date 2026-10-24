@@ -720,6 +720,25 @@ html[data-sticky-navbar="true"] .site-header {
 .hero-copy h1 { margin-bottom: 0.25em; }
 .hero-name-accent { color: var(--navy); }
 
+/* Fluid-text "Will": the real text stays in the DOM for layout/SEO/
+   accessibility and is the permanent fallback; a canvas is layered on
+   top and only shown once the WebGL effect has actually initialized
+   (see assets/js/fluid-text.js), so a slow load or no WebGL support
+   just leaves the plain colored name in place. */
+.hero-name-fluid { position: relative; display: inline-block; }
+.hero-name-fluid-canvas {
+  display: none;
+  position: absolute;
+  left: -40%;
+  right: -40%;
+  top: -80%;
+  bottom: -80%;
+  width: 180%;
+  height: 260%;
+}
+.hero-name-fluid.is-active .hero-name-accent { opacity: 0; }
+.hero-name-fluid.is-active .hero-name-fluid-canvas { display: block; }
+
 /* Role word cycler — replaces the static tagline visually; the
    original phrase stays for screen readers via .sr-only. Pure CSS,
    no JS: four spans staggered 1/4 of the loop apart, each fading in,
