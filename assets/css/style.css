@@ -817,15 +817,16 @@ html[data-sticky-navbar="true"] .site-header {
 .hero-copy { max-width: 720px; text-align: center; }
 .hero .hero-actions { justify-content: center; }
 .hero-copy h1 { margin-bottom: 0.25em; }
-.hero-name-accent { color: var(--navy); }
 
-/* Fluid-text "Will": the real text stays in the DOM for layout/SEO/
-   accessibility and is the permanent fallback; a canvas is layered on
-   top and only shown once the WebGL effect has actually initialized
-   (see assets/js/fluid-text.js), so a slow load or no WebGL support
-   just leaves the plain colored name in place. */
-.hero-name-fluid { position: relative; display: inline-block; }
-.hero-name-fluid-canvas {
+/* Fluid-text words (hero "Will", footer signature, closing-CTA heading):
+   the real text stays in the DOM for layout/SEO/accessibility and is the
+   permanent fallback; a canvas is layered on top and only shown once the
+   WebGL effect has actually initialized (see assets/js/fluid-text.js and
+   assets/js/fluid-text-init.js), so a slow load or no WebGL support just
+   leaves the plain text in place. */
+.fluid-word { position: relative; display: inline-block; }
+.fluid-word-text.hero-name-accent { color: var(--navy); }
+.fluid-word-canvas {
   display: none;
   position: absolute;
   left: -40%;
@@ -835,8 +836,8 @@ html[data-sticky-navbar="true"] .site-header {
   width: 180%;
   height: 260%;
 }
-.hero-name-fluid.is-active .hero-name-accent { opacity: 0; }
-.hero-name-fluid.is-active .hero-name-fluid-canvas { display: block; }
+.fluid-word.is-active .fluid-word-text { opacity: 0; }
+.fluid-word.is-active .fluid-word-canvas { display: block; }
 
 /* Role word cycler — replaces the static tagline visually; the
    original phrase stays for screen readers via .sr-only. Pure CSS,
