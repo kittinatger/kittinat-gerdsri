@@ -242,6 +242,58 @@ p { margin: 0 0 1em; color: var(--ink-soft); }
 
 .btn-icon svg { width: 15px; height: 15px; flex-shrink: 0; }
 
+/* ---------- Arrow-reveal border (outline buttons) ----------
+   A small circular badge in the corner expands to fill the whole pill
+   on hover, like a wipe, while a separate fixed-size arrow icon stays
+   put on top — ported from a React/Framer-Motion component (Originkit).
+   Progressively enhanced by assets/js/arrow-reveal-button.js; a plain
+   .btn-outline with no JS just keeps its existing flat-fill hover. */
+.btn-outline.arb {
+  position: relative;
+  overflow: hidden;
+  padding-right: 2.9em;
+}
+.btn-outline.arb .arb-label {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.46s cubic-bezier(0.44, 0, 0.56, 1);
+}
+.arb-fill {
+  position: absolute;
+  top: 50%;
+  right: 1.1em;
+  width: 26px;
+  height: 26px;
+  margin-top: -13px;
+  border-radius: 50%;
+  background: var(--navy);
+  transform: scale(1);
+  transform-origin: center;
+  transition: transform 0.46s cubic-bezier(0.44, 0, 0.56, 1);
+  z-index: 0;
+  pointer-events: none;
+}
+.arb-arrow {
+  position: absolute;
+  top: 50%;
+  right: 1.1em;
+  width: 26px;
+  height: 26px;
+  margin-top: -13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  z-index: 2;
+  pointer-events: none;
+}
+.arb-arrow svg { width: 13px; height: 13px; }
+@media (hover: hover) and (pointer: fine) {
+  .btn-outline.arb:hover { background: transparent; }
+  .btn-outline.arb:hover .arb-fill { transform: scale(var(--arb-scale, 10)); }
+  .btn-outline.arb:hover .arb-label { transform: translateX(-6px); }
+}
+
 /* ---------- Moving-gradient border (primary buttons) ----------
    A thin light sweep continuously circling the pill's edge, ported from
    a React/Framer-Motion component (Originkit) ­— ring is built with the
