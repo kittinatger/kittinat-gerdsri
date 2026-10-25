@@ -2914,6 +2914,12 @@ a.chip:active { transform: scale(0.95); }
     opacity: 1;
   }
   .social-tile:hover .social-tile-icon { opacity: 1; }
+  /* Brand color on hover instead of the generic navy, where the
+     platform has one recognizable as a single flat color. */
+  .social-tile[href*="instagram.com"]:hover .social-tile-icon { color: #E1306C; }
+  .social-tile[href*="wa.me"]:hover .social-tile-icon { color: #25D366; }
+  .social-tile[href*="facebook.com"]:hover .social-tile-icon { color: #1877F2; }
+  .social-tile[href*="tiktok.com"]:hover .social-tile-icon { color: #25F4EE; }
 }
 
 /* Tablet */
@@ -3019,6 +3025,12 @@ a.chip:active { transform: scale(0.95); }
 .footer-social-btn:active { transform: scale(0.92); }
 @media (hover: hover) and (pointer: fine) {
   .footer-social-btn:hover { color: var(--navy); border-color: var(--navy); background: var(--nav-hover-bg); }
+  /* Brand color on hover instead of the generic navy, where the
+     platform has one recognizable as a single flat color. */
+  .footer-social-btn[aria-label="Instagram"]:hover { color: #E1306C; border-color: #E1306C; }
+  .footer-social-btn[aria-label="WhatsApp"]:hover { color: #25D366; border-color: #25D366; }
+  .footer-social-btn[aria-label="Facebook"]:hover { color: #1877F2; border-color: #1877F2; }
+  .footer-social-btn[aria-label="TikTok"]:hover { color: #25F4EE; border-color: #25F4EE; }
 }
 
 .footer-nav { flex: 1 1 260px; display: flex; justify-content: flex-end; }
