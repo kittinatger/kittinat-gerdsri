@@ -818,23 +818,44 @@ html[data-sticky-navbar="true"] .site-header {
 .hero .hero-actions { justify-content: center; }
 .hero-copy h1 { margin-bottom: 0.25em; }
 
-/* Fluid-text words (hero "Will", footer signature, closing-CTA heading):
-   the real text stays in the DOM for layout/SEO/accessibility and is the
-   permanent fallback; a canvas is layered on top and only shown once the
-   WebGL effect has actually initialized (see assets/js/fluid-text.js and
-   assets/js/fluid-text-init.js), so a slow load or no WebGL support just
-   leaves the plain text in place. */
-.fluid-word { position: relative; display: inline-block; }
+/* Fluid words (every page's h1, the footer signature, the closing-CTA
+   heading): the real text stays in the DOM for layout/SEO/accessibility
+   and is the permanent fallback; a canvas is layered on top and only
+   shown once the effect has actually started drawing (see
+   assets/js/pixel-bulge.js and assets/js/pixel-bulge-init.js), so a
+   slow load or Reduced Motion just leaves the plain text in place.
+   Pixel Bulge draws into a roughly 3:2 "square-ish" region (its own
+   layout logic centers the word in min(width, height) of its box), so
+   the wrapper needs real block-level area instead of hugging the text
+   the way the previous WebGL effect's inline overlay could. */
+.fluid-word {
+  position: relative;
+  display: block;
+  width: min(100%, 30em);
+  aspect-ratio: 3 / 2;
+}
+.hero-copy .fluid-word,
+.closing-cta .fluid-word,
+.footer-signature.fluid-word,
+.contact-h1.fluid-word {
+  margin-left: auto;
+  margin-right: auto;
+}
+.fluid-word-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 .fluid-word-text.hero-name-accent { color: var(--navy); }
 .fluid-word-canvas {
   display: none;
   position: absolute;
-  left: -40%;
-  right: -40%;
-  top: -80%;
-  bottom: -80%;
-  width: 180%;
-  height: 260%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 .fluid-word.is-active .fluid-word-text { opacity: 0; }
 .fluid-word.is-active .fluid-word-canvas { display: block; }
