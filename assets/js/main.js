@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // its real close function once it initializes.
   let closeMobileNav = () => {};
   let closeSettingsPanel = () => {};
+  let closeSearchPanel = () => {};
 
   // Language selector. Translation text is deliberately kept in this file so
   // it remains part of the website and can be edited without a third-party
@@ -172,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toggle.addEventListener('click', () => {
       const open = nav.classList.toggle('is-open');
       toggle.setAttribute('aria-expanded', String(open));
-      if (open) { closeSettingsPanel(); floatingNav.place(); } else floatingNav.remove();
+      if (open) { closeSettingsPanel(); closeSearchPanel(); floatingNav.place(); } else floatingNav.remove();
     });
     nav.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => closeMobileNav());
@@ -231,6 +232,95 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!insideDropdown && !insideMenu) closeDropdown();
     });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDropdown(); });
+  }
+
+  // Site search — a small floating panel (same makeFloating pattern as the
+  // "Work" dropdown and the settings panel) that filters a hand-maintained
+  // page index (assets/js/search-index.js) as the user types.
+  const searchHeaderWrap = header?.querySelector('.wrap');
+  const searchNavToggle = searchHeaderWrap?.querySelector('.nav-toggle');
+  if (searchNavToggle && window.PORTFOLIO_SEARCH_INDEX) {
+    const searchNavRight = searchNavToggle.parentNode;
+    const index = window.PORTFOLIO_SEARCH_INDEX;
+
+    const search = document.createElement('div');
+    search.className = 'site-search';
+    search.innerHTML =
+      '<button class="search-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-label="' + tr('Search') + '">' +
+        '<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,218.34,160.78,149.4a88,88,0,1,0-11.38,11.38l68.94,68.88a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>' +
+      '</button>' +
+      '<div class="search-panel nav-dropdown-menu">' +
+        '<input type="text" class="search-input" placeholder="' + tr('Search pages…') + '" aria-label="' + tr('Search pages…') + '">' +
+        '<div class="search-results"></div>' +
+      '</div>';
+    searchNavRight.insertBefore(search, searchNavToggle);
+
+    const searchToggle = search.querySelector('.search-toggle');
+    const searchPanel = search.querySelector('.search-panel');
+    const searchInput = search.querySelector('.search-input');
+    const searchResults = search.querySelector('.search-results');
+
+    const floatingSearchPanel = makeFloating(searchPanel, (el) => {
+      if (isMobileNav()) {
+        const r = header.getBoundingClientRect();
+        el.style.top = (r.bottom + 18) + 'px';
+        el.style.left = r.left + 'px';
+        el.style.right = (window.innerWidth - r.right) + 'px';
+        return;
+      }
+      const r = searchToggle.getBoundingClientRect();
+      const width = el.offsetWidth || 280;
+      const left = Math.max(8, Math.min(r.right - width, window.innerWidth - width - 8));
+      el.style.top = (r.bottom + 22) + 'px';
+      el.style.left = left + 'px';
+      el.style.right = '';
+    }, searchToggle);
+
+    const closeSearch = () => {
+      search.classList.remove('is-open');
+      searchToggle.setAttribute('aria-expanded', 'false');
+      searchPanel.classList.remove('is-open');
+      floatingSearchPanel.remove();
+    };
+    closeSearchPanel = closeSearch;
+    const renderResults = (query) => {
+      const q = query.trim().toLowerCase();
+      if (!q) { searchResults.innerHTML = ''; return; }
+      const matches = index.filter(entry =>
+        entry.title.toLowerCase().includes(q) ||
+        entry.description.toLowerCase().includes(q) ||
+        (entry.tags || '').toLowerCase().includes(q)
+      ).slice(0, 8);
+      if (matches.length === 0) {
+        searchResults.innerHTML = '<p class="search-empty">' + tr('No results found.') + '</p>';
+        return;
+      }
+      searchResults.innerHTML = matches.map(entry =>
+        '<a class="search-result" href="' + entry.href + '">' +
+          '<span class="search-result-title">' + tr(entry.title) + '</span>' +
+          '<span class="search-result-desc">' + tr(entry.description) + '</span>' +
+        '</a>'
+      ).join('');
+    };
+    searchInput.addEventListener('input', () => renderResults(searchInput.value));
+    searchToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = search.classList.toggle('is-open');
+      searchToggle.setAttribute('aria-expanded', String(open));
+      searchPanel.classList.toggle('is-open', open);
+      if (open) {
+        closeMobileNav();
+        closeSettingsPanel();
+        floatingSearchPanel.place();
+        searchInput.focus();
+      } else {
+        floatingSearchPanel.remove();
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (!search.contains(e.target) && !searchPanel.contains(e.target)) closeSearch();
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSearch(); });
   }
 
   // Settings popup — combines the language picker and the dark-mode toggle
@@ -337,7 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const open = settings.classList.toggle('is-open');
       settingsToggle.setAttribute('aria-expanded', String(open));
       settingsPanel.classList.toggle('is-open', open);
-      if (open) { closeMobileNav(); floatingSettingsPanel.place(); } else floatingSettingsPanel.remove();
+      if (open) { closeMobileNav(); closeSearchPanel(); floatingSettingsPanel.place(); } else floatingSettingsPanel.remove();
     });
     settingsPanel.querySelectorAll('.language-options a').forEach(link => {
       link.addEventListener('click', (e) => {
