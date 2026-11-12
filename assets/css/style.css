@@ -76,8 +76,11 @@ summary:focus-visible,
    to the top of the viewport above everything else. */
 .skip-link {
   position: absolute;
-  top: -40px;
-  left: 12px;
+  /* Pushed fully off-canvas to the left rather than a fixed negative `top`,
+     so it stays hidden regardless of its rendered height (text-size
+     setting, zoom, font load) instead of leaving a sliver visible. */
+  top: 12px;
+  left: -9999px;
   z-index: 1000;
   background: var(--navy);
   color: #fff;
@@ -87,10 +90,9 @@ summary:focus-visible,
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: none;
-  transition: top 0.15s ease;
 }
 .skip-link:focus-visible {
-  top: 12px;
+  left: 12px;
   outline: 2px solid #fff;
   outline-offset: 2px;
 }
