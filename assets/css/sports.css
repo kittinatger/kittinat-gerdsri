@@ -1566,3 +1566,16 @@ html { scroll-behavior: smooth; }
   .page-sports .closing-card { border-radius: 24px; }
   .page-sports .footer-nav ul { margin-left: 0; max-width: none; }
 }
+
+/* Footer is a full-width band, not a floating card. */
+.page-sports .closing-card {
+  margin: clamp(40px, 7vw, 80px) 0 0;
+  border-width: 3px 0 0;
+  border-color: var(--sp-accent);
+  border-style: solid;
+  border-radius: 0;
+  box-shadow: none;
+}
+@media (max-width: 760px) { .page-sports .closing-card { border-radius: 0; } }
+.page-sports .closing-cta,
+.page-sports .site-footer > .wrap { max-width: var(--max-width); margin-left: auto; margin-right: auto; }
