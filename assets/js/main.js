@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
     search.className = 'site-search';
     search.innerHTML =
       '<button class="search-toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-label="' + tr('Search') + '">' +
-        '<svg viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="18" stroke-linecap="round" aria-hidden="true"><circle cx="112" cy="112" r="72"></circle><line x1="164" y1="164" x2="224" y2="224"></line></svg>' +
+        '<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,218.34,160.78,149.4a88,88,0,1,0-11.38,11.38l68.94,68.88a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>' +
       '</button>' +
       '<div class="search-panel nav-dropdown-menu">' +
         '<input type="text" class="search-input" placeholder="' + tr('Search pages…') + '" aria-label="' + tr('Search pages…') + '">' +
