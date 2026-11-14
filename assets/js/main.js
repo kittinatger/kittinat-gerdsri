@@ -1425,7 +1425,10 @@ document.addEventListener('DOMContentLoaded', () => {
         entry.target.classList.add('is-visible');
         revealObserver.unobserve(entry.target);
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    // threshold 0 (not a percentage of the target's own area) so this still
+    // fires for sections taller than the viewport — e.g. a long photo
+    // gallery, where a percentage-of-area threshold could never be met.
+    }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
     revealTargets.forEach((el, i) => {
       el.classList.add('reveal');
       // The hero is what's on screen at load — reveal it immediately
