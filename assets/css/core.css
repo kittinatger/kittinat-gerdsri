@@ -1486,10 +1486,10 @@ html.sv-open body > header, html.sv-open main, html.sv-open .closing-card { visi
   --heading: #1f0d0a;
   --line: rgba(120, 40, 30, 0.28);
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='132' height='132' viewBox='0 0 132 132'%3E%3Crect x='6' y='6' width='120' height='120' fill='none' stroke='rgba(190,45,35,0.42)' stroke-width='2'/%3E%3Cg stroke='rgba(190,45,35,0.24)' stroke-width='1.2' stroke-dasharray='5 5' fill='none'%3E%3Cpath d='M66 6V126M6 66H126M6 6L126 126M126 6L6 126'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 132px 132px,
-    radial-gradient(ellipse at 20% 0%, rgba(255, 255, 255, 0.55), transparent 65%),
-    radial-gradient(ellipse at 90% 100%, rgba(120, 90, 60, 0.12), transparent 60%),
-    #f6eedd;
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='500' viewBox='0 0 1600 500' preserveAspectRatio='none'%3E%3Cg fill='%23221a16'%3E%3Cpath fill-opacity='.10' d='M0 330C120 250 200 230 300 290S480 200 600 260 820 170 940 250 1180 190 1300 270 1500 230 1600 280V500H0Z'/%3E%3Cpath fill-opacity='.17' d='M0 400C150 330 260 320 380 370S620 300 760 360 1020 310 1160 380 1420 330 1600 390V500H0Z'/%3E%3Cpath fill-opacity='.28' d='M0 462C200 420 300 430 460 452S800 420 1000 456 1400 430 1600 462V500H0Z'/%3E%3C/g%3E%3C/svg%3E") bottom center / 100% 62% no-repeat,
+    radial-gradient(circle at 62% 17%, rgba(200, 56, 42, 0.92) 0 44px, rgba(200, 56, 42, 0.16) 45px 78px, transparent 79px),
+    radial-gradient(ellipse 80% 30% at 50% 100%, rgba(255, 255, 255, 0.55), transparent 70%),
+    linear-gradient(180deg, #f6eedd 0%, #ece0c6 100%);
 }
 :root[data-theme="dark"] .page-core #chinese {
   --ink: #f6e6e0;
@@ -1497,9 +1497,10 @@ html.sv-open body > header, html.sv-open main, html.sv-open .closing-card { visi
   --heading: #ffffff;
   --line: rgba(255, 170, 150, 0.3);
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='132' height='132' viewBox='0 0 132 132'%3E%3Crect x='6' y='6' width='120' height='120' fill='none' stroke='rgba(255,120,100,0.34)' stroke-width='2'/%3E%3Cg stroke='rgba(255,120,100,0.18)' stroke-width='1.2' stroke-dasharray='5 5' fill='none'%3E%3Cpath d='M66 6V126M6 66H126M6 6L126 126M126 6L6 126'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 132px 132px,
-    radial-gradient(ellipse at 20% 0%, rgba(255, 120, 100, 0.12), transparent 65%),
-    #1c1112;
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='500' viewBox='0 0 1600 500' preserveAspectRatio='none'%3E%3Cg fill='%23b9c0e0'%3E%3Cpath fill-opacity='.10' d='M0 330C120 250 200 230 300 290S480 200 600 260 820 170 940 250 1180 190 1300 270 1500 230 1600 280V500H0Z'/%3E%3Cpath fill-opacity='.17' d='M0 400C150 330 260 320 380 370S620 300 760 360 1020 310 1160 380 1420 330 1600 390V500H0Z'/%3E%3Cpath fill-opacity='.28' d='M0 462C200 420 300 430 460 452S800 420 1000 456 1400 430 1600 462V500H0Z'/%3E%3C/g%3E%3C/svg%3E") bottom center / 100% 62% no-repeat,
+    radial-gradient(circle at 62% 17%, rgba(255, 244, 214, 0.95) 0 40px, rgba(255, 244, 214, 0.12) 41px 76px, transparent 77px),
+    radial-gradient(ellipse 80% 30% at 50% 100%, rgba(120, 130, 190, 0.2), transparent 70%),
+    linear-gradient(180deg, #14162a 0%, #0c0d1c 100%);
 }
 .page-core #english {
   --ink: #14213d;
