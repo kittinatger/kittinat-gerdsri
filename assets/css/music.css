@@ -1605,3 +1605,56 @@ html.sv-open, html.sv-open body { background: #0f0816 !important; }
   .page-music .mu-perfs { padding-left: 24px; padding-right: 24px; }
   .page-music .mu-passes { padding-left: 16px; padding-right: 16px; }
 }
+
+/* ---------- Section headers v2: numeral, title, count ---------- */
+.page-music .gallery-heading.mu-head {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: end;
+  gap: 6px clamp(14px, 3vw, 36px);
+  margin-bottom: clamp(26px, 4vw, 44px);
+  padding: 0 0 22px;
+  border: 0;
+  background:
+    linear-gradient(90deg, var(--mu-hi) 0 64px, transparent 64px) bottom left / 100% 3px no-repeat,
+    linear-gradient(var(--line), var(--line)) bottom left / 100% 1px no-repeat;
+}
+.page-music .gallery-heading.mu-head::before,
+.page-music .gallery-heading.mu-head::after { content: none; }
+.mu-head-no {
+  grid-row: 1 / span 2;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(5rem, 15vw, 11rem);
+  line-height: 0.78;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--mu-hi);
+}
+.mu-head-main { min-width: 0; }
+.mu-head-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.mu-head-meta::before { content: ''; width: 28px; height: 2px; background: var(--mu-hi); }
+.mu-head-meta .mu-meta { font-size: inherit; letter-spacing: inherit; color: inherit; }
+.mu-head-meta .mu-medals { margin-left: 0; }
+.page-music .mu-head h2 { font-size: clamp(2.8rem, 8vw, 6rem); line-height: 0.95; }
+.page-music .mu-head .gallery-heading-controls { grid-column: 2; align-self: start; margin-top: 6px; }
+@media (max-width: 560px) {
+  .page-music .gallery-heading.mu-head { grid-template-columns: auto minmax(0, 1fr); padding-bottom: 18px; }
+  .mu-head-no { font-size: clamp(3.8rem, 20vw, 5.2rem); grid-row: 1 / span 1; align-self: center; }
+  .mu-head-meta { font-size: 0.66rem; letter-spacing: 0.14em; }
+  .page-music .mu-head h2 { font-size: clamp(2.2rem, 11.5vw, 3rem); }
+  .page-music .mu-head .gallery-heading-controls { grid-column: 1 / -1; margin-top: 10px; }
+}
