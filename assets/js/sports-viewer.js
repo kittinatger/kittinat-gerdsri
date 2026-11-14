@@ -51,7 +51,7 @@
   var nextBtn = root.querySelector('.sv-next');
   var closeBtn = root.querySelector('.sv-close');
 
-  var group = [], cur = 0, lastFocus = null;
+  var group = [], cur = 0, lastFocus = null, sub = '';
   var themeMeta = document.querySelector('meta[name="theme-color"]'), themeWas = themeMeta ? themeMeta.content : '';
   var scale = 1, tx = 0, ty = 0;
 
@@ -172,6 +172,11 @@
     group = [].slice.call(gallery.querySelectorAll('figure:not(.is-filtered-out) img'));
     cur = group.indexOf(target);
     ctx.textContent = contextLabel(gallery);
+    // Subject skin hook (core-discipline: english | mathematics | sciences | chinese)
+    var secEl = gallery.closest('section[id]');
+    sub = secEl ? secEl.id : '';
+    root.dataset.sub = sub;
+    document.documentElement.dataset.svSub = sub;
     buildThumbs();
     lastFocus = document.activeElement;
     root.hidden = false;
@@ -187,6 +192,7 @@
     root.classList.remove('is-open');
     if (themeMeta) themeMeta.content = themeWas;
     document.documentElement.classList.remove('sv-open');
+    delete document.documentElement.dataset.svSub;
     resetZoom();
     document.documentElement.style.overflow = '';
     setTimeout(function () { if (!root.classList.contains('is-open')) { root.hidden = true; img.removeAttribute('src'); } }, 260);
