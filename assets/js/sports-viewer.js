@@ -149,6 +149,9 @@
     title.textContent = tr((fig && fig.dataset.caption) || g.alt || '');
     year.textContent = (fig && (fig.dataset.year || (fig.dataset.date || '').slice(0, 4))) || '';
     year.hidden = !year.textContent;
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    prevBtn.dataset.n = pad(((cur - 1 + group.length) % group.length) + 1);
+    nextBtn.dataset.n = pad(((cur + 1) % group.length) + 1);
     var multi = group.length > 1;
     prevBtn.hidden = nextBtn.hidden = !multi;
     [].forEach.call(thumbs.children, function (b, k) {

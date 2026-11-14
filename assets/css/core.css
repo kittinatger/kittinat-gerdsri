@@ -1790,3 +1790,53 @@ html.sv-open, html.sv-open body { background: #07122b !important; }
 }
 .page-core .sv-stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); }
 .page-core .sv-img { max-height: 100%; }
+
+/* Viewer previous/next: tall paper page-turn tabs showing the target page */
+.page-core .sv-nav {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: clamp(50px, 5vw, 64px);
+  height: clamp(110px, 16vw, 140px);
+  margin-top: calc(clamp(110px, 16vw, 140px) / -2);
+  border: 1.5px solid #14213d;
+  border-radius: 6px;
+  background: #fffdf6;
+  color: #14213d;
+  box-shadow: 4px 4px 0 rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+}
+.page-core .sv-next { background: var(--cd-accent); }
+.page-core .sv-nav svg { width: 24px; height: 24px; transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1); }
+.page-core .sv-nav::after {
+  content: attr(data-n);
+  font-family: var(--cd-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.page-core .sv-nav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 14px;
+  height: 14px;
+}
+.page-core .sv-prev::before { right: 0; background: linear-gradient(225deg, #07122b 50%, rgba(20, 33, 61, 0.28) 50%); }
+.page-core .sv-next::before { left: 0; background: linear-gradient(135deg, #07122b 50%, rgba(20, 33, 61, 0.3) 50%); }
+.page-core .sv-nav:hover { background: #fff; color: #14213d; transform: translate(-2px, -2px); box-shadow: 6px 6px 0 rgba(255, 255, 255, 0.9); }
+.page-core .sv-next:hover { background: #ffe27a; }
+.page-core .sv-prev:hover svg { transform: translateX(-4px); }
+.page-core .sv-next:hover svg { transform: translateX(4px); }
+.page-core .sv-nav:active { transform: translate(2px, 2px); box-shadow: 0 0 0 #fff; }
+.page-core .sv-stage { padding-left: clamp(12px, 9vw, 120px); padding-right: clamp(12px, 9vw, 120px); }
+@media (max-width: 700px) {
+  .page-core .sv-nav { display: flex; top: auto; bottom: 150px; width: 44px; height: 70px; margin-top: 0; gap: 4px; opacity: 0.92; }
+  .page-core .sv-nav::after { font-size: 0.7rem; }
+  .page-core .sv-nav svg { width: 18px; height: 18px; }
+  .page-core .sv-stage { padding-left: 10px; padding-right: 10px; }
+}
