@@ -1591,3 +1591,17 @@ html { scroll-behavior: smooth; }
   padding-right: max(clamp(20px, 5vw, 48px), calc((100vw - var(--max-width)) / 2 + clamp(20px, 5vw, 48px)));
 }
 @media (max-width: 760px) { .sp-hero-card { border-radius: 0; } }
+
+/* Hero runs up behind the header: --hdr-h (set by a tiny script) is the
+   space the header occupies above <main>, pulled back out of the hero. */
+.page-sports .sp-hero {
+  margin-top: calc(var(--hdr-h, 96px) * -1);
+  padding-top: 0;
+}
+.sp-hero-card {
+  min-height: clamp(560px, 88svh, 820px);
+  padding-top: calc(var(--hdr-h, 96px) + 28px);
+}
+/* Stops the hero's negative margin collapsing through <main> (which would
+   shift main itself and throw off the --hdr-h measurement). */
+.page-sports main { display: flow-root; }
