@@ -1658,3 +1658,25 @@ html.sv-open, html.sv-open body { background: #0f0816 !important; }
   .page-music .mu-head h2 { font-size: clamp(2.2rem, 11.5vw, 3rem); }
   .page-music .mu-head .gallery-heading-controls { grid-column: 1 / -1; margin-top: 10px; }
 }
+
+/* Section headers v3: fill the row, controls on the right, staff underneath, tighter spacing */
+.page-music .mu-section { padding-top: clamp(36px, 5.5vw, 64px); padding-bottom: clamp(36px, 5.5vw, 64px); }
+.page-music .gallery-heading.mu-head {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  padding-bottom: 38px;
+  background:
+    linear-gradient(90deg, var(--mu-hi) 0 64px, transparent 64px) bottom 0 left 0 / 100% 3px no-repeat,
+    repeating-linear-gradient(180deg, var(--ink-soft) 0 1px, transparent 1px 6px) bottom 10px left 0 / 100% 25px no-repeat;
+  opacity: 1;
+}
+.page-music .gallery-heading.mu-head .gallery-heading-controls {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  align-self: end;
+  margin: 0 0 4px;
+}
+.mu-head-no { font-size: clamp(5.4rem, 16vw, 12rem); }
+@media (max-width: 560px) {
+  .page-music .gallery-heading.mu-head { grid-template-columns: auto minmax(0, 1fr); padding-bottom: 30px; }
+  .page-music .gallery-heading.mu-head .gallery-heading-controls { grid-column: 1 / -1; grid-row: auto; margin: 10px 0 0; }
+}
