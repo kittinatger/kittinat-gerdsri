@@ -1612,3 +1612,92 @@ html { scroll-behavior: smooth; }
 .page-sports { padding-top: env(safe-area-inset-top, 0px); }
 html[data-sticky-navbar="true"] .page-sports .site-header { top: calc(14px + env(safe-area-inset-top, 0px)); }
 .page-sports .site-footer { padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px)); }
+
+/* =====================================================================
+   Previous / next: two full-bleed "fixture" panels
+   ===================================================================== */
+.page-sports .discipline-pagenav {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  max-width: none;
+  margin: clamp(40px, 7vw, 80px) 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.page-sports .discipline-pagenav-link {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: clamp(36px, 8vw, 90px);
+  min-height: clamp(220px, 34vw, 340px);
+  padding: clamp(22px, 4vw, 48px) clamp(20px, 5vw, 64px);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  transform: none;
+  transition: color 0.3s ease, background 0.35s ease;
+}
+.page-sports .discipline-pagenav-next {
+  align-items: flex-end;
+  text-align: right;
+  background: var(--sp-accent);
+  color: var(--sp-accent-ink);
+}
+.page-sports .discipline-pagenav-next .discipline-pagenav-arrow { order: -1; }
+/* sweeping fill on hover */
+.page-sports .discipline-pagenav-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--sp-accent);
+  transform: translateX(-101%);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.page-sports .discipline-pagenav-next::before { background: #08170e; transform: translateX(101%); }
+.page-sports .discipline-pagenav-arrow {
+  font-family: var(--sp-display);
+  font-weight: 900;
+  font-size: clamp(2.6rem, 6vw, 4rem);
+  line-height: 1;
+  color: inherit;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.page-sports .discipline-pagenav-label {
+  font-family: var(--font-body);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: inherit;
+  opacity: 0.7;
+}
+.page-sports .discipline-pagenav-name {
+  font-family: var(--sp-display);
+  font-weight: var(--sp-display-wt);
+  font-size: clamp(1.9rem, 5.6vw, 4rem);
+  line-height: 0.94;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: inherit;
+}
+.page-sports .discipline-pagenav-prev { color: var(--heading); }
+.page-sports .discipline-pagenav-prev + .discipline-pagenav-next { border-left: 1px solid var(--line); }
+@media (hover: hover) and (pointer: fine) {
+  .page-sports .discipline-pagenav-link:hover { transform: none; }
+  .page-sports .discipline-pagenav-prev:hover { color: var(--sp-accent-ink); }
+  .page-sports .discipline-pagenav-prev:hover::before,
+  .page-sports .discipline-pagenav-next:hover::before { transform: translateX(0); }
+  .page-sports .discipline-pagenav-next:hover { color: var(--sp-accent); }
+  .page-sports .discipline-pagenav-prev:hover .discipline-pagenav-arrow { transform: translateX(-8px); }
+  .page-sports .discipline-pagenav-next:hover .discipline-pagenav-arrow { transform: translateX(8px); }
+}
+@media (max-width: 640px) {
+  .page-sports .discipline-pagenav { grid-template-columns: 1fr; padding: 0; }
+  .page-sports .discipline-pagenav-prev + .discipline-pagenav-next { border-left: 0; }
+  .page-sports .discipline-pagenav-link { min-height: 190px; gap: 36px; }
+}
+.page-sports .closing-card { margin-top: 0; }
