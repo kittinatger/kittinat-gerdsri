@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500..700;1,500..700&display=swap">
-<link rel="stylesheet" href="assets/css/music.css?v=13">
+<link rel="stylesheet" href="assets/css/music.css?v=15">
 </head>
 <body class="page-core-discipline page-music">
 
@@ -335,6 +335,46 @@
     var dots = ['g', 's', 'b', 'h', 'p'].filter(function (k) { return tally[k]; }).map(function (k) { return '<span class="mu-dot mu-dot-' + k + '">' + tally[k] + '</span>'; }).join('');
     [].forEach.call(document.querySelectorAll('[data-mu-n="awards"],[data-mu-count="awards"]'), function (e) { e.textContent = figs.length; });
     [].forEach.call(document.querySelectorAll('[data-mu-medals="awards"],[data-mu-dots="awards"]'), function (e) { e.innerHTML = dots; });
+
+
+    (function () {
+      var wrap = document.querySelector('.mu-perfs'); if (!wrap) return;
+      var items = [].slice.call(wrap.querySelectorAll('.mu-perf')); if (items.length < 2) return;
+      var tabs = document.createElement('div');
+      tabs.className = 'mu-tabs'; tabs.setAttribute('role', 'tablist');
+      var btns = items.map(function (it, i) {
+        var n = (i < 9 ? '0' : '') + (i + 1);
+        it.querySelector('.perf-head').dataset.n = n;
+        it.setAttribute('role', 'tabpanel');
+        var img = it.querySelector('.perf-photo img');
+        var h3 = it.querySelector('h3');
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'mu-tab'; b.setAttribute('role', 'tab');
+        b.innerHTML = '<span class="mu-tab-disc"></span><span class="mu-tab-n">' + n + '</span><span class="mu-tab-t"></span>';
+        b.querySelector('.mu-tab-disc').style.setProperty('--thumb', "url('" + (img ? img.src : '') + "')");
+        b.querySelector('.mu-tab-t').textContent = h3.textContent.split(',')[0];
+        b.addEventListener('click', function () { show(i, true); });
+        b.addEventListener('keydown', function (e) {
+          var k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+          if (!k) return; e.preventDefault(); show((i + k + items.length) % items.length, true); btns[(i + k + items.length) % items.length].focus();
+        });
+        tabs.appendChild(b);
+        return b;
+      });
+      function show(i, user) {
+        items.forEach(function (it, k) {
+          var on = k === i;
+          it.classList.toggle('is-active', on);
+          btns[k].setAttribute('aria-selected', on ? 'true' : 'false');
+          btns[k].tabIndex = on ? 0 : -1;
+          if (!on) { var v = it.querySelector('video'); if (v && !v.paused) v.pause(); }
+        });
+        if (user && btns[i].scrollIntoView) btns[i].scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+      }
+      wrap.insertBefore(tabs, wrap.firstChild);
+      wrap.classList.add('is-tabbed');
+      show(0);
+    })();
 
     var rail = document.querySelector('.sp-rail'); if (!rail) return;
     var toggle = rail.querySelector('.sp-rail-toggle'), topBtn = rail.querySelector('.sp-rail-top'), pct = rail.querySelector('[data-pct]');

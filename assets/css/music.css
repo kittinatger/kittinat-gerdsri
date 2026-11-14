@@ -390,96 +390,6 @@ html[data-sticky-navbar="true"] .page-music .site-header { top: calc(14px + env(
 .page-music .cert-filter.is-open .cert-filter-toggle,
 .page-music .cert-filter-toggle[aria-expanded="true"] { background: var(--mu-amber); color: var(--mu-amber-ink); }
 
-/* ---------- Performances: tracks on a record ---------- */
-.mu-perfs { display: grid; gap: clamp(44px, 7vw, 88px); counter-reset: track; }
-.mu-perf {
-  position: relative;
-  display: grid;
-  grid-template-columns: clamp(70px, 11vw, 160px) minmax(0, 1fr);
-  column-gap: clamp(14px, 3vw, 40px);
-  counter-increment: track;
-}
-.mu-perf::before {
-  content: counter(track, decimal-leading-zero);
-  grid-row: 1 / span 3;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 600;
-  font-size: clamp(3.4rem, 10.5vw, 8.4rem);
-  line-height: 0.8;
-  letter-spacing: -0.04em;
-  color: transparent;
-  -webkit-text-stroke: 2px var(--mu-hi);
-}
-.mu-perf .perf-head { margin: 0 0 clamp(14px, 2.4vw, 24px); }
-.mu-perf .perf-title h3 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.5rem, 3.6vw, 2.6rem);
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  color: var(--heading);
-}
-.mu-perf .perf-title p { margin: 0.5em 0 0; max-width: 56ch; color: var(--ink-soft); font-size: clamp(0.95rem, 1.5vw, 1.05rem); }
-.mu-perf .perf-media {
-  display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
-  gap: clamp(20px, 4vw, 52px);
-  align-items: center;
-  padding: 0;
-}
-/* the stage screen */
-.mu-perf .video-frame {
-  align-self: center;
-  border: 0;
-  border-radius: 8px;
-  background: #000;
-  box-shadow: 0 0 0 7px var(--mu-plum), 0 0 0 8.5px rgba(255, 181, 71, 0.75), 0 30px 50px -22px rgba(26, 16, 36, 0.7);
-}
-:root[data-theme="dark"] .mu-perf .video-frame { box-shadow: 0 0 0 7px #2c1d3a, 0 0 0 8.5px rgba(255, 181, 71, 0.75), 0 30px 60px -20px rgba(255, 181, 71, 0.22); }
-
-/* album cover with the vinyl sliding out */
-.mu-perf .perf-photo {
-  position: relative;
-  width: 68%;
-  margin: 0;
-  aspect-ratio: 1 / 1;
-  overflow: visible;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  transform: none;
-}
-.mu-perf .perf-photo img {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 4px;
-  box-shadow: 10px 0 26px -10px rgba(0, 0, 0, 0.55), 0 26px 40px -22px rgba(26, 16, 36, 0.7), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
-}
-.perf-disc {
-  position: absolute;
-  top: 3%;
-  right: -47%;
-  width: 94%;
-  height: 94%;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle, #0d0a10 0 3.5%, #ffb547 4% 15%, #e0466b 15.5% 25%, #0d0a10 25.5% 27%, transparent 27.5%),
-    conic-gradient(from 20deg, transparent 0 8%, rgba(255, 255, 255, 0.16) 13% 17%, transparent 23% 58%, rgba(255, 255, 255, 0.13) 63% 67%, transparent 73%),
-    repeating-radial-gradient(circle, #0d0a10 0 2px, #1d1624 2px 4px);
-  box-shadow: 0 18px 30px -14px rgba(0, 0, 0, 0.7), inset 0 0 0 2px rgba(255, 255, 255, 0.06);
-  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-}
-@media (hover: hover) and (pointer: fine) {
-  .mu-perf:hover .perf-disc { transform: translateX(9%) rotate(140deg); }
-}
-.mu-perf .credit { grid-column: 2; margin: clamp(16px, 2.4vw, 26px) 0 0; padding: 0; font-size: 0.74rem; letter-spacing: 0.08em; color: var(--ink-soft); }
-
 /* ---------- Awards: backstage passes on a rail ---------- */
 .page-music .mu-passes {
   --g: clamp(18px, 2.8vw, 34px);
@@ -970,12 +880,6 @@ html.sv-open, html.sv-open body { background: #0f0816 !important; }
   .mu-intro { grid-template-columns: minmax(0, 1fr); }
   .page-music .mu-intro .intro-pillar:nth-child(even) { margin-left: 0; }
   .mu-index { grid-template-columns: minmax(0, 1fr); }
-  .mu-perf { grid-template-columns: minmax(0, 1fr); row-gap: 0; }
-  .mu-perf::before { grid-row: auto; margin-bottom: 8px; font-size: clamp(3rem, 16vw, 4.6rem); }
-  .mu-perf .credit { grid-column: 1; }
-  .mu-perf .perf-media { grid-template-columns: minmax(0, 1fr); gap: 26px; }
-  .mu-perf .perf-photo { width: 68%; margin-bottom: 4px; }
-  .perf-disc { right: -46%; }
   .page-music .gallery-heading { padding-left: 46px; }
   .page-music .gallery-heading::before { left: 8px; width: 17px; height: 12px; }
   .page-music .gallery-heading::after { left: 22px; height: 48px; }
@@ -1349,8 +1253,6 @@ html.sv-open, html.sv-open body { background: #0f0816 !important; }
 .page-music .mu-hero h1 { font-weight: 700; font-size: clamp(5.4rem, 20vw, 14rem); }
 .page-music .mu-hero .tagline { font-size: clamp(1.35rem, 3vw, 2rem); }
 .page-music .gallery-heading h2 { font-weight: 700; font-size: clamp(3.2rem, 9vw, 6.6rem); }
-.mu-perf .perf-title h3 { font-weight: 700; font-size: clamp(1.8rem, 4vw, 3rem); }
-.mu-perf::before { font-weight: 700; font-size: clamp(4rem, 12vw, 9.6rem); }
 .page-music .mu-intro .about-pillar h2 { font-weight: 700; font-size: clamp(1.7rem, 3vw, 2.3rem); }
 .page-music .mu-intro .intro-pillar-text { font-weight: 700; font-size: 1.35rem; }
 .mu-index-card b { font-weight: 700; font-size: clamp(1.6rem, 3vw, 2.2rem); }
@@ -1454,151 +1356,190 @@ html.sv-open, html.sv-open body { background: #0f0816 !important; }
   .mu-arm { top: -6%; right: 20%; width: 46%; }
 }
 
-.mu-perf > *, .mu-perf .perf-media > *, .page-music .mu-passes > figure, .mu-intro > *, .mu-index > * { min-width: 0; }
 .page-music .mu-passes img { max-width: 100%; }
 
-/* ---------- Performances v2: stacked concert posters ---------- */
-.mu-perfs { gap: clamp(28px, 4vw, 44px); counter-reset: track; }
-.page-music .mu-perf {
-  --i: 0;
+
+/* ---------- Performances v4: one stage, a playlist of tabs ---------- */
+.page-music .mu-perfs {
   position: relative;
   isolation: isolate;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 22px;
-  padding: clamp(20px, 3.4vw, 40px);
+  display: block;
+  padding: clamp(16px, 2.8vw, 30px) clamp(26px, 5.6vw, 76px) clamp(20px, 3.4vw, 40px);
   overflow: hidden;
-  border-radius: clamp(22px, 3vw, 30px);
+  border-radius: clamp(22px, 3vw, 34px);
   color: #fff;
-  background: #170d22;
+  background:
+    radial-gradient(ellipse 60% 55% at 50% 0%, rgba(255, 190, 100, 0.26), transparent 72%),
+    linear-gradient(180deg, #23133b, #0f0817);
   box-shadow: inset 0 0 0 1px rgba(255, 181, 71, 0.28), 0 40px 60px -30px rgba(20, 8, 32, 0.8);
 }
-.mu-perf:nth-child(2) { --i: 1; }
-.mu-perf:nth-child(3) { --i: 2; }
-.mu-perf .perf-bg {
+/* velvet curtains on both sides */
+.page-music .mu-perfs::before,
+.page-music .mu-perfs::after {
+  content: '';
   position: absolute;
-  inset: -12%;
-  z-index: -2;
-  background-size: cover;
-  background-position: center;
-  filter: blur(26px) saturate(1.3) brightness(0.42);
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  width: clamp(14px, 3.6vw, 52px);
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.45), transparent 40%, rgba(0, 0, 0, 0.35)),
+    repeating-linear-gradient(90deg, #6d1226 0 12px, #8e1a35 12px 24px, #581020 24px 36px);
 }
-.mu-perf::after {
+.page-music .mu-perfs::before { left: 0; box-shadow: 8px 0 24px rgba(0, 0, 0, 0.55); }
+.page-music .mu-perfs::after { right: 0; box-shadow: -8px 0 24px rgba(0, 0, 0, 0.55); }
+
+/* playlist tabs */
+.mu-tabs {
+  display: flex;
+  gap: 10px;
+  margin: 0 0 clamp(14px, 2.4vw, 24px);
+  padding: 4px 2px 12px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+.mu-tabs::-webkit-scrollbar { display: none; }
+.mu-tab {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 78vw;
+  padding: 7px 18px 7px 7px;
+  border: 1px solid rgba(255, 224, 180, 0.32);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  scroll-snap-align: start;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.2s ease, border-color 0.25s ease;
+}
+.mu-tab-disc {
+  position: relative;
+  flex: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--thumb) center / cover;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.35);
+}
+.mu-tab-disc::after {
   content: '';
   position: absolute;
   inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(ellipse 60% 70% at 100% 0%, rgba(255, 181, 71, 0.2), transparent 70%),
-    linear-gradient(180deg, rgba(23, 13, 34, 0.1), rgba(23, 13, 34, 0.7));
+  margin: auto;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #170d22;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
 }
-/* big outlined number in the corner */
-.mu-perf::before {
-  content: counter(track, decimal-leading-zero);
-  grid-row: auto;
-  position: absolute;
-  top: clamp(6px, 2vw, 18px);
-  right: clamp(16px, 3vw, 36px);
-  z-index: -1;
-  font-size: clamp(5rem, 14vw, 10rem);
-  line-height: 0.9;
-  -webkit-text-stroke: 2px rgba(255, 181, 71, 0.4);
+.mu-tab-n { font-family: var(--font-display); font-style: italic; font-weight: 700; font-size: 1.15rem; color: #ffb547; }
+.mu-tab-t { overflow: hidden; font-size: 0.9rem; font-weight: 700; line-height: 1.2; text-overflow: ellipsis; white-space: nowrap; }
+.mu-tab[aria-selected="true"] { background: #ffb547; border-color: #ffb547; color: #2a1500; }
+.mu-tab[aria-selected="true"] .mu-tab-n { color: #2a1500; }
+@media (prefers-reduced-motion: no-preference) {
+  .mu-tab[aria-selected="true"] .mu-tab-disc { animation: mu-spin 6s linear infinite; }
 }
+@media (hover: hover) and (pointer: fine) {
+  .mu-tab:hover { transform: translateY(-2px); }
+  .mu-tab[aria-selected="false"]:hover { background: rgba(255, 181, 71, 0.2); }
+}
+.mu-tab:focus-visible { outline: 2px solid #ffb547; outline-offset: 3px; }
+
+/* the active performance */
+.page-music .mu-perf { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; color: #fff; }
+.mu-perfs.is-tabbed .mu-perf { display: none; }
+.mu-perfs.is-tabbed .mu-perf.is-active { display: grid; animation: mu-in 0.55s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes mu-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.mu-perfs:not(.is-tabbed) .mu-perf + .mu-perf { margin-top: 40px; }
+.mu-perf .perf-bg { display: none; }
 .mu-perf .perf-media { display: contents; }
 .mu-perf .perf-head { margin: 0; }
 .mu-perf .perf-head::before {
-  content: '';
+  content: attr(data-n);
   display: block;
-  width: 12px;
-  height: 12px;
-  margin-bottom: 14px;
-  border-radius: 50%;
-  background: #ff4d5e;
-  box-shadow: 0 0 0 5px rgba(255, 77, 94, 0.25);
+  margin-bottom: 6px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(3.4rem, 8vw, 5.4rem);
+  line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 2px #ffb547;
 }
-@media (prefers-reduced-motion: no-preference) {
-  .mu-perf .perf-head::before { animation: mu-rec 1.6s ease-in-out infinite; }
+.mu-perf .perf-title h3 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(1.7rem, 3.6vw, 2.7rem); line-height: 1.05; color: #fff; }
+.mu-perf .perf-title p { margin: 0.55em 0 0; color: rgba(255, 255, 255, 0.8); font-size: clamp(0.95rem, 1.5vw, 1.05rem); }
+.mu-perf .video-frame {
+  align-self: start;
+  border: 0;
+  border-radius: 10px;
+  background: #000;
+  box-shadow: 0 0 0 6px #150b20, 0 0 0 7.5px rgba(255, 181, 71, 0.7), 0 30px 50px -22px rgba(0, 0, 0, 0.85);
 }
-@keyframes mu-rec { 50% { opacity: 0.3; } }
-.mu-perf .perf-title h3 { color: #fff; }
-.mu-perf .perf-title p { color: rgba(255, 255, 255, 0.8); }
-.mu-perf .video-frame { align-self: start; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25), 0 30px 50px -22px rgba(0, 0, 0, 0.8); }
-.mu-perf .credit { margin: 0; color: rgba(255, 255, 255, 0.6); }
-/* the photo is a taped print */
-.mu-perf .perf-photo {
-  width: min(78%, 360px);
-  aspect-ratio: auto;
-  margin: 8px auto 4px;
-  padding: 8px 8px 30px;
-  background: #fbf3e2;
-  border-radius: 3px;
-  box-shadow: 0 24px 36px -18px rgba(0, 0, 0, 0.85);
-  transform: rotate(-3deg);
-}
-.mu-perf .perf-photo::before {
-  content: '';
-  position: absolute;
-  top: -12px;
-  left: 50%;
-  z-index: 2;
-  width: 84px;
-  height: 22px;
-  margin-left: -42px;
-  background: rgba(255, 181, 71, 0.8);
-  transform: rotate(2deg);
-}
-.mu-perf .perf-photo img { aspect-ratio: 4 / 3; height: auto; border-radius: 1px; box-shadow: none; }
-.mu-perf .perf-disc { display: none; }
-@media (min-width: 900px) {
-  .page-music .mu-perf {
-    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
-    align-items: start;
-    column-gap: clamp(28px, 4vw, 56px);
-    top: calc(96px + var(--i) * 16px);
-    position: sticky;
-  }
-  .mu-perf .video-frame { grid-column: 1; grid-row: 1 / span 2; }
-  .mu-perf .perf-head { grid-column: 2; grid-row: 1; padding-top: 6px; }
-  .mu-perf .perf-photo { grid-column: 2; grid-row: 2; margin: 0 auto; }
-  .mu-perf .credit { grid-column: 1 / -1; grid-row: 3; }
-}
-@media (max-width: 899px) {
-  .mu-perf .perf-head { order: 1; }
-  .mu-perf .video-frame { order: 2; }
-  .mu-perf .perf-photo { order: 3; }
-  .mu-perf .credit { order: 4; grid-column: auto; }
-}
+.mu-perf .credit { margin: 0; font-size: 0.74rem; letter-spacing: 0.08em; color: rgba(255, 255, 255, 0.6); }
 
-/* ---------- Performances v3: poster cards keep the vinyl ---------- */
+/* album sleeve with the vinyl sliding out */
 .mu-perf .perf-photo {
   position: relative;
-  width: 66%;
+  width: 62%;
   aspect-ratio: 1 / 1;
-  margin: 8px auto 4px 0;
+  margin: 10px 0 6px;
   padding: 0;
-  background: none;
+  overflow: visible;
+  border: 0;
   border-radius: 0;
   box-shadow: none;
   transform: none;
 }
-.mu-perf .perf-photo::before { display: none; }
 .mu-perf .perf-photo img {
   position: relative;
   z-index: 1;
+  display: block;
   width: 100%;
   height: 100%;
-  aspect-ratio: auto;
   object-fit: cover;
   border-radius: 4px;
   box-shadow: 10px 0 26px -10px rgba(0, 0, 0, 0.7), 0 26px 40px -22px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
 }
-.mu-perf .perf-disc { display: block; right: -44%; }
-@media (prefers-reduced-motion: no-preference) {
-  .mu-perf .perf-disc { animation: mu-spin 9s linear infinite; }
+.perf-disc {
+  position: absolute;
+  top: 3%;
+  right: -44%;
+  width: 94%;
+  height: 94%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #0d0a10 0 3.5%, #ffb547 4% 15%, #e0466b 15.5% 25%, #0d0a10 25.5% 27%, transparent 27.5%),
+    conic-gradient(from 20deg, transparent 0 8%, rgba(255, 255, 255, 0.16) 13% 17%, transparent 23% 58%, rgba(255, 255, 255, 0.13) 63% 67%, transparent 73%),
+    repeating-radial-gradient(circle, #0d0a10 0 2px, #1d1624 2px 4px);
+  box-shadow: 0 18px 30px -14px rgba(0, 0, 0, 0.7), inset 0 0 0 2px rgba(255, 255, 255, 0.06);
 }
+@media (prefers-reduced-motion: no-preference) {
+  .perf-disc { animation: mu-spin 9s linear infinite; }
+}
+@keyframes mu-spin { to { transform: rotate(360deg); } }
+
 @media (min-width: 900px) {
-  .mu-perf .perf-photo { margin: 0 auto 0 0; }
+  .page-music .mu-perf { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); column-gap: clamp(28px, 4vw, 56px); align-items: start; }
+  .mu-perf .video-frame { grid-column: 1; grid-row: 1 / span 2; }
+  .mu-perf .perf-head { grid-column: 2; grid-row: 1; }
+  .mu-perf .perf-photo { grid-column: 2; grid-row: 2; width: 64%; }
+  .mu-perf .credit { grid-column: 1 / -1; grid-row: 3; }
 }
 @media (max-width: 899px) {
-  .mu-perf .perf-photo { width: 62%; }
+  .mu-perf .video-frame { order: 1; }
+  .mu-perf .perf-head { order: 2; }
+  .mu-perf .perf-photo { order: 3; }
+  .mu-perf .credit { order: 4; }
+}
+@media (max-width: 560px) {
+  .page-music .mu-perfs { padding-left: 22px; padding-right: 22px; }
+  .mu-tab { padding-right: 14px; }
+  .mu-tab-t { max-width: 34vw; }
+  .mu-perf .perf-head::before { font-size: 3rem; }
+  .mu-perf .perf-photo { width: 58%; }
 }
