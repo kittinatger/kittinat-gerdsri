@@ -9,6 +9,11 @@
    Chinese      : red lacquer and gold (lantern page turns, seal chop)
    ===================================================================== */
 
+/* center the thumbnail strip when it is shorter than the screen (safe: still scrolls when long) */
+.page-core .sv[data-sub] .sv-thumbs { width: 100%; max-width: 900px; }
+.page-core .sv[data-sub] .sv-thumb:first-child { margin-left: auto; }
+.page-core .sv[data-sub] .sv-thumb:last-child { margin-right: auto; }
+
 /* shared resets so the four skins start from the same place */
 .page-core .sv[data-sub="english"],
 .page-core .sv[data-sub="mathematics"],
