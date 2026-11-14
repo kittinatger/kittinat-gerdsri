@@ -91,6 +91,29 @@
     thumbs.hidden = group.length < 2;
   }
 
+  // Trophy photos have their own (usually near-black) studio backdrop; paint the
+  // viewer the same colour so the photo's edges disappear.
+  var bgEl = root.querySelector('.sv-bg');
+  function matchBackdrop(url) {
+    bgEl.style.background = '';
+    var p = new Image();
+    p.onload = function () {
+      try {
+        var c = document.createElement('canvas');
+        c.width = c.height = 8;
+        var x = c.getContext('2d');
+        x.drawImage(p, 0, 0, 8, 8);
+        var pts = [[0, 0], [7, 0], [0, 7], [7, 7]], r = 0, g = 0, b = 0;
+        pts.forEach(function (q) { var d = x.getImageData(q[0], q[1], 1, 1).data; r += d[0]; g += d[1]; b += d[2]; });
+        r = Math.round(r / 4); g = Math.round(g / 4); b = Math.round(b / 4);
+        if ((0.299 * r + 0.587 * g + 0.114 * b) < 70 && cur >= 0 && group[cur] && (group[cur].dataset.full || group[cur].src).indexOf(url) !== -1) {
+          bgEl.style.background = 'rgb(' + r + ',' + g + ',' + b + ')';
+        }
+      } catch (e) {}
+    };
+    p.src = url;
+  }
+
   function preload(i) {
     var g = group[(i + group.length) % group.length];
     if (g) { var p = new Image(); p.src = g.dataset.full || g.src; }
@@ -109,6 +132,9 @@
     img.alt = g.alt || '';
     img.onload = function () { img.classList.add('is-in'); };
     img.src = url;
+    var isTrophy = !!(fig && fig.classList.contains('trophy'));
+    img.classList.toggle('is-trophy', isTrophy);
+    if (isTrophy) matchBackdrop(url); else bgEl.style.background = '';
     if (img.complete) img.classList.add('is-in');
     cb.textContent = (cur < 9 ? '0' : '') + (cur + 1);
     cn.textContent = group.length;

@@ -1707,3 +1707,5 @@ html[data-sticky-navbar="true"] .page-sports .site-header { top: calc(14px + env
 .sv-bg { background: #060c08; }
 .sv-bg img { display: none; }
 .sv-img { box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.9); }
+.sv-img.is-trophy { border-radius: 0; box-shadow: none; }
+.sv-bg { transition: background-color 0.25s ease; }
