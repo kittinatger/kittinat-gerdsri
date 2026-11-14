@@ -1521,122 +1521,28 @@ html.sv-open body > header, html.sv-open main, html.sv-open .closing-card { visi
     radial-gradient(ellipse at 50% 0%, rgba(70, 110, 255, 0.18), transparent 70%),
     #0c1a3a;
 }
-.page-core #sciences {
-  --ink: #14213d;
-  --ink-soft: #4a5673;
-  --heading: #0c1733;
-  --line: rgba(20, 33, 61, 0.2);
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'%3E%3Cg fill='none' stroke='rgba(42,75,215,0.2)' stroke-width='1.6'%3E%3Cellipse cx='210' cy='210' rx='120' ry='42'/%3E%3Cellipse cx='210' cy='210' rx='120' ry='42' transform='rotate(60 210 210)'/%3E%3Cellipse cx='210' cy='210' rx='120' ry='42' transform='rotate(120 210 210)'/%3E%3C/g%3E%3Ccircle cx='210' cy='210' r='9' fill='rgba(42,75,215,0.2)'/%3E%3Ccircle cx='330' cy='210' r='5' fill='rgba(42,75,215,0.2)'/%3E%3Ccircle cx='150' cy='106' r='5' fill='rgba(42,75,215,0.2)'/%3E%3Ccircle cx='150' cy='314' r='5' fill='rgba(42,75,215,0.2)'/%3E%3C/svg%3E") 40px 30px / 420px 420px,
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z' fill='rgba(42,75,215,0.16)' fill-rule='evenodd'/%3E%3C/svg%3E") 0 0 / 28px 49px,
-    linear-gradient(180deg, #eaeefc 0%, #dde5fa 100%);
-}
+.page-core #sciences,
 :root[data-theme="dark"] .page-core #sciences {
-  --ink: #e8eefc;
-  --ink-soft: #a5b4d6;
+  --ink: #eef0ff;
+  --ink-soft: rgba(238, 240, 255, 0.78);
   --heading: #ffffff;
-  --line: rgba(170, 195, 255, 0.26);
+  --line: rgba(200, 210, 255, 0.3);
+  --surface: #1a1a4a;
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420' viewBox='0 0 420 420'%3E%3Cg fill='none' stroke='rgba(170,185,255,0.24)' stroke-width='1.6'%3E%3Cellipse cx='210' cy='210' rx='120' ry='42'/%3E%3Cellipse cx='210' cy='210' rx='120' ry='42' transform='rotate(60 210 210)'/%3E%3Cellipse cx='210' cy='210' rx='120' ry='42' transform='rotate(120 210 210)'/%3E%3C/g%3E%3Ccircle cx='210' cy='210' r='9' fill='rgba(170,185,255,0.24)'/%3E%3Ccircle cx='330' cy='210' r='5' fill='rgba(170,185,255,0.24)'/%3E%3Ccircle cx='150' cy='106' r='5' fill='rgba(170,185,255,0.24)'/%3E%3Ccircle cx='150' cy='314' r='5' fill='rgba(170,185,255,0.24)'/%3E%3C/svg%3E") 40px 30px / 420px 420px,
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z' fill='rgba(170,185,255,0.12)' fill-rule='evenodd'/%3E%3C/svg%3E") 0 0 / 28px 49px,
-    linear-gradient(180deg, #14123a 0%, #0c0d2a 100%);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='640' height='520' viewBox='0 0 640 520'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23ffb86b'/%3E%3Cstop offset='1' stop-color='%23a35bd8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cellipse cx='470' cy='150' rx='190' ry='62' fill='none' stroke='white' stroke-opacity='.14' stroke-width='1.4' stroke-dasharray='6 8'/%3E%3Cg opacity='.9'%3E%3Ccircle cx='470' cy='150' r='44' fill='url(%23g)'/%3E%3Cellipse cx='470' cy='150' rx='84' ry='17' fill='none' stroke='%23ffe0b0' stroke-opacity='.65' stroke-width='3' transform='rotate(-18 470 150)'/%3E%3C/g%3E%3Cg stroke='white' stroke-opacity='.3' stroke-width='1.2' fill='none'%3E%3Cpath d='M90 100L150 66L214 104L262 74L306 136'/%3E%3C/g%3E%3Cg fill='white' fill-opacity='.8'%3E%3Ccircle cx='90' cy='100' r='3'/%3E%3Ccircle cx='150' cy='66' r='4'/%3E%3Ccircle cx='214' cy='104' r='3'/%3E%3Ccircle cx='262' cy='74' r='3.5'/%3E%3Ccircle cx='306' cy='136' r='3'/%3E%3C/g%3E%3Ccircle cx='150' cy='410' r='18' fill='white' fill-opacity='.5'/%3E%3Ccircle cx='144' cy='404' r='4' fill='%23b9bfd6' fill-opacity='.7'/%3E%3Ccircle cx='158' cy='416' r='3' fill='%23b9bfd6' fill-opacity='.7'/%3E%3Cpath d='M520 380L430 430' stroke='white' stroke-opacity='.6' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M430 430L380 460' stroke='white' stroke-opacity='.2' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") 20px 10px / 640px 520px,
+    radial-gradient(circle, rgba(255, 255, 255, 0.9) 0.8px, transparent 1.4px) 0 0 / 61px 53px,
+    radial-gradient(circle, rgba(255, 255, 255, 0.6) 0.7px, transparent 1.3px) 20px 30px / 37px 41px,
+    radial-gradient(circle, rgba(190, 200, 255, 0.7) 1.1px, transparent 1.7px) 11px 7px / 97px 83px,
+    radial-gradient(ellipse 55% 45% at 15% 20%, rgba(120, 80, 220, 0.35), transparent 70%),
+    radial-gradient(ellipse 50% 45% at 90% 85%, rgba(40, 120, 220, 0.3), transparent 70%),
+    radial-gradient(ellipse 40% 30% at 60% 50%, rgba(220, 80, 170, 0.12), transparent 70%),
+    linear-gradient(180deg, #0b0a2a 0%, #070720 100%);
 }
-
-/* =====================================================================
-   Previous / next: two "turn the page" paper cards
-   ===================================================================== */
-.page-core .discipline-pagenav {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(20px, 4.5vw, 56px);
-  max-width: var(--max-width);
-  margin: clamp(48px, 8vw, 96px) auto 0;
-  padding: 0 clamp(20px, 5vw, 48px) clamp(56px, 9vw, 104px);
-  border-top: 0;
-}
-.page-core .discipline-pagenav-link {
-  position: relative;
-  isolation: auto;
-  overflow: visible;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: clamp(22px, 4vw, 40px);
-  min-height: clamp(190px, 26vw, 260px);
-  padding: clamp(20px, 3vw, 30px) clamp(22px, 3.4vw, 36px);
-  border: 1.5px solid var(--ink);
-  border-radius: 6px;
-  background: #fffdf6;
-  color: #14213d;
-  box-shadow: 6px 6px 0 var(--ink);
-  transform: rotate(-0.8deg);
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
-}
-.page-core .discipline-pagenav-next {
-  align-items: flex-end;
-  text-align: right;
-  background: var(--cd-accent);
-  color: #14213d;
-  transform: rotate(0.8deg);
-}
-:root[data-theme="dark"] .page-core .discipline-pagenav-link { border-color: #fff; box-shadow: 6px 6px 0 rgba(255, 255, 255, 0.9); }
-.page-core .discipline-pagenav-link::before,
-.page-core .discipline-pagenav-next::before {
-  content: '';
-  position: absolute;
-  inset: auto;
-  top: -12px;
-  left: 30px;
-  z-index: 2;
-  width: 84px;
-  height: 22px;
-  background: rgba(255, 210, 63, 0.9);
-  transform: rotate(-3deg);
-  transition: none;
-}
-.page-core .discipline-pagenav-next::before { left: auto; right: 30px; background: rgba(255, 255, 255, 0.75); transform: rotate(3deg); }
-.page-core .discipline-pagenav-arrow {
-  font-family: var(--cd-mono);
-  font-weight: 700;
-  font-size: clamp(2rem, 4.5vw, 3rem);
-  line-height: 1;
-  color: #14213d;
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-.page-core .discipline-pagenav-label {
-  font-family: var(--cd-mono);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  color: #4a5673;
-  opacity: 1;
-}
-.page-core .discipline-pagenav-next .discipline-pagenav-label { color: #14213d; }
-.page-core .discipline-pagenav-name {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.9rem, 4.6vw, 3.2rem);
-  line-height: 1;
-  letter-spacing: -0.01em;
-  text-transform: none;
-  color: #14213d;
-}
-.page-core .discipline-pagenav-link[href="music.html"] .discipline-pagenav-label::after { content: '  \00B7  09'; }
-.page-core .discipline-pagenav-link[href="graphics-drawing.html"] .discipline-pagenav-label::after { content: '  \00B7  03'; }
-@media (hover: hover) and (pointer: fine) {
-  .page-core .discipline-pagenav-link:hover,
-  .page-core .discipline-pagenav-prev:hover,
-  .page-core .discipline-pagenav-next:hover { color: #14213d; transform: rotate(0) translate(-3px, -3px); box-shadow: 10px 10px 0 var(--ink); }
-  :root[data-theme="dark"] .page-core .discipline-pagenav-link:hover { box-shadow: 10px 10px 0 #fff; }
-  .page-core .discipline-pagenav-prev:hover::before,
-  .page-core .discipline-pagenav-next:hover::before { transform: rotate(-3deg); }
-  .page-core .discipline-pagenav-prev:hover .discipline-pagenav-arrow { transform: translateX(-8px); }
-  .page-core .discipline-pagenav-next:hover .discipline-pagenav-arrow { transform: translateX(8px); }
-}
-@media (max-width: 640px) {
-  .page-core .discipline-pagenav { grid-template-columns: 1fr; padding: 0 20px 56px; }
-  .page-core .discipline-pagenav-link { min-height: 170px; }
-}
+.page-core #sciences .cd-meta b { color: #fff; }
+.page-core #sciences .gallery-heading { border-bottom-color: rgba(200, 210, 255, 0.4); }
+.page-core #sciences .cd-sec-top .cd-no,
+.page-core #sciences .sort-toggle { border-color: #fff; box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.85); }
+.page-core #sciences .cd-slides figure { border-color: rgba(200, 210, 255, 0.65); background: linear-gradient(160deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04)), #15154a; }
 
 /* ---- Mathematics: chalkboard ---- */
 .page-core #mathematics {
