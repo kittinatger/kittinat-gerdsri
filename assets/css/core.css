@@ -1478,3 +1478,60 @@ html.sv-open body > header, html.sv-open main, html.sv-open .closing-card { visi
   .page-core .footer-social-btn[aria-label]:hover { background: var(--cd-accent); color: #14213d; border-color: #fff; box-shadow: 5px 5px 0 #fff; }
 }
 .page-core .footer-nav a[href="core-discipline.html"] { color: var(--cd-accent); }
+
+/* ---------- Section backdrops: English = corkboard, Sciences = lab bench ---------- */
+.page-core #english {
+  --ink: #2b1c0a;
+  --ink-soft: #5a4026;
+  --heading: #1f1407;
+  --line: rgba(43, 28, 10, 0.28);
+  border-block: 12px solid #8a5a2b;
+  box-shadow: inset 0 10px 24px -10px rgba(40, 22, 5, 0.55), inset 0 -10px 24px -10px rgba(40, 22, 5, 0.45);
+  background:
+    radial-gradient(circle at 20% 30%, rgba(90, 55, 20, 0.28) 0 1.5px, transparent 2.2px) 0 0 / 22px 22px,
+    radial-gradient(circle at 70% 60%, rgba(255, 232, 186, 0.3) 0 1.3px, transparent 2.2px) 0 0 / 17px 17px,
+    radial-gradient(circle at 40% 80%, rgba(70, 40, 15, 0.22) 0 2px, transparent 3px) 0 0 / 31px 31px,
+    radial-gradient(circle at 85% 15%, rgba(255, 232, 186, 0.22) 0 1px, transparent 2px) 0 0 / 13px 13px,
+    radial-gradient(ellipse at 50% 0%, rgba(255, 236, 200, 0.35), transparent 70%),
+    #c9a06a;
+}
+:root[data-theme="dark"] .page-core #english {
+  --ink: #f6e8d2;
+  --ink-soft: #d8bf9c;
+  --heading: #ffffff;
+  --line: rgba(246, 232, 210, 0.3);
+  border-block-color: #5a3a1a;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(20, 10, 2, 0.35) 0 1.5px, transparent 2.2px) 0 0 / 22px 22px,
+    radial-gradient(circle at 70% 60%, rgba(255, 220, 170, 0.14) 0 1.3px, transparent 2.2px) 0 0 / 17px 17px,
+    radial-gradient(circle at 40% 80%, rgba(20, 10, 2, 0.3) 0 2px, transparent 3px) 0 0 / 31px 31px,
+    radial-gradient(ellipse at 50% 0%, rgba(255, 220, 170, 0.12), transparent 70%),
+    #6b4a2b;
+}
+.page-core #english .gallery-heading { border-bottom-color: rgba(43, 28, 10, 0.35); }
+:root[data-theme="dark"] .page-core #english .gallery-heading { border-bottom-color: rgba(246, 232, 210, 0.4); }
+
+.page-core #sciences {
+  --ink: #0d2b2e;
+  --ink-soft: #3a5d60;
+  --heading: #06201f;
+  --line: rgba(13, 43, 46, 0.22);
+  background:
+    radial-gradient(circle at 10% 18%, transparent 0 70px, rgba(20, 120, 110, 0.2) 71px 73px, transparent 74px, transparent 90px, rgba(20, 120, 110, 0.1) 91px 92px, transparent 93px),
+    radial-gradient(circle at 90% 70%, transparent 0 96px, rgba(20, 120, 110, 0.2) 97px 99px, transparent 100px, transparent 118px, rgba(20, 120, 110, 0.1) 119px 120px, transparent 121px),
+    radial-gradient(circle at 50% 100%, transparent 0 56px, rgba(20, 120, 110, 0.18) 57px 59px, transparent 60px),
+    radial-gradient(circle, rgba(13, 90, 85, 0.2) 1.5px, transparent 2px) 0 0 / 26px 26px,
+    linear-gradient(180deg, #e0f0eb 0%, #cfe6e0 100%);
+}
+:root[data-theme="dark"] .page-core #sciences {
+  --ink: #dff5f1;
+  --ink-soft: #9fc9c4;
+  --heading: #ffffff;
+  --line: rgba(160, 230, 220, 0.26);
+  background:
+    radial-gradient(circle at 10% 18%, transparent 0 70px, rgba(110, 230, 215, 0.22) 71px 73px, transparent 74px, transparent 90px, rgba(110, 230, 215, 0.1) 91px 92px, transparent 93px),
+    radial-gradient(circle at 90% 70%, transparent 0 96px, rgba(110, 230, 215, 0.22) 97px 99px, transparent 100px, transparent 118px, rgba(110, 230, 215, 0.1) 119px 120px, transparent 121px),
+    radial-gradient(circle at 50% 100%, transparent 0 56px, rgba(110, 230, 215, 0.2) 57px 59px, transparent 60px),
+    radial-gradient(circle, rgba(110, 230, 215, 0.2) 1.5px, transparent 2px) 0 0 / 26px 26px,
+    linear-gradient(180deg, #0a2a33 0%, #071c26 100%);
+}
