@@ -2010,6 +2010,40 @@ html[data-sticky-navbar="true"] .site-header {
 .award-badge-silver { background: rgba(107, 117, 130, 0.85); }
 .award-badge-bronze { background: rgba(161, 82, 36, 0.85); }
 .award-badge-merit { background: rgba(37, 99, 201, 0.85); }
+
+/* Result cards — a photo-less summary of a result (e.g. a just-finished
+   tournament), using the same award color language as .award-badge but
+   as an inline pill on a plain card rather than overlaid on a figure. */
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 1.6em;
+}
+.result-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.1em 1.2em;
+}
+.result-card h3 { margin: 0.5em 0 0.15em; font-family: var(--font-display); font-size: 1.15rem; }
+.result-card p { margin: 0; font-size: 0.82rem; color: var(--ink-soft); }
+.result-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #fff;
+  border-radius: 999px;
+}
+.result-badge-gold { background: rgba(201, 160, 20, 0.85); }
+.result-badge-silver { background: rgba(107, 117, 130, 0.85); }
+.result-badge-bronze { background: rgba(161, 82, 36, 0.85); }
+.result-badge-place { background: rgba(37, 99, 201, 0.85); }
+@media (max-width: 760px) {
+  .result-grid { grid-template-columns: repeat(2, 1fr); }
+}
 .award-badge-pass { background: rgba(33, 140, 86, 0.85); }
 .award-badge-grade { background: rgba(13, 138, 148, 0.85); }
 .award-badge-participate { background: rgba(46, 52, 66, 0.85); }
