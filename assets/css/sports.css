@@ -1214,3 +1214,12 @@ html { scroll-behavior: smooth; }
   .page-sports .gl-film figure { padding: 20px 6px 32px; }
   .page-sports .gl-film figure::after { height: 32px; padding-left: 10px; }
 }
+
+/* Phones: the team photo gets a full-width frame so the remaining 14 frames
+   pair up with no orphan at the end. */
+@media (max-width: 700px) {
+  .page-sports .gl-film figure:first-child { grid-column: 1 / -1; border-radius: 8px; }
+  .page-sports .gl-film figure:first-child img { aspect-ratio: 16 / 10; }
+  .page-sports .gl-film figure:nth-child(n+2):nth-child(2n+2) { border-radius: 8px 0 0 8px; }
+  .page-sports .gl-film figure:nth-child(n+2):nth-child(2n+3) { border-radius: 0 8px 8px 0; }
+}
