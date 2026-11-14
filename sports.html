@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&display=swap">
-<link rel="stylesheet" href="assets/css/sports.css?v=10">
+<link rel="stylesheet" href="assets/css/sports.css?v=12">
 </head>
 <body class="page-core-discipline page-sports">
 
@@ -769,6 +769,14 @@
       if (c && g) c.textContent = g.querySelectorAll('figure').length;
     });
     if (!('IntersectionObserver' in window)) return;
+    var dock = document.querySelector('.sp-chips'), fob = document.getElementById('sp-fobisia');
+    if (dock && fob) {
+      document.documentElement.classList.add('js-dock');
+      new IntersectionObserver(function (e) {
+        var r = e[0].boundingClientRect;
+        dock.classList.toggle('is-docked', r.top < window.innerHeight * 0.6 && r.bottom > window.innerHeight * 0.4);
+      }, { threshold: [0, 0.01, 0.1, 0.5, 1] }).observe(fob);
+    }
     function spy(linkSel, targetFor, rootMargin) {
       var links = [].slice.call(document.querySelectorAll(linkSel));
       var map = {};
