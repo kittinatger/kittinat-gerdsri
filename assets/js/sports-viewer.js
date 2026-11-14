@@ -52,6 +52,7 @@
   var closeBtn = root.querySelector('.sv-close');
 
   var group = [], cur = 0, lastFocus = null;
+  var themeMeta = document.querySelector('meta[name="theme-color"]'), themeWas = themeMeta ? themeMeta.content : '';
   var scale = 1, tx = 0, ty = 0;
 
   function applyZoom() {
@@ -108,6 +109,7 @@
         r = Math.round(r / 4); g = Math.round(g / 4); b = Math.round(b / 4);
         if ((0.299 * r + 0.587 * g + 0.114 * b) < 70 && cur >= 0 && group[cur] && (group[cur].dataset.full || group[cur].src).indexOf(url) !== -1) {
           bgEl.style.background = 'rgb(' + r + ',' + g + ',' + b + ')';
+          if (themeMeta && !root.hidden) themeMeta.content = 'rgb(' + r + ',' + g + ',' + b + ')';
         }
       } catch (e) {}
     };
@@ -170,6 +172,7 @@
     buildThumbs();
     lastFocus = document.activeElement;
     root.hidden = false;
+    if (themeMeta) themeMeta.content = '#060c08';
     document.documentElement.style.overflow = 'hidden';
     requestAnimationFrame(function () { root.classList.add('is-open'); });
     show(cur, true);
@@ -178,6 +181,7 @@
 
   function close() {
     root.classList.remove('is-open');
+    if (themeMeta) themeMeta.content = themeWas;
     resetZoom();
     document.documentElement.style.overflow = '';
     setTimeout(function () { if (!root.classList.contains('is-open')) { root.hidden = true; img.removeAttribute('src'); } }, 260);

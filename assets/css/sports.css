@@ -1709,3 +1709,6 @@ html[data-sticky-navbar="true"] .page-sports .site-header { top: calc(14px + env
 .sv-img { box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.9); }
 .sv-img.is-trophy { border-radius: 0; box-shadow: none; }
 .sv-bg { transition: background-color 0.25s ease; }
+/* Viewer fills the whole screen, including under the status bar. */
+.sv { background: #060c08; padding-top: env(safe-area-inset-top, 0px); }
+.sv-top { padding-top: 14px; }
