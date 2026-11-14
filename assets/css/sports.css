@@ -284,15 +284,15 @@ html { scroll-behavior: smooth; }
 .sp-section > .wrap > .lede { max-width: 62ch; }
 
 /* ---------- Justified photo rows ---------- */
-.page-sports .gallery:not(.locker-row):not(.sp-vault) {
+.page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap) {
   gap: 10px;
 }
-.page-sports .gallery:not(.locker-row):not(.sp-vault) figure {
+.page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap) figure {
   position: relative;
   border-radius: 12px;
   transition: box-shadow 0.25s ease;
 }
-.page-sports .gallery:not(.locker-row):not(.sp-vault) figure::after {
+.page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap) figure::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -302,27 +302,27 @@ html { scroll-behavior: smooth; }
   transition: opacity 0.3s ease;
 }
 @media (hover: hover) and (pointer: fine) {
-  .page-sports .gallery:not(.locker-row):not(.sp-vault) figure:hover {
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap) figure:hover {
     box-shadow: 0 0 0 2px var(--sp-accent), 0 18px 36px -20px rgba(0, 0, 0, 0.6);
   }
-  .page-sports .gallery:not(.locker-row):not(.sp-vault) figure:hover::after { opacity: 1; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap) figure:hover::after { opacity: 1; }
 }
 @media (min-width: 701px) {
   /* Row height is derived from the content width so that three landscape
      frames (4.5 row-heights wide) always just fit with a little slack,
      which keeps every row close to its natural proportions instead of
      stretching two-up rows ~40% wider. Tablets get a two-up rhythm. */
-  .page-sports .gallery:not(.locker-row):not(.sp-vault) {
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap) {
     --cw: calc(min(100vw, 1180px) - 2 * clamp(20px, 5vw, 48px));
     --row-h: calc((var(--cw) - 20px) / 3.3);
     display: flex;
     flex-wrap: wrap;
   }
   @media (min-width: 901px) {
-    .page-sports .gallery:not(.locker-row):not(.sp-vault) { --row-h: calc((var(--cw) - 20px) / 4.9); }
+    .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap) { --row-h: calc((var(--cw) - 20px) / 4.9); }
   }
-  .page-sports .gallery:not(.locker-row):not(.sp-vault) figure,
-  .page-sports .gallery:not(.locker-row):not(.sp-vault) figure.wide {
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap) figure,
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap) figure.wide {
     --ar: 1.5;
     flex: calc(var(--ar) * 100) 1 calc(var(--ar) * var(--row-h));
     min-width: 0;
@@ -332,12 +332,12 @@ html { scroll-behavior: smooth; }
     height: var(--row-h);
     aspect-ratio: auto;
   }
-  .page-sports .gallery:not(.locker-row):not(.sp-vault) { justify-content: center; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap) { justify-content: center; }
 }
 @media (max-width: 700px) {
-  .page-sports .gallery:not(.locker-row):not(.sp-vault) { gap: 8px; }
-  .page-sports .gallery:not(.locker-row):not(.sp-vault) figure { aspect-ratio: 1 / 1; border-radius: 10px; }
-  .page-sports .gallery:not(.locker-row):not(.sp-vault) figure.wide { aspect-ratio: 16 / 10; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap) { gap: 8px; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap) figure { aspect-ratio: 1 / 1; border-radius: 10px; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap) figure.wide { aspect-ratio: 16 / 10; }
 }
 
 /* ---------- FOBISIA: podium results ---------- */
@@ -817,4 +817,203 @@ html { scroll-behavior: smooth; }
     border: 1px solid var(--line);
     color: var(--ink);
   }
+}
+
+/* =====================================================================
+   Unique galleries: filmstrips, scrapbook polaroids, bento mosaic
+   ===================================================================== */
+.page-sports .gl-strip figure,
+.page-sports .gl-bento figure,
+.page-sports .gl-scrap figure {
+  position: relative;
+  margin: 0;
+  aspect-ratio: auto;
+  overflow: hidden;
+  cursor: zoom-in;
+}
+.page-sports .gl-strip img,
+.page-sports .gl-bento img,
+.page-sports .gl-scrap img { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* ---- Filmstrip: scroll-snap row, natural proportions ---- */
+.gl-strip-wrap { position: relative; }
+.page-sports .gl-strip {
+  --strip-h: clamp(190px, 25vw, 290px);
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  padding: 4px 2px 6px;
+  -webkit-overflow-scrolling: touch;
+}
+.page-sports .gl-strip::-webkit-scrollbar { display: none; }
+.page-sports .gl-strip-xl { --strip-h: clamp(240px, 36vw, 430px); }
+.page-sports .gl-strip figure {
+  flex: none;
+  height: var(--strip-h);
+  width: calc(var(--ar, 1.5) * var(--strip-h));
+  scroll-snap-align: start;
+  border-radius: 16px;
+}
+.gl-strip-wrap::before,
+.gl-strip-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 6px;
+  width: 38px;
+  z-index: 2;
+  pointer-events: none;
+}
+.gl-strip-wrap::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
+.gl-strip-wrap::after { right: 0; background: linear-gradient(270deg, var(--bg), transparent); }
+.section-soft .gl-strip-wrap::before { background: linear-gradient(90deg, var(--bg-soft), transparent); }
+.gl-strip-wrap.is-static::before, .gl-strip-wrap.is-static::after { display: none; }
+.gl-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-top: -27px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--sp-glass);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.6);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.gl-arrow[hidden] { display: none; }
+.gl-arrow svg { width: 18px; height: 18px; }
+.gl-prev { left: 8px; }
+.gl-next { right: 8px; }
+.gl-arrow:hover { background: var(--sp-accent); color: var(--sp-accent-ink); }
+.gl-arrow:active { transform: scale(0.92); }
+@media (hover: none) { .gl-arrow { display: none; } }
+@media (hover: hover) and (pointer: fine) {
+  .page-sports .gl-strip figure:hover img,
+  .page-sports .gl-bento figure:hover img { transform: scale(1.05); }
+}
+
+/* ---- Match reels (football) ---- */
+.gl-match + .gl-match { margin-top: clamp(22px, 3.5vw, 36px); }
+.gl-match-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin-bottom: 10px;
+}
+.gl-vs {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.gl-abbr {
+  font-family: var(--sp-display);
+  font-weight: 900;
+  font-size: clamp(1.7rem, 4vw, 2.3rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--heading);
+}
+.gl-opp { flex: 1 1 200px; min-width: 0; font-size: 0.82rem; color: var(--ink-soft); }
+.gl-n {
+  margin-left: auto;
+  min-width: 28px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--sp-accent);
+  color: var(--sp-accent-ink);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* ---- Scrapbook polaroids ---- */
+.page-sports .gl-scrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 14px 6px;
+  padding: 18px 8px 10px;
+}
+.page-sports .gl-scrap figure {
+  flex: none;
+  width: clamp(150px, 22vw, 250px);
+  padding: 9px 9px 30px;
+  overflow: visible;
+  border: 0;
+  border-radius: 3px;
+  background: #fbfbf6;
+  box-shadow: 0 22px 34px -18px rgba(0, 0, 0, 0.6), 0 2px 4px rgba(0, 0, 0, 0.18);
+  transform: rotate(var(--rot, -3deg));
+  margin: 0 -8px;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+.page-sports .gl-scrap figure:nth-child(1) { --rot: -4deg; }
+.page-sports .gl-scrap figure:nth-child(2) { --rot: 2.5deg; margin-top: 18px; }
+.page-sports .gl-scrap figure:nth-child(3) { --rot: -2deg; }
+.page-sports .gl-scrap figure:nth-child(4) { --rot: 4deg; margin-top: 14px; }
+.page-sports .gl-scrap figure::after { display: none; }
+.page-sports .gl-scrap img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: var(--ar, 1.5);
+  object-fit: cover;
+  border-radius: 1px;
+}
+.page-sports .gl-scrap figure::before {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  width: 54px;
+  height: 18px;
+  margin-left: -27px;
+  background: rgba(200, 245, 66, 0.55);
+  transform: rotate(-3deg);
+  z-index: 1;
+}
+@media (hover: hover) and (pointer: fine) {
+  .page-sports .gl-scrap figure:hover {
+    z-index: 5;
+    transform: rotate(0) scale(1.08) translateY(-6px);
+    box-shadow: 0 0 0 2px var(--sp-accent), 0 30px 40px -18px rgba(0, 0, 0, 0.7);
+  }
+}
+
+/* ---- Bento mosaic: big + two small, mirrored each block ---- */
+.page-sports .gl-bento {
+  --bc: 10px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-auto-rows: clamp(110px, 15vw, 210px);
+  grid-auto-flow: dense;
+  gap: var(--bc);
+}
+.page-sports .gl-bento figure { border-radius: 16px; grid-column: span 2; grid-row: span 1; height: auto; }
+.page-sports .gl-bento figure:nth-child(3n+1) { grid-column: span 4; grid-row: span 2; }
+.page-sports .gl-bento figure:nth-child(6n+4) { grid-column: 3 / span 4; }
+.page-sports .gl-bento figure:nth-child(6n+5),
+.page-sports .gl-bento figure:nth-child(6n+6) { grid-column: 1 / span 2; }
+.page-sports .gl-bento img { height: 100%; object-position: 50% 35%; }
+@media (max-width: 700px) {
+  .page-sports .gl-bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 38vw; }
+  .page-sports .gl-bento figure,
+  .page-sports .gl-bento figure:nth-child(n) { grid-column: span 1; grid-row: span 1; }
+  .page-sports .gl-bento figure:nth-child(3n+1) { grid-column: span 2; grid-row: span 2; }
+}
+@media (max-width: 700px) {
+  .page-sports .gl-scrap figure { width: 42vw; margin: 0 -4px; }
 }
