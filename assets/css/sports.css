@@ -284,15 +284,15 @@ html { scroll-behavior: smooth; }
 .sp-section > .wrap > .lede { max-width: 62ch; }
 
 /* ---------- Justified photo rows ---------- */
-.page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) {
+.page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film):not(.gl-lanes) {
   gap: 10px;
 }
-.page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) figure {
+.page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film):not(.gl-lanes) figure {
   position: relative;
   border-radius: 12px;
   transition: box-shadow 0.25s ease;
 }
-.page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) figure::after {
+.page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film):not(.gl-lanes) figure::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -302,27 +302,27 @@ html { scroll-behavior: smooth; }
   transition: opacity 0.3s ease;
 }
 @media (hover: hover) and (pointer: fine) {
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) figure:hover {
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film):not(.gl-lanes) figure:hover {
     box-shadow: 0 0 0 2px var(--sp-accent), 0 18px 36px -20px rgba(0, 0, 0, 0.6);
   }
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) figure:hover::after { opacity: 1; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film):not(.gl-lanes) figure:hover::after { opacity: 1; }
 }
 @media (min-width: 701px) {
   /* Row height is derived from the content width so that three landscape
      frames (4.5 row-heights wide) always just fit with a little slack,
      which keeps every row close to its natural proportions instead of
      stretching two-up rows ~40% wider. Tablets get a two-up rhythm. */
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) {
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film):not(.gl-lanes) {
     --cw: calc(min(100vw, 1180px) - 2 * clamp(20px, 5vw, 48px));
     --row-h: calc((var(--cw) - 20px) / 3.3);
     display: flex;
     flex-wrap: wrap;
   }
   @media (min-width: 901px) {
-    .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) { --row-h: calc((var(--cw) - 20px) / 4.9); }
+    .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film):not(.gl-lanes) { --row-h: calc((var(--cw) - 20px) / 4.9); }
   }
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) figure,
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) figure.wide {
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film):not(.gl-lanes) figure,
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film):not(.gl-lanes) figure.wide {
     --ar: 1.5;
     flex: calc(var(--ar) * 100) 1 calc(var(--ar) * var(--row-h));
     min-width: 0;
@@ -332,12 +332,12 @@ html { scroll-behavior: smooth; }
     height: var(--row-h);
     aspect-ratio: auto;
   }
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) { justify-content: center; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film):not(.gl-lanes) { justify-content: center; }
 }
 @media (max-width: 700px) {
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) { gap: 8px; }
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) figure { aspect-ratio: 1 / 1; border-radius: 10px; }
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) figure.wide { aspect-ratio: 16 / 10; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film):not(.gl-lanes) { gap: 8px; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film):not(.gl-lanes) figure { aspect-ratio: 1 / 1; border-radius: 10px; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film):not(.gl-lanes) figure.wide { aspect-ratio: 16 / 10; }
 }
 
 /* ---------- FOBISIA: podium results ---------- */
@@ -1222,4 +1222,78 @@ html { scroll-behavior: smooth; }
   .page-sports .gl-film figure:first-child img { aspect-ratio: 16 / 10; }
   .page-sports .gl-film figure:nth-child(n+2):nth-child(2n+2) { border-radius: 8px 0 0 8px; }
   .page-sports .gl-film figure:nth-child(n+2):nth-child(2n+3) { border-radius: 0 8px 8px 0; }
+}
+
+/* ---- Swimming: pool lanes, narrowing like a finishing order ---- */
+.page-sports .gl-lanes { display: block; counter-reset: lane; }
+.page-sports .gl-lanes figure {
+  position: relative;
+  display: block;
+  height: auto;
+  margin: 0 0 clamp(22px, 4vw, 34px);
+  aspect-ratio: auto;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  cursor: zoom-in;
+  counter-increment: lane;
+}
+.page-sports .gl-lanes figure:nth-child(1) { width: 100%; }
+.page-sports .gl-lanes figure:nth-child(2) { width: 86%; }
+.page-sports .gl-lanes figure:nth-child(3) { width: 72%; margin-bottom: 0; }
+.page-sports .gl-lanes img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 21 / 9;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 26px 40px -26px rgba(0, 0, 0, 0.65);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.page-sports .gl-lanes figure:nth-child(3) img { aspect-ratio: 16 / 9; object-position: 50% 35%; }
+/* lane rope under each lane */
+.page-sports .gl-lanes figure::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(clamp(22px, 4vw, 34px) / -2 - 3px);
+  height: 6px;
+  border-radius: 6px;
+  background: repeating-linear-gradient(90deg, #e8453c 0 14px, #fbfbf6 14px 28px, #2d7ff0 28px 42px, #fbfbf6 42px 56px);
+  opacity: 0.85;
+  pointer-events: none;
+}
+.page-sports .gl-lanes figure:last-child::after { display: none; }
+/* lane number */
+.page-sports .gl-lanes figure::before {
+  content: counter(lane);
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 3px solid var(--sp-accent);
+  border-radius: 50%;
+  background: rgba(3, 12, 7, 0.65);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  color: var(--sp-accent);
+  font-family: var(--sp-display);
+  font-weight: 900;
+  font-size: 1.5rem;
+  line-height: 1;
+  pointer-events: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .page-sports .gl-lanes figure:hover img { transform: scale(1.02); box-shadow: 0 0 0 2px var(--sp-accent), 0 30px 46px -26px rgba(0, 0, 0, 0.75); }
+}
+@media (max-width: 700px) {
+  .page-sports .gl-lanes img { aspect-ratio: 16 / 10; border-radius: 14px; }
+  .page-sports .gl-lanes figure:nth-child(2) { width: 90%; }
+  .page-sports .gl-lanes figure:nth-child(3) { width: 80%; }
 }
