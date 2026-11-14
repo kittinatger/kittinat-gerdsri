@@ -1605,3 +1605,10 @@ html { scroll-behavior: smooth; }
 /* Stops the hero's negative margin collapsing through <main> (which would
    shift main itself and throw off the --hdr-h measurement). */
 .page-sports main { display: flow-root; }
+
+/* Edge-to-edge on notched phones: the page extends under the status bar
+   (viewport-fit=cover), so the header is pushed down by the safe-area inset
+   and the hero, pulled up by the full header offset, fills the gap. */
+.page-sports { padding-top: env(safe-area-inset-top, 0px); }
+html[data-sticky-navbar="true"] .page-sports .site-header { top: calc(14px + env(safe-area-inset-top, 0px)); }
+.page-sports .site-footer { padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px)); }
