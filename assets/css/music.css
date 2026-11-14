@@ -1361,3 +1361,95 @@ html.sv-open, html.sv-open body { background: #0f0816 !important; }
 .page-music .mu-passes figcaption span { font-size: 0.9rem; }
 .page-music .sv-title { font-weight: 700; font-size: clamp(1.15rem, 2.4vw, 1.4rem); }
 .page-music .sv-ctx { font-weight: 700; }
+
+/* ---------- Hero v2: the turntable ---------- */
+.mu-hero-card { padding-bottom: clamp(44px, 7vw, 84px); background:
+    radial-gradient(ellipse 50% 70% at 78% 40%, rgba(255, 181, 71, 0.2), transparent 70%),
+    radial-gradient(ellipse 55% 60% at 0% 100%, rgba(224, 70, 107, 0.26), transparent 70%),
+    linear-gradient(180deg, #211233 0%, #0e0716 100%); }
+.mu-hero-card::before { display: none; }
+.mu-record {
+  position: absolute;
+  top: calc(var(--hdr-h, 96px) + 10px);
+  right: -9%;
+  z-index: -1;
+  width: min(56vw, 660px);
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+.mu-rings i {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid rgba(255, 181, 71, 0.5);
+  border-radius: 50%;
+  opacity: 0;
+}
+.mu-disc {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #0d0a10 0 2%, transparent 2.5%),
+    repeating-radial-gradient(circle at center, transparent 0 40%, rgba(255, 255, 255, 0.05) 40.3% 40.6%, transparent 41% 46%, rgba(255, 255, 255, 0.04) 46.3% 46.6%, transparent 47% 100%),
+    repeating-radial-gradient(circle, #0d0a10 0 2px, #1d1624 2px 4px);
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.8), 0 0 0 2px rgba(255, 255, 255, 0.05), 0 0 90px rgba(255, 181, 71, 0.18);
+}
+/* fixed highlight so the light does not spin with the record */
+.mu-record::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 35deg, transparent 0 8%, rgba(255, 255, 255, 0.16) 13% 17%, transparent 24% 58%, rgba(255, 255, 255, 0.12) 63% 67%, transparent 74%);
+}
+.mu-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 34%;
+  height: 34%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, #0d0a10 0 4%, transparent 4.5%), linear-gradient(135deg, #ffb547, #e0466b);
+  box-shadow: inset 0 0 0 3px rgba(26, 16, 36, 0.35);
+}
+.mu-label b {
+  margin-top: 28%;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: clamp(0.9rem, 2.6vw, 1.7rem);
+  color: #2a1500;
+}
+.mu-label b em { margin: 0 0.12em; font-style: normal; }
+.mu-arm {
+  position: absolute;
+  top: -10%;
+  right: 2%;
+  width: 40%;
+  height: auto;
+  filter: drop-shadow(0 14px 12px rgba(0, 0, 0, 0.55));
+  transform-origin: 82% 15%;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .mu-disc { animation: mu-spin 28s linear infinite; }
+  .mu-rings i { animation: mu-ring 5s ease-out infinite; }
+  .mu-rings i:nth-child(2) { animation-delay: 1.7s; }
+  .mu-rings i:nth-child(3) { animation-delay: 3.4s; }
+  .mu-arm { animation: mu-needle 7s ease-in-out infinite alternate; }
+}
+@keyframes mu-spin { to { transform: rotate(360deg); } }
+@keyframes mu-ring { 0% { transform: scale(1); opacity: 0.55; } 100% { transform: scale(1.5); opacity: 0; } }
+@keyframes mu-needle { to { transform: rotate(2.2deg); } }
+.page-music .mu-hero h1 { text-shadow: 0 6px 40px rgba(14, 7, 22, 0.8); }
+@media (max-width: 760px) {
+  .mu-record { top: calc(var(--hdr-h, 96px) - 10px); right: -34%; width: 92vw; opacity: 0.85; }
+  .mu-arm { right: 6%; }
+}
+.mu-arm { top: -8%; right: 24%; width: 40%; transform-origin: 82% 15%; }
+@media (max-width: 760px) {
+  .mu-record { right: -22%; width: 86vw; opacity: 0.8; }
+  .mu-arm { top: -6%; right: 20%; width: 46%; }
+}

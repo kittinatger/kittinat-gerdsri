@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500..700;1,500..700&display=swap">
-<link rel="stylesheet" href="assets/css/music.css?v=8">
+<link rel="stylesheet" href="assets/css/music.css?v=10">
 </head>
 <body class="page-core-discipline page-music">
 
@@ -70,25 +70,16 @@
 
   <section class="page-hero mu-hero">
     <div class="mu-hero-card">
-      <svg class="mu-staff" viewBox="0 0 1200 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-        <g class="mu-lines">
-          <path d="M0 150H1200M0 172H1200M0 194H1200M0 216H1200M0 238H1200"></path>
-          <path d="M0 340H1200M0 362H1200M0 384H1200M0 406H1200M0 428H1200"></path>
-          <path d="M70 150V238M70 340V428M1130 150V238M1130 340V428M960 150V238"></path>
-        </g>
-        <g class="mu-notes">
-          <g><ellipse cx="640" cy="205" rx="13" ry="9" transform="rotate(-20 640 205)"></ellipse><path d="M652 202V132"></path></g>
-          <g><ellipse cx="700" cy="183" rx="13" ry="9" transform="rotate(-20 700 183)"></ellipse><path d="M712 180V110"></path></g>
-          <g><ellipse cx="760" cy="161" rx="13" ry="9" transform="rotate(-20 760 161)"></ellipse><path d="M772 158V88"></path></g>
-          <g><ellipse cx="820" cy="194" rx="13" ry="9" transform="rotate(-20 820 194)"></ellipse><path d="M832 191V121"></path><path class="mu-beam" d="M652 132L832 121"></path></g>
-          <g><ellipse cx="880" cy="238" rx="13" ry="9" transform="rotate(-20 880 238)"></ellipse><path d="M892 235V165"></path></g>
-          <g><ellipse cx="1010" cy="216" rx="13" ry="9" transform="rotate(-20 1010 216)"></ellipse><path d="M1022 213V143"></path></g>
-          <g><ellipse cx="260" cy="406" rx="13" ry="9" transform="rotate(-20 260 406)"></ellipse><path d="M272 403V333"></path></g>
-          <g><ellipse cx="340" cy="384" rx="13" ry="9" transform="rotate(-20 340 384)"></ellipse><path d="M352 381V311"></path></g>
-          <g><ellipse cx="420" cy="362" rx="13" ry="9" transform="rotate(-20 420 362)"></ellipse><path d="M432 359V289"></path><path class="mu-beam" d="M352 311L432 289"></path></g>
-          <g><ellipse cx="900" cy="428" rx="13" ry="9" transform="rotate(-20 900 428)"></ellipse><path d="M912 425V355"></path></g>
-        </g>
-      </svg>
+      <div class="mu-record" aria-hidden="true">
+        <div class="mu-rings"><i></i><i></i><i></i></div>
+        <div class="mu-disc"><span class="mu-label"><b>K<em>&middot;</em>G</b></span></div>
+        <svg class="mu-arm" viewBox="0 0 260 400" focusable="false">
+          <circle cx="212" cy="58" r="34" fill="#2a1c34" stroke="#ffb547" stroke-width="3"></circle>
+          <circle cx="212" cy="58" r="12" fill="#ffb547"></circle>
+          <path d="M212 58 L196 230 L104 318" fill="none" stroke="#e9dfcb" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"></path>
+          <g transform="rotate(-38 104 318)"><rect x="84" y="306" width="40" height="26" rx="5" fill="#2a1c34" stroke="#ffb547" stroke-width="3"></rect></g>
+        </svg>
+      </div>
       <div class="wrap mu-hero-inner">
         <p class="mu-eyebrow">Piano · Performance · Volunteering</p>
         <h1>Music</h1>
@@ -118,7 +109,6 @@
           <a class="mu-index-card" href="#awards"><span class="mu-no">II</span><b>Awards</b><small><i data-mu-count="awards">0</i> <span>certificates</span></small><span class="mu-dots" data-mu-dots="awards"></span></a>
         </nav>
       </div>
-      <div class="mu-keys" aria-hidden="true"></div>
     </div>
   </section>
 
