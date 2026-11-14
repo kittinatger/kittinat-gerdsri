@@ -322,15 +322,15 @@ html[data-sticky-navbar="true"] .sp-jump { top: 92px; }
 .sp-section > .wrap > .lede { max-width: 62ch; }
 
 /* ---------- Justified photo rows ---------- */
-.page-sports .gallery:not(.locker-row) {
+.page-sports .gallery:not(.locker-row):not(.sp-vault) {
   gap: 10px;
 }
-.page-sports .gallery:not(.locker-row) figure {
+.page-sports .gallery:not(.locker-row):not(.sp-vault) figure {
   position: relative;
   border-radius: 12px;
   transition: box-shadow 0.25s ease;
 }
-.page-sports .gallery:not(.locker-row) figure::after {
+.page-sports .gallery:not(.locker-row):not(.sp-vault) figure::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -340,27 +340,27 @@ html[data-sticky-navbar="true"] .sp-jump { top: 92px; }
   transition: opacity 0.3s ease;
 }
 @media (hover: hover) and (pointer: fine) {
-  .page-sports .gallery:not(.locker-row) figure:hover {
+  .page-sports .gallery:not(.locker-row):not(.sp-vault) figure:hover {
     box-shadow: 0 0 0 2px var(--sp-accent), 0 18px 36px -20px rgba(0, 0, 0, 0.6);
   }
-  .page-sports .gallery:not(.locker-row) figure:hover::after { opacity: 1; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault) figure:hover::after { opacity: 1; }
 }
 @media (min-width: 701px) {
   /* Row height is derived from the content width so that three landscape
      frames (4.5 row-heights wide) always just fit with a little slack,
      which keeps every row close to its natural proportions instead of
      stretching two-up rows ~40% wider. Tablets get a two-up rhythm. */
-  .page-sports .gallery:not(.locker-row) {
+  .page-sports .gallery:not(.locker-row):not(.sp-vault) {
     --cw: calc(min(100vw, 1180px) - 2 * clamp(20px, 5vw, 48px));
     --row-h: calc((var(--cw) - 20px) / 3.3);
     display: flex;
     flex-wrap: wrap;
   }
   @media (min-width: 901px) {
-    .page-sports .gallery:not(.locker-row) { --row-h: calc((var(--cw) - 20px) / 4.9); }
+    .page-sports .gallery:not(.locker-row):not(.sp-vault) { --row-h: calc((var(--cw) - 20px) / 4.9); }
   }
-  .page-sports .gallery:not(.locker-row) figure,
-  .page-sports .gallery:not(.locker-row) figure.wide {
+  .page-sports .gallery:not(.locker-row):not(.sp-vault) figure,
+  .page-sports .gallery:not(.locker-row):not(.sp-vault) figure.wide {
     --ar: 1.5;
     flex: calc(var(--ar) * 100) 1 calc(var(--ar) * var(--row-h));
     min-width: 0;
@@ -370,12 +370,12 @@ html[data-sticky-navbar="true"] .sp-jump { top: 92px; }
     height: var(--row-h);
     aspect-ratio: auto;
   }
-  .page-sports .gallery:not(.locker-row) { justify-content: center; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault) { justify-content: center; }
 }
 @media (max-width: 700px) {
-  .page-sports .gallery:not(.locker-row) { gap: 8px; }
-  .page-sports .gallery:not(.locker-row) figure { aspect-ratio: 1 / 1; border-radius: 10px; }
-  .page-sports .gallery:not(.locker-row) figure.wide { aspect-ratio: 16 / 10; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault) { gap: 8px; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault) figure { aspect-ratio: 1 / 1; border-radius: 10px; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault) figure.wide { aspect-ratio: 16 / 10; }
 }
 
 /* ---------- FOBISIA: podium results ---------- */
@@ -509,37 +509,6 @@ html[data-sticky-navbar="true"] .sp-jump { top: 92px; }
   text-transform: uppercase;
 }
 
-/* ---------- Award locker: recolour the cabinet to the page palette ---------- */
-.page-sports .locker-bank {
-  --lk-bank-bg: linear-gradient(180deg, #dfe6d8 0%, #c6d2bf 100%);
-  --lk-bank-border: rgba(16, 36, 26, 0.14);
-  --lk-bank-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 30px 60px -36px rgba(10, 32, 22, 0.5);
-  --lk-base-bg: linear-gradient(180deg, #98ab92 0%, #7b8f76 100%);
-  --lk-base-shadow: inset 0 2px 4px rgba(10, 32, 22, 0.28);
-  --lk-front-lines: rgba(16, 36, 26, 0.05);
-  --lk-front-bg: linear-gradient(165deg, #fbfdf8 0%, #e2eadb 55%, #cddac5 100%);
-  --lk-front-border: rgba(16, 36, 26, 0.18);
-  --lk-front-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 0 0 1px rgba(10, 32, 22, 0.06), 0 14px 26px -16px rgba(10, 32, 22, 0.55);
-  --lk-front-hover: rgba(23, 102, 58, 0.6);
-  --lk-number: rgba(16, 36, 26, 0.45);
-  --lk-graffiti: #1f7a45;
-  --lk-graffiti-glow: rgba(31, 122, 69, 0.3);
-}
-:root[data-theme="dark"] .page-sports .locker-bank {
-  --lk-bank-bg: linear-gradient(180deg, #15251c 0%, #0b140f 100%);
-  --lk-bank-border: rgba(200, 255, 220, 0.08);
-  --lk-bank-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 30px 60px -36px rgba(0, 0, 0, 0.7);
-  --lk-base-bg: linear-gradient(180deg, #0a120d 0%, #060b08 100%);
-  --lk-base-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
-  --lk-front-lines: rgba(255, 255, 255, 0.025);
-  --lk-front-bg: linear-gradient(165deg, #34503f 0%, #1f3328 55%, #14221a 100%);
-  --lk-front-border: rgba(200, 255, 220, 0.14);
-  --lk-front-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 0 1px rgba(0, 0, 0, 0.3), 0 14px 26px -16px rgba(0, 0, 0, 0.75);
-  --lk-front-hover: rgba(200, 245, 66, 0.55);
-  --lk-graffiti: #c8f542;
-  --lk-graffiti-glow: rgba(200, 245, 66, 0.45);
-}
-
 /* ---------- Closing card ---------- */
 .page-sports .closing-cta {
   background: linear-gradient(135deg, rgba(200, 245, 66, 0.2), rgba(200, 245, 66, 0.05) 45%, transparent 100%);
@@ -556,4 +525,213 @@ html[data-sticky-navbar="true"] .sp-jump { top: 92px; }
   .sp-hero-card { min-height: clamp(480px, 74svh, 620px); border-radius: 22px; }
   .sp-scoreboard { gap: 8px; }
   .sp-score { padding: 12px 12px 10px; border-radius: 12px; }
+}
+
+/* ---------- Award locker: trophy room ---------- */
+.sp-head-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  margin-bottom: clamp(18px, 3vw, 30px);
+  padding-bottom: 14px;
+  background:
+    linear-gradient(var(--sp-accent), var(--sp-accent)) left bottom / 96px 5px no-repeat,
+    linear-gradient(var(--line), var(--line)) left bottom / 100% 1px no-repeat;
+}
+.sp-head-row > .sp-head { margin: 0; padding: 0; background: none; }
+
+.sp-vault-wrap { margin-top: clamp(22px, 4vw, 36px); }
+
+.sp-trophy {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(20px, 4.5vw, 56px);
+  align-items: center;
+  animation: sp-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+.sp-trophy[hidden] { display: none; }
+
+/* Lit display plinth: the trophy photos have white backgrounds, so they're
+   multiplied onto a pale spotlit surface and read as cut-outs. */
+.sp-stage {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(22px, 4vw, 48px) clamp(22px, 5vw, 64px) clamp(34px, 5vw, 56px);
+  border-radius: 28px;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 22%, #ffffff 0%, rgba(255, 255, 255, 0) 70%),
+    linear-gradient(180deg, #eef2e6 0%, #d6dfcb 100%);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7), 0 34px 60px -34px rgba(0, 0, 0, 0.65);
+}
+.sp-stage::after {
+  content: '';
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 22px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(10, 32, 22, 0.35), transparent 70%);
+  pointer-events: none;
+}
+.page-sports .sp-vault .sp-stage figure.trophy {
+  position: relative;
+  z-index: 1;
+  max-width: 380px;
+  max-height: 500px;
+  margin: 0 auto;
+  aspect-ratio: 3 / 4;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  overflow: visible;
+  cursor: zoom-in;
+}
+.page-sports .sp-vault .sp-stage figure.trophy img {
+  padding: 0;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .page-sports .sp-vault .sp-stage figure.trophy:hover img { transform: translateY(-6px) scale(1.03); }
+}
+
+.sp-level {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.78);
+  background: linear-gradient(135deg, #fff1a8, #e2b93b 60%, #b98f1a);
+}
+.sp-level-silver { background: linear-gradient(135deg, #f4f6f8, #bcc4cd 60%, #8a949f); }
+.sp-trophy-side h3 {
+  margin: 14px 0 0;
+  font-family: var(--sp-display);
+  font-weight: var(--sp-display-wt);
+  font-size: clamp(1.9rem, 4.2vw, 3rem);
+  line-height: 0.98;
+  text-transform: uppercase;
+}
+.sp-year {
+  margin: 4px 0 clamp(18px, 3vw, 28px);
+  font-family: var(--sp-display);
+  font-weight: 900;
+  font-size: clamp(3.6rem, 9vw, 6.4rem);
+  line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--navy);
+}
+
+.page-sports .sp-vault .sp-cert {
+  position: relative;
+  max-width: 420px;
+  margin: 0;
+  padding: 10px 10px 8px;
+  aspect-ratio: auto;
+  overflow: visible;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 26px 40px -24px rgba(0, 0, 0, 0.65);
+  transform: rotate(-1.8deg);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  cursor: zoom-in;
+}
+.page-sports .sp-vault .sp-cert::after { display: none; }
+.page-sports .sp-vault .sp-cert img { height: auto; object-fit: contain; border-radius: 3px; }
+@media (hover: hover) and (pointer: fine) {
+  .page-sports .sp-vault .sp-cert:hover { transform: rotate(0) translateY(-4px); box-shadow: 0 0 0 2px var(--sp-accent), 0 30px 44px -24px rgba(0, 0, 0, 0.7); }
+}
+.sp-cert figcaption {
+  margin-top: 8px;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #4a5f53;
+}
+.sp-vault .award-badge { display: none; }
+
+/* Shelf of selectable trophies */
+.sp-shelf {
+  display: none;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: clamp(26px, 4vw, 40px);
+  padding: 18px 16px 22px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, transparent 70%, rgba(200, 245, 66, 0.16));
+  border-bottom: 6px solid var(--sp-accent);
+}
+.sp-vault-wrap.is-ready .sp-shelf { display: flex; }
+.sp-shelf-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 92px;
+  padding: 8px 8px 6px;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, border-color 0.2s ease;
+}
+.sp-shelf-item img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+.sp-shelf-item span {
+  font-family: var(--sp-display);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  color: #10241a;
+}
+.sp-shelf-item::after {
+  content: '';
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fff1a8, #e2b93b);
+  box-shadow: 0 0 0 1.5px rgba(0, 0, 0, 0.18);
+}
+.sp-shelf-item.sp-level-silver::after { background: linear-gradient(135deg, #f4f6f8, #8a949f); }
+@media (hover: hover) and (pointer: fine) {
+  .sp-shelf-item:hover { transform: translateY(-4px); }
+}
+.sp-shelf-item[aria-selected="true"] {
+  border-color: var(--sp-accent);
+  box-shadow: 0 0 0 3px var(--sp-accent), 0 16px 26px -14px rgba(0, 0, 0, 0.65);
+  transform: translateY(-8px);
+}
+
+@media (max-width: 820px) {
+  .sp-trophy { grid-template-columns: 1fr; }
+  .page-sports .sp-vault .sp-stage figure.trophy { max-width: 300px; }
+  .page-sports .sp-vault .sp-cert { max-width: 100%; }
+  .sp-shelf-item { width: 74px; }
+}
+@media (max-width: 480px) {
+  .sp-shelf { gap: 6px; padding: 14px 10px 18px; }
+  .sp-shelf-item { width: 56px; padding: 6px 5px 4px; border-radius: 10px; }
+  .sp-shelf-item span { font-size: 0.78rem; }
 }
