@@ -1578,15 +1578,3 @@ html.sv-open, html.sv-open body { background: #0f0816 !important; }
   .mu-perf .perf-no { font-size: 2.4rem; }
   .mu-perf .perf-head h3 { font-size: 1.45rem; }
 }
-
-/* Section rail: music styling, keep clear of content */
-.page-music .sp-rail { right: 6px; }
-.page-music .sp-rail-link.is-active span { background: var(--mu-amber); color: var(--mu-amber-ink); box-shadow: 0 6px 14px -6px rgba(0, 0, 0, 0.5); }
-.page-music .sp-rail-link.is-active i::before { background: var(--mu-amber); border-color: var(--mu-amber); box-shadow: 0 0 0 4px rgba(255, 181, 71, 0.3); }
-.page-music .sp-rail-top, .page-music .sp-rail-toggle { border-color: var(--line); font-family: var(--font-display); }
-@media (max-width: 700px) {
-  /* label only when the rail is opened, so it never sits on top of the video or certificates */
-  .page-music .sp-rail-link.is-active span { max-width: 0; padding: 4px 0; opacity: 0; background: none; box-shadow: none; }
-  .page-music .sp-rail.is-open .sp-rail-link span { max-width: 220px; padding: 4px 11px; opacity: 1; }
-  .page-music .sp-rail.is-open .sp-rail-link.is-active span { background: var(--mu-amber); color: var(--mu-amber-ink); }
-}
