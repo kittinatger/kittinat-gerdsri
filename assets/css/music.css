@@ -1583,3 +1583,25 @@ html.sv-open, html.sv-open body { background: #0f0816 !important; }
   .page-music .mu-passes figcaption b { font-size: 1.05rem; }
   .page-music .mu-passes figcaption span { font-size: 0.7rem; }
 }
+
+/* Performances stage and awards wall: full-bleed bands, not floating cards */
+.page-music .mu-perfs,
+.page-music .mu-passes {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  border-radius: 0;
+  box-shadow: none;
+  border-block: 3px solid #e9c46a;
+}
+.page-music .mu-perfs {
+  padding-left: max(clamp(26px, 5.6vw, 76px), calc(50vw - var(--max-width, 1200px) / 2 + 24px));
+  padding-right: max(clamp(26px, 5.6vw, 76px), calc(50vw - var(--max-width, 1200px) / 2 + 24px));
+}
+.page-music .mu-passes {
+  padding-left: max(clamp(22px, 5vw, 72px), calc(50vw - var(--max-width, 1200px) / 2 + 24px));
+  padding-right: max(clamp(22px, 5vw, 72px), calc(50vw - var(--max-width, 1200px) / 2 + 24px));
+}
+@media (max-width: 560px) {
+  .page-music .mu-perfs { padding-left: 24px; padding-right: 24px; }
+  .page-music .mu-passes { padding-left: 16px; padding-right: 16px; }
+}
