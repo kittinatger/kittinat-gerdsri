@@ -57,12 +57,12 @@ body.page-music .closing-card {
   --navy-dark: #ffcf85;
   --nav-hover-bg: rgba(255, 181, 71, 0.14);
 }
-/* Page typeface: Bodoni Moda for display text (header keeps the site font) */
+/* Page typeface: Cormorant Garamond for display text (header keeps the site font) */
 body.page-music main,
 body.page-music .closing-card,
 .page-music .sv,
 .page-music .ptr-indicator {
-  --font-display: 'Bodoni Moda', 'Playfair Display', Georgia, 'Noto Serif Thai', 'Noto Serif SC', serif;
+  --font-display: 'Cormorant Garamond', Georgia, 'Noto Serif Thai', 'Noto Serif SC', serif;
 }
 .page-music .section-soft { background: color-mix(in srgb, var(--bg-soft) 86%, transparent); }
 html { scroll-behavior: smooth; }
@@ -1344,3 +1344,20 @@ html.sv-open, html.sv-open body { background: #0f0816 !important; }
 
 
 
+
+/* Cormorant runs small and light: bolder, larger display sizes */
+.page-music .mu-hero h1 { font-weight: 700; font-size: clamp(5.4rem, 20vw, 14rem); }
+.page-music .mu-hero .tagline { font-size: clamp(1.35rem, 3vw, 2rem); }
+.page-music .gallery-heading h2 { font-weight: 700; font-size: clamp(3.2rem, 9vw, 6.6rem); }
+.mu-perf .perf-title h3 { font-weight: 700; font-size: clamp(1.8rem, 4vw, 3rem); }
+.mu-perf::before { font-weight: 700; font-size: clamp(4rem, 12vw, 9.6rem); }
+.page-music .mu-intro .about-pillar h2 { font-weight: 700; font-size: clamp(1.7rem, 3vw, 2.3rem); }
+.page-music .mu-intro .intro-pillar-text { font-weight: 700; font-size: 1.35rem; }
+.mu-index-card b { font-weight: 700; font-size: clamp(1.6rem, 3vw, 2.2rem); }
+.mu-index-card .mu-no { font-weight: 700; }
+.page-music .closing-cta h2 { font-weight: 700; font-size: clamp(3.8rem, 13vw, 9.4rem); }
+.page-music .footer-signature { font-weight: 700; font-size: clamp(3.8rem, 15vw, 11rem); }
+.page-music .discipline-pagenav-name { font-weight: 700; font-size: clamp(1.7rem, 4vw, 2.8rem); }
+.page-music .mu-passes figcaption span { font-size: 0.9rem; }
+.page-music .sv-title { font-weight: 700; font-size: clamp(1.15rem, 2.4vw, 1.4rem); }
+.page-music .sv-ctx { font-weight: 700; }
