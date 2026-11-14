@@ -1637,3 +1637,36 @@ html.sv-open body > header, html.sv-open main, html.sv-open .closing-card { visi
   .page-core .discipline-pagenav { grid-template-columns: 1fr; padding: 0 20px 56px; }
   .page-core .discipline-pagenav-link { min-height: 170px; }
 }
+
+/* ---- Mathematics: chalkboard ---- */
+.page-core #mathematics {
+  --ink: #f4f7ef;
+  --ink-soft: rgba(244, 247, 239, 0.78);
+  --heading: #ffffff;
+  --line: rgba(244, 247, 239, 0.32);
+  --surface: #24493c;
+  border-block: 12px solid #8a5a2b;
+  box-shadow: inset 0 12px 28px -12px rgba(0, 0, 0, 0.6), inset 0 -12px 28px -12px rgba(0, 0, 0, 0.5);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='340' viewBox='0 0 420 340'%3E%3Cg font-family='Georgia,serif' font-style='italic' fill='rgba(244,247,239,0.16)'%3E%3Ctext x='24' y='62' font-size='30'%3Ex%C2%B2 + y%C2%B2 = r%C2%B2%3C/text%3E%3Ctext x='236' y='128' font-size='38'%3E%E2%88%AB f(x) dx%3C/text%3E%3Ctext x='30' y='176' font-size='28'%3E%CF%80 %E2%89%88 3.14159%3C/text%3E%3Ctext x='214' y='232' font-size='26'%3E%CE%A3 n = n(n+1)/2%3C/text%3E%3Ctext x='320' y='58' font-size='46'%3E%E2%88%9A2%3C/text%3E%3Ctext x='26' y='300' font-size='24'%3Esin%C2%B2%CE%B8 + cos%C2%B2%CE%B8 = 1%3C/text%3E%3Ctext x='340' y='300' font-size='44'%3E%E2%88%9E%3C/text%3E%3C/g%3E%3Cg fill='none' stroke='rgba(244,247,239,0.16)' stroke-width='1.6'%3E%3Cpath d='M250 300 H330 M250 300 V250 M250 300 L330 256'/%3E%3Cpath d='M30 224 q30 -40 60 0 t60 0'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 420px 340px,
+    radial-gradient(ellipse 70% 45% at 30% 10%, rgba(255, 255, 255, 0.09), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 85% 80%, rgba(255, 255, 255, 0.06), transparent 70%),
+    #1f4a3c;
+}
+:root[data-theme="dark"] .page-core #mathematics {
+  --surface: #1c3a30;
+  border-block-color: #5a3a1a;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='340' viewBox='0 0 420 340'%3E%3Cg font-family='Georgia,serif' font-style='italic' fill='rgba(244,247,239,0.12)'%3E%3Ctext x='24' y='62' font-size='30'%3Ex%C2%B2 + y%C2%B2 = r%C2%B2%3C/text%3E%3Ctext x='236' y='128' font-size='38'%3E%E2%88%AB f(x) dx%3C/text%3E%3Ctext x='30' y='176' font-size='28'%3E%CF%80 %E2%89%88 3.14159%3C/text%3E%3Ctext x='214' y='232' font-size='26'%3E%CE%A3 n = n(n+1)/2%3C/text%3E%3Ctext x='320' y='58' font-size='46'%3E%E2%88%9A2%3C/text%3E%3Ctext x='26' y='300' font-size='24'%3Esin%C2%B2%CE%B8 + cos%C2%B2%CE%B8 = 1%3C/text%3E%3Ctext x='340' y='300' font-size='44'%3E%E2%88%9E%3C/text%3E%3C/g%3E%3Cg fill='none' stroke='rgba(244,247,239,0.12)' stroke-width='1.6'%3E%3Cpath d='M250 300 H330 M250 300 V250 M250 300 L330 256'/%3E%3Cpath d='M30 224 q30 -40 60 0 t60 0'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 420px 340px,
+    radial-gradient(ellipse 70% 45% at 30% 10%, rgba(255, 255, 255, 0.06), transparent 70%),
+    #123127;
+}
+.page-core #mathematics .cd-meta b { color: #fff; }
+.page-core #mathematics .gallery-heading { border-bottom-color: rgba(244, 247, 239, 0.4); }
+.page-core #mathematics .cd-sec-top .cd-no { border-color: #fff; box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.85); }
+.page-core #mathematics .sort-toggle { border-color: #fff; box-shadow: 3px 3px 0 rgba(255, 255, 255, 0.85); }
+.page-core #mathematics .cd-ledger figure { border-color: #fff; box-shadow: 5px 5px 0 rgba(255, 255, 255, 0.9); }
+@media (hover: hover) and (pointer: fine) {
+  .page-core #mathematics .cd-ledger figure:hover { box-shadow: 8px 8px 0 rgba(255, 255, 255, 0.9); }
+  .page-core #mathematics .sort-toggle:hover { box-shadow: 4px 4px 0 #fff; }
+}
