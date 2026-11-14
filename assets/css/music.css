@@ -637,7 +637,7 @@ html[data-sticky-navbar="true"] .page-music .site-header { top: calc(14px + env(
 }
 .page-music .discipline-pagenav-link:active { transform: translateY(8px); }
 
-/* ---------- Footer: the keyboard lid ---------- */
+/* ---------- Footer: the player ---------- */
 .page-music .closing-card {
   --ink: #f1e9f7;
   --ink-soft: rgba(255, 255, 255, 0.72);
@@ -648,16 +648,18 @@ html[data-sticky-navbar="true"] .page-music .site-header { top: calc(14px + env(
   position: relative;
   isolation: isolate;
   margin: clamp(48px, 8vw, 96px) 0 0;
-  padding-top: 72px;
+  padding-top: 0;
   border: 0;
   border-radius: 0;
   background:
-    radial-gradient(ellipse 60% 50% at 50% 12%, rgba(255, 181, 71, 0.2), transparent 70%),
-    linear-gradient(180deg, #25143a 0%, #0d0714 100%);
+    radial-gradient(ellipse 60% 45% at 50% 0%, rgba(255, 181, 71, 0.16), transparent 70%),
+    radial-gradient(ellipse 50% 50% at 100% 100%, rgba(224, 70, 107, 0.2), transparent 70%),
+    linear-gradient(180deg, #1d1030 0%, #0c0713 100%);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   box-shadow: none;
 }
+/* scrolling waveform across the top */
 .page-music .closing-card::before {
   content: '';
   position: absolute;
@@ -665,106 +667,150 @@ html[data-sticky-navbar="true"] .page-music .site-header { top: calc(14px + env(
   left: 0;
   right: 0;
   z-index: -1;
-  height: 72px;
-  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'280'%20height%3D'72'%20viewBox%3D'0%200%20280%2072'%3E%3Cdefs%3E%3ClinearGradient%20id%3D'w'%20x1%3D'0'%20y1%3D'0'%20x2%3D'0'%20y2%3D'1'%3E%3Cstop%20offset%3D'0'%20stop-color%3D'%23fffaf0'%2F%3E%3Cstop%20offset%3D'1'%20stop-color%3D'%23e9dcc0'%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D'b'%20x1%3D'0'%20y1%3D'0'%20x2%3D'0'%20y2%3D'1'%3E%3Cstop%20offset%3D'0'%20stop-color%3D'%232a1c34'%2F%3E%3Cstop%20offset%3D'1'%20stop-color%3D'%230b0610'%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D'280'%20height%3D'72'%20fill%3D'url(%23w)'%2F%3E%3Cg%20stroke%3D'%23b9a984'%20stroke-width%3D'1.5'%3E%3Cpath%20d%3D'M40%200V72M80%200V72M120%200V72M160%200V72M200%200V72M240%200V72'%2F%3E%3C%2Fg%3E%3Cg%20fill%3D'url(%23b)'%3E%3Crect%20x%3D'28'%20y%3D'0'%20width%3D'24'%20height%3D'44'%20rx%3D'3'%2F%3E%3Crect%20x%3D'68'%20y%3D'0'%20width%3D'24'%20height%3D'44'%20rx%3D'3'%2F%3E%3Crect%20x%3D'148'%20y%3D'0'%20width%3D'24'%20height%3D'44'%20rx%3D'3'%2F%3E%3Crect%20x%3D'188'%20y%3D'0'%20width%3D'24'%20height%3D'44'%20rx%3D'3'%2F%3E%3Crect%20x%3D'228'%20y%3D'0'%20width%3D'24'%20height%3D'44'%20rx%3D'3'%2F%3E%3C%2Fg%3E%3Cg%20fill%3D'%23ffffff'%20fill-opacity%3D'.14'%3E%3Crect%20x%3D'31'%20y%3D'0'%20width%3D'4'%20height%3D'38'%2F%3E%3Crect%20x%3D'71'%20y%3D'0'%20width%3D'4'%20height%3D'38'%2F%3E%3Crect%20x%3D'151'%20y%3D'0'%20width%3D'4'%20height%3D'38'%2F%3E%3Crect%20x%3D'191'%20y%3D'0'%20width%3D'4'%20height%3D'38'%2F%3E%3Crect%20x%3D'231'%20y%3D'0'%20width%3D'4'%20height%3D'38'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") 0 0 / 280px 72px repeat-x;
+  height: 96px;
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'800'%20height%3D'80'%20viewBox%3D'0%200%20800%2080'%3E%3Cg%20fill%3D'%23ffb547'%3E%3Crect%20x%3D'0'%20y%3D'30.5'%20width%3D'4'%20height%3D'19'%20rx%3D'2'%2F%3E%3Crect%20x%3D'8'%20y%3D'28.5'%20width%3D'4'%20height%3D'23'%20rx%3D'2'%2F%3E%3Crect%20x%3D'16'%20y%3D'33.5'%20width%3D'4'%20height%3D'13'%20rx%3D'2'%2F%3E%3Crect%20x%3D'24'%20y%3D'31.5'%20width%3D'4'%20height%3D'17'%20rx%3D'2'%2F%3E%3Crect%20x%3D'32'%20y%3D'27.5'%20width%3D'4'%20height%3D'25'%20rx%3D'2'%2F%3E%3Crect%20x%3D'40'%20y%3D'26'%20width%3D'4'%20height%3D'28'%20rx%3D'2'%2F%3E%3Crect%20x%3D'48'%20y%3D'33.5'%20width%3D'4'%20height%3D'13'%20rx%3D'2'%2F%3E%3Crect%20x%3D'56'%20y%3D'16.5'%20width%3D'4'%20height%3D'47'%20rx%3D'2'%2F%3E%3Crect%20x%3D'64'%20y%3D'21.5'%20width%3D'4'%20height%3D'37'%20rx%3D'2'%2F%3E%3Crect%20x%3D'72'%20y%3D'25.5'%20width%3D'4'%20height%3D'29'%20rx%3D'2'%2F%3E%3Crect%20x%3D'80'%20y%3D'28'%20width%3D'4'%20height%3D'24'%20rx%3D'2'%2F%3E%3Crect%20x%3D'88'%20y%3D'15'%20width%3D'4'%20height%3D'50'%20rx%3D'2'%2F%3E%3Crect%20x%3D'96'%20y%3D'18'%20width%3D'4'%20height%3D'44'%20rx%3D'2'%2F%3E%3Crect%20x%3D'104'%20y%3D'33'%20width%3D'4'%20height%3D'14'%20rx%3D'2'%2F%3E%3Crect%20x%3D'112'%20y%3D'21.5'%20width%3D'4'%20height%3D'37'%20rx%3D'2'%2F%3E%3Crect%20x%3D'120'%20y%3D'28.5'%20width%3D'4'%20height%3D'23'%20rx%3D'2'%2F%3E%3Crect%20x%3D'128'%20y%3D'17'%20width%3D'4'%20height%3D'46'%20rx%3D'2'%2F%3E%3Crect%20x%3D'136'%20y%3D'31'%20width%3D'4'%20height%3D'18'%20rx%3D'2'%2F%3E%3Crect%20x%3D'144'%20y%3D'20.5'%20width%3D'4'%20height%3D'39'%20rx%3D'2'%2F%3E%3Crect%20x%3D'152'%20y%3D'22.5'%20width%3D'4'%20height%3D'35'%20rx%3D'2'%2F%3E%3Crect%20x%3D'160'%20y%3D'30.5'%20width%3D'4'%20height%3D'19'%20rx%3D'2'%2F%3E%3Crect%20x%3D'168'%20y%3D'34'%20width%3D'4'%20height%3D'12'%20rx%3D'2'%2F%3E%3Crect%20x%3D'176'%20y%3D'14'%20width%3D'4'%20height%3D'52'%20rx%3D'2'%2F%3E%3Crect%20x%3D'184'%20y%3D'14.5'%20width%3D'4'%20height%3D'51'%20rx%3D'2'%2F%3E%3Crect%20x%3D'192'%20y%3D'32.5'%20width%3D'4'%20height%3D'15'%20rx%3D'2'%2F%3E%3Crect%20x%3D'200'%20y%3D'27'%20width%3D'4'%20height%3D'26'%20rx%3D'2'%2F%3E%3Crect%20x%3D'208'%20y%3D'19.5'%20width%3D'4'%20height%3D'41'%20rx%3D'2'%2F%3E%3Crect%20x%3D'216'%20y%3D'32'%20width%3D'4'%20height%3D'16'%20rx%3D'2'%2F%3E%3Crect%20x%3D'224'%20y%3D'29.5'%20width%3D'4'%20height%3D'21'%20rx%3D'2'%2F%3E%3Crect%20x%3D'232'%20y%3D'29'%20width%3D'4'%20height%3D'22'%20rx%3D'2'%2F%3E%3Crect%20x%3D'240'%20y%3D'28.5'%20width%3D'4'%20height%3D'23'%20rx%3D'2'%2F%3E%3Crect%20x%3D'248'%20y%3D'31.5'%20width%3D'4'%20height%3D'17'%20rx%3D'2'%2F%3E%3Crect%20x%3D'256'%20y%3D'32.5'%20width%3D'4'%20height%3D'15'%20rx%3D'2'%2F%3E%3Crect%20x%3D'264'%20y%3D'20'%20width%3D'4'%20height%3D'40'%20rx%3D'2'%2F%3E%3Crect%20x%3D'272'%20y%3D'27.5'%20width%3D'4'%20height%3D'25'%20rx%3D'2'%2F%3E%3Crect%20x%3D'280'%20y%3D'30.5'%20width%3D'4'%20height%3D'19'%20rx%3D'2'%2F%3E%3Crect%20x%3D'288'%20y%3D'24'%20width%3D'4'%20height%3D'32'%20rx%3D'2'%2F%3E%3Crect%20x%3D'296'%20y%3D'28'%20width%3D'4'%20height%3D'24'%20rx%3D'2'%2F%3E%3Crect%20x%3D'304'%20y%3D'31.5'%20width%3D'4'%20height%3D'17'%20rx%3D'2'%2F%3E%3Crect%20x%3D'312'%20y%3D'16.5'%20width%3D'4'%20height%3D'47'%20rx%3D'2'%2F%3E%3Crect%20x%3D'320'%20y%3D'26.5'%20width%3D'4'%20height%3D'27'%20rx%3D'2'%2F%3E%3Crect%20x%3D'328'%20y%3D'26'%20width%3D'4'%20height%3D'28'%20rx%3D'2'%2F%3E%3Crect%20x%3D'336'%20y%3D'33'%20width%3D'4'%20height%3D'14'%20rx%3D'2'%2F%3E%3Crect%20x%3D'344'%20y%3D'10.5'%20width%3D'4'%20height%3D'59'%20rx%3D'2'%2F%3E%3Crect%20x%3D'352'%20y%3D'28.5'%20width%3D'4'%20height%3D'23'%20rx%3D'2'%2F%3E%3Crect%20x%3D'360'%20y%3D'11'%20width%3D'4'%20height%3D'58'%20rx%3D'2'%2F%3E%3Crect%20x%3D'368'%20y%3D'22.5'%20width%3D'4'%20height%3D'35'%20rx%3D'2'%2F%3E%3Crect%20x%3D'376'%20y%3D'28.5'%20width%3D'4'%20height%3D'23'%20rx%3D'2'%2F%3E%3Crect%20x%3D'384'%20y%3D'19.5'%20width%3D'4'%20height%3D'41'%20rx%3D'2'%2F%3E%3Crect%20x%3D'392'%20y%3D'25'%20width%3D'4'%20height%3D'30'%20rx%3D'2'%2F%3E%3Crect%20x%3D'400'%20y%3D'16.5'%20width%3D'4'%20height%3D'47'%20rx%3D'2'%2F%3E%3Crect%20x%3D'408'%20y%3D'20'%20width%3D'4'%20height%3D'40'%20rx%3D'2'%2F%3E%3Crect%20x%3D'416'%20y%3D'32'%20width%3D'4'%20height%3D'16'%20rx%3D'2'%2F%3E%3Crect%20x%3D'424'%20y%3D'30.5'%20width%3D'4'%20height%3D'19'%20rx%3D'2'%2F%3E%3Crect%20x%3D'432'%20y%3D'26.5'%20width%3D'4'%20height%3D'27'%20rx%3D'2'%2F%3E%3Crect%20x%3D'440'%20y%3D'33.5'%20width%3D'4'%20height%3D'13'%20rx%3D'2'%2F%3E%3Crect%20x%3D'448'%20y%3D'34'%20width%3D'4'%20height%3D'12'%20rx%3D'2'%2F%3E%3Crect%20x%3D'456'%20y%3D'29'%20width%3D'4'%20height%3D'22'%20rx%3D'2'%2F%3E%3Crect%20x%3D'464'%20y%3D'26.5'%20width%3D'4'%20height%3D'27'%20rx%3D'2'%2F%3E%3Crect%20x%3D'472'%20y%3D'28'%20width%3D'4'%20height%3D'24'%20rx%3D'2'%2F%3E%3Crect%20x%3D'480'%20y%3D'25.5'%20width%3D'4'%20height%3D'29'%20rx%3D'2'%2F%3E%3Crect%20x%3D'488'%20y%3D'31'%20width%3D'4'%20height%3D'18'%20rx%3D'2'%2F%3E%3Crect%20x%3D'496'%20y%3D'29'%20width%3D'4'%20height%3D'22'%20rx%3D'2'%2F%3E%3Crect%20x%3D'504'%20y%3D'27.5'%20width%3D'4'%20height%3D'25'%20rx%3D'2'%2F%3E%3Crect%20x%3D'512'%20y%3D'27.5'%20width%3D'4'%20height%3D'25'%20rx%3D'2'%2F%3E%3Crect%20x%3D'520'%20y%3D'19.5'%20width%3D'4'%20height%3D'41'%20rx%3D'2'%2F%3E%3Crect%20x%3D'528'%20y%3D'26'%20width%3D'4'%20height%3D'28'%20rx%3D'2'%2F%3E%3Crect%20x%3D'536'%20y%3D'25.5'%20width%3D'4'%20height%3D'29'%20rx%3D'2'%2F%3E%3Crect%20x%3D'544'%20y%3D'29'%20width%3D'4'%20height%3D'22'%20rx%3D'2'%2F%3E%3Crect%20x%3D'552'%20y%3D'29.5'%20width%3D'4'%20height%3D'21'%20rx%3D'2'%2F%3E%3Crect%20x%3D'560'%20y%3D'16.5'%20width%3D'4'%20height%3D'47'%20rx%3D'2'%2F%3E%3Crect%20x%3D'568'%20y%3D'31.5'%20width%3D'4'%20height%3D'17'%20rx%3D'2'%2F%3E%3Crect%20x%3D'576'%20y%3D'28'%20width%3D'4'%20height%3D'24'%20rx%3D'2'%2F%3E%3Crect%20x%3D'584'%20y%3D'14.5'%20width%3D'4'%20height%3D'51'%20rx%3D'2'%2F%3E%3Crect%20x%3D'592'%20y%3D'12'%20width%3D'4'%20height%3D'56'%20rx%3D'2'%2F%3E%3Crect%20x%3D'600'%20y%3D'9'%20width%3D'4'%20height%3D'62'%20rx%3D'2'%2F%3E%3Crect%20x%3D'608'%20y%3D'10'%20width%3D'4'%20height%3D'60'%20rx%3D'2'%2F%3E%3Crect%20x%3D'616'%20y%3D'12'%20width%3D'4'%20height%3D'56'%20rx%3D'2'%2F%3E%3Crect%20x%3D'624'%20y%3D'15.5'%20width%3D'4'%20height%3D'49'%20rx%3D'2'%2F%3E%3Crect%20x%3D'632'%20y%3D'19'%20width%3D'4'%20height%3D'42'%20rx%3D'2'%2F%3E%3Crect%20x%3D'640'%20y%3D'21.5'%20width%3D'4'%20height%3D'37'%20rx%3D'2'%2F%3E%3Crect%20x%3D'648'%20y%3D'34.5'%20width%3D'4'%20height%3D'11'%20rx%3D'2'%2F%3E%3Crect%20x%3D'656'%20y%3D'28'%20width%3D'4'%20height%3D'24'%20rx%3D'2'%2F%3E%3Crect%20x%3D'664'%20y%3D'27.5'%20width%3D'4'%20height%3D'25'%20rx%3D'2'%2F%3E%3Crect%20x%3D'672'%20y%3D'31'%20width%3D'4'%20height%3D'18'%20rx%3D'2'%2F%3E%3Crect%20x%3D'680'%20y%3D'28'%20width%3D'4'%20height%3D'24'%20rx%3D'2'%2F%3E%3Crect%20x%3D'688'%20y%3D'24'%20width%3D'4'%20height%3D'32'%20rx%3D'2'%2F%3E%3Crect%20x%3D'696'%20y%3D'24.5'%20width%3D'4'%20height%3D'31'%20rx%3D'2'%2F%3E%3Crect%20x%3D'704'%20y%3D'31.5'%20width%3D'4'%20height%3D'17'%20rx%3D'2'%2F%3E%3Crect%20x%3D'712'%20y%3D'25'%20width%3D'4'%20height%3D'30'%20rx%3D'2'%2F%3E%3Crect%20x%3D'720'%20y%3D'35'%20width%3D'4'%20height%3D'10'%20rx%3D'2'%2F%3E%3Crect%20x%3D'728'%20y%3D'30.5'%20width%3D'4'%20height%3D'19'%20rx%3D'2'%2F%3E%3Crect%20x%3D'736'%20y%3D'27'%20width%3D'4'%20height%3D'26'%20rx%3D'2'%2F%3E%3Crect%20x%3D'744'%20y%3D'28'%20width%3D'4'%20height%3D'24'%20rx%3D'2'%2F%3E%3Crect%20x%3D'752'%20y%3D'33.5'%20width%3D'4'%20height%3D'13'%20rx%3D'2'%2F%3E%3Crect%20x%3D'760'%20y%3D'16'%20width%3D'4'%20height%3D'48'%20rx%3D'2'%2F%3E%3Crect%20x%3D'768'%20y%3D'25.5'%20width%3D'4'%20height%3D'29'%20rx%3D'2'%2F%3E%3Crect%20x%3D'776'%20y%3D'16'%20width%3D'4'%20height%3D'48'%20rx%3D'2'%2F%3E%3Crect%20x%3D'784'%20y%3D'21.5'%20width%3D'4'%20height%3D'37'%20rx%3D'2'%2F%3E%3Crect%20x%3D'792'%20y%3D'23.5'%20width%3D'4'%20height%3D'33'%20rx%3D'2'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") 0 50% / 800px 80px repeat-x;
+  opacity: 0.5;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 15%, #000 85%, transparent);
+  border-bottom: 1px solid rgba(255, 181, 71, 0.25);
 }
+@media (prefers-reduced-motion: no-preference) {
+  .page-music .closing-card::before { animation: mu-wave 40s linear infinite; }
+}
+@keyframes mu-wave { to { background-position: -800px 50%; } }
+
 .page-music .closing-cta {
   background: none;
-  padding: clamp(48px, 9vw, 100px) clamp(22px, 5vw, 64px) clamp(40px, 7vw, 72px);
+  padding: clamp(96px, 14vw, 150px) clamp(22px, 5vw, 64px) clamp(36px, 6vw, 64px);
 }
 .page-music .closing-cta h2 {
-  margin: 0 0 0.2em;
+  margin: 0 0 0.15em;
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 600;
-  font-size: clamp(3.4rem, 12vw, 8.6rem);
-  line-height: 0.9;
+  font-size: clamp(3.2rem, 11vw, 8rem);
+  line-height: 0.92;
   letter-spacing: -0.02em;
   color: #fff;
-  text-shadow: 0 0 50px rgba(255, 181, 71, 0.35);
 }
 .page-music .closing-cta p { color: rgba(255, 255, 255, 0.78); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+/* the call to action is a play button */
 .page-music .closing-cta .btn-primary {
-  gap: 10px;
-  padding: 16px 30px;
-  border-color: var(--mu-amber);
+  gap: 14px;
+  padding: 10px 28px 10px 10px;
+  border: 0;
   border-radius: 999px;
-  background: var(--mu-amber);
-  color: var(--mu-amber-ink);
+  background: #fbf3e2;
+  color: #1a1024;
   font-size: 1rem;
   font-weight: 800;
-  box-shadow: 0 18px 34px -16px rgba(255, 181, 71, 0.7);
+  box-shadow: 0 18px 34px -16px rgba(255, 181, 71, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.4);
   transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
 }
-.page-music .closing-cta .btn-primary::after { content: '\2192'; font-weight: 800; transition: transform 0.25s ease; }
+.page-music .closing-cta .btn-primary svg {
+  box-sizing: content-box;
+  width: 20px;
+  height: 20px;
+  padding: 14px;
+  border-radius: 50%;
+  background: #ffb547;
+  color: #2a1500;
+}
+.page-music .closing-cta .btn-primary::after { content: none; }
 @media (hover: hover) and (pointer: fine) {
-  .page-music .closing-cta .btn-primary:hover { transform: translateY(-3px); }
-  .page-music .closing-cta .btn-primary:hover::after { transform: translateX(4px); }
+  .page-music .closing-cta .btn-primary:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 24px 40px -16px rgba(255, 181, 71, 0.8); }
 }
-.page-music .site-footer { position: relative; padding-top: clamp(40px, 7vw, 64px); padding-bottom: calc(28px + env(safe-area-inset-bottom, 0px)); }
-.page-music .site-footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: clamp(22px, 5vw, 64px);
-  right: clamp(22px, 5vw, 64px);
-  height: 25px;
-  background: repeating-linear-gradient(180deg, rgba(255, 181, 71, 0.6) 0 1px, transparent 1px 6px);
-}
+
 .page-music .closing-cta,
 .page-music .site-footer > .wrap { max-width: var(--max-width); margin-left: auto; margin-right: auto; }
+.page-music .site-footer { position: relative; padding-top: clamp(20px, 4vw, 36px); padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)); }
 .page-music .footer-signature {
-  margin: 0 0 clamp(30px, 5vw, 52px);
+  margin: 0 0 clamp(28px, 5vw, 48px);
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 800;
-  font-size: clamp(3.4rem, 14vw, 10.5rem);
-  line-height: 0.88;
+  font-size: clamp(3.2rem, 13vw, 9.5rem);
+  line-height: 0.9;
   letter-spacing: -0.02em;
   color: transparent;
-  -webkit-text-stroke: 2px var(--mu-amber);
+  background: linear-gradient(100deg, #ffe0a0 0%, #ffb547 40%, #e0466b 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 .page-music .footer-tagline { color: rgba(255, 255, 255, 0.74); }
-.page-music .footer-mid { align-items: flex-start; gap: 36px; border-bottom-color: rgba(255, 255, 255, 0.14); }
-.page-music .footer-social-btn { width: 44px; height: 44px; border-color: rgba(255, 255, 255, 0.28); color: #fff; }
+.page-music .footer-mid { align-items: flex-start; gap: 36px; border-bottom: 0; padding-bottom: 8px; }
+.page-music .footer-social-btn {
+  width: 46px;
+  height: 46px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgba(255, 224, 180, 0.25);
+}
 @media (hover: hover) and (pointer: fine) {
   .page-music .footer-social-btn:hover,
-  .page-music .footer-social-btn[aria-label]:hover { background: var(--mu-amber); border-color: var(--mu-amber); color: var(--mu-amber-ink); transform: translateY(-3px); }
+  .page-music .footer-social-btn[aria-label]:hover { background: #ffb547; color: #2a1500; transform: translateY(-3px) scale(1.06); }
 }
+
+/* the nav is a playlist: number, title, rule; the current page is "playing" */
 .page-music .footer-nav { flex: 1 1 340px; justify-content: stretch; }
 .page-music .footer-nav ul {
   counter-reset: ft;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-  gap: 0 28px;
+  grid-template-columns: 1fr;
+  gap: 0;
   width: 100%;
-  max-width: 640px;
+  max-width: 560px;
   margin-left: auto;
+  padding: 6px 0;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 0 1px rgba(255, 224, 180, 0.16);
 }
-.page-music .footer-nav li { counter-increment: ft; border-bottom: 1px solid rgba(255, 255, 255, 0.12); }
+.page-music .footer-nav li { counter-increment: ft; border: 0; }
+.page-music .footer-nav li + li { border-top: 1px solid rgba(255, 255, 255, 0.07); }
 .page-music .footer-nav a {
+  position: relative;
   display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding: 11px 0;
+  align-items: center;
+  gap: 16px;
+  padding: 11px 18px;
   color: #fff;
-  transition: color 0.2s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: background 0.2s ease, color 0.2s ease;
 }
 .page-music .footer-nav a::before {
-  content: counter(ft, decimal-leading-zero);
+  content: counter(ft);
+  width: 1.4em;
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 700;
   font-size: 0.95rem;
-  color: var(--mu-amber);
+  text-align: right;
+  color: rgba(255, 224, 180, 0.6);
 }
-.page-music .footer-nav a[href="music.html"] { color: var(--mu-amber); }
+.page-music .footer-nav a[href="music.html"] { color: #ffb547; }
+.page-music .footer-nav a[href="music.html"]::before { content: ''; align-self: center; width: 14px; height: 14px; margin: 0 -1px 0 5px; background:
+    linear-gradient(#ffb547, #ffb547) 0 100% / 3px 60% no-repeat,
+    linear-gradient(#ffb547, #ffb547) 50% 100% / 3px 100% no-repeat,
+    linear-gradient(#ffb547, #ffb547) 100% 100% / 3px 40% no-repeat; }
+@media (prefers-reduced-motion: no-preference) {
+  .page-music .footer-nav a[href="music.html"]::before { animation: mu-eq 0.9s ease-in-out infinite alternate; }
+}
+@keyframes mu-eq { to { transform: scaleY(0.55); } }
 @media (hover: hover) and (pointer: fine) {
-  .page-music .footer-nav a:hover { color: var(--mu-amber); transform: translateX(4px); }
+  .page-music .footer-nav a:hover { background: rgba(255, 181, 71, 0.12); color: #ffb547; }
+  .page-music .footer-nav a:hover::before { color: #ffb547; }
 }
-.page-music .footer-bottom { color: rgba(255, 255, 255, 0.6); }
+
+/* transport bar along the bottom */
+.page-music .footer-bottom {
+  margin-top: 8px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 181, 71, 0.3);
+  color: rgba(255, 255, 255, 0.6);
+}
 .page-music .footer-bottom a { color: rgba(255, 255, 255, 0.85); }
-.page-music .footer-bottom a:hover { color: var(--mu-amber); }
+.page-music .footer-bottom a:hover { color: #ffb547; }
 @media (max-width: 760px) { .page-music .footer-nav ul { margin-left: 0; max-width: none; } }
 
 /* ---------- Pull to refresh: metronome-ish bubble ---------- */
