@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500..700;1,500..700&display=swap">
-<link rel="stylesheet" href="assets/css/music.css?v=22">
+<link rel="stylesheet" href="assets/css/music.css?v=23">
 </head>
 <body class="page-core-discipline page-music">
 
@@ -360,7 +360,11 @@
     links.forEach(function (a) { a.addEventListener('click', function () { rail.classList.remove('is-open'); toggle.setAttribute('aria-expanded', 'false'); }); });
     document.addEventListener('click', function (e) { if (!rail.contains(e.target)) rail.classList.remove('is-open'); });
     if (!('IntersectionObserver' in window)) { rail.classList.add('is-shown'); return; }
-    new IntersectionObserver(function (e) { rail.classList.toggle('is-shown', !e[0].isIntersecting); }).observe(document.querySelector('.mu-hero'));
+    var offA = false, offB = false;
+    function railVis() { rail.classList.toggle('is-shown', !offA && !offB); }
+    new IntersectionObserver(function (e) { offA = e[0].isIntersecting; railVis(); }).observe(document.querySelector('.mu-hero'));
+    var foot = document.querySelector('.closing-card');
+    if (foot) new IntersectionObserver(function (e) { offB = e[0].isIntersecting; railVis(); }, { rootMargin: '0px 0px -30% 0px' }).observe(foot);
     var map = {};
     links.forEach(function (a) { var t = document.getElementById(a.getAttribute('href').slice(1)); if (t) map[t.id] = a; });
     var spy = new IntersectionObserver(function (entries) {
