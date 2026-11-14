@@ -173,6 +173,7 @@
     lastFocus = document.activeElement;
     root.hidden = false;
     if (themeMeta) themeMeta.content = '#060c08';
+    document.documentElement.classList.add('sv-open');
     document.documentElement.style.overflow = 'hidden';
     requestAnimationFrame(function () { root.classList.add('is-open'); });
     show(cur, true);
@@ -182,6 +183,7 @@
   function close() {
     root.classList.remove('is-open');
     if (themeMeta) themeMeta.content = themeWas;
+    document.documentElement.classList.remove('sv-open');
     resetZoom();
     document.documentElement.style.overflow = '';
     setTimeout(function () { if (!root.classList.contains('is-open')) { root.hidden = true; img.removeAttribute('src'); } }, 260);

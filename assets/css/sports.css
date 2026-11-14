@@ -1712,3 +1712,7 @@ html[data-sticky-navbar="true"] .page-sports .site-header { top: calc(14px + env
 /* Viewer fills the whole screen, including under the status bar. */
 .sv { background: #060c08; padding-top: env(safe-area-inset-top, 0px); }
 .sv-top { padding-top: 14px; }
+/* While the viewer is open the page behind it is black too, so iOS's
+   status-bar edge blur has nothing pale to pick up. */
+html.sv-open, html.sv-open body { background: #060c08 !important; }
+html.sv-open body > header, html.sv-open main, html.sv-open .closing-card { visibility: hidden; }
