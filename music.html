@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500..700;1,500..700&display=swap">
-<link rel="stylesheet" href="assets/css/music.css?v=21">
+<link rel="stylesheet" href="assets/css/music.css?v=22">
 </head>
 <body class="page-core-discipline page-music">
 
@@ -130,59 +130,59 @@
       </div>
       <div class="perf-list mu-perfs">
         <article class="perf mu-perf">
-          <div class="perf-bg" style="background-image:url('assets/img/pages/music/01-grand-stage-thailand-piano.jpg')" aria-hidden="true"></div>
           <header class="perf-head">
-            <div class="perf-title">
-              <h3>The Grand Stage, Thailand</h3>
-              <p>Organised by Churairat Music at the Bangkok Art and Culture Centre.</p>
-            </div>
+            <span class="perf-no" aria-hidden="true">01</span>
+            <h3>The Grand Stage, Thailand</h3>
           </header>
           <div class="perf-media">
             <div class="video-frame">
               <video src="assets/video/music-grand-stage-thailand.mp4" controls preload="metadata"></video>
             </div>
-            <figure class="perf-photo">
-              <span class="perf-disc" aria-hidden="true"></span>
-              <img src="assets/img/pages/music/01-grand-stage-thailand-piano.jpg" alt="Kittinat seated at a grand piano before The Grand Stage, Thailand concert backdrop" loading="lazy" width="2400" height="1800">
-            </figure>
+            <div class="perf-side">
+              <p class="perf-desc">Organised by Churairat Music at the Bangkok Art and Culture Centre.</p>
+              <figure class="perf-photo">
+                <span class="perf-disc" aria-hidden="true"></span>
+                <img src="assets/img/pages/music/01-grand-stage-thailand-piano.jpg" alt="Kittinat seated at a grand piano before The Grand Stage, Thailand concert backdrop" loading="lazy" width="2400" height="1800">
+              </figure>
+            </div>
           </div>
           <p class="credit">© Kittinat Gerdsri</p>
         </article>
         <article class="perf mu-perf">
-          <div class="perf-bg" style="background-image:url('assets/img/pages/music/02-graffiti-piano-performance.jpg')" aria-hidden="true"></div>
           <header class="perf-head">
-            <div class="perf-title">
-              <h3>Starbucks Reserve Roastery, Shanghai, China</h3>
-              <p>"Play Me, I'm Yours" — public piano performance.</p>
-            </div>
+            <span class="perf-no" aria-hidden="true">02</span>
+            <h3>Starbucks Reserve Roastery, Shanghai, China</h3>
           </header>
           <div class="perf-media">
             <div class="video-frame">
               <video src="assets/video/music-starbucks-shanghai.mp4" controls preload="metadata"></video>
             </div>
-            <figure class="perf-photo">
-              <span class="perf-disc" aria-hidden="true"></span>
-              <img src="assets/img/pages/music/02-graffiti-piano-performance.jpg" alt="Kittinat playing the graffiti-painted Play Me I'm Yours public piano at the Starbucks Reserve Roastery in Shanghai" loading="lazy" width="2400" height="1351">
-            </figure>
+            <div class="perf-side">
+              <p class="perf-desc">"Play Me, I'm Yours" — public piano performance.</p>
+              <figure class="perf-photo">
+                <span class="perf-disc" aria-hidden="true"></span>
+                <img src="assets/img/pages/music/02-graffiti-piano-performance.jpg" alt="Kittinat playing the graffiti-painted Play Me I'm Yours public piano at the Starbucks Reserve Roastery in Shanghai" loading="lazy" width="2400" height="1351">
+              </figure>
+            </div>
           </div>
           <p class="credit">© Kittinat Gerdsri</p>
         </article>
         <article class="perf mu-perf">
-          <div class="perf-bg" style="background-image:url('assets/img/pages/music/03-antique-upright-piano.jpg')" aria-hidden="true"></div>
           <header class="perf-head">
-            <div class="perf-title">
-              <h3>Saga-Arashiyama Train Station, Arashiyama, Japan</h3>
-              <p>Public piano performance.</p>
-            </div>
+            <span class="perf-no" aria-hidden="true">03</span>
+            <h3>Saga-Arashiyama Train Station, Arashiyama, Japan</h3>
           </header>
           <div class="perf-media">
             <div class="video-frame">
               <video src="assets/video/music-arashiyama-japan.mp4" controls preload="metadata"></video>
             </div>
-            <figure class="perf-photo">
-              <span class="perf-disc" aria-hidden="true"></span>
-              <img src="assets/img/pages/music/03-antique-upright-piano.jpg" alt="Kittinat playing an antique upright piano at Saga-Arashiyama Train Station in Japan" loading="lazy" width="1542" height="1072">
-            </figure>
+            <div class="perf-side">
+              <p class="perf-desc">Public piano performance.</p>
+              <figure class="perf-photo">
+                <span class="perf-disc" aria-hidden="true"></span>
+                <img src="assets/img/pages/music/03-antique-upright-piano.jpg" alt="Kittinat playing an antique upright piano at Saga-Arashiyama Train Station in Japan" loading="lazy" width="1542" height="1072">
+              </figure>
+            </div>
           </div>
           <p class="credit">© Kittinat Gerdsri</p>
         </article>
@@ -342,45 +342,6 @@
     [].forEach.call(document.querySelectorAll('[data-mu-n="awards"],[data-mu-count="awards"]'), function (e) { e.textContent = figs.length; });
     [].forEach.call(document.querySelectorAll('[data-mu-medals="awards"],[data-mu-dots="awards"]'), function (e) { e.innerHTML = dots; });
 
-
-    (function () {
-      var wrap = document.querySelector('.mu-perfs'); if (!wrap) return;
-      var items = [].slice.call(wrap.querySelectorAll('.mu-perf')); if (items.length < 2) return;
-      var tabs = document.createElement('div');
-      tabs.className = 'mu-tabs'; tabs.setAttribute('role', 'tablist');
-      var btns = items.map(function (it, i) {
-        var n = (i < 9 ? '0' : '') + (i + 1);
-        it.querySelector('.perf-head').dataset.n = n;
-        it.setAttribute('role', 'tabpanel');
-        var img = it.querySelector('.perf-photo img');
-        var h3 = it.querySelector('h3');
-        var b = document.createElement('button');
-        b.type = 'button'; b.className = 'mu-tab'; b.setAttribute('role', 'tab');
-        b.innerHTML = '<span class="mu-tab-disc"></span><span class="mu-tab-n">' + n + '</span><span class="mu-tab-t"></span>';
-        b.querySelector('.mu-tab-disc').style.setProperty('--thumb', "url('" + (img ? img.src : '') + "')");
-        b.querySelector('.mu-tab-t').textContent = h3.textContent.split(',')[0];
-        b.addEventListener('click', function () { show(i, true); });
-        b.addEventListener('keydown', function (e) {
-          var k = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-          if (!k) return; e.preventDefault(); show((i + k + items.length) % items.length, true); btns[(i + k + items.length) % items.length].focus();
-        });
-        tabs.appendChild(b);
-        return b;
-      });
-      function show(i, user) {
-        items.forEach(function (it, k) {
-          var on = k === i;
-          it.classList.toggle('is-active', on);
-          btns[k].setAttribute('aria-selected', on ? 'true' : 'false');
-          btns[k].tabIndex = on ? 0 : -1;
-          if (!on) { var v = it.querySelector('video'); if (v && !v.paused) v.pause(); }
-        });
-        if (user && btns[i].scrollIntoView) btns[i].scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
-      }
-      wrap.insertBefore(tabs, wrap.firstChild);
-      wrap.classList.add('is-tabbed');
-      show(0);
-    })();
 
     var rail = document.querySelector('.sp-rail'); if (!rail) return;
     var toggle = rail.querySelector('.sp-rail-toggle'), topBtn = rail.querySelector('.sp-rail-top'), pct = rail.querySelector('[data-pct]');
