@@ -679,61 +679,90 @@ html { scroll-behavior: smooth; }
    inside its section, so drop it once a section has revealed. */
 .page-sports main > .reveal.is-visible { transform: none; }
 
-/* ---------- Floating vertical section rail ---------- */
+/* ---------- Floating vertical section rail: progress spine ---------- */
+/* No box: a thin spine that fills with page progress, a node per section,
+   and a tag that names only where you are. The percentage doubles as the
+   button that opens every label. Back-to-top is the arrow on top. */
+.page-sports .back-to-top { display: none; }
 .sp-rail {
+  --p: 0;
   position: fixed;
-  right: 10px;
+  right: 8px;
   top: 50%;
   z-index: 70;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 2px;
-  padding: 8px 6px;
-  border-radius: 22px;
-  background: var(--sp-glass);
-  border: 1px solid var(--line);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  backdrop-filter: blur(16px) saturate(180%);
-  box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.55);
-  transform: translate(140%, -50%);
+  transform: translate(160%, -50%);
   opacity: 0;
   pointer-events: none;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
 }
 .sp-rail.is-shown { transform: translate(0, -50%); opacity: 1; pointer-events: auto; }
-.sp-rail-toggle {
-  display: grid;
-  gap: 3px;
-  justify-items: end;
-  width: 30px;
-  padding: 8px 7px 6px;
-  border: 0;
-  background: none;
-  cursor: pointer;
+.sp-rail::before {
+  content: '';
+  position: absolute;
+  right: 11px;
+  top: 44px;
+  bottom: 44px;
+  width: 2px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--sp-accent) calc(var(--p) * 1%), var(--line) calc(var(--p) * 1%));
 }
-.sp-rail-toggle span { display: block; height: 2px; border-radius: 2px; background: var(--ink-soft); }
-.sp-rail-toggle span:nth-child(1) { width: 16px; }
-.sp-rail-toggle span:nth-child(2) { width: 12px; }
-.sp-rail-toggle span:nth-child(3) { width: 8px; }
+.sp-rail-top,
+.sp-rail-toggle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin: 0 -3px 6px 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--sp-glass);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.sp-rail-top svg { width: 15px; height: 15px; }
+.sp-rail-toggle {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 1px;
+  width: auto;
+  min-width: 30px;
+  height: 30px;
+  margin: 6px -3px 0 0;
+  padding: 0 8px;
+  border-radius: 999px;
+  font-family: var(--sp-display);
+  line-height: 30px;
+}
+.sp-rail-toggle b { font-weight: 800; font-size: 0.85rem; font-variant-numeric: tabular-nums; }
+.sp-rail-toggle small { font-size: 0.6rem; font-weight: 700; opacity: 0.7; }
+.sp-rail-top:active, .sp-rail-toggle:active { transform: scale(0.92); }
 .sp-rail-link {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 7px 7px 7px 10px;
-  border-radius: 999px;
+  padding: 5px 4px 5px 8px;
   font-family: var(--font-body);
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.78rem;
+  font-weight: 700;
   white-space: nowrap;
   color: var(--ink-soft);
-  transition: background 0.2s ease, color 0.2s ease;
 }
 .sp-rail-link span {
   max-width: 0;
+  padding: 4px 0;
   overflow: hidden;
   opacity: 0;
-  transition: max-width 0.3s ease, opacity 0.2s ease;
+  border-radius: 999px;
+  transition: max-width 0.3s ease, opacity 0.2s ease, padding 0.3s ease;
 }
 .sp-rail-link i {
   position: relative;
@@ -746,51 +775,46 @@ html { scroll-behavior: smooth; }
   position: absolute;
   inset: 3px;
   border-radius: 50%;
-  border: 2px solid currentColor;
-  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  background: var(--bg);
+  border: 2px solid var(--ink-soft);
+  transition: all 0.25s ease;
 }
 .sp-rail-sub { display: none; }
 .sp-rail.in-fobisia .sp-rail-sub { display: flex; }
 .sp-rail-sub i::before { inset: 5px; border-width: 1.5px; }
-.sp-rail-link.is-active { color: var(--ink); }
+.sp-rail-link.is-active { color: var(--sp-accent-ink); }
 .sp-rail-link.is-active i::before {
+  inset: 2px;
   background: var(--sp-accent);
   border-color: var(--sp-accent);
-  box-shadow: 0 0 0 3px rgba(200, 245, 66, 0.3);
+  box-shadow: 0 0 0 4px rgba(200, 245, 66, 0.28);
 }
-.sp-rail.is-open .sp-rail-link span { max-width: 220px; opacity: 1; }
-@media (hover: hover) and (pointer: fine) {
-  .sp-rail:hover .sp-rail-link span { max-width: 220px; opacity: 1; }
-  .sp-rail-link:hover { background: var(--nav-hover-bg); color: var(--ink); }
+.sp-rail-sub.is-active i::before { inset: 3px; }
+.sp-rail-link.is-active span {
+  max-width: 220px;
+  padding: 4px 11px;
+  opacity: 1;
+  background: var(--sp-accent);
 }
-
-/* Back to top lives in the rail (with a scroll-progress ring), so the
-   site-wide floating button is hidden on this page. */
-.page-sports .back-to-top { display: none; }
-.sp-rail { --p: 0; }
-.sp-rail-top {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  margin-bottom: 4px;
-  border: 0;
-  border-radius: 50%;
-  background: conic-gradient(var(--sp-accent) calc(var(--p) * 1%), var(--line) 0);
+.sp-rail.is-open .sp-rail-link span {
+  max-width: 220px;
+  padding: 4px 11px;
+  opacity: 1;
+  background: var(--sp-glass);
+  border: 1px solid var(--line);
   color: var(--ink);
-  cursor: pointer;
-  transition: transform 0.2s ease;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
-.sp-rail-top::before {
-  content: '';
-  position: absolute;
-  inset: 3px;
-  border-radius: 50%;
-  background: var(--bg-soft);
-}
-.sp-rail-top svg { position: relative; width: 18px; height: 18px; }
-.sp-rail-top:active { transform: scale(0.92); }
+.sp-rail.is-open .sp-rail-link.is-active span { background: var(--sp-accent); border-color: var(--sp-accent); color: var(--sp-accent-ink); }
 @media (hover: hover) and (pointer: fine) {
-  .sp-rail-top:hover { transform: translateY(-2px); }
+  .sp-rail-top:hover, .sp-rail-toggle:hover { background: var(--sp-accent); color: var(--sp-accent-ink); }
+  .sp-rail-link:hover span {
+    max-width: 220px;
+    padding: 4px 11px;
+    opacity: 1;
+    background: var(--sp-glass);
+    border: 1px solid var(--line);
+    color: var(--ink);
+  }
 }

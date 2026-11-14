@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&display=swap">
-<link rel="stylesheet" href="assets/css/sports.css?v=14">
+<link rel="stylesheet" href="assets/css/sports.css?v=15">
 </head>
 <body class="page-core-discipline page-sports">
 
@@ -115,7 +115,6 @@
 
   <nav class="sp-rail" aria-label="Page sections">
     <button class="sp-rail-top" type="button" aria-label="Back to top"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M207.39,115.06A8,8,0,0,1,200,120H136v96a8,8,0,0,1-16,0V120H56a8,8,0,0,1-5.66-13.66l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,207.39,115.06Z"></path></svg></button>
-    <button class="sp-rail-toggle" type="button" aria-label="Sections" aria-expanded="false"><span></span><span></span><span></span></button>
     <a class="sp-rail-link" href="#sp-gallery"><span>Gallery</span><i></i></a>
     <a class="sp-rail-link" href="#sp-fobisia"><span>FOBISIA Games 2026</span><i></i></a>
     <a class="sp-rail-link sp-rail-sub" href="#sp-opening"><span>Opening & Team</span><i></i></a>
@@ -124,6 +123,7 @@
     <a class="sp-rail-link sp-rail-sub" href="#sp-football"><span>Football</span><i></i></a>
     <a class="sp-rail-link sp-rail-sub" href="#sp-basketball"><span>Basketball</span><i></i></a>
     <a class="sp-rail-link" href="#sp-awards"><span>Award Locker</span><i></i></a>
+    <button class="sp-rail-toggle" type="button" aria-label="Sections" aria-expanded="false"><b data-pct>0</b><small>%</small></button>
   </nav>
 
   <section class="section sp-section" id="sp-gallery">
@@ -772,12 +772,15 @@
     if (!rail) return;
     var toggle = rail.querySelector('.sp-rail-toggle');
     var topBtn = rail.querySelector('.sp-rail-top');
+    var pct = rail.querySelector('[data-pct]');
     topBtn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
     var tick = false;
     function progress() {
       tick = false;
       var max = document.documentElement.scrollHeight - window.innerHeight;
-      rail.style.setProperty('--p', max > 0 ? Math.min(100, Math.max(0, window.scrollY / max * 100)).toFixed(1) : 0);
+      var p = max > 0 ? Math.min(100, Math.max(0, window.scrollY / max * 100)) : 0;
+      rail.style.setProperty('--p', p.toFixed(1));
+      pct.textContent = Math.round(p);
     }
     window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(progress); } }, { passive: true });
     progress();
