@@ -1419,3 +1419,150 @@ html { scroll-behavior: smooth; }
   .sv-nav { display: none; }
   .sv-img { border-radius: 8px; }
 }
+
+/* =====================================================================
+   Footer: "full time" stadium block (always dark, both themes)
+   ===================================================================== */
+.page-sports .closing-card {
+  --ink: #e6efe8;
+  --ink-soft: rgba(255, 255, 255, 0.72);
+  --heading: #ffffff;
+  --line: rgba(255, 255, 255, 0.14);
+  --navy: #c8f542;
+  --nav-hover-bg: rgba(200, 245, 66, 0.14);
+  position: relative;
+  isolation: isolate;
+  margin: clamp(40px, 7vw, 80px) clamp(12px, 3vw, 32px) clamp(24px, 5vw, 48px);
+  border: 1px solid rgba(200, 245, 66, 0.28);
+  border-radius: 32px;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(200, 245, 66, 0.2), transparent 70%),
+    linear-gradient(180deg, #0a1f13 0%, #050f09 100%);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.8);
+}
+/* faint centre circle + halfway line */
+.page-sports .closing-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 50% 0, transparent 0 168px, rgba(200, 245, 66, 0.16) 169px 171px, transparent 172px),
+    linear-gradient(rgba(200, 245, 66, 0.1), rgba(200, 245, 66, 0.1)) 50% 0 / 2px 100% no-repeat;
+  pointer-events: none;
+}
+.page-sports .closing-cta {
+  background: none;
+  padding: clamp(56px, 10vw, 112px) clamp(22px, 5vw, 64px) clamp(44px, 7vw, 72px);
+}
+.page-sports .closing-cta h2 {
+  margin: 0 0 0.2em;
+  font-family: var(--sp-display);
+  font-weight: var(--sp-display-wt);
+  font-size: clamp(3.4rem, 12vw, 8.6rem);
+  line-height: 0.86;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.page-sports .closing-cta p { color: rgba(255, 255, 255, 0.78); font-size: clamp(1rem, 2.2vw, 1.2rem); }
+.page-sports .closing-cta .btn-primary {
+  gap: 10px;
+  padding: 16px 30px;
+  font-size: 1rem;
+  font-weight: 800;
+  box-shadow: 0 18px 34px -16px rgba(200, 245, 66, 0.7);
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+}
+.page-sports .closing-cta .btn-primary::after { content: '\2192'; font-weight: 800; transition: transform 0.25s ease; }
+@media (hover: hover) and (pointer: fine) {
+  .page-sports .closing-cta .btn-primary:hover { transform: translateY(-3px); }
+  .page-sports .closing-cta .btn-primary:hover::after { transform: translateX(4px); }
+}
+/* track-lane ruler between CTA and footer */
+.page-sports .site-footer {
+  position: relative;
+  padding-top: clamp(44px, 7vw, 72px);
+}
+.page-sports .site-footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: clamp(22px, 5vw, 64px);
+  right: clamp(22px, 5vw, 64px);
+  height: 14px;
+  border-top: 3px solid var(--sp-accent);
+  background: repeating-linear-gradient(90deg, rgba(200, 245, 66, 0.7) 0 2px, transparent 2px 22px) top / 100% 10px no-repeat;
+}
+.page-sports .footer-signature {
+  margin: 0 0 clamp(30px, 5vw, 52px);
+  font-family: var(--sp-display);
+  font-weight: 900;
+  font-size: clamp(3.4rem, 14vw, 10.5rem);
+  line-height: 0.84;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--sp-accent);
+}
+.page-sports .footer-tagline { color: rgba(255, 255, 255, 0.74); }
+.page-sports .footer-mid { align-items: flex-start; gap: 36px; border-bottom-color: rgba(255, 255, 255, 0.14); }
+.page-sports .footer-social-btn {
+  width: 44px;
+  height: 44px;
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+@media (hover: hover) and (pointer: fine) {
+  .page-sports .footer-social-btn:hover,
+  .page-sports .footer-social-btn[aria-label]:hover {
+    background: var(--sp-accent);
+    border-color: var(--sp-accent);
+    color: var(--sp-accent-ink);
+    transform: translateY(-3px);
+  }
+}
+/* nav as a numbered league table */
+.page-sports .footer-nav { flex: 1 1 340px; justify-content: stretch; }
+.page-sports .footer-nav ul {
+  counter-reset: ft;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0 28px;
+  width: 100%;
+  max-width: 640px;
+  margin-left: auto;
+}
+.page-sports .footer-nav li {
+  counter-increment: ft;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.page-sports .footer-nav a {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 11px 0;
+  color: #fff;
+  transition: color 0.2s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.page-sports .footer-nav a::before {
+  content: counter(ft, decimal-leading-zero);
+  font-family: var(--sp-display);
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  color: var(--sp-accent);
+}
+.page-sports .footer-nav a[href="sports.html"] { color: var(--sp-accent); }
+@media (hover: hover) and (pointer: fine) {
+  .page-sports .footer-nav a:hover { color: var(--sp-accent); transform: translateX(4px); }
+}
+.page-sports .footer-bottom { color: rgba(255, 255, 255, 0.6); }
+.page-sports .footer-bottom a { color: rgba(255, 255, 255, 0.85); }
+.page-sports .footer-bottom a:hover { color: var(--sp-accent); }
+@media (max-width: 760px) {
+  .page-sports .closing-card { border-radius: 24px; }
+  .page-sports .footer-nav ul { margin-left: 0; max-width: none; }
+}
