@@ -2623,7 +2623,7 @@ a.chip:active { transform: scale(0.95); }
   font-size: 0.72rem;
   color: var(--ink-soft);
   opacity: 0.75;
-  margin-top: 0.5em;
+  margin-top: 1.8em;
 }
 
 /* ---------- Lightbox ---------- */
