@@ -1579,3 +1579,15 @@ html { scroll-behavior: smooth; }
 @media (max-width: 760px) { .page-sports .closing-card { border-radius: 0; } }
 .page-sports .closing-cta,
 .page-sports .site-footer > .wrap { max-width: var(--max-width); margin-left: auto; margin-right: auto; }
+
+/* Hero is a full-bleed band, not a floating card. */
+.page-sports .sp-hero { padding-top: clamp(14px, 2vw, 22px); }
+.sp-hero-card {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  border-radius: 0;
+  box-shadow: none;
+  padding-left: max(clamp(20px, 5vw, 48px), calc((100vw - var(--max-width)) / 2 + clamp(20px, 5vw, 48px)));
+  padding-right: max(clamp(20px, 5vw, 48px), calc((100vw - var(--max-width)) / 2 + clamp(20px, 5vw, 48px)));
+}
+@media (max-width: 760px) { .sp-hero-card { border-radius: 0; } }
