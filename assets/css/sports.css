@@ -245,44 +245,6 @@ html { scroll-behavior: smooth; }
 }
 .sp-pillar .lede { margin: 0; font-size: 1rem; }
 
-/* ---------- Sticky jump bar ---------- */
-.sp-jump {
-  position: sticky;
-  top: 12px;
-  z-index: 60;
-  display: flex;
-  gap: 4px;
-  width: fit-content;
-  max-width: calc(100% - 24px);
-  margin: clamp(18px, 3vw, 30px) auto 0;
-  padding: 5px;
-  border-radius: 999px;
-  background: var(--sp-glass);
-  border: 1px solid var(--line);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  backdrop-filter: blur(16px) saturate(180%);
-  box-shadow: var(--shadow-soft);
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.sp-jump::-webkit-scrollbar { display: none; }
-html[data-sticky-navbar="true"] .sp-jump { top: 92px; }
-.sp-jump a {
-  flex: none;
-  padding: 8px 16px;
-  border-radius: 999px;
-  font-family: var(--font-body);
-  font-size: 0.82rem;
-  font-weight: 600;
-  white-space: nowrap;
-  color: var(--ink-soft);
-  transition: background 0.2s ease, color 0.2s ease;
-}
-@media (hover: hover) and (pointer: fine) {
-  .sp-jump a:hover { color: var(--ink); background: var(--nav-hover-bg); }
-}
-.sp-jump a.is-active { background: var(--sp-accent); color: var(--sp-accent-ink); }
-
 /* ---------- Section heads (broadcast lower-third style) ---------- */
 .sp-section { scroll-margin-top: 90px; }
 .sp-head,
@@ -440,29 +402,6 @@ html[data-sticky-navbar="true"] .sp-jump { top: 92px; }
 }
 
 /* ---------- FOBISIA: sport chips + blocks ---------- */
-.sp-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: clamp(26px, 4vw, 40px);
-}
-.sp-chips a {
-  padding: 9px 18px;
-  border-radius: 999px;
-  border: 1.5px solid var(--line);
-  background: var(--surface);
-  font-family: var(--font-body);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--ink);
-  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
-}
-@media (hover: hover) and (pointer: fine) {
-  .sp-chips a:hover { border-color: var(--sp-accent); background: var(--nav-hover-bg); }
-}
-.sp-chips a:active { transform: scale(0.97); }
-.sp-chips a.is-active { background: var(--sp-accent); border-color: var(--sp-accent); color: var(--sp-accent-ink); }
-
 .sp-sport {
   margin-top: clamp(40px, 6vw, 72px);
   scroll-margin-top: 110px;
@@ -736,46 +675,91 @@ html[data-sticky-navbar="true"] .sp-jump { top: 92px; }
   .sp-shelf-item span { font-size: 0.78rem; }
 }
 
-/* Sport chips become a floating dock while the FOBISIA section is on screen. */
-.js-dock .sp-chips {
+/* An identity transform left by the scroll-reveal would trap the fixed dock
+   inside its section, so drop it once a section has revealed. */
+.page-sports main > .reveal.is-visible { transform: none; }
+
+/* ---------- Floating vertical section rail ---------- */
+.sp-rail {
   position: fixed;
-  left: 50%;
-  bottom: 18px;
+  right: 10px;
+  top: 50%;
   z-index: 70;
-  flex-wrap: nowrap;
-  gap: 4px;
-  max-width: calc(100% - 120px);
-  margin: 0;
-  padding: 5px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  border-radius: 999px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 8px 6px;
+  border-radius: 22px;
   background: var(--sp-glass);
   border: 1px solid var(--line);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
   backdrop-filter: blur(16px) saturate(180%);
   box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.55);
-  transform: translate(-50%, 140%);
+  transform: translate(140%, -50%);
   opacity: 0;
   pointer-events: none;
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
 }
-.js-dock .sp-chips::-webkit-scrollbar { display: none; }
-.js-dock .sp-chips.is-docked { transform: translate(-50%, 0); opacity: 1; pointer-events: auto; }
-.js-dock .sp-chips a {
-  flex: none;
-  padding: 8px 16px;
+.sp-rail.is-shown { transform: translate(0, -50%); opacity: 1; pointer-events: auto; }
+.sp-rail-toggle {
+  display: grid;
+  gap: 3px;
+  justify-items: end;
+  width: 30px;
+  padding: 8px 7px 6px;
   border: 0;
-  background: transparent;
-  font-size: 0.82rem;
+  background: none;
+  cursor: pointer;
+}
+.sp-rail-toggle span { display: block; height: 2px; border-radius: 2px; background: var(--ink-soft); }
+.sp-rail-toggle span:nth-child(1) { width: 16px; }
+.sp-rail-toggle span:nth-child(2) { width: 12px; }
+.sp-rail-toggle span:nth-child(3) { width: 8px; }
+.sp-rail-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 7px 7px 10px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
   white-space: nowrap;
   color: var(--ink-soft);
+  transition: background 0.2s ease, color 0.2s ease;
 }
+.sp-rail-link span {
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-width 0.3s ease, opacity 0.2s ease;
+}
+.sp-rail-link i {
+  position: relative;
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+.sp-rail-link i::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.sp-rail-sub { display: none; }
+.sp-rail.in-fobisia .sp-rail-sub { display: flex; }
+.sp-rail-sub i::before { inset: 5px; border-width: 1.5px; }
+.sp-rail-link.is-active { color: var(--ink); }
+.sp-rail-link.is-active i::before {
+  background: var(--sp-accent);
+  border-color: var(--sp-accent);
+  box-shadow: 0 0 0 3px rgba(200, 245, 66, 0.3);
+}
+.sp-rail.is-open .sp-rail-link span { max-width: 220px; opacity: 1; }
 @media (hover: hover) and (pointer: fine) {
-  .js-dock .sp-chips a:hover { background: var(--nav-hover-bg); color: var(--ink); }
+  .sp-rail:hover .sp-rail-link span { max-width: 220px; opacity: 1; }
+  .sp-rail-link:hover { background: var(--nav-hover-bg); color: var(--ink); }
 }
-.js-dock .sp-chips a.is-active { background: var(--sp-accent); color: var(--sp-accent-ink); }
-
-/* An identity transform left by the scroll-reveal would trap the fixed dock
-   inside its section, so drop it once a section has revealed. */
-.page-sports main > .reveal.is-visible { transform: none; }

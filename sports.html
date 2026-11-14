@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&display=swap">
-<link rel="stylesheet" href="assets/css/sports.css?v=12">
+<link rel="stylesheet" href="assets/css/sports.css?v=13">
 </head>
 <body class="page-core-discipline page-sports">
 
@@ -113,10 +113,16 @@
     </div>
   </section>
 
-  <nav class="sp-jump" aria-label="Page sections">
-    <a href="#sp-gallery">Gallery</a>
-    <a href="#sp-fobisia">FOBISIA Games 2026</a>
-    <a href="#sp-awards">Award Locker</a>
+  <nav class="sp-rail" aria-label="Page sections">
+    <button class="sp-rail-toggle" type="button" aria-label="Sections" aria-expanded="false"><span></span><span></span><span></span></button>
+    <a class="sp-rail-link" href="#sp-gallery"><span>Gallery</span><i></i></a>
+    <a class="sp-rail-link" href="#sp-fobisia"><span>FOBISIA Games 2026</span><i></i></a>
+    <a class="sp-rail-link sp-rail-sub" href="#sp-opening"><span>Opening & Team</span><i></i></a>
+    <a class="sp-rail-link sp-rail-sub" href="#sp-athletics"><span>Athletics</span><i></i></a>
+    <a class="sp-rail-link sp-rail-sub" href="#sp-swimming"><span>Swimming</span><i></i></a>
+    <a class="sp-rail-link sp-rail-sub" href="#sp-football"><span>Football</span><i></i></a>
+    <a class="sp-rail-link sp-rail-sub" href="#sp-basketball"><span>Basketball</span><i></i></a>
+    <a class="sp-rail-link" href="#sp-awards"><span>Award Locker</span><i></i></a>
   </nav>
 
   <section class="section sp-section" id="sp-gallery">
@@ -197,13 +203,6 @@
           </div>
         </div>
       </div>
-      <nav class="sp-chips" aria-label="FOBISIA sports">
-        <a href="#sp-opening">Opening & Team</a>
-        <a href="#sp-athletics">Athletics</a>
-        <a href="#sp-swimming">Swimming</a>
-        <a href="#sp-football">Football</a>
-        <a href="#sp-basketball">Basketball</a>
-      </nav>
 
       <div class="sp-sport" id="sp-opening">
         <div class="sp-sport-head">
@@ -768,30 +767,28 @@
       var g = s.querySelector('.gallery');
       if (c && g) c.textContent = g.querySelectorAll('figure').length;
     });
-    if (!('IntersectionObserver' in window)) return;
-    var dock = document.querySelector('.sp-chips'), fob = document.getElementById('sp-fobisia');
-    if (dock && fob) {
-      document.documentElement.classList.add('js-dock');
-      new IntersectionObserver(function (e) {
-        var r = e[0].boundingClientRect;
-        dock.classList.toggle('is-docked', r.top < window.innerHeight * 0.6 && r.bottom > window.innerHeight * 0.4);
-      }, { threshold: [0, 0.01, 0.1, 0.5, 1] }).observe(fob);
-    }
-    function spy(linkSel, targetFor, rootMargin) {
-      var links = [].slice.call(document.querySelectorAll(linkSel));
-      var map = {};
-      links.forEach(function (a) { var t = targetFor(a); if (t) map[t.id] = a; });
-      var targets = Object.keys(map).map(function (id) { return document.getElementById(id); });
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          map[e.target.id].classList.toggle('is-active', e.isIntersecting);
-        });
-      }, { rootMargin: rootMargin, threshold: 0 });
-      targets.forEach(function (t) { io.observe(t); });
-    }
-    var byHash = function (a) { return document.getElementById(a.getAttribute('href').slice(1)); };
-    spy('.sp-jump a', byHash, '-35% 0px -60% 0px');
-    spy('.sp-chips a', byHash, '-35% 0px -60% 0px');
+    var rail = document.querySelector('.sp-rail');
+    if (!rail) return;
+    var toggle = rail.querySelector('.sp-rail-toggle');
+    var links = [].slice.call(rail.querySelectorAll('.sp-rail-link'));
+    toggle.addEventListener('click', function () {
+      var open = rail.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.forEach(function (a) { a.addEventListener('click', function () { rail.classList.remove('is-open'); toggle.setAttribute('aria-expanded', 'false'); }); });
+    document.addEventListener('click', function (e) { if (!rail.contains(e.target)) rail.classList.remove('is-open'); });
+    if (!('IntersectionObserver' in window)) { rail.classList.add('is-shown'); return; }
+    var hero = document.querySelector('.sp-hero');
+    if (hero) new IntersectionObserver(function (e) { rail.classList.toggle('is-shown', !e[0].isIntersecting); }).observe(hero);
+    else rail.classList.add('is-shown');
+    var map = {};
+    links.forEach(function (a) { var t = document.getElementById(a.getAttribute('href').slice(1)); if (t) map[t.id] = a; });
+    var fobLink = map['sp-fobisia'];
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { map[e.target.id].classList.toggle('is-active', e.isIntersecting); });
+      rail.classList.toggle('in-fobisia', fobLink.classList.contains('is-active'));
+    }, { rootMargin: '-35% 0px -60% 0px', threshold: 0 });
+    Object.keys(map).forEach(function (id) { spy.observe(document.getElementById(id)); });
   })();
   </script>
 </body>
