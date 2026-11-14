@@ -31,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500..700;1,500..700&display=swap">
-<link rel="stylesheet" href="assets/css/music.css?v=22">
+<link rel="stylesheet" href="assets/css/music.css?v=24">
 </head>
 <body class="page-core-discipline page-music">
 
@@ -115,6 +115,9 @@
   <nav class="sp-rail" aria-label="Page sections">
     <button class="sp-rail-top" type="button" aria-label="Back to top"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M207.39,115.06A8,8,0,0,1,200,120H136v96a8,8,0,0,1-16,0V120H56a8,8,0,0,1-5.66-13.66l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,207.39,115.06Z"></path></svg></button>
     <a class="sp-rail-link" href="#performances"><span>Performances</span><i></i></a>
+    <a class="sp-rail-link sp-rail-sub" href="#perf-1"><span>The Grand Stage, Thailand</span><i></i></a>
+    <a class="sp-rail-link sp-rail-sub" href="#perf-2"><span>Starbucks Reserve Roastery, Shanghai, China</span><i></i></a>
+    <a class="sp-rail-link sp-rail-sub" href="#perf-3"><span>Saga-Arashiyama Train Station, Arashiyama, Japan</span><i></i></a>
     <a class="sp-rail-link" href="#awards"><span>Awards</span><i></i></a>
     <button class="sp-rail-toggle" type="button" aria-label="Sections" aria-expanded="false"><b data-pct>0</b><small>%</small></button>
   </nav>
@@ -129,7 +132,7 @@
         </div>
       </div>
       <div class="perf-list mu-perfs">
-        <article class="perf mu-perf">
+        <article class="perf mu-perf" id="perf-1">
           <header class="perf-head">
             <span class="perf-no" aria-hidden="true">01</span>
             <h3>The Grand Stage, Thailand</h3>
@@ -148,7 +151,7 @@
           </div>
           <p class="credit">© Kittinat Gerdsri</p>
         </article>
-        <article class="perf mu-perf">
+        <article class="perf mu-perf" id="perf-2">
           <header class="perf-head">
             <span class="perf-no" aria-hidden="true">02</span>
             <h3>Starbucks Reserve Roastery, Shanghai, China</h3>
@@ -167,7 +170,7 @@
           </div>
           <p class="credit">© Kittinat Gerdsri</p>
         </article>
-        <article class="perf mu-perf">
+        <article class="perf mu-perf" id="perf-3">
           <header class="perf-head">
             <span class="perf-no" aria-hidden="true">03</span>
             <h3>Saga-Arashiyama Train Station, Arashiyama, Japan</h3>
@@ -367,6 +370,7 @@
       entries.forEach(function (e) { map[e.target.id].classList.toggle('is-active', e.isIntersecting); });
     }, { rootMargin: '-35% 0px -60% 0px', threshold: 0 });
     Object.keys(map).forEach(function (id) { spy.observe(document.getElementById(id)); });
+    new IntersectionObserver(function (e) { rail.classList.toggle('in-performances', e[0].isIntersecting); }, { rootMargin: '-35% 0px -60% 0px', threshold: 0 }).observe(document.getElementById('performances'));
   })();
   </script>
 

@@ -1578,3 +1578,9 @@ html.sv-open, html.sv-open body { background: #0f0816 !important; }
   .mu-perf .perf-no { font-size: 2.4rem; }
   .mu-perf .perf-head h3 { font-size: 1.45rem; }
 }
+
+/* Rail: the three performances appear as sub-items while inside the Performances section */
+.page-music .sp-rail.in-performances .sp-rail-sub { display: flex; }
+.page-music .sp-rail-sub { padding-top: 2px; padding-bottom: 2px; }
+.page-music .sp-rail-sub span { overflow: hidden; text-overflow: ellipsis; }
+.page-music .sp-rail-sub.is-active span { max-width: 190px; }
