@@ -1017,3 +1017,74 @@ html { scroll-behavior: smooth; }
 @media (max-width: 700px) {
   .page-sports .gl-scrap figure { width: 42vw; margin: 0 -4px; }
 }
+
+/* ---- Football match centre: scoreboard tabs + one match at a time ---- */
+.gl-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: clamp(16px, 3vw, 26px);
+  padding: 4px 2px 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.gl-tabs::-webkit-scrollbar { display: none; }
+.gl-tab {
+  flex: none;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 12px 16px 12px 18px;
+  border: 1.5px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.25s ease;
+}
+.gl-tab-vs {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.gl-tab b {
+  font-family: var(--sp-display);
+  font-weight: 900;
+  font-size: 1.7rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+.gl-tab small {
+  align-self: center;
+  min-width: 26px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--line);
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-align: center;
+}
+@media (hover: hover) and (pointer: fine) {
+  .gl-tab:hover { transform: translateY(-3px); border-color: var(--sp-accent); }
+}
+.gl-tab[aria-selected="true"] {
+  background: var(--sp-accent);
+  border-color: var(--sp-accent);
+  color: var(--sp-accent-ink);
+  box-shadow: 0 16px 28px -16px rgba(200, 245, 66, 0.7);
+  transform: translateY(-3px);
+}
+.gl-tab[aria-selected="true"] .gl-tab-vs { color: rgba(8, 23, 14, 0.65); }
+.gl-tab[aria-selected="true"] small { background: rgba(8, 23, 14, 0.16); }
+.gl-panel { animation: sp-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.gl-panel[hidden] { display: none; }
+.gl-panel-opp {
+  margin: 0 0 14px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+  color: var(--ink-soft);
+}
