@@ -172,7 +172,7 @@
     buildThumbs();
     lastFocus = document.activeElement;
     root.hidden = false;
-    if (themeMeta) themeMeta.content = '#060c08';
+    if (themeMeta) themeMeta.content = getComputedStyle(root.querySelector('.sv-bg')).backgroundColor || '#060c08';
     document.documentElement.classList.add('sv-open');
     document.documentElement.style.overflow = 'hidden';
     requestAnimationFrame(function () { root.classList.add('is-open'); });
