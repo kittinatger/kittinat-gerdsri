@@ -460,7 +460,7 @@ html { scroll-behavior: smooth; }
 
 /* ---------- Narrow screens ---------- */
 @media (max-width: 760px) {
-  .sp-pillars { grid-template-columns: 1fr; gap: 28px; }
+  .sp-pillars { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .sp-hero-card { min-height: clamp(480px, 74svh, 620px); border-radius: 22px; }
   .sp-scoreboard { gap: 8px; }
   .sp-score { padding: 12px 12px 10px; border-radius: 12px; }
@@ -664,7 +664,7 @@ html { scroll-behavior: smooth; }
 }
 
 @media (max-width: 820px) {
-  .sp-trophy { grid-template-columns: 1fr; }
+  .sp-trophy { grid-template-columns: minmax(0, 1fr); }
   .page-sports .sp-vault .sp-stage figure.trophy { max-width: 300px; }
   .page-sports .sp-vault .sp-cert { max-width: 100%; }
   .sp-shelf-item { width: 74px; }
@@ -1696,7 +1696,7 @@ html[data-sticky-navbar="true"] .page-sports .site-header { top: calc(14px + env
   .page-sports .discipline-pagenav-next:hover .discipline-pagenav-arrow { transform: translateX(8px); }
 }
 @media (max-width: 640px) {
-  .page-sports .discipline-pagenav { grid-template-columns: 1fr; padding: 0; }
+  .page-sports .discipline-pagenav { grid-template-columns: minmax(0, 1fr); padding: 0; }
   .page-sports .discipline-pagenav-prev + .discipline-pagenav-next { border-left: 0; }
   .page-sports .discipline-pagenav-link { min-height: 190px; gap: 36px; }
 }

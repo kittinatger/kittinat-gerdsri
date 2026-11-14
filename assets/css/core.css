@@ -523,13 +523,13 @@ html[data-sticky-navbar="true"] .page-core .site-header { top: calc(14px + env(s
 @media (max-width: 1000px) {
   .page-core .cd-board, .page-core .cd-ledger, .page-core .cd-slides { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .cd-index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .cd-intro { grid-template-columns: 1fr; }
+  .cd-intro { grid-template-columns: minmax(0, 1fr); }
   .page-core .cd-intro .intro-pillars { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
   .page-core .cd-intro .intro-pillar:nth-child(even) { margin-left: 0; }
 }
 @media (max-width: 640px) {
   .page-core .cd-board, .page-core .cd-ledger, .page-core .cd-slides { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 12px; }
-  .page-core .cd-diptych { grid-template-columns: 1fr; }
+  .page-core .cd-diptych { grid-template-columns: minmax(0, 1fr); }
   .page-core .cd-board figure { padding: 8px 8px 28px; }
   .page-core .cd-ledger figure { padding: 22px 8px 26px 22px; box-shadow: 3px 3px 0 var(--ink); }
   .page-core .cd-slides figure { padding: 10px 10px 40px; }
@@ -1202,7 +1202,7 @@ body.page-core .closing-card {
 }
 
 @media (max-width: 640px) {
-  .page-core .discipline-pagenav { grid-template-columns: 1fr; padding: 0; }
+  .page-core .discipline-pagenav { grid-template-columns: minmax(0, 1fr); padding: 0; }
   .page-core .discipline-pagenav-prev + .discipline-pagenav-next { border-left: 0; }
   .page-core .discipline-pagenav-link { min-height: 190px; gap: 36px; }
 }
@@ -1565,7 +1565,7 @@ html.sv-open body > header, html.sv-open main, html.sv-open .closing-card { visi
   .page-core .cd-diptych figure:nth-child(2):hover { transform: rotate(-1.6deg); }
 }
 @media (max-width: 640px) {
-  .page-core .cd-diptych { grid-template-columns: 1fr; max-width: 340px; gap: 48px; }
+  .page-core .cd-diptych { grid-template-columns: minmax(0, 1fr); max-width: 340px; gap: 48px; }
 }
 .page-core #english {
   --ink: #14213d;
@@ -2062,6 +2062,10 @@ html.sv-open, html.sv-open body { background: #dfe8fb !important; }
   .page-core .discipline-pagenav-next:hover .discipline-pagenav-arrow { transform: translateX(8px); }
 }
 @media (max-width: 640px) {
-  .page-core .discipline-pagenav { grid-template-columns: 1fr; padding: 0 20px 56px; }
+  .page-core .discipline-pagenav { grid-template-columns: minmax(0, 1fr); padding: 0 20px 56px; }
   .page-core .discipline-pagenav-link { min-height: 170px; }
 }
+
+/* Safari: grid items must be allowed to shrink below their image's natural width */
+.page-core .gallery > figure, .page-core .cd-intro > *, .page-core .cd-index > * { min-width: 0; }
+.page-core .gallery img { max-width: 100%; }
