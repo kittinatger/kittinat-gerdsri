@@ -1136,3 +1136,137 @@ html { scroll-behavior: smooth; }
   .page-sports .gl-wall figure:hover::before { transform: rotate(0) scale(1.1); background: var(--sp-accent); }
 }
 @media (max-width: 900px) { .page-sports .gl-wall { column-count: 2; column-gap: 10px; } .page-sports .gl-wall figure { margin-bottom: 10px; } }
+
+/* ---- Basketball: spotlight viewer ---- */
+.bb-viewer { display: none; }
+.js-bb .bb-viewer { display: block; }
+.js-bb .gl-source { display: none; }
+.bb-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  border-radius: 24px;
+  background: #06110b;
+  box-shadow: 0 34px 60px -34px rgba(0, 0, 0, 0.7);
+}
+.bb-bg {
+  position: absolute;
+  inset: -30px;
+  z-index: -2;
+  width: calc(100% + 60px);
+  height: calc(100% + 60px);
+  max-width: none;
+  object-fit: cover;
+  filter: blur(26px) brightness(0.55) saturate(1.2);
+}
+.bb-open {
+  position: absolute;
+  inset: 0;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.bb-img { width: 100%; height: 100%; object-fit: contain; }
+.bb-stage::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(3, 12, 7, 0.55), transparent 28%, transparent 72%, rgba(3, 12, 7, 0.5));
+}
+.bb-score {
+  position: absolute;
+  top: clamp(12px, 2.4vw, 22px);
+  left: clamp(12px, 2.4vw, 22px);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 10px 16px 10px 14px;
+  border-left: 5px solid var(--sp-accent);
+  border-radius: 6px 14px 14px 6px;
+  background: rgba(3, 12, 7, 0.62);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+}
+.bb-score b {
+  font-family: var(--sp-display);
+  font-weight: 900;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  line-height: 1;
+  text-transform: uppercase;
+  color: #fff;
+}
+.bb-score small { font-size: 0.7rem; font-weight: 600; color: rgba(255, 255, 255, 0.8); }
+.bb-count {
+  position: absolute;
+  right: clamp(12px, 2.4vw, 22px);
+  bottom: clamp(10px, 2vw, 18px);
+  z-index: 2;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-family: var(--sp-display);
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.75);
+  pointer-events: none;
+}
+.bb-count b { font-size: clamp(1.8rem, 4.5vw, 3rem); line-height: 1; color: var(--sp-accent); font-variant-numeric: tabular-nums; }
+.bb-nav {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-top: -22px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  background: rgba(3, 12, 7, 0.55);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.bb-nav svg { width: 18px; height: 18px; }
+.bb-prev { left: 12px; }
+.bb-next { right: 12px; }
+.bb-nav:hover { background: var(--sp-accent); color: var(--sp-accent-ink); }
+.bb-nav:active { transform: scale(0.92); }
+.bb-thumbs {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 6px 2px 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.bb-thumbs::-webkit-scrollbar { display: none; }
+.bb-thumb {
+  flex: none;
+  width: clamp(78px, 11vw, 118px);
+  aspect-ratio: 3 / 2;
+  padding: 0;
+  overflow: hidden;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: var(--surface);
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease;
+}
+.bb-thumb img { width: 100%; height: 100%; object-fit: cover; }
+@media (hover: hover) and (pointer: fine) { .bb-thumb:hover { opacity: 1; } }
+.bb-thumb.is-current { opacity: 1; border-color: var(--sp-accent); transform: translateY(-3px); box-shadow: 0 12px 20px -12px rgba(200, 245, 66, 0.6); }
+@media (max-width: 700px) {
+  .bb-stage { aspect-ratio: 4 / 5; border-radius: 18px; }
+  .bb-nav { width: 38px; height: 38px; margin-top: -19px; }
+}
