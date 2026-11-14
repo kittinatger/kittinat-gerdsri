@@ -59,9 +59,9 @@ html:lang(zh-CN) .page-sports :is(.sp-head h2, .gallery-heading h2) {
 /* Brand accent for links/focus/arrows inside the page content only. */
 body.page-sports main,
 body.page-sports .closing-card {
-  --navy: #17663a;
-  --navy-dark: #0f4d2b;
-  --nav-hover-bg: rgba(23, 102, 58, 0.12);
+  --navy: #c8f542;
+  --navy-dark: #b4e22d;
+  --nav-hover-bg: rgba(200, 245, 66, 0.22);
 }
 :root[data-theme="dark"] body.page-sports main,
 :root[data-theme="dark"] body.page-sports .closing-card {
@@ -1760,4 +1760,13 @@ html.sv-open body > header, html.sv-open main, html.sv-open .closing-card { visi
   background: var(--sp-accent);
   border-color: var(--sp-accent);
   color: var(--sp-accent-ink);
+}
+
+/* Light theme: the big numerals use the same neon lime as everywhere else,
+   filled with a thin dark outline so they stay readable on the pale page. */
+:root:not([data-theme="dark"]) .sp-pillar-no,
+:root:not([data-theme="dark"]) .sp-year {
+  color: var(--sp-accent);
+  -webkit-text-stroke: 2px #10241a;
+  paint-order: stroke fill;
 }
