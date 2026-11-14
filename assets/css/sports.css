@@ -1761,12 +1761,3 @@ html.sv-open body > header, html.sv-open main, html.sv-open .closing-card { visi
   border-color: var(--sp-accent);
   color: var(--sp-accent-ink);
 }
-
-/* Light theme: the big numerals use the same neon lime as everywhere else,
-   filled with a thin dark outline so they stay readable on the pale page. */
-:root:not([data-theme="dark"]) .sp-pillar-no,
-:root:not([data-theme="dark"]) .sp-year {
-  color: var(--sp-accent);
-  -webkit-text-stroke: 2px #10241a;
-  paint-order: stroke fill;
-}
