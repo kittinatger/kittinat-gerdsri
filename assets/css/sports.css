@@ -763,3 +763,34 @@ html { scroll-behavior: smooth; }
   .sp-rail:hover .sp-rail-link span { max-width: 220px; opacity: 1; }
   .sp-rail-link:hover { background: var(--nav-hover-bg); color: var(--ink); }
 }
+
+/* Back to top lives in the rail (with a scroll-progress ring), so the
+   site-wide floating button is hidden on this page. */
+.page-sports .back-to-top { display: none; }
+.sp-rail { --p: 0; }
+.sp-rail-top {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 4px;
+  border: 0;
+  border-radius: 50%;
+  background: conic-gradient(var(--sp-accent) calc(var(--p) * 1%), var(--line) 0);
+  color: var(--ink);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.sp-rail-top::before {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--bg-soft);
+}
+.sp-rail-top svg { position: relative; width: 18px; height: 18px; }
+.sp-rail-top:active { transform: scale(0.92); }
+@media (hover: hover) and (pointer: fine) {
+  .sp-rail-top:hover { transform: translateY(-2px); }
+}
