@@ -1577,3 +1577,54 @@ html.sv-open body > header, html.sv-open main, html.sv-open .closing-card { visi
   .page-core #mathematics .cd-ledger figure:hover { box-shadow: 8px 8px 0 rgba(255, 255, 255, 0.9); }
   .page-core #mathematics .sort-toggle:hover { box-shadow: 4px 4px 0 #fff; }
 }
+
+/* ---------- English cards: airmail letters ---------- */
+.page-core .cd-board figure {
+  padding: 20px 16px 40px;
+  border: 10px solid transparent;
+  border-image: repeating-linear-gradient(135deg, #e4572e 0 14px, #fffdf6 14px 24px, #2a4bd7 24px 38px, #fffdf6 38px 48px) 10;
+  border-radius: 0;
+  background: #fffdf6;
+  box-shadow: 0 22px 28px -18px rgba(20, 33, 61, 0.55);
+}
+.page-core .cd-board figure:nth-child(3n+1) { --r: -0.9deg; }
+.page-core .cd-board figure:nth-child(3n+2) { --r: 0.7deg; margin-top: 0; }
+.page-core .cd-board figure:nth-child(3n) { --r: -0.3deg; }
+/* postage stamp (was the pin) */
+.page-core .cd-board figure::before {
+  content: '\2605';
+  top: -22px;
+  left: auto;
+  right: 26px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 42px;
+  margin: 0;
+  border-radius: 1px;
+  background: linear-gradient(160deg, #e4572e, #a82d14);
+  color: #fffdf6;
+  font-size: 1rem;
+  line-height: 1;
+  box-shadow: 0 0 0 4px #fffdf6, 0 4px 8px 4px rgba(20, 33, 61, 0.25);
+  outline: 2px dotted rgba(20, 33, 61, 0.55);
+  outline-offset: 4px;
+  transform: rotate(5deg);
+  transition: transform 0.3s ease;
+}
+.page-core .cd-board figure .award-badge {
+  left: 12px;
+  right: auto;
+  top: auto;
+  bottom: -12px;
+  transform: rotate(-4deg);
+}
+.page-core .cd-board figure::after { left: auto; right: 16px; bottom: 12px; color: #4a5673; }
+@media (hover: hover) and (pointer: fine) {
+  .page-core .cd-board figure:hover { z-index: 5; transform: rotate(0) translateY(-5px); box-shadow: 0 30px 38px -18px rgba(20, 33, 61, 0.7); }
+  .page-core .cd-board figure:hover::before { transform: rotate(-6deg) scale(1.1); }
+}
+@media (max-width: 640px) {
+  .page-core .cd-board figure { padding: 14px 10px 32px; border-width: 8px; border-image-slice: 8; }
+}
