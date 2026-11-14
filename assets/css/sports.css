@@ -1761,3 +1761,10 @@ html.sv-open body > header, html.sv-open main, html.sv-open .closing-card { visi
   border-color: var(--sp-accent);
   color: var(--sp-accent-ink);
 }
+
+/* Big numerals: solid neon lime, no outline. */
+.sp-pillar-no,
+.sp-year {
+  color: var(--sp-accent);
+  -webkit-text-stroke: 0;
+}
