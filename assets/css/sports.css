@@ -284,15 +284,15 @@ html { scroll-behavior: smooth; }
 .sp-section > .wrap > .lede { max-width: 62ch; }
 
 /* ---------- Justified photo rows ---------- */
-.page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack) {
+.page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) {
   gap: 10px;
 }
-.page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack) figure {
+.page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) figure {
   position: relative;
   border-radius: 12px;
   transition: box-shadow 0.25s ease;
 }
-.page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack) figure::after {
+.page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) figure::after {
   content: '';
   position: absolute;
   inset: 0;
@@ -302,27 +302,27 @@ html { scroll-behavior: smooth; }
   transition: opacity 0.3s ease;
 }
 @media (hover: hover) and (pointer: fine) {
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack) figure:hover {
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) figure:hover {
     box-shadow: 0 0 0 2px var(--sp-accent), 0 18px 36px -20px rgba(0, 0, 0, 0.6);
   }
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack) figure:hover::after { opacity: 1; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) figure:hover::after { opacity: 1; }
 }
 @media (min-width: 701px) {
   /* Row height is derived from the content width so that three landscape
      frames (4.5 row-heights wide) always just fit with a little slack,
      which keeps every row close to its natural proportions instead of
      stretching two-up rows ~40% wider. Tablets get a two-up rhythm. */
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack) {
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) {
     --cw: calc(min(100vw, 1180px) - 2 * clamp(20px, 5vw, 48px));
     --row-h: calc((var(--cw) - 20px) / 3.3);
     display: flex;
     flex-wrap: wrap;
   }
   @media (min-width: 901px) {
-    .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack) { --row-h: calc((var(--cw) - 20px) / 4.9); }
+    .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) { --row-h: calc((var(--cw) - 20px) / 4.9); }
   }
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack) figure,
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack) figure.wide {
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) figure,
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) figure.wide {
     --ar: 1.5;
     flex: calc(var(--ar) * 100) 1 calc(var(--ar) * var(--row-h));
     min-width: 0;
@@ -332,12 +332,12 @@ html { scroll-behavior: smooth; }
     height: var(--row-h);
     aspect-ratio: auto;
   }
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack) { justify-content: center; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) { justify-content: center; }
 }
 @media (max-width: 700px) {
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack) { gap: 8px; }
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack) figure { aspect-ratio: 1 / 1; border-radius: 10px; }
-  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack) figure.wide { aspect-ratio: 16 / 10; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) { gap: 8px; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) figure { aspect-ratio: 1 / 1; border-radius: 10px; }
+  .page-sports .gallery:not(.locker-row):not(.sp-vault):not(.gl-strip):not(.gl-bento):not(.gl-scrap):not(.gl-wall):not(.gl-zig):not(.gl-stack):not(.gl-film) figure.wide { aspect-ratio: 16 / 10; }
 }
 
 /* ---------- FOBISIA: podium results ---------- */
@@ -1137,56 +1137,80 @@ html { scroll-behavior: smooth; }
 }
 @media (max-width: 900px) { .page-sports .gl-wall { column-count: 2; column-gap: 10px; } .page-sports .gl-wall figure { margin-bottom: 10px; } }
 
-/* ---- Basketball: scoreboard stack (sticky cards, one per game moment) ---- */
-.page-sports .gl-stack { display: block; position: relative; padding-bottom: 4vh; }
-.page-sports .gl-stack figure {
-  --top: 104px;
-  position: sticky;
-  top: calc(var(--top) + var(--i) * 9px);
-  isolation: isolate;
-  width: 100%;
-  height: clamp(260px, 58vh, 560px);
-  margin: 0 0 clamp(60px, 13vh, 140px);
+/* ---- Basketball: game-film contact sheet ---- */
+.page-sports .gl-film {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 2.4vw, 24px) 0;
+  counter-reset: fr;
+}
+.page-sports .gl-film figure {
+  position: relative;
+  display: block;
+  height: auto;
+  margin: 0;
+  padding: 24px 9px 36px;
   aspect-ratio: auto;
   overflow: hidden;
-  border: 2px solid rgba(200, 245, 66, 0.35);
-  border-radius: 26px;
-  background: #06110b;
-  box-shadow: 0 -18px 40px -22px rgba(0, 0, 0, 0.85), 0 40px 60px -30px rgba(0, 0, 0, 0.75);
+  border: 0;
+  border-radius: 0;
+  background: #0b0d0b;
   cursor: zoom-in;
+  counter-increment: fr;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
 }
-.page-sports .gl-stack figure:last-child { margin-bottom: 0; }
-html[data-sticky-navbar="true"] .page-sports .gl-stack figure { --top: 112px; }
-.page-sports .gl-stack figure::after {
+.page-sports .gl-film figure:nth-child(3n+1) { border-radius: 10px 0 0 10px; }
+.page-sports .gl-film figure:nth-child(3n) { border-radius: 0 10px 10px 0; }
+/* sprocket holes along the top edge */
+.page-sports .gl-film figure::before {
   content: '';
   position: absolute;
-  inset: -30px;
-  z-index: -1;
-  background: var(--img) center / cover;
-  filter: blur(26px) brightness(0.5) saturate(1.2);
+  top: 8px;
+  left: 0;
+  right: 0;
+  height: 9px;
+  background: repeating-linear-gradient(90deg, transparent 0 7px, #d9d6c8 7px 21px, transparent 21px 28px);
+  -webkit-mask: linear-gradient(#000, #000);
+  mask: linear-gradient(#000, #000);
+  opacity: 0.85;
 }
-.page-sports .gl-stack img { width: 100%; height: 100%; object-fit: cover; }
-.page-sports .gl-stack figure.is-tall img { object-fit: contain; }
-.page-sports .gl-stack figure::before {
-  content: attr(data-q) '  ' attr(data-t);
+/* frame number + holes along the bottom edge */
+.page-sports .gl-film figure::after {
+  content: counter(fr, decimal-leading-zero) 'A';
   position: absolute;
-  top: 14px;
-  left: 14px;
-  z-index: 2;
-  padding: 6px 14px 4px;
-  border-left: 4px solid var(--sp-accent);
-  border-radius: 4px 12px 12px 4px;
-  background: rgba(3, 12, 7, 0.68);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  color: var(--sp-accent);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 36px;
+  padding: 3px 14px 0;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 7px, #d9d6c8 7px 21px, transparent 21px 28px) left bottom 8px / 100% 9px no-repeat;
+  color: #f4a63a;
   font-family: var(--sp-display);
-  font-weight: 800;
-  font-size: 1.25rem;
-  letter-spacing: 0.1em;
-  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  opacity: 1;
   pointer-events: none;
 }
+.page-sports .gl-film img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: 50% 30%;
+  filter: contrast(1.04) saturate(0.95);
+  transition: filter 0.3s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .page-sports .gl-film figure:hover { z-index: 3; transform: scale(1.035); box-shadow: 0 0 0 2px var(--sp-accent), 0 26px 40px -20px rgba(0, 0, 0, 0.8); border-radius: 8px; }
+  .page-sports .gl-film figure:hover img { filter: none; }
+}
 @media (max-width: 700px) {
-  .page-sports .gl-stack figure { height: clamp(230px, 48vh, 420px); border-radius: 20px; }
+  .page-sports .gl-film { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .page-sports .gl-film figure:nth-child(n) { border-radius: 0; }
+  .page-sports .gl-film figure:nth-child(2n+1) { border-radius: 8px 0 0 8px; }
+  .page-sports .gl-film figure:nth-child(2n) { border-radius: 0 8px 8px 0; }
+  .page-sports .gl-film figure { padding: 20px 6px 32px; }
+  .page-sports .gl-film figure::after { height: 32px; padding-left: 10px; }
 }
