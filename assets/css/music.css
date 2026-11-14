@@ -57,6 +57,13 @@ body.page-music .closing-card {
   --navy-dark: #ffcf85;
   --nav-hover-bg: rgba(255, 181, 71, 0.14);
 }
+/* Page typeface: Bodoni Moda for display text (header keeps the site font) */
+body.page-music main,
+body.page-music .closing-card,
+.page-music .sv,
+.page-music .ptr-indicator {
+  --font-display: 'Bodoni Moda', 'Playfair Display', Georgia, 'Noto Serif Thai', 'Noto Serif SC', serif;
+}
 .page-music .section-soft { background: color-mix(in srgb, var(--bg-soft) 86%, transparent); }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
