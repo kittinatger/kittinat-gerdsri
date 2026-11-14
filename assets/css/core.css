@@ -1480,7 +1480,7 @@ html.sv-open body > header, html.sv-open main, html.sv-open .closing-card { visi
 .page-core .footer-nav a[href="core-discipline.html"] { color: var(--cd-accent); }
 
 /* ---------- Section backdrops: English = corkboard, Sciences = lab bench ---------- */
-.page-core #english {
+.page-core #chinese {
   --ink: #14213d;
   --ink-soft: #4a5673;
   --heading: #0c1733;
@@ -1491,7 +1491,7 @@ html.sv-open body > header, html.sv-open main, html.sv-open .closing-card { visi
     repeating-linear-gradient(180deg, transparent 0 33px, rgba(42, 75, 215, 0.24) 33px 34px),
     #fbf6e6;
 }
-:root[data-theme="dark"] .page-core #english {
+:root[data-theme="dark"] .page-core #chinese {
   --ink: #e8eefc;
   --ink-soft: #a5b4d6;
   --heading: #ffffff;
@@ -1501,6 +1501,26 @@ html.sv-open body > header, html.sv-open main, html.sv-open .closing-card { visi
     linear-gradient(90deg, transparent 70px, rgba(255, 130, 100, 0.5) 70px 72px, transparent 72px 77px, rgba(255, 130, 100, 0.28) 77px 78px, transparent 78px),
     repeating-linear-gradient(180deg, transparent 0 33px, rgba(170, 195, 255, 0.14) 33px 34px),
     #0d1b3d;
+}
+.page-core #english {
+  --ink: #14213d;
+  --ink-soft: #4a5673;
+  --heading: #0c1733;
+  --line: rgba(20, 33, 61, 0.2);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cg font-family='Georgia,serif' fill='rgba(20,33,61,0.075)'%3E%3Ctext x='14' y='110' font-size='104' font-style='italic'%3EAa%3C/text%3E%3Ctext x='150' y='214' font-size='96'%3E%26amp;%3C/text%3E%3Ctext x='170' y='92' font-size='84'%3E%E2%80%9C%3C/text%3E%3Ctext x='30' y='230' font-size='54' font-style='italic'%3Equ%3C/text%3E%3C/g%3E%3C/svg%3E") 0 0 / 260px 260px,
+    radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.55), transparent 70%),
+    #f1e8d2;
+}
+:root[data-theme="dark"] .page-core #english {
+  --ink: #e8eefc;
+  --ink-soft: #a5b4d6;
+  --heading: #ffffff;
+  --line: rgba(170, 195, 255, 0.26);
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cg font-family='Georgia,serif' fill='rgba(170,195,255,0.09)'%3E%3Ctext x='14' y='110' font-size='104' font-style='italic'%3EAa%3C/text%3E%3Ctext x='150' y='214' font-size='96'%3E%26amp;%3C/text%3E%3Ctext x='170' y='92' font-size='84'%3E%E2%80%9C%3C/text%3E%3Ctext x='30' y='230' font-size='54' font-style='italic'%3Equ%3C/text%3E%3C/g%3E%3C/svg%3E") 0 0 / 260px 260px,
+    radial-gradient(ellipse at 50% 0%, rgba(70, 110, 255, 0.18), transparent 70%),
+    #0c1a3a;
 }
 .page-core #sciences {
   --ink: #0d2b2e;
