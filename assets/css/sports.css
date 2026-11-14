@@ -1701,3 +1701,9 @@ html[data-sticky-navbar="true"] .page-sports .site-header { top: calc(14px + env
   .page-sports .discipline-pagenav-link { min-height: 190px; gap: 36px; }
 }
 .page-sports .closing-card { margin-top: 0; }
+
+/* Viewer backdrop: plain deep green. The blurred-photo backdrop bled
+   odd tints and soft edge gradients around the photo, so it's gone. */
+.sv-bg { background: #060c08; }
+.sv-bg img { display: none; }
+.sv-img { box-shadow: 0 24px 60px -24px rgba(0, 0, 0, 0.9); }

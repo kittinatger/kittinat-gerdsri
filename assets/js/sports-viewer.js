@@ -23,7 +23,7 @@
   root.setAttribute('aria-modal', 'true');
   root.setAttribute('aria-label', 'Photo viewer');
   root.innerHTML =
-    '<div class="sv-bg"><img alt="" aria-hidden="true"></div>' +
+    '<div class="sv-bg"></div>' +
     '<header class="sv-top">' +
       '<span class="sv-ctx"></span>' +
       '<span class="sv-count"><b></b><i>/</i><span></span></span>' +
@@ -38,7 +38,6 @@
     '</footer>';
   document.body.appendChild(root);
 
-  var bg = root.querySelector('.sv-bg img');
   var stage = root.querySelector('.sv-stage');
   var img = root.querySelector('.sv-img');
   var ctx = root.querySelector('.sv-ctx');
@@ -111,7 +110,6 @@
     img.onload = function () { img.classList.add('is-in'); };
     img.src = url;
     if (img.complete) img.classList.add('is-in');
-    bg.src = url;
     cb.textContent = (cur < 9 ? '0' : '') + (cur + 1);
     cn.textContent = group.length;
     var level = fig && fig.dataset.award;
