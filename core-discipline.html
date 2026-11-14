@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <script>if(location.hostname==='kittinatger.github.io'){location.replace('https://kittinat-gerdsri.vercel.app'+location.pathname.replace(/^\/kittinat-gerdsri/,'')+location.search+location.hash);}</script>
 <script>(function(){try{var t=localStorage.getItem('portfolio-theme');if(t!=='light'&&t!=='dark'){t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);var s=localStorage.getItem('portfolio-text-size');if(s==='1'||s==='2'||s==='3'){document.documentElement.setAttribute('data-text-size',s);}if(localStorage.getItem('portfolio-reduced-motion')==='true'){document.documentElement.setAttribute('data-reduced-motion','true');var st=document.createElement('style');st.id='vt-override';st.textContent='@view-transition{navigation:none;}';document.head.appendChild(st);}}catch(e){}})();</script>
 <title>Kittinat Gerdsri</title>
@@ -26,10 +26,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Kittinat Gerdsri">
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#eef1f5">
+<meta name="theme-color" content="#0a1a3d">
 <link rel="stylesheet" href="assets/css/style.css?v=1792908238">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600;700&display=swap">
+<link rel="stylesheet" href="assets/css/core.css?v=2">
 </head>
-<body class="page-core-discipline">
+<body class="page-core-discipline page-core">
 
 <header class="site-header">
   <div class="wrap">
@@ -64,16 +68,27 @@
 
 <main id="main-content">
 
-  <section class="page-hero">
-    <div class="wrap">
-      <h1>Core Discipline</h1>
-      <p class="tagline">Built from foundation</p>
-      <div class="split-intro">
-        <article class="about-pillar">
+  <section class="page-hero cd-hero">
+    <div class="cd-hero-card">
+      <svg class="cd-draw" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+        <circle cx="960" cy="260" r="180" stroke-dasharray="6 8"></circle>
+        <path d="M770 260 H1150 M960 70 V450"></path>
+        <path d="M960 260 L1080 140"></path>
+        <path d="M1020 260 a60 60 0 0 0 -17 -42"></path>
+        <path d="M90 640 L430 640 L430 430 Z"></path>
+        <path d="M406 640 V616 H430"></path>
+        <path d="M560 680 C 690 500 820 720 1010 560 S 1150 600 1190 560"></path>
+      </svg>
+      <div class="wrap cd-hero-inner">
+        <p class="cd-eyebrow">Mathematics · Languages · Sciences</p>
+        <h1>Core Discipline</h1>
+        <p class="tagline">Built from foundation</p>
+        <div class="cd-intro">
+          <article class="about-pillar">
           <h2>Foundations</h2>
           <p class="lede">Core disciplines shape the way I think, learn, and grow. They build my focus, analytical skills, and ability to communicate clearly. By strengthening these foundations, I can approach challenges with structure, apply the right knowledge, propose practical solutions, and communicate ideas clearly to the right audience.</p>
         </article>
-        <ul class="intro-pillars">
+          <ul class="intro-pillars">
           <li class="intro-pillar">
             <span class="intro-pillar-icon" aria-hidden="true"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M211.2,79.39a8,8,0,0,0-3.77,10.67A88.09,88.09,0,1,1,184.3,60.39L161.53,83.16A56,56,0,0,0,88.4,167.59h0a56,56,0,0,0,95.5-42.79,8,8,0,1,0-16,.9,40,40,0,0,1-62,35.67l23.95-23.95L167.6,99.72h0l62.06-62a8,8,0,0,0-11.32-11.32L195.67,49A104,104,0,0,0,54.46,201.54,104,104,0,0,0,221.87,83.16,8,8,0,0,0,211.2,79.39Z"></path></svg></span>
             <span class="intro-pillar-text">Focus</span>
@@ -87,12 +102,29 @@
             <span class="intro-pillar-text">Clear communication</span>
           </li>
         </ul>
+        </div>
+        <nav class="cd-index" aria-label="Subjects">
+          <a class="cd-index-card" href="#english"><span class="cd-no">01</span><b>English</b><small><i data-cd-count="english">0</i> <span>certificates</span></small><span class="cd-dots" data-cd-dots="english"></span></a>
+          <a class="cd-index-card" href="#mathematics"><span class="cd-no">02</span><b>Mathematics</b><small><i data-cd-count="mathematics">0</i> <span>certificates</span></small><span class="cd-dots" data-cd-dots="mathematics"></span></a>
+          <a class="cd-index-card" href="#sciences"><span class="cd-no">03</span><b>Sciences</b><small><i data-cd-count="sciences">0</i> <span>certificates</span></small><span class="cd-dots" data-cd-dots="sciences"></span></a>
+          <a class="cd-index-card" href="#chinese"><span class="cd-no">04</span><b>Chinese</b><small><i data-cd-count="chinese">0</i> <span>certificates</span></small><span class="cd-dots" data-cd-dots="chinese"></span></a>
+        </nav>
       </div>
     </div>
   </section>
 
-  <section class="section section-soft" id="english">
+  <nav class="sp-rail" aria-label="Page sections">
+    <button class="sp-rail-top" type="button" aria-label="Back to top"><svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M207.39,115.06A8,8,0,0,1,200,120H136v96a8,8,0,0,1-16,0V120H56a8,8,0,0,1-5.66-13.66l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,207.39,115.06Z"></path></svg></button>
+    <a class="sp-rail-link" href="#english"><span>English</span><i></i></a>
+    <a class="sp-rail-link" href="#mathematics"><span>Mathematics</span><i></i></a>
+    <a class="sp-rail-link" href="#sciences"><span>Sciences</span><i></i></a>
+    <a class="sp-rail-link" href="#chinese"><span>Chinese</span><i></i></a>
+    <button class="sp-rail-toggle" type="button" aria-label="Sections" aria-expanded="false"><b data-pct>0</b><small>%</small></button>
+  </nav>
+
+  <section class="section cd-section section-soft" id="english">
     <div class="wrap">
+      <div class="cd-sec-top"><span class="cd-no">01</span><span class="cd-meta"><b data-cd-n="english">0</b> <span>certificates</span></span><span class="cd-medals" data-cd-medals="english"></span></div>
       <div class="gallery-heading">
         <div>
           <h2>English</h2>
@@ -115,7 +147,7 @@
           </button>
         </div>
       </div>
-      <div class="gallery">
+      <div class="gallery cd-board">
         <figure data-date="2026-01-14" data-award="merit" data-award-label="First-Class Honors">
           <img src="assets/img/pages/core-discipline/lang-14-nepa-2025-excellence-round-first-class-honors.jpg" alt="NEPA (National English Proficiency Assessment) 2025 — Excellence Round, Junior High School" data-full="assets/img/pages/core-discipline/lang-14-nepa-2025-excellence-round-first-class-honors.jpg" loading="lazy" width="775" height="557">
         </figure>
@@ -159,8 +191,9 @@
     </div>
   </section>
 
-  <section class="section" id="mathematics">
+  <section class="section cd-section" id="mathematics">
     <div class="wrap">
+      <div class="cd-sec-top"><span class="cd-no">02</span><span class="cd-meta"><b data-cd-n="mathematics">0</b> <span>certificates</span></span><span class="cd-medals" data-cd-medals="mathematics"></span></div>
       <div class="gallery-heading">
         <h2>Mathematics</h2>
         <div class="gallery-heading-controls">
@@ -181,7 +214,7 @@
           </button>
         </div>
       </div>
-      <div class="gallery">
+      <div class="gallery cd-ledger">
         <figure data-date="2025-01-01" data-award="participate">
           <img src="assets/img/pages/core-discipline/math-01-psu-math-competition.jpg" alt="PSU (Prince of Songkla University) Mathematics Competition 2025" data-full="assets/img/pages/core-discipline/math-01-psu-math-competition.jpg" loading="lazy" width="1675" height="1182">
         </figure>
@@ -228,8 +261,9 @@
     </div>
   </section>
 
-  <section class="section section-soft" id="sciences">
+  <section class="section cd-section section-soft" id="sciences">
     <div class="wrap">
+      <div class="cd-sec-top"><span class="cd-no">03</span><span class="cd-meta"><b data-cd-n="sciences">0</b> <span>certificates</span></span><span class="cd-medals" data-cd-medals="sciences"></span></div>
       <div class="gallery-heading">
         <h2>Sciences</h2>
         <div class="gallery-heading-controls">
@@ -250,7 +284,7 @@
           </button>
         </div>
       </div>
-      <div class="gallery">
+      <div class="gallery cd-slides">
         <figure data-date="2026-04-29" data-award="attend">
           <img src="assets/img/pages/core-discipline/sci-01-gistda-space-camp.jpg" alt="10th GISTDA (Geo-Informatics and Space Technology Development Agency) Space Camp 2026" data-full="assets/img/pages/core-discipline/sci-01-gistda-space-camp.jpg" loading="lazy" width="1667" height="1172">
         </figure>
@@ -285,8 +319,9 @@
     </div>
   </section>
 
-  <section class="section" id="chinese">
+  <section class="section cd-section" id="chinese">
     <div class="wrap">
+      <div class="cd-sec-top"><span class="cd-no">04</span><span class="cd-meta"><b data-cd-n="chinese">0</b> <span>certificates</span></span><span class="cd-medals" data-cd-medals="chinese"></span></div>
       <div class="gallery-heading">
         <div>
           <h2>Chinese</h2>
@@ -309,7 +344,7 @@
           </button>
         </div>
       </div>
-      <div class="gallery">
+      <div class="gallery cd-diptych">
         <figure data-date="2025-01-01" data-award="merit">
           <img src="assets/img/pages/core-discipline/lang-03-adept-chinese-merit.jpg" alt="ADEPT (Achievement in Diverse Educational Progress and Talent) Competition Olympiad 2025 — Chinese Plus+" data-full="assets/img/pages/core-discipline/lang-03-adept-chinese-merit.jpg" loading="lazy" width="796" height="1147">
         </figure>
@@ -405,8 +440,59 @@
 </div>
 
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
-  <script src="assets/js/translations.js?v=1792754128"></script>
+  <script src="assets/js/translations.js?v=1793100005"></script>
   <script src="assets/js/search-index.js?v=1792999001"></script>
   <script src="assets/js/main.js?v=1792754128"></script>
+  <script src="assets/js/sports-viewer.js?v=6"></script>
+  <script>
+  (function () {
+    var hd = document.querySelector('.site-header'), m = document.getElementById('main-content');
+    function s() { if (!hd || !m) return; document.documentElement.style.setProperty('--hdr-h', Math.round(m.getBoundingClientRect().top + window.scrollY) + 'px'); }
+    s(); window.addEventListener('resize', s); window.addEventListener('load', s);
+
+    var KIND = { gold: 'g', champion: 'g', silver: 's', bronze: 'b', merit: 'h', pass: 'h', grade: 'h', participate: 'p', attend: 'p' };
+    ['english', 'mathematics', 'sciences', 'chinese'].forEach(function (id) {
+      var sec = document.getElementById(id); if (!sec) return;
+      var figs = [].slice.call(sec.querySelectorAll('.gallery figure'));
+      var tally = { g: 0, s: 0, b: 0, h: 0, p: 0 };
+      figs.forEach(function (f) {
+        if (f.dataset.date) f.dataset.year = f.dataset.date.slice(0, 4);
+        var k = KIND[f.dataset.award]; if (k) tally[k]++;
+      });
+      var dots = ['g', 's', 'b', 'h', 'p'].filter(function (k) { return tally[k]; }).map(function (k) { return '<span class="cd-dot cd-dot-' + k + '">' + tally[k] + '</span>'; }).join('');
+      document.querySelector('[data-cd-n="' + id + '"]').textContent = figs.length;
+      document.querySelector('[data-cd-count="' + id + '"]').textContent = figs.length;
+      document.querySelector('[data-cd-medals="' + id + '"]').innerHTML = dots;
+      document.querySelector('[data-cd-dots="' + id + '"]').innerHTML = dots;
+    });
+
+    var rail = document.querySelector('.sp-rail'); if (!rail) return;
+    var toggle = rail.querySelector('.sp-rail-toggle'), topBtn = rail.querySelector('.sp-rail-top'), pct = rail.querySelector('[data-pct]');
+    var links = [].slice.call(rail.querySelectorAll('.sp-rail-link'));
+    topBtn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    var tick = false;
+    function progress() {
+      tick = false;
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var p = max > 0 ? Math.min(100, Math.max(0, window.scrollY / max * 100)) : 0;
+      rail.style.setProperty('--p', p.toFixed(1)); pct.textContent = Math.round(p);
+    }
+    window.addEventListener('scroll', function () { if (!tick) { tick = true; requestAnimationFrame(progress); } }, { passive: true });
+    progress();
+    toggle.addEventListener('click', function () { var o = rail.classList.toggle('is-open'); toggle.setAttribute('aria-expanded', o ? 'true' : 'false'); });
+    links.forEach(function (a) { a.addEventListener('click', function () { rail.classList.remove('is-open'); toggle.setAttribute('aria-expanded', 'false'); }); });
+    document.addEventListener('click', function (e) { if (!rail.contains(e.target)) rail.classList.remove('is-open'); });
+    if (!('IntersectionObserver' in window)) { rail.classList.add('is-shown'); return; }
+    var hero = document.querySelector('.cd-hero');
+    new IntersectionObserver(function (e) { rail.classList.toggle('is-shown', !e[0].isIntersecting); }).observe(hero);
+    var map = {};
+    links.forEach(function (a) { var t = document.getElementById(a.getAttribute('href').slice(1)); if (t) map[t.id] = a; });
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { map[e.target.id].classList.toggle('is-active', e.isIntersecting); });
+    }, { rootMargin: '-35% 0px -60% 0px', threshold: 0 });
+    Object.keys(map).forEach(function (id) { spy.observe(document.getElementById(id)); });
+  })();
+  </script>
+
 </body>
 </html>

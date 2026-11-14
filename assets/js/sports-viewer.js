@@ -6,7 +6,7 @@
   var CHEV_L = '<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M165.66,202.34a8,8,0,0,1-11.32,11.32l-80-80a8,8,0,0,1,0-11.32l80-80a8,8,0,0,1,11.32,11.32L91.31,128Z"></path></svg>';
   var CHEV_R = '<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"></path></svg>';
   var X = '<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>';
-  var LEVELS = { champion: 'Champion', gold: 'Gold', silver: 'Silver', bronze: 'Bronze' };
+  var LEVELS = { champion: 'Champion', gold: 'Gold', silver: 'Silver', bronze: 'Bronze', merit: 'Merit', pass: 'Passed', grade: 'Grade', participate: 'Participant', attend: 'Attended' };
 
   function tr(text) {
     var lang;
@@ -141,13 +141,13 @@
     cb.textContent = (cur < 9 ? '0' : '') + (cur + 1);
     cn.textContent = group.length;
     var level = fig && fig.dataset.award;
-    if (level && LEVELS[level]) {
+    if (level && (LEVELS[level] || fig.dataset.awardLabel)) {
       tag.hidden = false;
       tag.className = 'sv-tag sv-tag-' + level;
-      tag.textContent = tr(LEVELS[level]);
+      tag.textContent = tr(fig.dataset.awardLabel || LEVELS[level]);
     } else { tag.hidden = true; }
     title.textContent = tr((fig && fig.dataset.caption) || g.alt || '');
-    year.textContent = (fig && fig.dataset.year) || '';
+    year.textContent = (fig && (fig.dataset.year || (fig.dataset.date || '').slice(0, 4))) || '';
     year.hidden = !year.textContent;
     var multi = group.length > 1;
     prevBtn.hidden = nextBtn.hidden = !multi;
@@ -166,7 +166,7 @@
     var gallery = el.closest('.gallery');
     var target = el.tagName === 'IMG' ? el : el.querySelector('img');
     if (!gallery || !target) return;
-    group = [].slice.call(gallery.querySelectorAll('figure img'));
+    group = [].slice.call(gallery.querySelectorAll('figure:not(.is-filtered-out) img'));
     cur = group.indexOf(target);
     ctx.textContent = contextLabel(gallery);
     buildThumbs();
